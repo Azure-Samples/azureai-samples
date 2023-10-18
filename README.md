@@ -7,7 +7,6 @@ description: Top-level directory for official Azure AI Studio sample code and ex
 
 # Azure AI Studio Examples
 
-[![Python code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 Welcome to the Azure AI Studio examples repository!
