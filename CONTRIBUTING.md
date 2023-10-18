@@ -1,4 +1,4 @@
-# Contributing to Azure AI Studio Samples
+# Contributing to Azure AI Samples
 
 This repository is entirely open source and welcomes contributions! These are official examples for Azure AI used throughout documentation. Due to this and some technical limitations, contributions from people external to the Azure AI team may experience delays. Please read through the contributing guide below to avoid frustration!
 
