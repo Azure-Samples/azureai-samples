@@ -1,9 +1,3 @@
----
-page_type: sample
-products:
-- azure-ai-studio
-description: Top-level directory for official Azure AI Studio sample code and examples.
----
 
 # Azure AI Studio Examples
 
