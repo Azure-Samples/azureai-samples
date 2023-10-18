@@ -1,57 +1,33 @@
-# Project Name
+---
+page_type: sample
+products:
+- azure-ai-studio
+description: Top-level directory for official Azure AI Studio sample code and examples.
+---
 
-(short, 1-3 sentenced, description of the project)
+# Azure AI Studio Examples
 
-## Features
+[![Python code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
-This project framework provides the following features:
+Welcome to the Azure AI Studio examples repository!
 
-* Feature 1
-* Feature 2
-* ...
+## Sample Repos
+|Description|Repository|
+|-|-|
+|Quickstart repo for building an enterprise chat copilot in Azure AI Studio|[Repo](https://github.com/Azure/aistudio-copilot-sample/tree/oct-refresh)|
+|Repo containing end to end samples for running the Retrieval Augmented Generation pattern across data using Python|[Repo](https://github.com/Azure-Samples/azure-search-openai-demo)|
+|Repo containing end to end samples for running the Retrieval Augmented Generation pattern across data using JavaScript|[Repo](https://github.com/Azure-Samples/azure-search-openai-javascript)|
+|Repo containing end to end samples for running the Retrieval Augmented Generation pattern across data using DotNet|[Repo](https://github.com/Azure-Samples/azure-search-openai-demo-csharp)|
+|Repo containing end to end samples for running the Retrieval Augmented Generation pattern across data using Java|[Repo](https://github.com/Azure-Samples/azure-search-openai-demo-java)|
+|Sample showing how to build LLM chat copilot|[Repo](https://github.com/microsoft/chat-copilot)|
+|Example code for common tasks within OpenAI|[Repo](https://github.com/openai/openai-cookbook/tree/main/examples)|
 
-## Getting Started
+## Contributing
 
-### Prerequisites
+We welcome contributions and suggestions! Please see the [contributing guidelines](CONTRIBUTING.md) for details.
 
-(ideally very short, if any)
+## Code of Conduct
 
-- OS
-- Library version
-- ...
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). Please see the [code of conduct](CODE_OF_CONDUCT.md) for details.
 
-### Installation
-
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
-
-### Quickstart
-(Add steps to get up and running quickly)
-
-1. git clone [repository clone url]
-2. cd [repository name]
-3. ...
-
-
-## Demo
-
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
-
-## Resources
-
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
