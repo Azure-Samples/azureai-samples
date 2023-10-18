@@ -1,5 +1,16 @@
-# Contributing to [project-title]
+# Contributing to Azure AI Studio Samples
 
+This repository is entirely open source and welcomes contributions! These are official examples for Azure AI used throughout documentation. Due to this and some technical limitations, contributions from people external to the Azure AI team may experience delays. Please read through the contributing guide below to avoid frustration!
+
+ - [Contributor License Agreement](#cla)
+ - [Goals](#goal)
+ - [Non-goals](#ngoal)
+ - [Code of Conduct](#coc)
+ - [Issues and Bugs](#issue)
+ - [Feature Requests](#feature)
+ - [Submission Guidelines](#submit)
+
+## <a name ="cla"></a>Contributor License Agreement
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
@@ -8,16 +19,17 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
+## <a name="goal"></a> Goals
+This repository contains notebooks and sample code that demonstrate how to develop and manage AI workflows using Azure AI SDK. Use the samples in this repository to try out Azure AI SDK scenarios from your local machine.
+
+## <a name="ngoal"></a> Non-goals
+This repository is not the place for long-form textual documentation. Documentation resources containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
+
+## <a name="coc"></a> Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
- - [Code of Conduct](#coc)
- - [Issues and Bugs](#issue)
- - [Feature Requests](#feature)
- - [Submission Guidelines](#submit)
-
-## <a name="coc"></a> Code of Conduct
 Help us keep this project open and inclusive. Please read and follow our [Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
 ## <a name="issue"></a> Found an Issue?
