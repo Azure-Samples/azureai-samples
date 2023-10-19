@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Python SDK issues
+    url: https://github.com/azure/azure-sdk-for-python/issues/new/choose
+    about: Please open issues with the Azure AI Generative SDK here
+  - name: Azure Machine Learning Documentation
+    url: https://docs.microsoft.com/en-us/azure/machine-learning/
+    about: Please read through our documentation in the event it addresses your concern(s)
