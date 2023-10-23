@@ -1,0 +1,2 @@
+tox ~= 4.0
+pre-commit
