@@ -1,0 +1,23 @@
+name: Pre-Commit
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - run: pip install -r dev-requirements.txt
+      - name: Run Pre-Commit
+        run: pre-commit run --all-files
