@@ -1,0 +1,16 @@
+[tool.ruff]
+extend-select = [
+  "B",
+  "C4",
+  "PT",
+  "RET",
+  "SIM",
+  "ARG",
+  "PTH",
+  "RUF",
+  "PLE",
+  "ANN",
+  "RUF",
+]
+
+ignore = ["E402"]
