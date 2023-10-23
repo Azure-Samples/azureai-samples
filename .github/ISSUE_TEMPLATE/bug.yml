@@ -36,7 +36,7 @@ body:
         * If this is an issue for an SDK sample, please provide the following:
           ```
           Python Version:
-          azure-ai-generative package version: 
+          azure-ai-generative package version:
           ```
     validations:
       required: true
