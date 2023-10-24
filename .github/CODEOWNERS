@@ -1,0 +1,6 @@
+# For more information about CODEOWNERS, see:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+
+# Default owner for everything, unless overridden by a more specific rule.
+* @Azure-Samples/azure-ai-samples-maintainers
