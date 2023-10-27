@@ -42,13 +42,9 @@ def parse_git_diff_tree_output(output: str) -> List[GitDiffTreeRecord]:
             dst_mode=dst_mode,
             dst_hash=dst_hash,
             status=status_score_and_paths[0][0],
-            score=int(status_score_and_paths[0][1:])
-            if len(status_score_and_paths[0]) > 1
-            else None,
+            score=int(status_score_and_paths[0][1:]) if len(status_score_and_paths[0]) > 1 else None,
             src_path=Path(status_score_and_paths[1]),
-            dst_path=Path(status_score_and_paths[2])
-            if len(status_score_and_paths) >= 3
-            else None,
+            dst_path=Path(status_score_and_paths[2]) if len(status_score_and_paths) >= 3 else None,
         )
 
     return [make_record(line) for line in output.splitlines(keepends=False)]
@@ -77,10 +73,7 @@ def get_blob_sizes(hashes: Iterable[str]) -> Dict[str, Optional[int]]:
         hash, *_, size = line.split()
         return (hash, int(size) if size != "missing" else None)
 
-    return dict(
-        make_object_size_tuple(line)
-        for line in cat_file_output.splitlines(keepends=False)
-    )
+    return dict(make_object_size_tuple(line) for line in cat_file_output.splitlines(keepends=False))
 
 
 def get_file_size_differences(commit_range: str) -> Dict[Path, GitChange]:
@@ -102,9 +95,7 @@ def get_file_size_differences(commit_range: str) -> Dict[Path, GitChange]:
         ).stdout
     )
 
-    sizes = get_blob_sizes(
-        chain.from_iterable((idx.src_hash, idx.dst_hash) for idx in changed_records)
-    )
+    sizes = get_blob_sizes(chain.from_iterable((idx.src_hash, idx.dst_hash) for idx in changed_records))
 
     assert {"A", "D", "M"}.issuperset(idx.status for idx in changed_records)
 
@@ -138,9 +129,9 @@ def main(
         print(f"\t{bytes_diff(cumulative_size_difference)}", end="")
         print(f" (Exceeds set limit of {bytes_diff(limit)})" if exceeds_limit else "")
 
-        largest_n_sizes = sorted(
-            size_differences.items(), key=lambda x: x[1].bytes_changed, reverse=True
-        )[:show_n_largest_files]
+        largest_n_sizes = sorted(size_differences.items(), key=lambda x: x[1].bytes_changed, reverse=True)[
+            :show_n_largest_files
+        ]
 
         if largest_n_sizes:
             print("")
@@ -154,9 +145,7 @@ def main(
 
 def num_bytes(arg: str) -> int:
     """Converts a string to a number of bytes"""
-    error = argparse.ArgumentTypeError(
-        f"'{arg}' cannot be parsed into a number of bytes"
-    )
+    error = argparse.ArgumentTypeError(f"'{arg}' cannot be parsed into a number of bytes")
     try:
         return int(arg)
     except ValueError:
@@ -198,8 +187,7 @@ def human_friendly_bytes(num: int) -> str:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="A program that summarizes the file size "
-        + "differences between two git commits."
+        description="A program that summarizes the file size " + "differences between two git commits."
     )
     parser.add_argument(
         "commit_range",
