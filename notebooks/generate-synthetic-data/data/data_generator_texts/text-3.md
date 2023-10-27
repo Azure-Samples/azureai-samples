@@ -26,7 +26,7 @@ If using the GPU-enabled compute targets, it is important to ensure that the cor
 | Maxwell | NV, NVv3 | 9.0+ |
 | Kepler | NC, NC Promo| 9.0+ |
 
-In addition to ensuring the CUDA version and hardware are compatible, also ensure that the CUDA version is compatible with the version of the machine learning framework you are using: 
+In addition to ensuring the CUDA version and hardware are compatible, also ensure that the CUDA version is compatible with the version of the machine learning framework you are using:
 
 - For PyTorch, you can check the compatibility by visiting [Pytorch's previous versions page](https://pytorch.org/get-started/previous-versions/).
 - For Tensorflow, you can check the compatibility by visiting [Tensorflow's build from source page](https://www.tensorflow.org/install/source#gpu).

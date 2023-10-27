@@ -138,7 +138,7 @@ By adhering to this NOT TO DO list, you can maximize the lifespan and performanc
 
 Warranty Information for TrailLite Daypack:
 
-1. Warranty Coverage: 
+1. Warranty Coverage:
 The TrailLite Daypack is covered by a warranty against defects in materials and workmanship for a period of one year from the date of purchase. This warranty is valid only for the original purchaser and is non-transferable.
 
 2. Warranty Claims:
@@ -167,7 +167,7 @@ Our dedicated customer care representatives are available during business hours 
 ## Return Policy
 - **If Membership status "None        ":**	Returns are accepted within 30 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Customer is responsible for the cost of return shipping. Once the returned item is received, a refund will be issued for the cost of the item minus a 10% restocking fee. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
 - **If Membership status "Gold":**	Returns are accepted within 60 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided. Once the returned item is received, a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
-- **If Membership status "Platinum":**	Returns are accepted within 90 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided, and a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.                      
+- **If Membership status "Platinum":**	Returns are accepted within 90 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided, and a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
 
 ## Reviews
 1) **Rating:** 4
@@ -197,4 +197,3 @@ Our dedicated customer care representatives are available during business hours 
 
 74) Can the TrailLite Daypack be used for daily commuting?
    While the TrailLite Daypack is designed primarily for outdoor activities, its multiple compartments, comfortable design, and hydration compatibility make it suitable for daily commuting as well.
-

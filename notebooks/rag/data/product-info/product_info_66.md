@@ -1,6 +1,6 @@
 
 # Information about product item_number: 66
-Pathfinder Pro-1 Adventure Compass, priced: $39.99. 
+Pathfinder Pro-1 Adventure Compass, priced: $39.99.
 
 Experience accurate navigation and superior outdoor performance with this durable and reliable compass, crafted by the experts at Pathfinder.
 

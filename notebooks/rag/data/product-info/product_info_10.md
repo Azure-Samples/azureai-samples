@@ -171,4 +171,3 @@ For any warranty-related inquiries or to initiate a warranty claim, please conta
 
 48) How many zippered pockets do the TrailBlaze Hiking Pants have?
    The TrailBlaze Hiking Pants have two zippered hand pockets and two zippered thigh pockets, providing secure storage for your essentials while on the trail.
-

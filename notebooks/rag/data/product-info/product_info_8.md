@@ -15,29 +15,29 @@ Tents
 - Gear Loft: Built-in gear loft or storage pockets for organizing and storing camping gear.
 
 ## Technical Specs
-**Best Use**: Camping  
-**Capacity**: 8-person  
-**Season Rating**: 3-season  
-**Setup**: Freestanding  
-**Material**: Polyester  
-**Waterproof**: Yes  
-**Floor Area**: 120 square feet  
-**Peak Height**: 6.5 feet  
-**Number of Doors**: 2  
-**Color**: Orange  
-**Rainfly**: Included  
-**Rainfly Waterproof Rating**: 3000mm  
-**Tent Poles**: Aluminum  
-**Pole Diameter**: 12mm  
-**Ventilation**: Mesh panels and adjustable vents  
-**Interior Pockets**: 4 pockets  
-**Gear Loft**: Included  
-**Footprint**: Sold separately  
-**Guy Lines**: Reflective  
-**Stakes**: Aluminum  
-**Carry Bag**: Included  
-**Dimensions**: 12ft x 10ft x 7ft (Length x Width x Peak Height)  
-**Packed Size**: 24 inches x 10 inches  
+**Best Use**: Camping
+**Capacity**: 8-person
+**Season Rating**: 3-season
+**Setup**: Freestanding
+**Material**: Polyester
+**Waterproof**: Yes
+**Floor Area**: 120 square feet
+**Peak Height**: 6.5 feet
+**Number of Doors**: 2
+**Color**: Orange
+**Rainfly**: Included
+**Rainfly Waterproof Rating**: 3000mm
+**Tent Poles**: Aluminum
+**Pole Diameter**: 12mm
+**Ventilation**: Mesh panels and adjustable vents
+**Interior Pockets**: 4 pockets
+**Gear Loft**: Included
+**Footprint**: Sold separately
+**Guy Lines**: Reflective
+**Stakes**: Aluminum
+**Carry Bag**: Included
+**Dimensions**: 12ft x 10ft x 7ft (Length x Width x Peak Height)
+**Packed Size**: 24 inches x 10 inches
 **Weight**: 17 lbs
 
 ## Alpine Explorer Tent User Guide
@@ -193,4 +193,3 @@ Please retain your proof of purchase as it will be required to verify warranty e
 
 38) Can the Alpine Explorer Tent be used in snowy conditions?
    The Alpine Explorer Tent is designed primarily for three-season use. While it can withstand light snowfall, it may not provide adequate structural support and insulation during heavy snow or extreme winter conditions.
-

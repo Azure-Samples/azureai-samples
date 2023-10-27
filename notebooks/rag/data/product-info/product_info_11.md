@@ -153,4 +153,3 @@ Please read the following warranty information carefully.
 
 53) Can the TrailWalker Hiking Shoes be resoled?
    While it may be possible to resole the TrailWalker Hiking Shoes, we recommend contacting the manufacturer (TrekReady) or a professional shoe repair service to determine the feasibility and cost of resoling.
-

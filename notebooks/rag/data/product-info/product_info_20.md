@@ -163,4 +163,3 @@ Please refer to the user manual and safety instructions provided with your Compa
 
 89) Is the CompactCook Camping Stove suitable for cooking large meals?
    While the CompactCook Camping Stove is designed for lightweight and compact cooking needs, it can accommodate pots and pans with a diameter of up to 8 inches (20 cm), allowing you to cook a variety of meals.
-

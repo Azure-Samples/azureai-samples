@@ -154,4 +154,3 @@ If you have any questions or need assistance with your PowerBurner Camping Stove
 
 62) Can I use the PowerBurner Camping Stove indoors?
    The PowerBurner Camping Stove is designed for outdoor use only. Using it indoors can lead to dangerous carbon monoxide buildup, which poses a serious risk to your health and safety.
-

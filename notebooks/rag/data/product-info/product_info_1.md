@@ -21,30 +21,30 @@ Tents
 - Carry bag included for convenient storage and transportation
 
 ## Technical Specs
-**Best Use**: Camping  
-**Capacity**: 4-person  
-**Season Rating**: 3-season  
-**Setup**: Freestanding  
-**Material**: Polyester  
-**Waterproof**: Yes  
-**Floor Area**: 80 square feet  
-**Peak Height**: 6 feet  
-**Number of Doors**: 2  
-**Color**: Green  
-**Rainfly**: Included  
-**Rainfly Waterproof Rating**: 2000mm  
-**Tent Poles**: Aluminum  
-**Pole Diameter**: 9mm  
-**Ventilation**: Mesh panels and adjustable vents  
-**Interior Pockets**: Yes (4 pockets)  
-**Gear Loft**: Included  
-**Footprint**: Sold separately  
-**Guy Lines**: Reflective  
-**Stakes**: Aluminum  
-**Carry Bag**: Included  
-**Dimensions**: 10ft x 8ft x 6ft (length x width x peak height)  
-**Packed Size**: 24 inches x 8 inches  
-**Weight**: 12 lbs  
+**Best Use**: Camping
+**Capacity**: 4-person
+**Season Rating**: 3-season
+**Setup**: Freestanding
+**Material**: Polyester
+**Waterproof**: Yes
+**Floor Area**: 80 square feet
+**Peak Height**: 6 feet
+**Number of Doors**: 2
+**Color**: Green
+**Rainfly**: Included
+**Rainfly Waterproof Rating**: 2000mm
+**Tent Poles**: Aluminum
+**Pole Diameter**: 9mm
+**Ventilation**: Mesh panels and adjustable vents
+**Interior Pockets**: Yes (4 pockets)
+**Gear Loft**: Included
+**Footprint**: Sold separately
+**Guy Lines**: Reflective
+**Stakes**: Aluminum
+**Carry Bag**: Included
+**Dimensions**: 10ft x 8ft x 6ft (length x width x peak height)
+**Packed Size**: 24 inches x 8 inches
+**Weight**: 12 lbs
 
 ## TrailMaster X4 Tent User Guide
 
@@ -213,4 +213,3 @@ If you have any questions or need further assistance, please contact our custome
 
 5) Can the TrailMaster X4 Tent be easily carried during hikes?
    Yes, the TrailMaster X4 Tent weighs just 12lbs, and when packed in its carry bag, it can be comfortably carried during hikes.
-

@@ -74,13 +74,13 @@ The MountainDream Sleeping Bag is rated for temperatures between 15°F to 30°F.
 
 ## Caution Information
 
-1. **DO NOT machine wash the sleeping bag** 
-2. **DO NOT expose the sleeping bag to direct heat sources** 
-3. **DO NOT store the sleeping bag in a compressed state** 
-4. **DO NOT use the sleeping bag as a ground cover** 
-5. **DO NOT leave the sleeping bag wet or damp** 
-6. **DO NOT use sharp objects inside the sleeping bag** 
-7. **DO NOT exceed the temperature rating** 
+1. **DO NOT machine wash the sleeping bag**
+2. **DO NOT expose the sleeping bag to direct heat sources**
+3. **DO NOT store the sleeping bag in a compressed state**
+4. **DO NOT use the sleeping bag as a ground cover**
+5. **DO NOT leave the sleeping bag wet or damp**
+6. **DO NOT use sharp objects inside the sleeping bag**
+7. **DO NOT exceed the temperature rating**
 
 ## Warranty Information
 
@@ -159,4 +159,3 @@ Please refer to the accompanying product documentation for more information on c
 
 66) How does the water-resistant shell of the MountainDream Sleeping Bag work?
    The water-resistant shell of the MountainDream Sleeping Bag features a durable water repellent (DWR) finish, which repels moisture and keeps you dry in damp conditions.
-

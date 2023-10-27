@@ -217,4 +217,3 @@ We strive to provide you with a high-quality product, and we are confident that 
 
 30) How do I clean and maintain the EcoFire Camping Stove?
    To clean the EcoFire Camping Stove, allow it to cool completely, then wipe away any ash or debris with a brush or cloth. Store the stove in a dry place when not in use.
-

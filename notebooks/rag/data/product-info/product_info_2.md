@@ -27,27 +27,27 @@ Backpacks
 
 
 ## Technical Specs
-**Best Use**: Hiking  
-**Capacity**: 40 liters  
-**Material**: Nylon  
-**Color**: Blue  
-**Dimensions**: 24 inches x 14 inches x 8 inches (height x width x depth)  
-**Weight**: 2.5 lbs  
-**Waterproof**: No  
-**Number of Compartments**: Multiple  
-**Laptop Compartment**: No  
-**Hydration System Compatibility**: Yes  
-**Adjustable Straps**: Yes  
-**Hip Belt**: Yes  
-**Sternum Strap**: Yes  
-**External Attachment Points**: Yes  
-**Gear Loops**: Yes  
-**Rain Cover**: No  
-**Reflective Accents**: Yes  
-**Back Panel Ventilation**: Yes  
-**Side Mesh Pockets**: Yes  
-**Load Compression Straps**: Yes  
-**Haul Handle**: Yes  
+**Best Use**: Hiking
+**Capacity**: 40 liters
+**Material**: Nylon
+**Color**: Blue
+**Dimensions**: 24 inches x 14 inches x 8 inches (height x width x depth)
+**Weight**: 2.5 lbs
+**Waterproof**: No
+**Number of Compartments**: Multiple
+**Laptop Compartment**: No
+**Hydration System Compatibility**: Yes
+**Adjustable Straps**: Yes
+**Hip Belt**: Yes
+**Sternum Strap**: Yes
+**External Attachment Points**: Yes
+**Gear Loops**: Yes
+**Rain Cover**: No
+**Reflective Accents**: Yes
+**Back Panel Ventilation**: Yes
+**Side Mesh Pockets**: Yes
+**Load Compression Straps**: Yes
+**Haul Handle**: Yes
 
 ## Adventurer Pro Backpack User Manual
 
@@ -165,7 +165,7 @@ Kindly note that the warranty period, coverage, and claim process are subject to
 ## Return Policy
 - **If Membership status "None        ":**	Returns are accepted within 30 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Customer is responsible for the cost of return shipping. Once the returned item is received, a refund will be issued for the cost of the item minus a 10% restocking fee. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
 - **If Membership status "Gold":**	Returns are accepted within 60 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided. Once the returned item is received, a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
-- **If Membership status "Platinum":**	Returns are accepted within 90 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided, and a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.                      
+- **If Membership status "Platinum":**	Returns are accepted within 90 days of purchase, provided the backpack is unused, undamaged and in its original packaging. Free return shipping is provided, and a full refund will be issued. If the item was damaged during shipping or if there is a defect, the customer should contact customer service within 7 days of receiving the item.
 
 ## Reviews
 6) **Rating:** 5
@@ -198,4 +198,3 @@ Kindly note that the warranty period, coverage, and claim process are subject to
 
 10) How do I clean and maintain the Adventurer Pro Backpack?
    To clean the Adventurer Pro Backpack, use a damp cloth to wipe down the exterior and air dry. Avoid machine washing or using harsh chemicals.
-

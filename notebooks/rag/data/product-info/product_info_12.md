@@ -167,4 +167,3 @@ For any questions, concerns, or warranty claims, please reach out to our friendl
 
 58) Are there any accessories available for the TrekMaster Camping Chair?
    While there are no specific accessories designed for the TrekMaster Camping Chair, it comes with a built-in cup holder and can be used with a variety of universal camping chair accessories such as footrests, side tables, or organizers.
-

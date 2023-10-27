@@ -135,4 +135,3 @@ Please retain your proof of purchase as it will be required to verify warranty e
 
 33) Does the CozyNights Sleeping Bag have a draft collar or draft tube?
    The CozyNights Sleeping Bag features a draft tube along the zipper to help prevent cold air from entering and warm air from escaping.
-

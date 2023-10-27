@@ -149,4 +149,3 @@ Please note that this warranty is non-transferable and applies only to the origi
 
 86) Can I use a camping stove on the Adventure Dining Table?
    Yes, the Adventure Dining Table is designed to accommodate camping stoves, cooking utensils, and other outdoor dining essentials. However, ensure that the stove is stable and use caution when cooking with open flames.
-

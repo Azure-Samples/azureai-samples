@@ -25,31 +25,31 @@ Hiking Clothing
 - Reflective accents for enhanced visibility in low light conditions
 
 ## Technical Specs
-**Best Use**: Hiking Clothing  
-**Material**: Polyester  
-**Color**: Black  
-**Available Sizes**: M, L, XL  
-**Weight**: 1 lb  
-**Dimensions**: 25 inches x 15 inches x 5 inches (height x width x depth)  
-**Waterproof**: No  
-**Number of Pockets**: Multiple  
-**Adjustable Cuffs**: Yes  
-**Hood**: Adjustable with drawcord  
-**Front Closure**: Full-zip  
-**Lining**: Yes  
-**Construction**: Windproof and water-resistant  
-**Packability**: Packable  
-**Reflective Accents**: Yes  
-**Breathability**: Yes  
-**Seam Sealed**: No  
-**Underarm Vents**: No  
-**Hem Drawcord**: Yes  
-**Storm Flap**: Yes  
-**Chin Guard**: Yes  
-**Articulated Elbows**: No  
-**DWR Coating**: No  
-**UPF Rating**: Not specified  
-**Care Instructions**: Machine washable  
+**Best Use**: Hiking Clothing
+**Material**: Polyester
+**Color**: Black
+**Available Sizes**: M, L, XL
+**Weight**: 1 lb
+**Dimensions**: 25 inches x 15 inches x 5 inches (height x width x depth)
+**Waterproof**: No
+**Number of Pockets**: Multiple
+**Adjustable Cuffs**: Yes
+**Hood**: Adjustable with drawcord
+**Front Closure**: Full-zip
+**Lining**: Yes
+**Construction**: Windproof and water-resistant
+**Packability**: Packable
+**Reflective Accents**: Yes
+**Breathability**: Yes
+**Seam Sealed**: No
+**Underarm Vents**: No
+**Hem Drawcord**: Yes
+**Storm Flap**: Yes
+**Chin Guard**: Yes
+**Articulated Elbows**: No
+**DWR Coating**: No
+**UPF Rating**: Not specified
+**Care Instructions**: Machine washable
 
 ## Summit Breeze Jacket User Manual
 ### Introduction
@@ -171,4 +171,3 @@ Please retain your proof of purchase as it will be required to verify warranty e
 
 15) How breathable is the Summit Breeze Jacket during high-intensity activities?
    The Summit Breeze Jacket is made of a breathable polyester material, which allows moisture to escape while maintaining wind and water resistance.
-

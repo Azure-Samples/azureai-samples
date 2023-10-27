@@ -24,26 +24,26 @@ Hiking Footwear
 - Shock-absorbing midsole for enhanced comfort on uneven surfaces
 
 ## Technical Specs
-**Product Category**: Hiking Footwear  
-**Brand**: TrekReady  
-**Material**: Leather  
-**Color**: Brown  
-**Dimensions**: 11 inches (length) x 4.5 inches (width) x 7 inches (height)  
-**Weight**: 3 lbs  
-**Waterproof**: Yes  
-**Ankle Support**: Yes  
-**Closure Type**: Lace-up  
-**Sole Material**: Rubber  
-**Midsole Material**: EVA (Ethylene-Vinyl Acetate)  
-**Upper Material**: Full-grain leather  
-**Lining Material**: Moisture-wicking fabric  
-**Toe Protection**: Yes  
-**Breathable**: Yes  
-**Traction**: Multi-directional lug pattern  
-**Cushioned Insole**: Yes  
-**Collar and Tongue**: Padded  
-**Shock Absorption**: Yes  
-**Reinforced Stitching**: Yes  
+**Product Category**: Hiking Footwear
+**Brand**: TrekReady
+**Material**: Leather
+**Color**: Brown
+**Dimensions**: 11 inches (length) x 4.5 inches (width) x 7 inches (height)
+**Weight**: 3 lbs
+**Waterproof**: Yes
+**Ankle Support**: Yes
+**Closure Type**: Lace-up
+**Sole Material**: Rubber
+**Midsole Material**: EVA (Ethylene-Vinyl Acetate)
+**Upper Material**: Full-grain leather
+**Lining Material**: Moisture-wicking fabric
+**Toe Protection**: Yes
+**Breathable**: Yes
+**Traction**: Multi-directional lug pattern
+**Cushioned Insole**: Yes
+**Collar and Tongue**: Padded
+**Shock Absorption**: Yes
+**Reinforced Stitching**: Yes
 
 ## TrekReady Hiking Boots User Guide
 
@@ -186,4 +186,3 @@ If you have any questions or need further assistance, please contact our custome
 
 20) Do the TrekReady Hiking Boots have a break-in period?
    The TrekReady Hiking Boots may require a short break-in period to become more comfortable and form to the contours of your feet. It's recommended to wear them for shorter walks before taking them on long hikes.
-

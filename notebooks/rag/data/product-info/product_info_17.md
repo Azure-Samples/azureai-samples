@@ -123,8 +123,8 @@ Certainly! Here's the Warranty Information for the RainGuard Hiking Jacket:
 
 **Contact Details**:
 
-Customer Care Hotline: 1-800-123-4567  
-Email: support@rainguard.com  
+Customer Care Hotline: 1-800-123-4567
+Email: support@rainguard.com
 Website: www.rainguard.com/support
 
 Our dedicated Customer Care team is available to assist you with any questions or concerns regarding the RainGuard Hiking Jacket. Feel free to reach out to us during our business hours, Monday to Friday, 9 AM to 5 PM.
@@ -164,4 +164,3 @@ Please retain your proof of purchase as it may be required to process any warran
 
 78) How do I clean the RainGuard Hiking Jacket?
    To clean the RainGuard Hiking Jacket, machine wash it on a gentle cycle using cold water and mild detergent, then hang it to dry. Do not use bleach, fabric softeners, or dry cleaning, as they may damage the jacket's performance.
-

@@ -219,4 +219,3 @@ If you have any questions or need further assistance, please contact our custome
 
 25) What is the best way to clean the BaseCamp Folding Table?
    To clean the BaseCamp Folding Table, simply wipe the aluminum surface with a damp cloth and mild detergent, then air dry.
-

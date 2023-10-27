@@ -165,4 +165,3 @@ Please note that the warranty is valid only for the original purchaser and is no
 
 82) How do I clean and maintain the TrekStar Hiking Sandals?
    To clean the TrekStar Hiking Sandals, simply rinse them with water and use a soft brush to remove any dirt or debris. Allow them to air dry away from direct sunlight.
-

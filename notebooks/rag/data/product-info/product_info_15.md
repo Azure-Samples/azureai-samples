@@ -99,10 +99,10 @@ To extend the lifespan of your SkyView 2-Person Tent, follow these care and main
 
 ## Caution Information
 
-1. **Do not exceed the tent's maximum occupancy** 
-2. **Do not use sharp objects inside the tent** 
-3. **Do not place the tent near open flames** 
-4. **Do not store food inside the tent** 
+1. **Do not exceed the tent's maximum occupancy**
+2. **Do not use sharp objects inside the tent**
+3. **Do not place the tent near open flames**
+4. **Do not store food inside the tent**
 5. **Do not smoke inside the tent**
 6. **Do not force the tent during setup or takedown**
 7. **Do not leave the tent unattended during inclement weather**
