@@ -1,4 +1,8 @@
+[tool.black]
+line-length = 120
+
 [tool.ruff]
+line-length = 120
 extend-select = [
   "B",
   "C4",
@@ -14,3 +18,8 @@ extend-select = [
 ]
 
 ignore = ["E402"]
+
+[tool.ruff.extend-per-file-ignores]
+"*.ipynb" = [
+  "PLE1142" # await-outside-async: Jupyter Notebooks support top level await
+]
