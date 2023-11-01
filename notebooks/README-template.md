@@ -3,11 +3,11 @@
 
 ### Overview
 
-This tutorial provides a step-by-step guide on how to leverage Azure Machine Learning to build and deploy a machine learning model. It covers the entire workflow, from data preparation and model development to deployment and monitoring.
+This tutorial provides a step-by-step guide on how to leverage Generative AI to build and deploy with Azure. It covers the entire workflow, from data preparation and model development to deployment and monitoring.
 
 ### Objective
 
-The main objective of this tutorial is to help users understand the process of creating, training, and deploying a machine learning model in Azure. By the end of this tutorial, you should be able to:
+The main objective of this tutorial is to help users understand the process of creating, training, and deploying an AI model in Azure. By the end of this tutorial, you should be able to:
 
  - a
  - b
