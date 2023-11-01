@@ -63,10 +63,16 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 * Search the repository (https://github.com/[organization-name]/[repository-name]/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
 
-* Make your changes in a new git fork:
+* Make your changes in a new git fork
+  
+   - Create a fork of this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+   - Go to a git terminal, clone your forked repository, navigate to the root folder, and run 
+  `git remote add upstream https://github.com/Azure-Samples/azureai-samples.git` to connect your fork with the original repository.
+   - Verify the new upstream repository you've specified for your fork with ` git remote -v`.
+
 
 * Commit your changes using a descriptive commit message
-* Push your fork to GitHub:
+* Push your fork to GitHub
 * In GitHub, create a pull request
 * If we suggest changes then:
   * Make the required updates.
