@@ -1,5 +1,10 @@
-# Retrieval Augmented Generation (RAG) using Azure AI SDK
+# Retrieval Augmented Generation (RAG)
 
-This sample shows how to create an index and consume it to answer questions based on your data (aka RAG pattern). It demonstrates how to create an index from local files and folders, how to store that index in Azure Cognitive Search or in [FAISS](https://ai.meta.com/tools/faiss). The index gets created locally and can then be registered to your AI Studio project. Once registered, it can be retrieved and consumed to answer questions. The sample shows how to build a simple QnA script to answer questions.
+The notebooks in this folder provide examples of how to implement Retrieval Augmented Generation (RAG), a pattern used in AI which uses an LLM to generate answers with your own data.
 
-This sample is useful for developers and data scientists who wish to use their data with LLMs to build QnA bots, co-pilots. Basically anyone interested in using the RAG pattern.
+These samples are useful for developers and data scientists who wish to use their data with LLMs to build QnA bots, co-pilots. It covers how to create indexes and how to consume those indexes.
+
+|Notebook|Description|
+|--|--|
+|[RAG using Azure AI SDK](rag-qna.ipynb)|This notebook demonstrates how to create an index and consume it to answer questions based on your data (aka RAG pattern). It demonstrates how to create an index and build a simple QnA script to answer questions from that index.|
+|[Create index from various sources](create-index-from-various-sources.ipynb)|This notebook demonstrates how to create an index from different sources like local files and remote sources like a git repo and cloud storage URLs.|
