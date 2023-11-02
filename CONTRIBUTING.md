@@ -105,8 +105,18 @@ pre-commit install
 `pre-commit` will run automatically when you commit changes, but you can also manually run it using 
 `pre-commit run --all-files`.
 
+##### Write your contribution
 
-* Add a descriptive [README] in the root folder of your sample following the [README template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/README-template.ipynb). If you're adding a Python sample, please ensure it follows the [Jupyter notebook template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/template.ipynb).
+If you are writing/updating a sample, please follow this guidance on how the samples should be structured:
+
+* Please create a **separate** directory for each authored sample. Each directory should contain:
+    * A descriptive README in the root folder of your sample following the [README template].
+    * Your sample
+      * If you're adding a Python sample, please follow the [Jupyter Notebook template].
+    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
+      files within their directory.
+
+
 * Commit your changes using a descriptive commit message
 * Push your fork to GitHub
 * In GitHub, create a pull request and review the PR checklist.
@@ -120,3 +130,6 @@ pre-commit install
     ```
 
 That's it! Thank you for your contribution!
+
+[readme template]: https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/README-template.ipynb
+[jupyter notebook template]: https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/template.ipynb
