@@ -116,10 +116,12 @@ If you are writing/updating a sample, please follow this guidance on how the sam
     * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
       files within their directory.
 
+##### Submit your pull request
 
 * Commit your changes using a descriptive commit message
-* Push your fork to GitHub
-* In GitHub, create a pull request and review the PR checklist.
+* [Push your changes to your fork](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository).
+* [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+* **Review the checklist in the PR**.
 * If we suggest changes then:
   * Make the required updates.
   * Rebase your fork and force push to your GitHub repository (this will update your Pull Request):
