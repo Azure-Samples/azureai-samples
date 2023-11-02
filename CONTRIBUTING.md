@@ -18,11 +18,10 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 Help us keep this project open and inclusive. Please read and follow our [Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
-## Submission Guidelines
 
-### Submitting a Pull Request (PR)
+## Submitting a Pull Request (PR)
 
-#### Before Making Code Changes
+### Before Making Code Changes
 
 1. Search the [repository](https://github.com/Azure-Samples/azureai-samples/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
@@ -35,11 +34,11 @@ Help us keep this project open and inclusive. Please read and follow our [Code o
    **Non-goals**: This repository is not the place for long-form textual documentation. Documentation resources
    containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
 
-#### Making your Code Changes
+### Making your Code Changes
 
-##### Set up your development environment (one time setup)
+#### Set up your development environment (one time setup)
 
-###### 1. Make a fork
+##### 1. Make a fork
 
 This repository follows a fork-based workflow. You should make your changes on your own fork, and make a PR to
 contribute your changes.
@@ -52,7 +51,7 @@ contribute your changes.
    git remote add upstream https://github.com/Azure-Samples/azureai-samples.git
    ```
 
-###### 2. Install Dev Dependencies
+##### 2. Install Dev Dependencies
 
 From the root of your local repository, run:
 
@@ -60,7 +59,7 @@ From the root of your local repository, run:
 python -m pip install -r dev_requirements.txt
 ```
 
-###### 3. Set up pre-commit
+##### 3. Set up pre-commit
 
 [pre-commit](https://pre-commit.com/) is a tool that enables us to run code when committing to a local repository. We
 use this to automate running code formatters, linters, etc...
@@ -74,7 +73,7 @@ pre-commit install
 `pre-commit` will run automatically when you commit changes, but you can also manually run it using 
 `pre-commit run --all-files`.
 
-##### Write your contribution
+#### Write your contribution
 
 If you are writing/updating a sample, please follow this guidance on how the samples should be structured:
 
@@ -85,7 +84,7 @@ If you are writing/updating a sample, please follow this guidance on how the sam
     * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
       files within their directory.
 
-##### Submit your pull request
+#### Submit your pull request
 
 * Commit your changes using a descriptive commit message
 * [Push your changes to your fork](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository).
