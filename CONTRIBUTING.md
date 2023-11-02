@@ -66,12 +66,23 @@ You can file new issues by providing the above information at the corresponding 
    **Non-goals**: This repository is not the place for long-form textual documentation. Documentation resources
    containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
 
-* Make your changes in a new git fork
-  
-   - Create a fork of this repository. This will create a copy of this repository in your account.
-   - Go to a git terminal, clone your forked repository, navigate to the root folder, and run 
-  `git remote add upstream https://github.com/Azure-Samples/azureai-samples.git` to connect your fork with the original repository.
-   - Verify the new upstream repository you've specified for your fork with ` git remote -v`.
+#### Making your Code Changes
+
+##### Set up your development environment (one time setup)
+
+###### 1. Make a fork
+
+This repository follows a fork-based workflow. You should make your changes on your own fork, and make a PR to
+contribute your changes.
+
+1. [Make a fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) of this repository.
+2. Clone your fork
+3. Add the original repository as a remote:
+
+   ```shell
+   git remote add upstream https://github.com/Azure-Samples/azureai-samples.git
+   ```
+
 
 * Add a descriptive [README] in the root folder of your sample following the [README template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/README-template.ipynb). If you're adding a Python sample, please ensure it follows the [Jupyter notebook template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/template.ipynb).
 * Commit your changes using a descriptive commit message
