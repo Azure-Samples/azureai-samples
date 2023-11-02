@@ -11,12 +11,6 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
-## Goals
-This repository contains notebooks and sample code that demonstrate how to develop and manage AI workflows using Azure AI SDK. Use the samples in this repository to try out Azure AI SDK scenarios from your local machine.
-
-## Non-goals
-This repository is not the place for long-form textual documentation. Documentation resources containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
-
 ## Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
@@ -58,10 +52,19 @@ chances of your issue being dealt with quickly:
 You can file new issues by providing the above information at the corresponding repository's issues link: https://github.com/[organization-name]/[repository-name]/issues/new].
 
 ### Submitting a Pull Request (PR)
-Before you submit your Pull Request (PR) consider the following guidelines:
 
-* Search the [repository](https://github.com/Azure-Samples/azureai-samples/pulls) for an open or closed PR
+#### Before Making Code Changes
+
+1. Search the [repository](https://github.com/Azure-Samples/azureai-samples/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
+2. Determine whether this repository is the best place for the contribution.
+
+   **Goals**: This repository contains notebooks and sample code that demonstrate how to develop and manage AI
+   workflows using Azure AI. The samples in this repository should allow users to try out Azure AI scenarios from their
+   local machine.
+
+   **Non-goals**: This repository is not the place for long-form textual documentation. Documentation resources
+   containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
 
 * Make your changes in a new git fork
   
