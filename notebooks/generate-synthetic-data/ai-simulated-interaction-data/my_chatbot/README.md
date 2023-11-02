@@ -1,10 +1,17 @@
-# Chat flow
-Chat flow is designed for conversational application development, building upon the capabilities of standard flow and providing enhanced support for chat inputs/outputs and chat history management. With chat flow, you can easily create a chatbot that handles chat input and output.
+## OPTIONAL: Example chat flow for simulate sample notebook
 
-## Create connection for LLM tool to use
+### Overview
+
+For illustrative purpose of wrapping a local chat flow in the `simulate_callback()` function, we provide this simple chat flow. Chat flow is designed for conversational application development, building upon the capabilities of standard flow and providing enhanced support for chat inputs/outputs and chat history management. With chat flow, you can easily create a chatbot that handles chat input and output.
+
+### Objective
+
+The main objective of this example is to support the `generate-simulated-data` sample notebook. This sample is optional to run and not required for the notebook to run with just an LLM connection. 
+
+#### Set up LLM connection
 You can follow these steps to create a connection required by a LLM tool.
 
-Currently, there are two connection types supported by LLM tool: "AzureOpenAI" and "OpenAI". If you want to use "AzureOpenAI" connection type, you need to create an Azure OpenAI service first. Please refer to [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/) for more details. If you want to use "OpenAI" connection type, you need to create an OpenAI account first. Please refer to [OpenAI](https://platform.openai.com/) for more details.
+Currently, there are two connection types supported by LLM tool in flows: "AzureOpenAI" and "OpenAI". If you want to use "AzureOpenAI" connection type, you need to create an Azure OpenAI service first. Please refer to [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/) for more details. If you want to use "OpenAI" connection type, you need to create an OpenAI account first. Please refer to [OpenAI](https://platform.openai.com/) for more details.
 
 ```bash
 # Override keys with --set to avoid yaml file changes
@@ -22,7 +29,7 @@ pf connection show --name open_ai_connection
 ```
 Please refer to connections [document](https://promptflow.azurewebsites.net/community/local/manage-connections.html) and [example](https://github.com/microsoft/promptflow/tree/main/examples/connections) for more details.
 
-## Develop a chat flow
+#### Develop a chat flow
 
 The most important elements that differentiate a chat flow from a standard flow are **Chat Input**, **Chat History**, and **Chat Output**.
 
@@ -34,7 +41,7 @@ The most important elements that differentiate a chat flow from a standard flow 
 
 A chat flow can have multiple inputs, but Chat History and Chat Input are required inputs in chat flow.
 
-## Interact with chat flow
+#### Interact with chat flow
 
 Promptflow CLI provides a way to start an interactive chat session for chat flow. Customer can use below command to start an interactive chat session:
 
@@ -84,3 +91,10 @@ If customer adds "--verbose" in the pf command, the output of each step will be 
 > <span style="color:Gold">Bot:</span> The main differences between container software are in their architecture, feature sets, and use cases. Here are some brief explanations of the differences between the examples I listed:<br>
 > 1. Docker: Docker is a container platform that is widely used for building, packaging, and deploying containerized applications. It is known for its ease of use, portability, and large ecosystem of tools and services.<br>
 > 2. Kubernetes: Kubernetes is a container orchestration tool that helps manage and deploy containers at scale. It automates the deployment, scaling, and management of containerized applications across multiple hosts.<br>
+
+### Programming Languages
+ - Python
+### Estimated Runtime: 15 minutes
+
+
+
