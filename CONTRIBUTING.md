@@ -83,6 +83,28 @@ contribute your changes.
    git remote add upstream https://github.com/Azure-Samples/azureai-samples.git
    ```
 
+###### 2. Install Dev Dependencies
+
+From the root of your local repository, run:
+
+```shell
+python -m pip install -r dev_requirements.txt
+```
+
+###### 3. Set up pre-commit
+
+[pre-commit](https://pre-commit.com/) is a tool that enables us to run code when committing to a local repository. We
+use this to automate running code formatters, linters, etc...
+
+To install pre-commit in the repository, run the following from the root of the repository:
+
+```shell
+pre-commit install
+```
+
+`pre-commit` will run automatically when you commit changes, but you can also manually run it using 
+`pre-commit run --all-files`.
+
 
 * Add a descriptive [README] in the root folder of your sample following the [README template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/README-template.ipynb). If you're adding a Python sample, please ensure it follows the [Jupyter notebook template](https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/template.ipynb).
 * Commit your changes using a descriptive commit message
