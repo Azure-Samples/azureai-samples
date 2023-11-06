@@ -47,7 +47,7 @@ If you'd like to implement it yourself, please refer to our [contributing guidel
 [Azure-Samples/azure-search-openai-javascript]: https://github.com/Azure-Samples/azure-search-openai-javascript
 [Azure-Samples/azure-search-openai-demo-csharp]: https://github.com/Azure-Samples/azure-search-openai-demo-csharp
 [Azure-Samples/azure-search-openai-demo-java]: https://github.com/Azure-Samples/azure-search-openai-demo-java
-[contributing guidelines]: (./CONTRIBUTING.md)
+[contributing guidelines]: ./CONTRIBUTING.md
 [microsoft/chat-copilot]: https://github.com/microsoft/chat-copilot
 [new issue page]: https://github.com/Azure-Samples/azureai-samples/issues/new/choose
 [openai/openai-cookbook]: https://github.com/openai/openai-cookbook/tree/main/examples
