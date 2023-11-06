@@ -11,6 +11,7 @@ repos:
       name: nb-clean
       description: "Clean Jupyter notebooks of outputs, metadata, and empty cells, with Git integration"
       entry: tox -qqq run -e nb-clean  -- clean
+      require_serial: true
       language: python
       types_or: [jupyter]
       minimum_pre_commit_version: 2.9.2
