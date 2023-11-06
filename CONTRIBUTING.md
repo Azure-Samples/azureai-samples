@@ -102,4 +102,4 @@ If you are writing/updating a sample, please follow this guidance on how the sam
 That's it! Thank you for your contribution!
 
 [readme template]: ./notebooks/README-template.md
-[jupyter notebook template]: https://github.com/Azure-Samples/azureai-samples/blob/main/notebooks/template.ipynb
+[jupyter notebook template]: ./notebooks/template.ipynb
