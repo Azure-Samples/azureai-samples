@@ -83,6 +83,7 @@ If you are writing/updating a sample, please follow this guidance on how the sam
       * If you're adding a Python sample, please follow the [Jupyter Notebook template].
     * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
       files within their directory.
+* Check [dev-requirements.txt](https://github.com/Azure-Samples/azureai-samples/blob/main/dev-requirements.txt) to make sure all of the dependencies needed to run your notebook are there. If they're missing, add them. This file is used to run your notebook at PR time for validation, so any missing dependencies will result in failure.
 
 #### Submit your pull request
 
