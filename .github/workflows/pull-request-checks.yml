@@ -35,4 +35,4 @@ jobs:
       - name: Check that notebooks run successfully
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
-          git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb | xargs -I {} jupyter --execute {}
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb | xargs -I {} sh -c 'echo "Executing Jupyter Notebook: {}" && jupyter --execute {}'
