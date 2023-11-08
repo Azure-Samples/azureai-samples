@@ -29,10 +29,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
-      - name: Install dependencies
-        run: pip install -r dev-requirements.txt          
+          python-version: "3.9"        
       - name: Check that notebooks run successfully
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
+          pip install -r dev-requirements.txt
           git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb | xargs -I {} sh -c 'echo "Executing Jupyter Notebook: {}" && jupyter nbconvert --to notebook --execute {}'
