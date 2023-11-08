@@ -23,17 +23,31 @@ Welcome to the Azure AI Studio examples repository!
 
 ## Contributing
 
-We welcome contributions and suggestions! Please see the [contributing guidelines](CONTRIBUTING.md) for details.
+We welcome contributions and suggestions! Please see the [contributing guidelines] for details.
 
 ## Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). Please see the [code of conduct](CODE_OF_CONDUCT.md) for details.
 
+## Getting Help
+
+### Issues
+
+If you find a bug in the source code or a mistake in the documentation, feel free to [submit bug report][new issue page]
+. Or you could submit a pull request with a fix.
+
+### Feature Requests
+
+If there's an sample that you'd like to see added, feel free to file a [Feature Request][new issue page].
+
+If you'd like to implement it yourself, please refer to our [contributing guidelines].
 
 [Azure/aistudio-copilot-sample]: https://github.com/Azure/aistudio-copilot-sample
 [Azure-Samples/azure-search-openai-demo]: https://github.com/Azure-Samples/azure-search-openai-demo
 [Azure-Samples/azure-search-openai-javascript]: https://github.com/Azure-Samples/azure-search-openai-javascript
 [Azure-Samples/azure-search-openai-demo-csharp]: https://github.com/Azure-Samples/azure-search-openai-demo-csharp
 [Azure-Samples/azure-search-openai-demo-java]: https://github.com/Azure-Samples/azure-search-openai-demo-java
+[contributing guidelines]: ./CONTRIBUTING.md
 [microsoft/chat-copilot]: https://github.com/microsoft/chat-copilot
+[new issue page]: https://github.com/Azure-Samples/azureai-samples/issues/new/choose
 [openai/openai-cookbook]: https://github.com/openai/openai-cookbook/tree/main/examples
