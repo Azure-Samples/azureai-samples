@@ -11,12 +11,6 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
-## Goals
-This repository contains notebooks and sample code that demonstrate how to develop and manage AI workflows using Azure AI SDK. Use the samples in this repository to try out Azure AI SDK scenarios from your local machine.
-
-## Non-goals
-This repository is not the place for long-form textual documentation. Documentation resources containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
-
 ## Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
@@ -24,50 +18,78 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 Help us keep this project open and inclusive. Please read and follow our [Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
-## Found an Issue?
-If you find a bug in the source code or a mistake in the documentation, you can help us by
-[submitting an issue](#submit-issue) to the GitHub Repository. Even better, you can
-[submit a Pull Request](#submit-pr) with a fix.
 
-## Want a Feature?
-You can *request* a new feature by [submitting an issue](#submit-issue) to the GitHub
-Repository. If you would like to *implement* a new feature, please submit an issue with
-a proposal for your work first, to be sure that we can use it.
+## Submitting a Pull Request (PR)
 
-* **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
+### Before Making Code Changes
 
-## Submission Guidelines
-
-### Submitting an Issue
-Before you submit an issue, search the archive, maybe your question was already answered.
-
-If your issue appears to be a bug, and hasn't been reported, open a new issue.
-Help us to maximize the effort we can spend fixing issues and adding new
-features, by not reporting duplicate issues.  Providing the following information will increase the
-chances of your issue being dealt with quickly:
-
-* **Overview of the Issue** - if an error is being thrown a non-minified stack trace helps
-* **Version** - what version is affected (e.g. 0.1.2)
-* **Motivation for or Use Case** - explain what are you trying to do and why the current behavior is a bug for you
-* **Browsers and Operating System** - is this a problem with all browsers?
-* **Reproduce the Error** - provide a live example or a unambiguous set of steps
-* **Related Issues** - has a similar issue been reported before?
-* **Suggest a Fix** - if you can't fix the bug yourself, perhaps you can point to what might be
-  causing the problem (line of code or commit)
-
-You can file new issues by providing the above information at the corresponding repository's issues link: https://github.com/[organization-name]/[repository-name]/issues/new].
-
-### Submitting a Pull Request (PR)
-Before you submit your Pull Request (PR) consider the following guidelines:
-
-* Search the repository (https://github.com/[organization-name]/[repository-name]/pulls) for an open or closed PR
+1. Search the [repository](https://github.com/Azure-Samples/azureai-samples/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
+2. Determine whether this repository is the best place for the contribution.
 
-* Make your changes in a new git fork:
+   **Goals**: This repository contains notebooks and sample code that demonstrate how to develop and manage AI
+   workflows using Azure AI. The samples in this repository should allow users to try out Azure AI scenarios from their
+   local machine.
+
+   **Non-goals**: This repository is not the place for long-form textual documentation. Documentation resources
+   containing minimal or no code should be added in the [azure-docs repository](https://github.com/MicrosoftDocs/azure-docs).
+
+### Making your Code Changes
+
+#### Set up your development environment (one time setup)
+
+##### 1. Make a fork
+
+This repository follows a fork-based workflow. You should make your changes on your own fork, and make a PR to
+contribute your changes.
+
+1. [Make a fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) of this repository.
+2. Clone your fork
+3. Add the original repository as a remote:
+
+   ```shell
+   git remote add upstream https://github.com/Azure-Samples/azureai-samples.git
+   ```
+
+##### 2. Install Dev Dependencies
+
+From the root of your local repository, run:
+
+```shell
+python -m pip install -r dev_requirements.txt
+```
+
+##### 3. Set up pre-commit
+
+[pre-commit](https://pre-commit.com/) is a tool that enables us to run code when committing to a local repository. We
+use this to automate running code formatters, linters, etc...
+
+To install pre-commit in the repository, run the following from the root of the repository:
+
+```shell
+pre-commit install
+```
+
+`pre-commit` will run automatically when you commit changes, but you can also manually run it using 
+`pre-commit run --all-files`.
+
+#### Write your contribution
+
+If you are writing/updating a sample, please follow this guidance on how the samples should be structured:
+
+* Please create a **separate** directory for each authored sample. Each directory should contain:
+    * A descriptive README in the root folder of your sample following the [README template].
+    * Your sample
+      * If you're adding a Python sample, please follow the [Jupyter Notebook template].
+    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
+      files within their directory.
+
+#### Submit your pull request
 
 * Commit your changes using a descriptive commit message
-* Push your fork to GitHub:
-* In GitHub, create a pull request
+* [Push your changes to your fork](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository).
+* [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+* **Review the checklist in the PR**.
 * If we suggest changes then:
   * Make the required updates.
   * Rebase your fork and force push to your GitHub repository (this will update your Pull Request):
@@ -78,3 +100,6 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     ```
 
 That's it! Thank you for your contribution!
+
+[readme template]: ./notebooks/README-template.md
+[jupyter notebook template]: ./notebooks/template.ipynb
