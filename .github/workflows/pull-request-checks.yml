@@ -30,12 +30,12 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      - name: Install papermill
-        run: pip install papermill
+      - name: Install dependencies
+        run: pip install -r dev-requirements.txt
       - name: Check that notebooks run successfully
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
           for notebook in $(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb); do
             echo "Executing Jupyter Notebook: $notebook"
-            papermill "$notebook"
+            papermill "$notebook" - 
           done

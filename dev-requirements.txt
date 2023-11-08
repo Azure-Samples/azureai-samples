@@ -1,2 +1,7 @@
 tox ~= 4.0
 pre-commit
+azure-ai-generative
+azure-ai-resources
+azure-identity
+azure-search-documents
+langchain
