@@ -22,3 +22,15 @@ jobs:
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
           python ./.github/scripts/commit-filesize-diff-summary.py --limit 1MB origin/${{ github.event.pull_request.base.ref }}..HEAD
+  notebooks_success:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Check that notebooks run successfully
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb | xargs -I {} jupyter --execute {}
