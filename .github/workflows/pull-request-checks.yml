@@ -30,6 +30,8 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
+      - name: Install Jupyter
+          run: pip install jupyter
       - name: Check that notebooks run successfully
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
