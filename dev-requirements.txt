@@ -5,3 +5,4 @@ azure-ai-resources
 azure-identity
 azure-search-documents
 langchain
+jupyter
