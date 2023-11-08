@@ -37,5 +37,5 @@ jobs:
           git fetch origin ${{ github.event.pull_request.base.ref }} --quiet # Need to manually fetch base branch in CI
           for notebook in $(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD | grep .ipynb); do
             echo "Executing Jupyter Notebook: $notebook"
-            papermill "$notebook" "executed_$notebook"
+            papermill "$notebook"
           done
