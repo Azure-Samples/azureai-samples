@@ -1,0 +1,17 @@
+inputs:
+  question:
+    type: string
+outputs:
+  answer:
+    type: string
+    reference: ${chat.outputs.answer}
+nodes:
+- name: chat
+  type: python
+  source:
+    type: code
+    path: chat.py
+  inputs:
+    question: ${inputs.question}
+environment:
+  python_requirements_txt: requirements.txt
