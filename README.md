@@ -5,6 +5,12 @@
 
 Welcome to the Azure AI Studio examples repository!
 
+This repository acts as the top-level directory for all official Azure AI Studio sample code and examples. It includes notebooks and sample code that contain end-to-end samples as well as smaller code snippets for common developer tasks.
+
+We welcome all contributions and suggestions! This repository is entirely open source, guidance on how to contribute and links to additional repositories are provided below.
+
+Use the samples in this repository to try out Azure AI scenarios on your local machine!
+
 ## Sample Repos
 |Description|Repository|
 |-|-|
