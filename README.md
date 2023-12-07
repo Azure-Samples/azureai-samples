@@ -26,6 +26,9 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
   Augmented Generation pattern across data using Java.
 * **[microsoft/chat-copilot]** - Sample showing how to build LLM chat copilot.
 * **[openai/openai-cookbook]** - Example code for common tasks within OpenAI.
+* **[Azure-Samples/aistudio-python-quickstart-sample](https://github.com/Azure-Samples/aistudio-python-quickstart-sample)** - Quickstart Python sample for getting started with SDK or CLI.
+* **[Azure-Samples/aistudio-python-langchain-sample](https://github.com/Azure-Samples/aistudio-python-langchain-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the LangChain framework.
+* **[Azure-Samples/aistudio-python-promptflow-sample](https://github.com/Azure-Samples/aistudio-python-promptflow-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the PromptFlow framework.
 
 ## Contributing
 
