@@ -6,4 +6,4 @@ requests
 pillow
 matplotlib
 moviepy
-nbformat
+typing
