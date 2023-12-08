@@ -74,7 +74,7 @@ Each notebook is self-contained and includes instructions specific to its scenar
 
 ## Shared Functions
 
-For convenience, commonly used functions across these notebooks are consolidated in [shared_functions.ipynb](shared_functions.py). Import these functions in any notebook as needed.
+For convenience, commonly used functions across these notebooks are consolidated in [shared_functions.py](shared_functions.py). Import these functions in any notebook as needed.
 
 
 ## Trademarks
