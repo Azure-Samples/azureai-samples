@@ -6,13 +6,13 @@ This repository contains a collection of Jupyter notebooks demonstrating various
 ## Contents
 | Notebook | Description | Type |
 |----------|-------------|-------|
-| [Basic Image in GPT-4V](basic_chatcompletions_example_restapi.ipynb) | Processing a single image input with GPT-4V. | Image |
-| [Handling Multiple Images in GPT-4V](mutiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with RAG and Custom Data](RAG_chatcompletions_example_restapi.ipynb) |  Enhancing capabilities by bringing custom data to augment image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with Grounding Techniques](enhancement_grounding_chatcompletions_example_restapi.ipynb) | Applying grounding techniques to image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with OCR Technique](enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4V. | Image |
-| [Basic Video QnA in GPT-4V](video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs in GPT-4V. | Video |
-| [Video Chunk Processing Sequentially in GPT-4V](video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks in GPT-4V. | Video |
+| [Basic Image in GPT-4V](basic/basic_chatcompletions_example_restapi.ipynb) | Processing a single image input with GPT-4V. | Image |
+| [Handling Multiple Images in GPT-4V](mutiple_images/mutiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4V. | Image |
+| [Enhancing GPT-4V with RAG and Custom Data](rag/rag_chatcompletions_example_restapi.ipynb) |  Enhancing capabilities by bringing custom data to augment image inputs in GPT-4V. | Image |
+| [Enhancing GPT-4V with Grounding Techniques](enhancement_grounding/enhancement_grounding_chatcompletions_example_restapi.ipynb) | Applying grounding techniques to image inputs in GPT-4V. | Image |
+| [Enhancing GPT-4V with OCR Technique](enhancement_OCR/enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4V. | Image |
+| [Basic Video QnA in GPT-4V](video/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs in GPT-4V. | Video |
+| [Video Chunk Processing Sequentially in GPT-4V](video_chunk/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks in GPT-4V. | Video |
 
 
 ## Installation

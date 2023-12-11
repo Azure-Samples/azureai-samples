@@ -9,6 +9,8 @@ import requests
 import time
 from pathlib import Path
 
+current_script_dir = Path(__file__).parent
+
 # %% [markdown]
 # ### Setup Parameters
 #
@@ -18,7 +20,7 @@ from pathlib import Path
 
 # %%
 # Load config values
-with Path(r"config.json").open() as config_file:
+with Path(current_script_dir / "config.json").open() as config_file:
     config_details = json.load(config_file)
 
 # Setting up the deployment name
