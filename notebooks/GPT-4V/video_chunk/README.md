@@ -12,4 +12,4 @@ These examples provide practical guidance and accelerators for developers integr
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 10-20 minutes
