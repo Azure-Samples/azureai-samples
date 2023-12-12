@@ -1,13 +1,13 @@
 
-## REST API Basic Samples
+## REST API Video Chunk Samples
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook explores the application of GPT-4V in sequentially processing video chunks for Q&A sessions, showcasing continuous video analysis and response generation.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The objective is to provide developers with insights and methods for handling video inputs in a sequential manner with GPT-4V, enabling detailed and context-aware Q&A interactions based on video content.
 
 ### Programming Languages
  - Python

@@ -1,15 +1,15 @@
 
-## REST API Basic Samples
+## REST API Grounding Enhanchment Samples
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook provides a guide on applying grounding techniques to image inputs using the GPT-4V API.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The objective is to teach developers how to enhance image understanding and context interpretation by integrating grounding techniques with GPT-4V's image processing capabilities.
 
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 5-10 minutes

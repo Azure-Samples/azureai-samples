@@ -1,15 +1,15 @@
 
-## REST API Basic Samples
+## REST API Mutiple Image Samples
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook demonstrates the techniques for managing multiple image inputs using the GPT-4V API.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The aim is to equip developers with strategies and best practices for effectively handling and processing multiple image inputs with GPT-4V, enhancing the scope and efficiency of their image-based applications.
 
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 5-10 minutes

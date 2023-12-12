@@ -1,15 +1,15 @@
 
-## REST API Basic Samples
+## REST API RAG Samples
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook focuses on Retrieval Augmented Generation (RAG) by incorporating custom data to enhance image inputs in the GPT-4V API.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The goal is to demonstrate how developers can use RAG techniques to enrich image input processing in GPT-4V, leveraging custom datasets for more contextually rich and accurate image interpretations.
 
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 5-10 minutes

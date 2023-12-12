@@ -1,15 +1,15 @@
 
-## REST API Basic Samples
+## REST API OCR Enhanchment Samples
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook explores the integration of Optical Character Recognition (OCR) with image inputs in the GPT-4V API, showcasing advanced text extraction techniques.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The goal is to provide developers with practical skills and knowledge for combining OCR technology with GPT-4V's image processing capabilities, enabling efficient text recognition and analysis in diverse applications.
 
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 5-10 minutes

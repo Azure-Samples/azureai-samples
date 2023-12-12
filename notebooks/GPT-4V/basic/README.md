@@ -3,13 +3,13 @@
 
 ### Overview
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API.
+This Jupyter notebook showcases how to process single image inputs using the GPT-4V API.
 
 ### Objective
 
-These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+The objective is to provide developers with practical insights and methods for leveraging GPT-4V's capabilities in handling and interpreting single image inputs within their applications.
 
 ### Programming Languages
  - Python
 
-### Estimated Runtime: 20 seconds
+### Estimated Runtime: 5-10 minutes
