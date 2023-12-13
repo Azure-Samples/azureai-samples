@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ```
 
 ### Microsoft Azure Endpoints
-In order to use REST API with Microsoft Azure endpoints, you need to set a series of configurations such as GPT-4V_DEPLOYMENT_NAME, OPENAI_API_BASE, OPENAI_API_VERSION in _config.json_ file. 
+In order to use REST API with Microsoft Azure endpoints, you need to set a series of configurations such as GPT-4V_DEPLOYMENT_NAME, OPENAI_API_BASE, OPENAI_API_VERSION.
 
 ```js
 {
@@ -34,11 +34,7 @@ In order to use REST API with Microsoft Azure endpoints, you need to set a serie
     "VISION_API_ENDPOINT": "https://<Your Azure Vision Resource Name>.cognitiveservices.azure.com",
 
     "AZURE_SEARCH_SERVICE_ENDPOINT": "https://<Your Azure Search Resource Name>.search.windows.net",
-    "AZURE_SEARCH_INDEX_NAME": "<Your Azure Search Index Name>",
-
-    "VIDEO_SAS_URL": "<Your Azure Blob Storage SAS URL>",
-    "VIDEO_INDEX_NAME": "<Your Azure Video Index Name>",
-    "VIDEO_INDEX_ID": "<Your Azure Video Index ID>"
+    "AZURE_SEARCH_INDEX_NAME": "<Your Azure Search Index Name>"
 }
 ``` 
 
