@@ -3,11 +3,11 @@
 
 ### Overview
 
-This Jupyter notebook explores the integration of Optical Character Recognition (OCR) with image inputs in the GPT-4V API, showcasing advanced text extraction techniques.
+This Jupyter notebook explores the integration of Optical Character Recognition (OCR) with image inputs in the GPT-4 Turbo with Vision API, showcasing advanced text extraction techniques.
 
 ### Objective
 
-The goal is to provide developers with practical skills and knowledge for combining OCR technology with GPT-4V's image processing capabilities, enabling efficient text recognition and analysis in diverse applications.
+The goal is to provide developers with practical skills and knowledge for combining OCR technology with GPT-4 Turbo with Vision's image processing capabilities, enabling efficient text recognition and analysis in diverse applications.
 
 ### Programming Languages
  - Python

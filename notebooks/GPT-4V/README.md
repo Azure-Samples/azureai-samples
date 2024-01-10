@@ -1,18 +1,18 @@
 
 # Introduction
 
-This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4V API, along with samples demonstrating how to use GPT-4V for Chat Completions via REST API. These examples provide practical guidance and accelerators for developers integrating GPT-4V functionalities in their applications.
+This repository contains a collection of Jupyter notebooks demonstrating various use cases for interacting with the GPT-4 Turbo with Vision API, along with samples demonstrating how to use GPT-4 Turbo with Vision for Chat Completions via REST API. These examples provide practical guidance and accelerators for developers integrating GPT-4 Turbo with Vision functionalities in their applications.
 
 ## Contents
 | Notebook | Description | Type |
 |----------|-------------|-------|
-| [Basic Image in GPT-4V](basic/basic_chatcompletions_example_restapi.ipynb) | Processing a single image input with GPT-4V. | Image |
-| [Handling Multiple Images in GPT-4V](mutiple_images/mutiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with RAG and Custom Data](rag/rag_chatcompletions_example_restapi.ipynb) |  Enhancing capabilities by bringing custom data to augment image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with Grounding Techniques](enhancement_grounding/enhancement_grounding_chatcompletions_example_restapi.ipynb) | Applying grounding techniques to image inputs in GPT-4V. | Image |
-| [Enhancing GPT-4V with OCR Technique](enhancement_OCR/enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4V. | Image |
-| [Basic Video QnA in GPT-4V](video/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs in GPT-4V. | Video |
-| [Video Chunk Processing Sequentially in GPT-4V](video_chunk/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks in GPT-4V. | Video |
+| [Basic Image in GPT-4 Turbo with Vision](basic/basic_chatcompletions_example_restapi.ipynb) | Processing a single image input with GPT-4 Turbo with Vision. | Image |
+| [Handling Multiple Images in GPT-4 Turbo with Vision](mutiple_images/mutiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4 Turbo with Vision. | Image |
+| [Enhancing GPT-4 Turbo with Vision with RAG and Custom Data](rag/rag_chatcompletions_example_restapi.ipynb) |  Enhancing capabilities by bringing custom data to augment image inputs in GPT-4 Turbo with Vision. | Image |
+| [Enhancing GPT-4 Turbo with Vision with Grounding Techniques](enhancement_grounding/enhancement_grounding_chatcompletions_example_restapi.ipynb) | Applying grounding techniques to image inputs in GPT-4 Turbo with Vision. | Image |
+| [Enhancing GPT-4 Turbo with Vision with OCR Technique](enhancement_OCR/enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4 Turbo with Vision. | Image |
+| [Basic Video QnA in GPT-4 Turbo with Vision](video/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs in GPT-4 Turbo with Vision. | Video |
+| [Video Chunk Processing Sequentially in GPT-4 Turbo with Vision](video_chunk/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks in GPT-4 Turbo with Vision. | Video |
 
 
 ## Installation
@@ -27,7 +27,7 @@ In order to use REST API with Microsoft Azure endpoints, you need to set a serie
 
 ```js
 {
-    "GPT-4V_DEPLOYMENT_NAME":"<GPT-4V Deployment Name>",
+    "GPT-4V_DEPLOYMENT_NAME":"<GPT-4 Turbo with Vision Deployment Name>",
     "OPENAI_API_BASE":"https://<Your Azure Resource Name>.openai.azure.com",
     "OPENAI_API_VERSION":"<OpenAI API Version>",
 

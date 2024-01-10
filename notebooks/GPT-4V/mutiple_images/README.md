@@ -3,11 +3,11 @@
 
 ### Overview
 
-This Jupyter notebook demonstrates the techniques for managing multiple image inputs using the GPT-4V API.
+This Jupyter notebook demonstrates the techniques for managing multiple image inputs using the GPT-4 Turbo with Vision API.
 
 ### Objective
 
-The aim is to equip developers with strategies and best practices for effectively handling and processing multiple image inputs with GPT-4V, enhancing the scope and efficiency of their image-based applications.
+The aim is to equip developers with strategies and best practices for effectively handling and processing multiple image inputs with GPT-4 Turbo with Vision, enhancing the scope and efficiency of their image-based applications.
 
 ### Programming Languages
  - Python
