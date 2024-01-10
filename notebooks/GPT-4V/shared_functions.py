@@ -37,11 +37,11 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 openai_api_version = config_details["OPENAI_API_VERSION"]
 
 # %% [markdown]
-# ## Funciontion to Call GPT-4V API with Image
+# ## Funciontion to Call GPT-4 Turbo with Vision API with Image
 
 
 # %%
-# Define GPT-4V API call with image
+# Define GPT-4 Turbo with Vision API call with image
 def call_GPT4V_image(
     messages: object, ocr: bool = False, grounding: bool = False, in_context: object = None, vision_api: object = None
 ) -> object:
@@ -115,11 +115,11 @@ def call_GPT4V_image(
 
 
 # %% [markdown]
-# ## Funciontion to Call GPT-4V API with Video Index
+# ## Funciontion to Call GPT-4 Turbo with Vision API with Video Index
 
 
 # %%
-# Define GPT-4V API call with video index
+# Define GPT-4 Turbo with Vision API call with video index
 def call_GPT4V_video(messages: str, vision_api: object, video_index: object) -> object:
     # Construct the API request URL
     api_url = (
