@@ -1,6 +1,3 @@
-# Packages needed to run the notebook samples
-jupyter
-
 # Other packages needed to run the notebook samples
 requests
 pillow
