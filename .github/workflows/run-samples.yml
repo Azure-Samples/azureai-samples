@@ -1,0 +1,30 @@
+name: Run Samples
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - notebooks/**
+      - .infra/deployments/**/*.bicep
+jobs:
+  run-samples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+            python-version: "3.8"
+      - name: Install dev dependencies
+        run: |
+            pip install -r dev-requirements.txt
+      - uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy resources
+        run: |
+            az deployment sub create --location eastus --template-file .infra/deployment/main.bicep -o json
+      - name: Run samples
+        run:
+            pytest
