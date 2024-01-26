@@ -1,5 +1,5 @@
 tox ~= 4.0
-pre-commit
-pytest
+pre-commit ~= 3.0
+pytest ~= 8.0
 pytest-iovis[papermill] @ git+https://github.com/kdestin/pytest-iovis.git
-ipykernel
+ipykernel ~= 6.0
