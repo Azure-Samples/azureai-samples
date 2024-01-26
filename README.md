@@ -1,11 +1,11 @@
 
-# Azure AI Studio Examples
+# Azure AI Samples
 
 [![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
-Welcome to the Azure AI Studio examples repository!
+Welcome to the Azure AI Samples repository!
 
-This repository acts as the top-level directory for all official Azure AI Studio sample code and examples. It includes notebooks and sample code that contain end-to-end samples as well as smaller code snippets for common developer tasks.
+This repository acts as the top-level directory for official Azure AI sample code and examples. It includes notebooks and sample code that contain end-to-end samples as well as smaller code snippets for common developer tasks.
 
 This repository is entirely open source, guidance on how to contribute and links to additional repositories are provided below.
 
