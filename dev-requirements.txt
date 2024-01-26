@@ -1,2 +1,5 @@
 tox ~= 4.0
 pre-commit
+pytest
+pytest-iovis[papermill] @ git+https://github.com/kdestin/pytest-iovis.git
+ipykernel
