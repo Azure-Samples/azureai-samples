@@ -12,8 +12,8 @@ The main objective of this tutorial is to demonstrate how to use function callin
 
 This tutorial uses the following services:
 
-- Access to Azure OpenAI Service - you can apply for access [here](https://go.microsoft.com/fwlink/?linkid=2222006)
-- Access to a Bing Search resource - [Bing Search resouce](https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/create-bing-search-service-resource) 
+- Azure OpenAI Service - you can apply for access [here](https://go.microsoft.com/fwlink/?linkid=2222006)
+- Bing Search - [Bing Search resouce](https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/create-bing-search-service-resource) 
 
 ### Programming Languages
 
