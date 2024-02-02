@@ -271,6 +271,7 @@ def call_face_API(image_file_path: str, face_api_endpoint: str, face_api_key: st
     headers = {
         "Content-Type": "application/octet-stream",
         "Ocp-Apim-Subscription-Key": face_api_key,
+        "x-ms-useragent": "Azure-GPT-4V-image-face/1.0.0",
     }
 
     params_01 = {
@@ -278,14 +279,7 @@ def call_face_API(image_file_path: str, face_api_endpoint: str, face_api_key: st
         "returnFaceLandmarks": "false",
         "returnFaceAttributes": ",".join(
             [
-                "age",
-                "gender",
-                "smile",
-                "facialHair",
                 "glasses",
-                "emotion",
-                "hair",
-                "makeup",
                 "occlusion",
                 "accessories",
                 "blur",
