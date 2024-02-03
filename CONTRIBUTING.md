@@ -77,7 +77,7 @@ pre-commit install
 
 If you are writing/updating a sample, please follow this guidance on how the samples should be structured.
 
-Note that samples are organized in top-level directories, each named by scenario.
+Note that samples are organized by scenario, find the one best-suited for your sample or propose a new one for consideration.
 
 * Please create a **separate** directory for each authored sample, making sure to create it under the appropriate top-level scenario directory. Each sample's directory should contain:
     * A descriptive README in the root folder of your sample following the [README template].
