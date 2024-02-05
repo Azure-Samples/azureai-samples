@@ -60,6 +60,7 @@ def call_GPT4V_image(
     headers = {
         "Content-Type": "application/json",
         "api-key": openai_api_key,
+        "x-ms-useragent": "Azure-GPT-4V-image/1.0.0",
     }
 
     # Payload for the request
@@ -131,6 +132,7 @@ def call_GPT4V_video(messages: str, vision_api: object, video_index: object) -> 
     headers = {
         "Content-Type": "application/json",
         "api-key": openai_api_key,
+        "x-ms-useragent": "Azure-GPT-4V-video/1.0.0",
     }
 
     # Payload for the request
