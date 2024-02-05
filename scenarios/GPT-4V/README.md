@@ -7,7 +7,7 @@ This repository contains a collection of Jupyter notebooks demonstrating various
 | Notebook | Description | Type |
 |----------|-------------|-------|
 | [Basic Image in GPT-4 Turbo with Vision](basic/basic_chatcompletions_example_restapi.ipynb) | Processing a single image input with GPT-4 Turbo with Vision. | Image |
-| [Handling Multiple Images in GPT-4 Turbo with Vision](mutiple_images/mutiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4 Turbo with Vision. | Image |
+| [Handling Multiple Images in GPT-4 Turbo with Vision](multiple_images/multiple_images_chatcompletions_example_restapi.ipynb) | Managing multiple image inputs in GPT-4 Turbo with Vision. | Image |
 | [Enhancing GPT-4 Turbo with Vision with RAG and Custom Data](rag/rag_chatcompletions_example_restapi.ipynb) |  Enhancing capabilities by bringing custom data to augment image inputs in GPT-4 Turbo with Vision. | Image |
 | [Enhancing GPT-4 Turbo with Vision with Grounding Techniques](enhancement_grounding/enhancement_grounding_chatcompletions_example_restapi.ipynb) | Applying grounding techniques to image inputs in GPT-4 Turbo with Vision. | Image |
 | [Enhancing GPT-4 Turbo with Vision with OCR Technique](enhancement_OCR/enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4 Turbo with Vision. | Image |
