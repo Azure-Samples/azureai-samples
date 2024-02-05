@@ -56,7 +56,7 @@ contribute your changes.
 From the root of your local repository, run:
 
 ```shell
-python -m pip install -r dev_requirements.txt
+python -m pip install -r dev-requirements.txt
 ```
 
 ##### 3. Set up pre-commit
@@ -75,14 +75,15 @@ pre-commit install
 
 #### Write your contribution
 
-If you are writing/updating a sample, please follow this guidance on how the samples should be structured:
+If you are writing/updating a sample, please follow this guidance on how the samples should be structured.
 
-* Please create a **separate** directory for each authored sample. Each directory should contain:
+Note that samples are organized by scenario, find the one best-suited for your sample or propose a new one for consideration.
+
+* Please create a **separate** directory for each authored sample, making sure to create it under the appropriate top-level scenario directory. Each sample's directory should contain:
     * A descriptive README in the root folder of your sample following the [README template].
     * Your sample
       * If you're adding a Python sample, please follow the [Jupyter Notebook template].
-    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
-      files within their directory.
+    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on files within their directory.
 
 #### Submit your pull request
 
