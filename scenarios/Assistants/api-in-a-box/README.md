@@ -1,6 +1,6 @@
-# Assistants API-in-a-Box
+# API-in-a-Box
 
-![Banner](./readme_assets/banner-assistants-api-in-a-box.png)
+![Banner](./banner-assistants-api-in-a-box.png)
 
 ## Use Case
 
@@ -21,7 +21,7 @@ At a high level, a typical integration of the Assistants API has the following f
 3. Add [Messages](https://platform.openai.com/docs/api-reference/messages) to the Thread as the user ask questions.
 4. [Run](https://platform.openai.com/docs/api-reference/runs) the Assistant on the Thread to trigger responses. This automatically calls the relevant tools.
 
-![Banner](./readme_assets/assistantsapi-flow-overview.svg)
+![Banner](./assistantsapi-flow-overview.svg)
 
 ## Benefits of using assistants
 
@@ -139,14 +139,14 @@ while True:
 
 ## Sample Assistants - Jupyter notebooks
 
-**Note:** Some Assistants in the notebooks forlder have the ability to send emails and create appointments in Outlook. This functionality is achieved by using Function calling, which in turn triggers an HTTP Azure Logic App. The process of creating the Logic App is not covered in this guide. However, if you are interested in learning more about creating Azure Logic Apps, you can follow this [link](https://learn.microsoft.com/en-us/azure/connectors/connectors-create-api-office365-outlook?tabs=consumption).
+**Note:** Some Assistants in the notebooks folder have the ability to send emails and create appointments in Outlook. This functionality is achieved by using Function calling, which in turn triggers an HTTP Azure Logic App. The process of creating the Logic App is not covered in this guide. However, if you are interested in learning more about creating Azure Logic Apps, you can follow this [link](https://learn.microsoft.com/en-us/azure/connectors/connectors-create-api-office365-outlook?tabs=consumption).
 
 | Topic | Description |
 |----------------------|--------------------------------------------------|
-| [Assistant-01: Foundational Concepts](notebooks/assistant-01-math_tutor.ipynb) | Showcases the foundational concepts of Assistants such as Threads, Messages, Runs, Tools, and lifecycle management. |
-| [Assistant-02: Helper](notebooks/assistant-02-financial_reporting.ipynb) | The `aihelper.py` file serves as a helper library that extracts repetitive code, such as handling lifetime events. It keeps track of instantiated Assistants, Files, and Threads, and can dispose of them when they are no longer needed. `aihelper.py` also provides a delegate interface to pass Assistant functions. While it is not mandatory to use `aihelper.py` in your code, this Assistant and the others depend on it. |
-| [Assistant-03: Financial Summary Assistant](notebooks/assistant-03-portfolio_reporting.ipynb) | Using Function calling, this Assistant can summarize a financial news article, extract the ticker symbols from the article, and provide a summary of the article and the latest (simulated) stock prices. |
-| [Assistant-04: Portpolio Reporting Assistant](notebooks/assistant-04-sales_assistant.ipynb) | Using Assistant tools Code Interpreter and Function calling, this bot can get a CSV portfolio file, calculate the latest portfolio value based on the latest stock prices, point out the best and the worst investment, and email a report to a client. |
+| [Math Tutor](math_tutor/assistant-math_tutor.ipynb) | Showcases the foundational concepts of Assistants such as Threads, Messages, Runs, Tools, and lifecycle management. |
+| [Financial Assistant](personal_finance/assistant-personal_finance.ipynb) | Function Calling with Yfinance to get latest stock prices. Summarization of user provided article. Extract country info from article, extract country, capital and other aspects, and call an API to get more information about each country. |
+| [Failed Banks](failed_banks/assistant-failed_banks.ipynb) | Using Assistant tools Code Interpreter and Function calling, this bot can get a CSV file, gather a list of failed banks by state, and generate a chart to visually represent the data. |
+| [Wind Farm](wind_farm/assistant-wind_farm.ipynb) | Utilizing Assistant tools such as the Code Interpreter and Function calling, this bot is capable of retrieving a CSV file that illustrates turbine wind speed, voltage, and the last maintenance date. It assists you in reviewing the file contents and aids in determining whether a specific turbine is in need of maintenance. |
 
 ## Prerequisites
 
@@ -159,7 +159,7 @@ while True:
 - Clone this repo
 - Make sure the VS Code is installed as well as the VS Code Polyglot extension
 - Python 3.7+
-- Create/rename `notebooks\.env` file and insert your Azure Open AI credentials:
+- Create/rename `\.env` file and insert your Azure Open AI credentials:
 
 ```
 OPENAI_URI=https://<NAME>.openai.azure.com/
