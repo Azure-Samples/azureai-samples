@@ -8,7 +8,7 @@ products:
 description: Manage multiple image inputs using the GPT-4 Turbo with Vision API.
 ---
 
-## REST API Mutiple Image Samples
+## REST API Multiple Image Samples
 
 ### Overview
 

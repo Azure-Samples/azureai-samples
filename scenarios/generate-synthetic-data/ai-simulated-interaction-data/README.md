@@ -21,7 +21,7 @@ There are two main uses for generating a simulated interaction (such as as conve
 
 ### Objective
 
-The main objective of this tutorial is to help users understand the process of simulating a conversation with your large langauge model or local flow function. By the end of this tutorial, you should be able to:
+The main objective of this tutorial is to help users understand the process of simulating a conversation with your large language model or local flow function. By the end of this tutorial, you should be able to:
 
  - Configure a conversation template with parameters such as tone, profile and tasks 
  - Simulate a conversation between a user persona you've configured and an endpoint
