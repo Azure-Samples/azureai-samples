@@ -1,3 +1,14 @@
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: > 
+  Utilization of face attributes obtained from the face API for the assessment 
+  of face image quality, leveraging the capabilities of GPT-4 Turbo with Vision.
+---
 
 ## REST API Face Samples
 
