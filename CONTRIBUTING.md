@@ -120,7 +120,10 @@ description: Example description.
 ---
 ```
 
-Edit the product, description, and languages as needed. All valid product and language options are listed [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#product).
+Edit the product, description, and languages as needed.
+
+* You can find all valid product options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#product).
+* You can find valid language options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#dev-lang).
 
 The Code Samples browser content is updated twice a week, so it may take a few days for your changes to be reflected.
 
