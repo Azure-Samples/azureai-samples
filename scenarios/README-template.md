@@ -1,3 +1,14 @@
+```YAML
+---
+page_type: sample
+languages:
+- language1
+- language2
+products:
+- azure-machine-learning
+description: Example description.
+---
+```
 
 ## Your Sample Name
 
@@ -15,4 +26,5 @@ The main objective of this tutorial is to help users understand the process of c
 
 ### Programming Languages
  - Python
+
 ### Estimated Runtime: 30 mins
