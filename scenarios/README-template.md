@@ -5,7 +5,8 @@ languages:
 - language1
 - language2
 products:
-- azure-machine-learning
+- ai-services
+- azure-openai
 description: Example description.
 ---
 ```
