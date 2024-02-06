@@ -1,3 +1,15 @@
+```YAML
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Simulate a conversation with your large language model or local flow function to generate synthetic interaction data.
+---
+```
+
 ## Generate simulated conversation data with your LLM endpoint or local flow
 
 ### Overview
