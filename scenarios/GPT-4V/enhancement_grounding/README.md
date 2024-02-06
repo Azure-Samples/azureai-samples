@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Apply grounding techniques to image inputs using the GPT-4 Turbo with Vision API.
 ---
-```
 
 ## REST API Grounding Enhanchment Samples
 

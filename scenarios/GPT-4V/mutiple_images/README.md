@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Manage multiple image inputs using the GPT-4 Turbo with Vision API.
 ---
-```
 
 ## REST API Mutiple Image Samples
 

@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Create an index from various sources like local files, git repo, and remote sources like S3, OneLake and add it to an Azure Cognitive Search Index.
 ---
-```
 
 ## Create Index from various sources
 

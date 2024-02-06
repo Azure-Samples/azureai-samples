@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -9,7 +9,6 @@ products:
 - azure-openai
 description: Example description.
 ---
-```
 
 ## Your Sample Name
 

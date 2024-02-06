@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Incorporate custom data to enhance image inputs in the GPT-4 Turbo with Vision API using Retrieval Augmented Generation (RAG) techniques.
 ---
-```
 
 ## REST API RAG Samples
 

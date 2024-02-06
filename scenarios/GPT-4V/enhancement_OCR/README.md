@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Combine Optical Character Recognition (OCR) with image inputs in the GPT-4 Turbo with Vision API to do advanced text extraction.
 ---
-```
 
 ## REST API OCR Enhanchment Samples
 

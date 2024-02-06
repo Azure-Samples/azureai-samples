@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Use the QADataGenerator to generate high-quality questions and answers from your data using LLMs.
 ---
-```
 
 ## Generate Questions and Answers from your data
 

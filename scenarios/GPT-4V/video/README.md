@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Conduct Q&A sessions using video inputs with the GPT-4 Turbo with Vision API.
 ---
-```
 
 ## REST API Video Samples
 

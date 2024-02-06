@@ -1,4 +1,4 @@
-```YAML
+
 ---
 page_type: sample
 languages:
@@ -8,7 +8,6 @@ products:
 - azure-openai
 description: Create, register, and consume an index to answer questions based on your data using the Retrieval Augmented Generation (RAG) pattern.
 ---
-```
 
 ## Retrieval Augmented Generation (RAG) using Azure AI SDK
 
