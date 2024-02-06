@@ -43,7 +43,12 @@ openai_api_version = config_details["OPENAI_API_VERSION"]
 # %%
 # Define GPT-4 Turbo with Vision API call with image
 def call_GPT4V_image(
-    messages: object, ocr: bool = False, grounding: bool = False, in_context: object = None, vision_api: object = None
+    messages: object,
+    ocr: bool = False,
+    grounding: bool = False,
+    face: bool = False,
+    in_context: object = None,
+    vision_api: object = None,
 ) -> object:
     # Construct the API request URL
     if ocr or grounding or in_context is not None:
@@ -62,6 +67,9 @@ def call_GPT4V_image(
         "api-key": openai_api_key,
         "x-ms-useragent": "Azure-GPT-4V-image/1.0.0",
     }
+
+    if face:
+        headers["x-ms-useragent"] = "Azure-GPT-4V-image-face/1.0.0"
 
     # Payload for the request
     payload = {
@@ -234,3 +242,69 @@ def process_video_indexing(
     # Step 3: Wait for ingestion to complete
     if not wait_for_ingestion_completion(vision_api_endpoint, vision_api_key, video_index_name):
         print("Ingestion did not complete within the expected time.")
+
+
+def call_face_API(image_file_path: str, face_api_endpoint: str, face_api_key: str) -> object:
+    """
+    Calls a face recognition API and returns attributes of faces detected in the image.
+
+    Args:
+    image_file_path (str): Path to the image file.
+    face_api_endpoint (str): Endpoint URL of the face API.
+    face_api_key (str): Subscription key for the face API.
+
+    Returns:
+    tuple: A tuple containing two objects with face attributes from different API parameters.
+    """
+
+    def make_api_request(image: bytes, params: dict) -> dict:
+        """Helper function to make API request and return response."""
+        try:
+            face_api_url = face_api_endpoint + "/face/v1.0/detect"
+            response = requests.post(face_api_url, params=params, headers=headers, data=image)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            print(f"Failed to make the request. Error: {e}")
+            return None
+
+    headers = {
+        "Content-Type": "application/octet-stream",
+        "Ocp-Apim-Subscription-Key": face_api_key,
+        "x-ms-useragent": "Azure-GPT-4V-image-face/1.0.0",
+    }
+
+    params_01 = {
+        "returnFaceId": "false",
+        "returnFaceLandmarks": "false",
+        "returnFaceAttributes": ",".join(
+            [
+                "glasses",
+                "occlusion",
+                "accessories",
+                "blur",
+                "exposure",
+                "noise",
+            ]
+        ),
+    }
+    params_03 = {
+        "returnFaceId": "false",
+        "returnFaceLandmarks": "false",
+        "detectionModel": "detection_03",
+        "recognitionModel": "recognition_04",
+        "returnFaceAttributes": ",".join(["mask", "headPose", "qualityForRecognition"]),
+    }
+
+    try:
+        with Path(image_file_path).open("rb") as image_file:
+            image = image_file.read()
+
+        attributes_01 = make_api_request(image, params_01)
+        attributes_03 = make_api_request(image, params_03)
+
+        return attributes_01, attributes_03
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None, None
