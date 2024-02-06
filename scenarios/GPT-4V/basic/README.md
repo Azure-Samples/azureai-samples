@@ -1,4 +1,14 @@
 
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Process single image inputs using the GPT-4 Turbo with Vision API.
+---
+
 ## REST API Basic Samples
 
 ### Overview

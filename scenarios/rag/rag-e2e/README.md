@@ -1,4 +1,14 @@
 
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Create, register, and consume an index to answer questions based on your data using the Retrieval Augmented Generation (RAG) pattern.
+---
+
 ## Retrieval Augmented Generation (RAG) using Azure AI SDK
 
 ### Overview
@@ -9,7 +19,7 @@ This sample is useful for developers and data scientists who wish to use their d
 
 ### Objective
 
-The main objective of this tutorial is to help users understand the process of creating and index, registering the index in the cloud, using that index to build a Q&A bot to answer questions based on the indexed data. By the end of this tutorial, you should be able to:
+The main objective of this tutorial is to help users understand the process of creating an index, registering the index in the cloud, using that index to build a Q&A bot to answer questions based on the indexed data. By the end of this tutorial, you should be able to:
 
 - Create an index on Azure Cognitive search or FAISS from your local files
 - Use the index in a chatbot built using Azure OpenAI and Langchain

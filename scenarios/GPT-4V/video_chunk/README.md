@@ -1,4 +1,14 @@
 
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Use GPT-4 Turbo with Vision to process video chunks for Q&A sessions.
+---
+
 ## REST API Video Chunk Samples
 
 ### Overview
