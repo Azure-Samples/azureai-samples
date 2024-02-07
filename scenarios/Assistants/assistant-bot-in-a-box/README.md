@@ -7,7 +7,7 @@ This project deploys a virtual Assistant template to Azure.
 
 The solution architecture is described in the diagram below.
 
-![Solution Architecture](./readme_assets/architecture.png)
+![Solution Architecture](readme_assets/architecture.png)
 
 The flow of messages is as follows:
 
