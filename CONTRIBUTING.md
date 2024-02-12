@@ -127,6 +127,6 @@ Edit the product, description, and languages as needed.
 
 The Code Samples browser content is updated twice a week, so it may take a few days for your changes to be reflected.
 
-[readme template]: ./notebooks/README-template.md
-[jupyter notebook template]: ./notebooks/template.ipynb
+[readme template]: ./scenarios/README-template.md
+[jupyter notebook template]: ./scenarios/template.ipynb
 
