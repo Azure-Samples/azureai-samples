@@ -1,0 +1,6 @@
+ipykernel
+python-dotenv
+promptflow
+azure-ai-resources
+azure-ai-generative[simulator]
+openai<2

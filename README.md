@@ -1,11 +1,11 @@
 
-# Azure AI Studio Examples
+# Azure AI Samples
 
 [![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
-Welcome to the Azure AI Studio examples repository!
+Welcome to the Azure AI Samples repository!
 
-This repository acts as the top-level directory for all official Azure AI Studio sample code and examples. It includes notebooks and sample code that contain end-to-end samples as well as smaller code snippets for common developer tasks.
+This repository acts as the top-level directory for official Azure AI sample code and examples. It includes notebooks and sample code that contain end-to-end samples as well as smaller code snippets for common developer tasks.
 
 This repository is entirely open source, guidance on how to contribute and links to additional repositories are provided below.
 
@@ -15,7 +15,15 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 
 ### Other Sample Repositories
 
+#### Azure AI Studio
+
 * **[Azure/aistudio-copilot-sample]** - Quickstart repo for building an enterprise chat copilot in Azure AI Studio.
+* **[Azure-Samples/aistudio-python-quickstart-sample](https://github.com/Azure-Samples/aistudio-python-quickstart-sample)** - Quickstart Python sample for getting started with SDK or CLI.
+* **[Azure-Samples/aistudio-python-langchain-sample](https://github.com/Azure-Samples/aistudio-python-langchain-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the LangChain framework.
+* **[Azure-Samples/aistudio-python-promptflow-sample](https://github.com/Azure-Samples/aistudio-python-promptflow-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the PromptFlow framework.
+
+#### Azure AI Search
+
 * **[Azure-Samples/azure-search-openai-demo]** - Repo containing end to end samples for running the Retrieval
   Augmented Generation pattern across data using Python.
 * **[Azure-Samples/azure-search-openai-javascript]** - Repo containing end to end samples for running the Retrieval
@@ -24,11 +32,14 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
   Augmented Generation pattern across data using .NET.
 * **[Azure-Samples/azure-search-openai-demo-java]** - Repo containing end to end samples for running the Retrieval
   Augmented Generation pattern across data using Java.
+
+#### Copilot
+
 * **[microsoft/chat-copilot]** - Sample showing how to build LLM chat copilot.
+
+#### OpenAI
+
 * **[openai/openai-cookbook]** - Example code for common tasks within OpenAI.
-* **[Azure-Samples/aistudio-python-quickstart-sample](https://github.com/Azure-Samples/aistudio-python-quickstart-sample)** - Quickstart Python sample for getting started with SDK or CLI.
-* **[Azure-Samples/aistudio-python-langchain-sample](https://github.com/Azure-Samples/aistudio-python-langchain-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the LangChain framework.
-* **[Azure-Samples/aistudio-python-promptflow-sample](https://github.com/Azure-Samples/aistudio-python-promptflow-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the PromptFlow framework.
 
 ## Contributing
 

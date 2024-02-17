@@ -56,7 +56,7 @@ contribute your changes.
 From the root of your local repository, run:
 
 ```shell
-python -m pip install -r dev_requirements.txt
+python -m pip install -r dev-requirements.txt
 ```
 
 ##### 3. Set up pre-commit
@@ -75,14 +75,15 @@ pre-commit install
 
 #### Write your contribution
 
-If you are writing/updating a sample, please follow this guidance on how the samples should be structured:
+If you are writing/updating a sample, please follow this guidance on how the samples should be structured.
 
-* Please create a **separate** directory for each authored sample. Each directory should contain:
+Note that samples are organized by scenario, find the one best-suited for your sample or propose a new one for consideration.
+
+* Please create a **separate** directory for each authored sample, making sure to create it under the appropriate top-level scenario directory. Each sample's directory should contain:
     * A descriptive README in the root folder of your sample following the [README template].
     * Your sample
       * If you're adding a Python sample, please follow the [Jupyter Notebook template].
-    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on
-      files within their directory.
+    * Any other supporting files for your sample (datasets, scripts, etc...). Samples should ideally only depend on files within their directory.
 
 #### Submit your pull request
 
@@ -101,5 +102,31 @@ If you are writing/updating a sample, please follow this guidance on how the sam
 
 That's it! Thank you for your contribution!
 
-[readme template]: ./notebooks/README-template.md
-[jupyter notebook template]: ./notebooks/template.ipynb
+### Discoverability
+
+Examples in this repository can be indexed in the [Microsoft code samples browser](https://docs.microsoft.com/samples), enabling organic discoverability. To accomplish this, add the required YAML frontmatter at the top of the `README.md`
+
+The YAML frontmatter format looks like this:
+
+```YAML
+---
+page_type: sample
+languages:
+- language1
+- language2
+products:
+- ai-services
+description: Example description.
+---
+```
+
+Edit the product, description, and languages as needed.
+
+* You can find all valid product options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#product).
+* You can find valid language options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#dev-lang).
+
+The Code Samples browser content is updated twice a week, so it may take a few days for your changes to be reflected.
+
+[readme template]: ./scenarios/README-template.md
+[jupyter notebook template]: ./scenarios/template.ipynb
+
