@@ -5,13 +5,13 @@ Fine tuning GPT-35-turbo-1106 and GPT-35-turbo-0613 models with function calling
 
 Once we’ve created a fine tuned model that meets our needs, we'll put it all together by developing a basic application that allows users to check stock prices for different companies. We will use YFinance Python library for easy retrieval of current stock prices. 
 
-We will show you three notebooks as follows"
+We will show you three notebooks as follows:
 
-*fine-tuning with function calling-inference-hallucination scenario.ipynb* demonstrates how to address hallucination using a fine-tuned model with function calling.
+**fine-tuning with function calling-inference-hallucination scenario.ipynb** demonstrates how to address hallucination using a fine-tuned model with function calling.
 
-*fine-tuning with function calling-inference-token reduction scenario.ipynb* illustrates how to reduce token usage using a fine-tuned model with function calling.
+**fine-tuning with function calling-inference-token reduction scenario.ipynb** illustrates how to reduce token usage using a fine-tuned model with function calling.
 
-Finally, *fine-tuning with function calling-e2e.ipynb* showcases the utilization of a fine-tuned function calling model in an end-to-end application.
+Finally, **fine-tuning with function calling-e2e.ipynb** showcases the utilization of a fine-tuned function calling model in an end-to-end application.
 
-Please note, in all these examples, we assumed you already fine-tuned your model using teh datasets shared in this repo. 
+Please note, in all these examples, we assumed you already fine-tuned your model using the datasets shared in this repo. 
 
