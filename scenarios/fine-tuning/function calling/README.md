@@ -18,7 +18,7 @@ We created the train and test datasets for both use cases. Once we create a fine
 
 We will show you four notebooks as follows:
 
-[fine-tuning-with-function-calling.ipynb](MahsaRouzbahman/azureai-samples/blob/finetuning/scenarios/fine-tuning/function%20calling/fine-tuning-with-function-calling.ipynb) demonstrates how to fine-tune a gpt-35-turbo (0613) model with function calling for our stock price use cases. It also shows how to deploy the fine-tuned model for inference.
+**fine-tuning-with-function-calling.ipynb** demonstrates how to fine-tune a gpt-35-turbo (0613) model with function calling for our stock price use cases. It also shows how to deploy the fine-tuned model for inference.
 
 **inference-finetuned model-hallucination.ipynb** demonstrates how to do inference with a fine-tuned model to address hallucination use case.
 
