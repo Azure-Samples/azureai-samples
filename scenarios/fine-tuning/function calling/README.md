@@ -31,6 +31,8 @@ Finally, **finetuning-function calling-e2e application.ipynb** showcases the uti
 
 - Python
 
+## Estimated Runtime: 60-120 mins
+
 
 
 
