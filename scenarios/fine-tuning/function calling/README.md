@@ -22,7 +22,7 @@ We will show you four notebooks as follows:
 
 **inference-finetuned model-hallucination.ipynb** demonstrates how to do inference with a fine-tuned model to address hallucination use case.
 
-**inference-finetuned model-token reduction.ipynb** illustrates to do inference with a fine-tuned model for the token reduction use case.
+**inference-finetuned model-token reduction.ipynb** illustrates how to do inference with a fine-tuned model for the token reduction use case.
 
 Finally, **finetuning-function calling-e2e application.ipynb** showcases the utilization of a fine-tuned function calling model in an end-to-end application.
 
