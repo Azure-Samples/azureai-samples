@@ -102,6 +102,15 @@ Note that samples are organized by scenario, find the one best-suited for your s
 
 That's it! Thank you for your contribution!
 
+> [!IMPORTANT]
+>
+> You should expect to budget time to engage with reviewers (responding to comments, fixing PR checks) before your PR is merged in. This is especially
+> relevant if your contribution is _time-sensitive_.
+>
+> Adhering to the guidance in this document (i.e [using pre-commit](#3-set-up-pre-commit), [using provided templates](#write-your-contribution)) ***will***
+> help expedite the review process.
+
+
 ### Discoverability
 
 Examples in this repository can be indexed in the [Microsoft code samples browser](https://docs.microsoft.com/samples), enabling organic discoverability. To accomplish this, add the required YAML frontmatter at the top of the `README.md`
