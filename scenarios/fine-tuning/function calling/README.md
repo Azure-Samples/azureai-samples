@@ -1,7 +1,12 @@
-
-| page_type  | languages | products                | description                                             |
-|-----------|-----------|--------------------------|---------------------------------------------------------|
-| sample    | python    | ai-services azure-openai | fine-tuning and inference with finction calling samples |
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Fine-tuning and inference with finction calling samples
+---
 
 ## Overview
 
