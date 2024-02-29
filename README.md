@@ -33,6 +33,9 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 * **[Azure-Samples/azure-search-openai-demo-java]** - Repo containing end to end samples for running the Retrieval
   Augmented Generation pattern across data using Java.
 
+#### Azure AI Assistant
+* **[Azure-Samples/azure-ai-assistant-tool]** - Repo containing the Azure AI Assistant Tool and Python middleware libraries for quick experimentation, testing, and debugging of Azure OpenAI assistants in your local environment.
+
 #### Copilot
 
 * **[microsoft/chat-copilot]** - Sample showing how to build LLM chat copilot.
@@ -67,6 +70,7 @@ If you'd like to implement it yourself, please refer to our [contributing guidel
 [Azure-Samples/azure-search-openai-javascript]: https://github.com/Azure-Samples/azure-search-openai-javascript
 [Azure-Samples/azure-search-openai-demo-csharp]: https://github.com/Azure-Samples/azure-search-openai-demo-csharp
 [Azure-Samples/azure-search-openai-demo-java]: https://github.com/Azure-Samples/azure-search-openai-demo-java
+[Azure-Samples/azure-ai-assistant-tool]: https://github.com/Azure-Samples/azureai-assistant-tool
 [contributing guidelines]: ./CONTRIBUTING.md
 [microsoft/chat-copilot]: https://github.com/microsoft/chat-copilot
 [new issue page]: https://github.com/Azure-Samples/azureai-samples/issues/new/choose
