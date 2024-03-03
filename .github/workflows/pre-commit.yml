@@ -21,3 +21,8 @@ jobs:
       - run: pip install -r dev-requirements.txt
       - name: Run Pre-Commit
         run: pre-commit run --all-files
+      - name: Commit linting changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "Clean and format files with pre-commit"
