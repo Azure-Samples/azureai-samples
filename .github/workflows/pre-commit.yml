@@ -20,7 +20,7 @@ jobs:
           python-version: "3.8"
       - run: pip install -r dev-requirements.txt
       - name: Run Pre-Commit
-        run: pre-commit run --all-files
+        run: pre-commit run --all-files || true
       - name: Commit linting changes
         uses: EndBug/add-and-commit@v9
         with:
