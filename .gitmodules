@@ -1,0 +1,3 @@
+[submodule "scenarios/Assistants/contoso_financial_assistant"]
+	path = scenarios/Assistants/contoso_financial_assistant
+	url = https://github.com/shikha1970/contoso_financial_assistant
