@@ -1,0 +1,7 @@
+azure_storage==0.37.0
+beautifulsoup4==4.12.3
+Flask==3.0.2
+Flask_Cors==4.0.0
+openai==1.14.0
+python-dotenv==1.0.1
+Requests==2.31.0
