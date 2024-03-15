@@ -1,6 +1,6 @@
 # Contoso Financial Assistant
 
-![Contoso Financials](media/ContosoFinancials.png)
+![Contoso Financials](media/ContosoFinancials.jpg)
 
 ## Description
 
