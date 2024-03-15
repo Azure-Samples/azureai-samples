@@ -22,6 +22,7 @@ def upload_file() -> list[str]:
         found = False
         for prv_file in my_files.data:
             if prv_file.filename == filename:
+                print("File already exists: ", filename)
                 assistant_files.append(prv_file.id)
                 found = True
                 break
@@ -29,6 +30,7 @@ def upload_file() -> list[str]:
         if found is False:
             filePath = DATA_FOLDER + filename
             with Path(filePath).open("rb") as f:
+                print("Uploading file: ", filePath)
                 new_file = client.files.create(file=f, purpose="assistants")
                 assistant_files.append(new_file.id)
 
@@ -226,7 +228,6 @@ def poll_run_till_completion(
     thread_id: str,
     run_id: str,
     available_functions: dict,
-    verbose: bool,
     max_steps: int = 10,
     wait: int = 5,
 ) -> None:
@@ -249,11 +250,8 @@ def poll_run_till_completion(
         return None
     try:
         cnt = 0
-        prv_step_id_list = []
         while cnt < max_steps:
             run = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run_id)
-            if verbose:
-                print("Poll {}: {}".format(cnt, run.status))
             cnt += 1
             # print(run)
             # print("------------\n")
@@ -287,29 +285,22 @@ def poll_run_till_completion(
                     thread_id=thread_id, run_id=run.id, tool_outputs=tool_responses
                 )
             if run.status == "failed":
-                print(f"Run failed: {run.last_error}")
+                # print(f"Run failed: {run.last_error}")
+                print("Run failed")
                 print(run)
                 return 0
             if run.status == "completed":
                 return 1
 
-            if 1 == 2:
-                step_details, step_id_list = get_step_details(
-                    run, client.beta.threads.retrieve(thread_id), prv_step_id_list
-                )
-                for step_id in step_id_list:
-                    prv_step_id_list.append(step_id)
-                print(step_details)
             time.sleep(wait)
 
     except Exception as e:
         print(e)
+        return 0
 
 
 # add type annotations to the function signature
-def retrieve_and_print_messages(
-    client: AzureOpenAI, thread_id: str, verbose: bool, out_dir: Optional[str] = None
-) -> any:
+def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
     """
     Retrieve a list of messages in a thread and print it out with the query and response
 
@@ -323,11 +314,10 @@ def retrieve_and_print_messages(
     final_response = []
     try:
         messages = client.beta.threads.messages.list(thread_id=thread_id)
-
+        # print(messages)
         for md in reversed(messages.data):
-            if verbose and out_dir:
-                print(md.role)
             if md.role == "user":
+                # print(final_response)
                 final_response = []
                 continue
 
@@ -336,11 +326,26 @@ def retrieve_and_print_messages(
                 print(mc.type)
                 if mc.type == "text":
                     txt_val = mc.text.value
+                    annotations = mc.text.annotations
                     bytes_val = txt_val.encode("utf-8")
                     encoded_val = base64.b64encode(bytes_val).decode("utf-8")
                     final_response.append(
                         {"text_data": encoded_val, "message_id": md.id}
                     )
+                    print("\n--------------------")
+                    print(mc)
+                    print("\n--------------------")
+                    for _index, annotation in enumerate(annotations):
+                        # if (file_citation := getattr(annotation, 'file_citation', None)):
+                        #    image_data = client.files.content(file_citation.file_id).content
+                        if file_path := getattr(annotation, "file_path", None):
+                            image_data = client.files.content(file_path.file_id).content
+                            encoded_string = base64.b64encode(image_data).decode(
+                                "utf-8"
+                            )
+                            final_response.append(
+                                {"img_data": encoded_string, "message_id": md.id}
+                            )
                 # Check if valid image field is present in the mc object
                 elif mc.type == "image_file":
                     print("Found image file")
@@ -349,7 +354,10 @@ def retrieve_and_print_messages(
                     final_response.append(
                         {"img_data": encoded_string, "message_id": md.id}
                     )
+
     except Exception as e:
+        print("got error")
+        print(e)
         final_response.append({"error_data": e})
 
     return final_response

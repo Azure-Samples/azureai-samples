@@ -201,9 +201,15 @@ AI GBB Asia
 let currentIndex = 0;
 
 prv_step_id_list = []
+pending_count = 0
 async function addMenuItem() {
     if (thread_id == "" || run_id == "")
       return
+    if (pending_count > 0)
+      return
+    console.log(pending_count)
+    pending_count += 1
+    console.log(pending_count)
     const menu = document.querySelector('.menu');
 
     url="http://localhost:5007/get_step"
@@ -211,8 +217,10 @@ async function addMenuItem() {
     formData.append('run_id', run_id);
     formData.append('thread_id', thread_id);
     formData.append('prv_step_id_list', prv_step_id_list);
-        
+    
     const data1 = await call_url(url, formData);
+    pending_count -= 1
+    console.log(pending_count)
     data = JSON.parse(data1)
     console.log(data)
     step_id_list = data["step_id_list"];
@@ -307,7 +315,7 @@ async function get_response(query) {
         // For now, it just echoes the user's query
         if (run_id != ""){
           //addMenuItem()
-          const intervalId = setInterval(addMenuItem, 5000);
+          const intervalId = setInterval(addMenuItem, 10000);
           g_intervalId = intervalId;
         }
         url="http://localhost:5007/get_answer"
@@ -324,15 +332,16 @@ async function get_response(query) {
           document.querySelectorAll('.menu-item').forEach(item => {
             item.classList.remove('flash');
           });
-        thread_id = data["thread_id"];
-        run_id = data["run_id"];
+        data1 = JSON.parse(data)
+        thread_id = data1["thread_id"];
+        run_id = data1["run_id"];
 
-        display_assistant_response(data);
+        display_assistant_response(data1);
         
 }
 
-function display_assistant_response(data){
-  json_data = JSON.parse(data);
+function display_assistant_response(json_data){
+  //json_data = JSON.parse(data);
   thread_id = json_data["thread_id"];
   run_id = json_data["run_id"];
   messages = json_data["messages"];
@@ -410,7 +419,7 @@ function display_assistant_response(data){
 
       // add image called assistant_icon.png
       var img = document.createElement('img');
-      img.src = 'assistant_icon.png';
+      img.src = 'assistant_icon.jpg';
       img.width = 20;
       img.height = 20;
       img.style.marginRight = '10px'

@@ -72,6 +72,9 @@ The main file in this project is `assistant.html`.
 
 1. Start the backend server using command flask run --host 0.0.0.0 -p5007
 2. Launch the frontend application by opening `assistant.html` file in your browser.
+3. Sample question: I purchased a washing machine on Premier credit card. 
+I was to pay an emi of 1000 rs for 1 year every month. 
+I missed my first emi due this month. How much do i pay now?
 
 
 ## Contributing
