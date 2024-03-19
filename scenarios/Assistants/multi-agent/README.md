@@ -14,6 +14,7 @@ description: An example of creating a multi-agent application using Azure OpenAI
 This repo will walk you through the pattern of creating a multi-agent system using the Azure OpenAI Assistant API. 
 
 ![Screenshot](Figure1.jpg)
+
 Figure 1 – Multi-Agent Architecture Example
 
 #### Introduction: What are Agents? 
@@ -41,6 +42,7 @@ The Dalle Assistant has a function to generate images that calls the Dall-e mode
 The Vision Assistant has a function to analyze images that calls the GPT-4 Vision model to analyze an image.
 
 ![Screenshot](Figure2.jpg)
+
 Figure 2 – Proxy, Dalle and Vision Assistants
 
 The three assistants are initialized as follows:
@@ -73,6 +75,7 @@ You can find the definition and functions of these agents in the sample notebook
 #### The User Proxy Agent
 
 ![Screenshot](Figure3.jpg)
+
 Figure 3 – Proxy Agent Thread
 
 We begin by creating the User Proxy Assistant thread as follows:
@@ -111,6 +114,7 @@ if not recipient_info["thread"]:
 For example, if the User Proxy Assistant needs to call the Dalle Assistant it creates a new thread between both agents as shown in Figure 4. 
 
 ![Screenshot](Figure4.jpg)
+
 Figure 4 – User Proxy and Dall-e Assistant communication 
 
 The send message function calls another function to create and dispatch a message to the appropriate agent to execute the task. 
@@ -188,12 +192,14 @@ The output is the message back to proxy agent through the submit_tool_outputs.
 For example, as demonstrated in Figure 5, the Dall-e Assistant sends back the created image to the User Proxy Assistant thread.
 
 ![Screenshot](Figure5.jpg)
+
 Figure 5 – The message and output between assistants
 
 #### Multi-Agent Process
 The Proxy User Assistant then needs to call the Vision Assistant to analyze the image and provide feedback. The Proxy User Assistant repeats the same process as above but this time it calls the Vision Assistant, thus generating a new thread to the existing Proxy User Thread. This step can be repeated over and over again until the task is completed as shown in Figure 1. 
 
 ![Screenshot](Figure1.jpg)
+
 Figure 1 – Multi-Agent Architecture Example
 
 #### Optional - Plan
@@ -223,6 +229,37 @@ Please see attached notebook for output example.
 
 ### Estimated Runtime: 5-10 mins
 
+## Example Output
 
+Dalle Assistant Message: Creating the image ...
+
+![Screenshot](Output1.jpg)
+
+Vision Assistant Message: Analyzing the image...
+Vision Assistant Message: This image portrays a bustling, vibrant metropolis set in a futuristic or outer-space environment. The color palette is particularly rich, with purples and blues providing an otherworldly atmosphere that's both inviting and intriguing. A mix of organic and geometric shapes gives the cityscape an eclectic architectural style, accompanied by hovering spacecraft and distant planets that solidify the sci-fi setting.
+
+The foreground exhibits a diverse array of beings, suggesting a cosmopolitan community where various species coexist. The urban landscape is reflected beautifully on the water's surface, enhancing the sense of depth and scale. Moreover, the use of light and shadow is well-executed, creating a dynamic contrast that draws the eye to different parts of the image.
+
+However, the artwork could be criticized for potentially overwhelming detail, which could be streamlined for more focus and impact. The composition might benefit from a more distinct focal point to guide the viewer's attention. Also, the city's elements seem uniformly distributed across the space, which might lead to a lack of hierarchy within the visual narrative.
+
+Considering the criticism and analysis, here is an enhanced prompt for Dall-e:
+
+"Create an image of a futuristic cityscape at twilight, focusing on a central towering spire that is the main focal point. Use a color palette dominated by shades of purples and blues with strategic lighting to highlight architectural features. Include diverse sentient beings coexisting harmoniously in the foreground, but ensure the detail doesn't overwhelm the composition. Reflect the cityscape in the calm surface of a body of water to add depth, and include a few strategically placed spacecraft within the sky to enhance the sci-fi atmosphere."
+
+Dalle Assistant Message: Creating the image ...
+
+![Screenshot](Output2.jpg)
  
+Vision Assistant Message: Analyzing the image...
+
+Vision Assistant Message: This image depicts a futuristic city with a striking central tower surrounded by other tall spires, all illuminated against a twilight sky and a stunning cosmic backdrop. The use of light and color in the image is impressive, giving a sense of depth and grandeur to the scene. The reflections on the water and the detailed lighting of the cityscape add to the overall visual impact.
+
+However, the image could benefit from a clearer sense of scale and perspective. The central tower, while impressive, appears somewhat isolated without any visible activity or context to anchor its significance within the city. Additionally, the shooting stars in the sky, though visually appealing, seem random and could be better integrated into the composition.
+
+Enhanced Prompt for Dall-e:
+"Create an image of a futuristic city during twilight, with a central tower that is not only the tallest and most radiant structure but also bustling with activity. Include visible transportation systems, such as flying cars or public transit, connecting the tower to the rest of the city. Integrate the cosmic backdrop more cohesively by having the shooting stars interact with the city's energy grid or serve as a source of power for the city. Emphasize the sense of scale by showing people or recognizable objects in the foreground for comparison."
+Dalle Assistant Message: Creating the image ...
+
+![Screenshot](Output3.jpg)
+
 
