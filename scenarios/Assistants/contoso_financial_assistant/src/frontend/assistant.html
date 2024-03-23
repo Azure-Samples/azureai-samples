@@ -186,7 +186,7 @@ div[style="display: flex;"] {
     </div>
     <div class="input-container">
       <input type="text" class="chat-input" id="userInput" placeholder="Type your query...">
-      <button class="send-button" onclick="sendMessage()">Send</button>
+      <button class="send-button" onclick="sendMessage()" id="btnInput">Send</button>
     </div>
   </div>
   
@@ -200,9 +200,11 @@ AI GBB Asia
   let menu_items = ["🍴 Chopping Salad", "🥗 Salad Dressing", "* Special Dish", "#1 Best Seller", "⭐ Featured Item"];
 let currentIndex = 0;
 
-prv_step_id_list = []
+
 pending_count = 0
+
 async function addMenuItem() {
+    
     if (thread_id == "" || run_id == "")
       return
     if (pending_count > 0)
@@ -216,7 +218,6 @@ async function addMenuItem() {
     const formData = new URLSearchParams();
     formData.append('run_id', run_id);
     formData.append('thread_id', thread_id);
-    formData.append('prv_step_id_list', prv_step_id_list);
     
     const data1 = await call_url(url, formData);
     pending_count -= 1
@@ -224,14 +225,7 @@ async function addMenuItem() {
     data = JSON.parse(data1)
     console.log(data)
     step_id_list = data["step_id_list"];
-    for (i=0; i<step_id_list.length; ++i)
-      if (prv_step_id_list.includes(step_id_list[i])) 
-        continue;
-      else
-        prv_step_id_list.push(step_id_list[i]); 
-    
     step_list = data["step_list"];
-    console.log(prv_step_id_list)
     
 
     // Create a new menu item
@@ -240,14 +234,15 @@ async function addMenuItem() {
       //check if element if id exists
       if (document.getElementById(id) != null)
         continue
+
+    while (menu.children.length >= 15) {
+        menu.removeChild(menu.firstChild);
+    }  
       const menuItem = document.createElement('div');
       menuItem.className = 'menu-item'; // Initially, don't add the 'flash' class
       menuItem.innerHTML = step_list[i];
       menuItem.id = id;
-      menuItem.onclick = function() { console.log(menu_items[currentIndex] + " clicked"); };
       menu.appendChild(menuItem);
-      if (i == step_list.length - 1)
-        menuItem.classList.add('flash');
     }
 
     // Add 'flash' class to the newly added item to make it flash
@@ -259,7 +254,7 @@ async function addMenuItem() {
 
 // Set up the interval to add a menu item every 10 seconds
 
- g_intervalId = -1
+ 
 
   
   document.getElementById('toggleAnimation').addEventListener('click', function() {
@@ -282,8 +277,7 @@ async function addMenuItem() {
   }
 
 
-  thread_id = ""
-  run_id = ""
+  
   async function call_url(url, formData){
     try{
         const response = await fetch(url, {
@@ -310,34 +304,40 @@ async function addMenuItem() {
   }
 
 
+g_intervalId = -1
+thread_id = ""
+run_id = ""
 async function get_response(query) {
         // This function should contain the logic to get the assistant's response
         // For now, it just echoes the user's query
-        if (run_id != ""){
-          //addMenuItem()
-          const intervalId = setInterval(addMenuItem, 10000);
-          g_intervalId = intervalId;
-        }
+        
         url="http://localhost:5007/get_answer"
         const formData = new URLSearchParams();
         formData.append('query', query);
         formData.append('thread_id', thread_id);
+
+        document.getElementById('userInput').disabled = true;
+        document.getElementById('btnInput').disabled = true;
         
         const data = await call_url(url, formData);
-        if (g_intervalId != -1)
-          clearInterval(g_intervalId);
-          const menu = document.querySelector('.menu');
-
-          // Remove 'flash' class from all existing menu items
-          document.querySelectorAll('.menu-item').forEach(item => {
-            item.classList.remove('flash');
-          });
+        try{
+            data1 = JSON.parse(data)
+        } catch (error) {
+            console.log(data)
+            return
+        }
         data1 = JSON.parse(data)
         thread_id = data1["thread_id"];
         run_id = data1["run_id"];
 
+        if (g_intervalId == -1) {              
+          g_intervalId = setInterval(addMenuItem, 2000);
+        }
+
         display_assistant_response(data1);
         
+        document.getElementById('userInput').disabled = false;
+        document.getElementById('btnInput').disabled = false;
 }
 
 function display_assistant_response(json_data){

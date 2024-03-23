@@ -187,9 +187,7 @@ def create_message(
 
 
 # add type annotations to the function signature
-def get_step_details(run: any, thread: any, prv_stepid: Optional[list] = None) -> any:
-    if prv_stepid is None:
-        prv_stepid = []
+def get_step_details(run: any, thread: any) -> any:
     arr_retval = []
     arr_stepid = []
     run_steps = client.beta.threads.runs.steps.list(thread_id=thread.id, run_id=run.id)
@@ -228,8 +226,8 @@ def poll_run_till_completion(
     thread_id: str,
     run_id: str,
     available_functions: dict,
-    max_steps: int = 10,
-    wait: int = 5,
+    max_steps: int = 20,
+    wait: int = 0.5,
 ) -> None:
     """
     Poll a run until it is completed or failed or exceeds a certain number of iterations (MAX_STEPS)
@@ -244,7 +242,7 @@ def poll_run_till_completion(
     @param wait: Wait time in seconds between polls
 
     """
-
+    max_steps = 100
     if (client is None and thread_id is None) or run_id is None:
         print("Client, Thread ID and Run ID are required.")
         return None
@@ -253,10 +251,11 @@ def poll_run_till_completion(
         while cnt < max_steps:
             run = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run_id)
             cnt += 1
-            # print(run)
-            # print("------------\n")
+            print("------------\n")
+            print(run.status)
+            print("------------\n")
             if run.status == "requires_action":
-                # print("requires action")
+                print("requires action")
                 tool_responses = []
                 if (
                     run.required_action.type == "submit_tool_outputs"
@@ -285,15 +284,14 @@ def poll_run_till_completion(
                     thread_id=thread_id, run_id=run.id, tool_outputs=tool_responses
                 )
             if run.status == "failed":
-                # print(f"Run failed: {run.last_error}")
                 print("Run failed")
+                # print(f"Run failed: {run.last_error}")
                 print(run)
                 return 0
             if run.status == "completed":
                 return 1
-
             time.sleep(wait)
-
+        print("Run exceeded maximum steps:", max_steps)
     except Exception as e:
         print(e)
         return 0
@@ -323,7 +321,7 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
 
             for mc in md.content:
                 # Check if valid text field is present in the mc object
-                print(mc.type)
+                print("mc.type:", mc.type)
                 if mc.type == "text":
                     txt_val = mc.text.value
                     annotations = mc.text.annotations
@@ -333,7 +331,7 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                         {"text_data": encoded_val, "message_id": md.id}
                     )
                     print("\n--------------------")
-                    print(mc)
+                    print("mc:", mc)
                     print("\n--------------------")
                     for _index, annotation in enumerate(annotations):
                         # if (file_citation := getattr(annotation, 'file_citation', None)):
@@ -351,9 +349,15 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     print("Found image file")
                     image_data = client.files.content(mc.image_file.file_id).content
                     encoded_string = base64.b64encode(image_data).decode("utf-8")
-                    final_response.append(
-                        {"img_data": encoded_string, "message_id": md.id}
-                    )
+                    found = False
+                    for msg in final_response:
+                        if "img_data" in msg and msg["img_data"] == encoded_string:
+                            found = True
+                            break
+                    if not found:
+                        final_response.append(
+                            {"img_data": encoded_string, "message_id": md.id}
+                        )
 
     except Exception as e:
         print("got error")

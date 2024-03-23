@@ -4,7 +4,11 @@
 
 ## Description
 
-This repository contains the backend and frontend code for the Contoso Financials Assistant. It is designed to provide financial assistance to users by leveraging various technologies.
+This repository contains the backend and frontend code for the Contoso Financials Assistant. It is designed to provide financial assistance to users by leveraging various technologies. It caters to below types of queries
+- Queries related to latest stock index news or currency ecchange rates
+- Contoso financial financial performance in year 2023
+- Contoso financial product lines
+- Late EMI related queries for paurchases made using Conto Premier Credit Card 
 
 
 ## Backend - Tools and Functionalities
@@ -13,25 +17,20 @@ This repository contains the backend and frontend code for the Contoso Financial
 
 - **Dynamic Response Generation:** This tool is essential for generating dynamic responses to queries that require real-time data processing or when a custom response generation is necessary, ensuring flexibility and adaptability in handling user requests.
 
-### Categorize User Query
-
-- **AI-Powered Categorization:** Utilizing AI Search and Azure Open AI, this functionality determines the most relevant category and subcategory for a given user query.
-- **Efficient Query Routing:** By accurately categorizing queries, the system ensures that each is routed to the appropriate processing logic or data source, enhancing the relevance and accuracy of responses.
-
 ### Web Search with Freshness Filter
 
 - **Integration with Bing's Search API:** This feature leverages Bing's search API to find web content related to a user's query, enriching the data available for response generation.
-- **Freshness Filter:** Offers the option to filter search results based on their recency, making it invaluable for providing users with the latest financial news, currency exchange rates, or stock market updates.
+
+### Categorize User Query
+
+- **AI-Powered Categorization:** Utilizing AI Search and Azure Open AI, this functionality determines the most relevant category and subcategory for a given user query.
+
 
 ## Integration and Workflow
 
 ### User Query Processing
 
-Upon receipt of a user query, the system utilizes the intent categorization tool to determine the context and relevant financial domain, ensuring that queries are appropriately classified from the outset.
-
-### Data Retrieval and Processing
-
-Depending on the query's category, the backend may:
+Depending on the type of query, the backend may:
 - Perform a web search using Bing's API for up-to-date information.
 - Access local data files for static data.
 - Invoke the code interpreter for dynamic data processing, catering to a wide range of informational and transactional queries.
@@ -70,11 +69,25 @@ The main file in this project is `assistant.html`.
 
 ## Usage
 
-1. Start the backend server using command flask run --host 0.0.0.0 -p5007
-2. Launch the frontend application by opening `assistant.html` file in your browser.
-3. Sample question: I purchased a washing machine on Premier credit card. 
-I was to pay an emi of 1000 rs for 1 year every month. 
-I missed my first emi due this month. How much do i pay now?
+1. Create AI Search index for user query categorization by executing create_intent_index.py 
+2. Start the backend server using command flask run --host 0.0.0.0 -p5007
+3. Launch the frontend application by opening `assistant.html` file in your browser.
+4. Sample conversation:
+| User Query | Assistant Response |
+|------------|---------------------|
+| **User**: Hi | **Assistant**: Hello! How can I help? |
+| | **Assistant**: Questions on Contoso Financials? Ask away. |
+| **User**: Missed first EMI of 1000 rs. Amount due? | **Assistant**: Pay INR 2,050 this month. |
+| **User**: If all EMIs are missed, amount due by year-end? | **Assistant**: Approx. INR 16,713 due by year-end. |
+| **User**: Chart for balance due each month? | **Assistant**: Chart provided. Shows monthly balance due. |
+| **User**: This is great help! | **Assistant**: Glad to help! Summary: |
+| | **Assistant**: - Inquired about missed EMI payment. |
+| | **Assistant**: - Due this month: INR 2,050. |
+| | **Assistant**: - Year-end due with missed payments: INR 16,713. |
+| | **Assistant**: - Provided monthly due balance chart. |
+| | **Assistant**: Category: Credit Card. Subcategory: Payment Options. |
+| | **Assistant**: Need more help? Just ask. Have a great day! |
+
 
 
 ## Contributing

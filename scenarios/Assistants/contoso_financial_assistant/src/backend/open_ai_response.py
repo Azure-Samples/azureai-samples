@@ -51,7 +51,7 @@ def get_response_from_openai(
             top_p=0.95,
             frequency_penalty=0.5,
             presence_penalty=0.5,
-            response_format={"type": "json_object"},
+            # response_format={"type": "json_object"},
             stop=None,
         )
         # print(completeion)
