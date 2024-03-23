@@ -73,20 +73,9 @@ The main file in this project is `assistant.html`.
 2. Start the backend server using command flask run --host 0.0.0.0 -p5007
 3. Launch the frontend application by opening `assistant.html` file in your browser.
 4. Sample conversation:
-| User Query | Assistant Response |
-|------------|---------------------|
-| **User**: Hi | **Assistant**: Hello! How can I help? |
-| | **Assistant**: Questions on Contoso Financials? Ask away. |
-| **User**: Missed first EMI of 1000 rs. Amount due? | **Assistant**: Pay INR 2,050 this month. |
-| **User**: If all EMIs are missed, amount due by year-end? | **Assistant**: Approx. INR 16,713 due by year-end. |
-| **User**: Chart for balance due each month? | **Assistant**: Chart provided. Shows monthly balance due. |
-| **User**: This is great help! | **Assistant**: Glad to help! Summary: |
-| | **Assistant**: - Inquired about missed EMI payment. |
-| | **Assistant**: - Due this month: INR 2,050. |
-| | **Assistant**: - Year-end due with missed payments: INR 16,713. |
-| | **Assistant**: - Provided monthly due balance chart. |
-| | **Assistant**: Category: Credit Card. Subcategory: Payment Options. |
-| | **Assistant**: Need more help? Just ask. Have a great day! |
+I purchased a washing machine on Premier credit card. 
+I was to pay an emi of 1000 rs every month for a period on 1 year.. 
+I missed my first EMI due last month. How much do i pay this month?
 
 
 
