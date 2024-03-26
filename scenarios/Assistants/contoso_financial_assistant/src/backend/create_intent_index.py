@@ -1,4 +1,3 @@
-# create_intent_index.py
 import os
 from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential

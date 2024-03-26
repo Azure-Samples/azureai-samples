@@ -1,4 +1,3 @@
-# assistant_tools.py
 tools_list = [
     {"type": "code_interpreter"},
     # {"type": "retrieval"},

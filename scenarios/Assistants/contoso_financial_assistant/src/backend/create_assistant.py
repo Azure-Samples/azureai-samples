@@ -1,4 +1,3 @@
-# create_assistant.py
 import json
 import os
 import time
@@ -16,7 +15,7 @@ DATA_FOLDER = "./data/"
 # add type annotations to the function signature
 def upload_file() -> list[str]:
     arr = os.listdir(DATA_FOLDER)
-    assistant_files = []
+    assistant_files = {}
     my_files = client.files.list()
 
     for filename in arr:
@@ -33,7 +32,7 @@ def upload_file() -> list[str]:
             with Path(filePath).open("rb") as f:
                 print("Uploading file: ", filePath)
                 new_file = client.files.create(file=f, purpose="assistants")
-                assistant_files.append(new_file.id)
+                assistant_files[filename] = new_file.id
 
     return assistant_files
 
