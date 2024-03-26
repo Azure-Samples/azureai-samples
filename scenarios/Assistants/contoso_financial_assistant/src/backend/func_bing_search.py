@@ -28,9 +28,10 @@ def get_bing_search_url(search_term: str, freshness: Optional[str] = None) -> li
     search_results = response.json()
     url_list = []
 
-    top_search_result = search_results["webPages"]["value"][0:1]
-    for search_result in top_search_result:
-        url_list.append(search_result["url"])
+    if "webPages" in search_results:
+        top_search_result = search_results["webPages"]["value"][0:1]
+        for search_result in top_search_result:
+            url_list.append(search_result["url"])
     return url_list
 
 
@@ -56,14 +57,17 @@ def search_web(query: str, freshness: Optional[str] = None) -> str:
 
 
 def search_web_with_freshness_filter(query: str, freshness: str) -> str:
-    knowledgebase = search_web(query, freshness)
-    # print(knowledgebase)
-    system_role = """You answer users query based on input knowledge base. 
-    You share the output as json."""
-    output_json = {"Answer": "<Answer based on input knowledgebase>"}
-    system_content = (
-        f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
-    )
-    resp = get_response_from_openai(query, system_content)
-    print(resp)
+    try:
+        knowledgebase = search_web(query, freshness)
+        # print(knowledgebase)
+        system_role = """You answer users query based on input knowledge base. 
+        You share the output as json."""
+        output_json = {"Answer": "<Answer based on input knowledgebase>"}
+        system_content = f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
+        resp = get_response_from_openai(query, system_content)
+        print(resp)
+    except Exception:
+        resp = {
+            "Answer": "Unable to retrieve results at this time. Please try again later."
+        }
     return resp
