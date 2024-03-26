@@ -145,9 +145,6 @@ async def qna_as_callback(
 ) -> dict:
     question = messages["messages"][0]["content"]
     response_from_acs, temperature = qna(question)
-    import pdb
-
-    pdb.set_trace()
     formatted_response = {
         "content": response_from_acs["result"],
         "role": "assistant",
