@@ -1,9 +1,4 @@
-# coding: utf-8
-
-# -------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Lic
-
+# create_intent_index.py
 import os
 from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential

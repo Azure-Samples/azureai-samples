@@ -1,3 +1,4 @@
+# func_get_intent.py
 from create_intent_index import hybrid_search
 from open_ai_response import get_response_from_openai
 
