@@ -221,7 +221,6 @@ def get_step_details(run: any, thread: any) -> any:
     return arr_retval, arr_stepid
 
 
-# add type annotations to the function signature
 def poll_run_till_completion(
     client: AzureOpenAI,
     thread_id: str,

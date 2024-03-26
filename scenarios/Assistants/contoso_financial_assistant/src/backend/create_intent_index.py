@@ -124,9 +124,6 @@ def keyword_search(query: str) -> list:
     search_client = SearchClient(
         search_endpoint, search_index_name, AzureKeyCredential(search_key)
     )
-    VectorizedQuery(
-        vector=get_embeddings(query), k_nearest_neighbors=3, fields="L2_L3Vector"
-    )
 
     results = search_client.search(
         search_text=query,

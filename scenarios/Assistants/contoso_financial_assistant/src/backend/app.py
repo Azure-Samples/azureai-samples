@@ -22,7 +22,8 @@ from open_ai_response import client
 
 # clean_assistants()
 # clean_files()
-
+cache = {}
+verbose_output = False
 assistant_name = "bfsi-assistant"
 instructions = """You are an assistant designed to help answer customer queries.
 \n -------------
@@ -51,20 +52,12 @@ You use below mentioned data sources depending on the category of the query:
 \n -------------
 \nYou leverage code interpreter tool wherever necessary to execute code snippets and provide responses.
 """
-
 available_functions = {
     "search_web_with_freshness_filter": search_web_with_freshness_filter,
     "categorize_user_query": categorize_user_query,
 }
-# available_functions = {"categorize_user_query":categorize_user_query}
-verbose_output = False
-clean_assistants()
-clean_files()
-file_ids = upload_file()
-assistant = create_assistant(assistant_name, instructions, tools_list, file_ids)
 
 
-# add type annotations to the function signature
 def get_answer_for_query(user_query: str, thread_id: str) -> dict:
     message = {"role": "user", "content": user_query}
     thread = create_thread(thread_id)
@@ -92,6 +85,10 @@ def get_answer_for_query(user_query: str, thread_id: str) -> dict:
     return {"messages": final_response, "thread_id": thread.id, "run_id": run.id}
 
 
+clean_assistants()
+clean_files()
+file_ids = upload_file()
+assistant = create_assistant(assistant_name, instructions, tools_list, file_ids)
 app = Flask(__name__)
 CORS(app)
 
@@ -109,9 +106,6 @@ def api_get_step() -> dict:
     thread = client.beta.threads.retrieve(thread_id)
     step_list, step_id_list = get_step_details(run, thread)
     return {"step_list": step_list, "step_id_list": step_id_list}
-
-
-cache = {}
 
 
 @app.route("/get_answer", methods=["POST"])
