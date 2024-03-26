@@ -27,7 +27,7 @@ simulator = Simulator.from_pf_path(
     ai_client=client,
 )
 
-outputs = asyncio.run(simulator.simulate_async(template=template, max_conversation_turns=2))
+outputs = asyncio.run(simulator.simulate_async(template=template, max_conversation_turns=1))
 
 for line in outputs:
     print(json.dumps(line, indent=2))

@@ -166,7 +166,7 @@ def simulate_data() -> List[Dict]:
     adv_template = Simulator.get_template("adv_qa")
     return asyncio.run(
         simulator.simulate_async(
-            adv_template, max_conversation_turns=2, simulation_result_limit=6, api_call_delay_sec=10
+            adv_template, max_conversation_turns=1, max_simulation_results=6, api_call_delay_sec=10
         )
     )
 
