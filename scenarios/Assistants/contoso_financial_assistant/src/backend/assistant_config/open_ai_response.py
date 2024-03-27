@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import openai
+from openai import AzureOpenAI
 
 load_dotenv(override=True)
 
@@ -14,7 +15,7 @@ open_ai_deployment_name = os.getenv("OPEN_AI_DEPLOYMENT_NAME")
 
 api_version = "2024-02-15-preview"
 
-client = openai.AzureOpenAI(
+client = AzureOpenAI(
     api_key=open_ai_key, azure_endpoint=open_ai_endpoint, api_version=api_version
 )
 
