@@ -72,9 +72,9 @@ The main file in this project is `assistant.html`.
 2. Start the backend server using command flask run --host 0.0.0.0 --port 5007
 3. Launch the frontend application by opening `assistant.html` file in your browser.
 4. Sample conversation:
-I purchased a washing machine on EMI Premier card. 
-I was to pay an emi of 1000 rs every month for a period on 1 year.. 
-I missed my first EMI due last month. How much do i pay this month?
+I purchased a Washing Machine on Premier Credit Card. 
+My EMI is 1000 Rs for 12 months.  
+I missed my last EMI. How much do i pay now?
 OR 
 can you tell me about performance of contoso financials in 2023?
 

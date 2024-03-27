@@ -69,6 +69,7 @@ def clean_assistants() -> None:
 def clean_files() -> None:
     my_files = client.files.list()
     for file in my_files.data:
+        print(file.id, file.filename)
         client.files.delete(file.id)
 
 
@@ -128,12 +129,16 @@ def process_action(thread_id: str, run_id: any, available_functions: dict) -> No
                 tool_response = function_to_call(**func_args)
                 resp = {"tool_call_id": call.id, "output": tool_response}
                 tool_responses.append(resp)
-    run = g_runs.submit_tool_outputs(thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses)
+    run = g_runs.submit_tool_outputs(
+        thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses  # submit
+    )
 
 
-def poll_run_till_completion(thread_id: str, run_id: str, available_functions: dict) -> None:
+def poll_run_till_completion(
+    thread_id: str, run_id: str, available_functions: dict  # poll
+) -> None:
     max_steps = 100
-    wait = 0.5
+    wait = 1
 
     try:
         cnt = 0
@@ -178,7 +183,9 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     for _index, annotation in enumerate(annotations):
                         if file_path := getattr(annotation, "file_path", None):
                             image_data = client.files.content(file_path.file_id).content
-                            encoded_string = base64.b64encode(image_data).decode("utf-8")
+                            encoded_string = base64.b64encode(image_data).decode(
+                                "utf-8"  # encode
+                            )
                             resp = {"img_data": encoded_string, "message_id": md.id}
                             final_response.append(resp)
                             img_already_added = True
