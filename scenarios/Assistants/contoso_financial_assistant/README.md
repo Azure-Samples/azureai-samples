@@ -5,7 +5,6 @@
 ## Description
 
 This repository contains the backend and frontend code for the Contoso Financials Assistant. It is designed to provide financial assistance to users by leveraging various technologies. It caters to below types of queries
-- Queries related to latest stock index news or currency ecchange rates
 - Contoso financial financial performance in year 2023
 - Contoso financial product lines
 - Late EMI related queries for paurchases made using Conto Premier Credit Card 
@@ -15,11 +14,11 @@ This repository contains the backend and frontend code for the Contoso Financial
 
 ### Code Interpreter
 
-- **Dynamic Response Generation:** This tool is essential for generating dynamic responses to queries that require real-time data processing or when a custom response generation is necessary, ensuring flexibility and adaptability in handling user requests.
+- **Dynamic Response Generation:** This tool is leveraged for generating dynamic responses to queries that require real-time data processing or when a custom response generation is necessary, ensuring flexibility and adaptability in handling user requests.
 
 ### Web Search with Freshness Filter
 
-- **Integration with Bing's Search API:** This feature leverages Bing's search API to find web content related to a user's query, enriching the data available for response generation.
+- **Integration with Bing's Search API:** This feature leverages Bing's search API to find web content related to a user's query, enriching the data available for response generation. This is optional feature.
 
 ### Categorize User Query
 
@@ -69,14 +68,15 @@ The main file in this project is `assistant.html`.
 
 ## Usage
 
-1. Create AI Search index for user query categorization by executing create_intent_index.py 
-2. Start the backend server using command flask run --host 0.0.0.0 -p5007
+1. Create AI Search index for user query categorization by executing func_get_intent_init.py 
+2. Start the backend server using command flask run --host 0.0.0.0 --port 5007
 3. Launch the frontend application by opening `assistant.html` file in your browser.
 4. Sample conversation:
-I purchased a washing machine on Premier credit card. 
+I purchased a washing machine on EMI Premier card. 
 I was to pay an emi of 1000 rs every month for a period on 1 year.. 
 I missed my first EMI due last month. How much do i pay this month?
-
+OR 
+can you tell me about performance of contoso financials in 2023?
 
 
 

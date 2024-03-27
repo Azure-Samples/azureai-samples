@@ -4,7 +4,7 @@ import re
 import os
 from dotenv import load_dotenv
 import json
-from open_ai_response import get_ai_resp
+from assistant_config.open_ai_response import get_ai_resp
 from typing import Optional
 
 load_dotenv(override=True)
@@ -23,14 +23,17 @@ def get_bing_search_url(search_term: str, freshness: Optional[str] = None) -> li
         else:
             raise ValueError("freshness must be 'Day', 'Week', or 'Month'")
     response = requests.get(search_url, headers=headers, params=params)
+
     response.raise_for_status()
     search_results = response.json()
+    print(search_results)
     url_list = []
 
     if "webPages" in search_results:
         top_search_result = search_results["webPages"]["value"][0:1]
         for search_result in top_search_result:
             url_list.append(search_result["url"])
+    print(url_list)
     return url_list
 
 
@@ -40,9 +43,12 @@ def replace_multiple_spaces(text: str) -> str:
 
 
 def load_url_content(url: str) -> str:
+    print("in load url content")
     response = requests.get(url)
+
     soup = BeautifulSoup(response.text, "html.parser")
     content = soup.get_text()
+    print(content)
     return replace_multiple_spaces(content)
 
 
@@ -57,16 +63,14 @@ def search_web(query: str, freshness: Optional[str] = None) -> str:
 
 def search_web_with_freshness_filter(query: str, freshness: str) -> str:
     try:
-        knowledgebase = search_web(query, freshness)
-        # print(knowledgebase)
-        system_role = """You answer users query based on input knowledge base. 
-        You share the output as json."""
-        output_json = {"Answer": "<Answer based on input knowledgebase>"}
-        system_content = f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
+        search_web(query, freshness)
+        system_role = """You answer users query based on input knowledge base."""
+        system_content = f"{system_role}"
+        system_content = f"{system_content}\nAnswer:"
+        print(system_content)
         resp = get_ai_resp(query, system_content)
-        print(resp)
     except Exception as e:
         print(e)
         error_msg = "Unable to retrieve results at this time. Please try again later."
-        resp = {"Answer": error_msg}
+        resp = error_msg
     return resp

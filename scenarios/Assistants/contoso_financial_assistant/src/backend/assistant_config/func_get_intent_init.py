@@ -19,7 +19,7 @@ from azure.search.documents.indexes.models import (
     SemanticField,
 )
 import json
-from open_ai_response import get_embeddings
+from assistant_config.open_ai_response import get_embeddings
 from pathlib import Path
 
 load_dotenv(override=True)
@@ -84,7 +84,7 @@ def get_index(name: str) -> SearchIndex:
 
 
 def get_intent_documents() -> list:
-    file_path = "./index_data/contoso_financial_intent.json"
+    file_path = "func_get_intent_data.json"
     with Path.open(file_path, "r") as file:
         intent_data = json.load(file)
     docs = []

@@ -1,3 +1,11 @@
+from assistant_config.func_bing_search import search_web_with_freshness_filter
+from assistant_config.func_get_intent import categorize_user_query
+
+available_functions = {
+    "search_web_with_freshness_filter": search_web_with_freshness_filter,
+    "categorize_user_query": categorize_user_query,
+}
+
 tools_list = [
     {"type": "code_interpreter"},
     # {"type": "retrieval"},

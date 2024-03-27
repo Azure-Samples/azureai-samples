@@ -6,34 +6,29 @@ from pathlib import Path
 import base64
 
 from openai import AzureOpenAI
-from open_ai_response import client, open_ai_deployment_name
+from open_ai_client import client, open_ai_deployment_name
 
 g_assistant = client.beta.assistants
 g_messages = client.beta.threads.messages
 g_runs = client.beta.threads.runs
 g_threads = client.beta.threads
 
-DATA_FOLDER = "./data/"
 
-
-def upload_file() -> list[str]:
-    arr = os.listdir(DATA_FOLDER)
+def upload_file(data_folder: str) -> list[str]:
+    arr = os.listdir(data_folder)
     assistant_files = {}
-    my_files = client.files.list()
+    prv_files = client.files.list()
 
     for filename in arr:
         found = False
-        for prv_file in my_files.data:
+        for prv_file in prv_files.data:
             if prv_file.filename == filename:
-                print("File already exists: ", filename)
-                assistant_files.append(prv_file.id)
+                assistant_files[filename] = prv_file.id
                 found = True
                 break
 
         if found is False:
-            filePath = DATA_FOLDER + filename
-            with Path(filePath).open("rb") as f:
-                print("Uploading file: ", filePath)
+            with Path(data_folder, filename).open("rb") as f:
                 new_file = client.files.create(file=f, purpose="assistants")
                 assistant_files[filename] = new_file.id
 
@@ -59,16 +54,7 @@ def create_assistant(name: str, instructions: str, tools: list, file_ids: list) 
 
 
 def create_thread(thread_id: Optional[str] = None) -> any:
-    if thread_id:
-        print("retrieving thread")
-        thread = g_threads.retrieve(thread_id)
-        if thread:
-            print(thread.id)
-    else:
-        print("creating thread")
-        thread = g_threads.create()
-        print(thread.id)
-    return thread
+    return g_threads.retrieve(thread_id) if thread_id else g_threads.create()
 
 
 def clean_assistants() -> None:
@@ -77,41 +63,16 @@ def clean_assistants() -> None:
         limit="20",
     )
     for assistant in my_assistants.data:
-        print(assistant.id)
-        response = g_assistant.delete(assistant.id)
-        print(response)
+        g_assistant.delete(assistant.id)
 
 
 def clean_files() -> None:
     my_files = client.files.list()
     for file in my_files.data:
-        print(file.id)
-        response = client.files.delete(file.id)
-        print(response)
+        client.files.delete(file.id)
 
 
-def clean_threads() -> None:
-    my_threads = g_assistant.list(
-        order="desc",
-        limit="20",
-    )
-    for thread in my_threads.data:
-        print(thread.id)
-        response = g_assistant.delete(thread.id)
-        print(response)
-
-
-def create_message(
-    client: AzureOpenAI, thread_id: str, role: str = "", content: str = ""
-) -> any:
-    if client is None:
-        print("Client parameter is required.")
-        return None
-
-    if thread_id is None:
-        print("Thread ID is required.")
-        return None
-
+def create_message(thread_id: str, role: str, content: str) -> any:
     try:
         return g_messages.create(thread_id=thread_id, role=role, content=content)
     except Exception as e:
@@ -120,20 +81,19 @@ def create_message(
 
 
 def get_step_details(run: any, thread: any) -> any:
-    arr_retval = []
-    arr_stepid = []
+    step_detail_list = []
+    step_id_list = []
     run_steps = g_runs.steps.list(thread_id=thread.id, run_id=run.id)
     for run_step in run_steps:
         if run_step.type == "tool_calls":
             for tool in run_step.step_details.tool_calls:
+                step_id_list.append(run_step.id)
                 if tool.type == "function":
-                    arr_stepid.append(run_step.id)
-                    arr_retval.append(f"Calling {tool.function.name}")
+                    step_detail_list.append(f"Calling {tool.function.name}")
                 elif tool.type == "code_interpreter":
-                    arr_stepid.append(run_step.id)
-                    arr_retval.append("Performing Computations")
+                    step_detail_list.append("Performing Computations")
                 else:
-                    arr_retval.append(tool.type)
+                    step_detail_list.append(tool.type)
         else:
             message_id = run_step.step_details.message_creation.message_id
             message = g_messages.retrieve(
@@ -141,19 +101,15 @@ def get_step_details(run: any, thread: any) -> any:
                 thread_id=thread.id,
             )
             for msg in message.content:
+                step_id_list.append(run_step.id)
                 if msg.type == "image_file":
-                    print(msg.image_file)
-                    arr_stepid.append(run_step.id)
-                    arr_retval.append("Generating Image")
+                    step_detail_list.append("Generating Image")
                 else:
-                    print(msg.type)
-                    arr_stepid.append(run_step.id)
-                    arr_retval.append("Creating Message")
-    return arr_retval, arr_stepid
+                    step_detail_list.append("Creating Message")
+    return step_detail_list, step_id_list
 
 
 def process_action(thread_id: str, run_id: any, available_functions: dict) -> None:
-    print("requires action")
     run = g_runs.retrieve(thread_id=thread_id, run_id=run_id)
     tool_responses = []
     if (
@@ -164,48 +120,31 @@ def process_action(thread_id: str, run_id: any, available_functions: dict) -> No
 
         for call in tool_calls:
             if call.type == "function":
-                # print(call.function.name, available_functions)
                 if call.function.name not in available_functions:
                     msg = f"Function does not exist: {call.function.name}"
                     raise Exception(msg)
                 function_to_call = available_functions[call.function.name]
-                # print(call.function.arguments)
                 func_args = json.loads(call.function.arguments)
                 tool_response = function_to_call(**func_args)
-                # print(tool_response)
                 resp = {"tool_call_id": call.id, "output": tool_response}
                 tool_responses.append(resp)
-    run = g_runs.submit_tool_outputs(
-        thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses
-    )
+    run = g_runs.submit_tool_outputs(thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses)
 
 
-def poll_run_till_completion(
-    client: AzureOpenAI,
-    thread_id: str,
-    run_id: str,
-    available_functions: dict,
-    max_steps: int = 20,
-    wait: int = 0.5,
-) -> None:
+def poll_run_till_completion(thread_id: str, run_id: str, available_functions: dict) -> None:
     max_steps = 100
-    if (client is None and thread_id is None) or run_id is None:
-        print("Client, Thread ID and Run ID are required.")
-        return None
+    wait = 0.5
+
     try:
         cnt = 0
         while cnt < max_steps:
             run = g_runs.retrieve(thread_id=thread_id, run_id=run_id)
             cnt += 1
-            print("------------\n")
-            print(run.status)
-            print("------------\n")
+
             if run.status == "requires_action":
                 process_action(thread_id, run_id, available_functions)
             if run.status == "failed":
                 print("Run failed")
-                # print(f"Run failed: {run.last_error}")
-                print(run)
                 return 0
             if run.status == "completed":
                 return 1
@@ -217,29 +156,17 @@ def poll_run_till_completion(
 
 
 def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
-    """
-    Retrieve a list of messages in a thread and print it out with the query and response
-
-    @param client: OpenAI client
-    @param thread_id: Thread ID
-    @param verbose: Print verbose output
-    @param out_dir: Output directory to save images
-    @return: Messages object
-
-    """
     final_response = []
     try:
         messages = g_messages.list(thread_id=thread_id)
-        # print(messages)
+
         for md in reversed(messages.data):
             if md.role == "user":
-                # print(final_response)
                 final_response = []
                 continue
 
             for mc in md.content:
-                # Check if valid text field is present in the mc object
-                print("mc.type:", mc.type)
+                img_already_added = False
                 if mc.type == "text":
                     txt_val = mc.text.value
                     annotations = mc.text.annotations
@@ -247,35 +174,25 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     encoded_val = base64.b64encode(bytes_val).decode("utf-8")
                     resp = {"text_data": encoded_val, "message_id": md.id}
                     final_response.append(resp)
-                    print("\n--------------------")
-                    print("mc:", mc)
-                    print("\n--------------------")
+
                     for _index, annotation in enumerate(annotations):
-                        # if (file_citation := getattr(annotation, 'file_citation', None)):
-                        #    image_data = client.files.content(file_citation.file_id).content
                         if file_path := getattr(annotation, "file_path", None):
                             image_data = client.files.content(file_path.file_id).content
-                            encoded_string = base64.b64encode(image_data).decode(
-                                "utf-8"
-                            )
+                            encoded_string = base64.b64encode(image_data).decode("utf-8")
                             resp = {"img_data": encoded_string, "message_id": md.id}
                             final_response.append(resp)
-                # Check if valid image field is present in the mc object
+                            img_already_added = True
+
                 elif mc.type == "image_file":
-                    print("Found image file")
+                    if img_already_added:
+                        continue
                     image_data = client.files.content(mc.image_file.file_id).content
                     encoded_string = base64.b64encode(image_data).decode("utf-8")
-                    found = False
-                    for msg in final_response:
-                        if "img_data" in msg and msg["img_data"] == encoded_string:
-                            found = True
-                            break
-                    if not found:
-                        resp = {"img_data": encoded_string, "message_id": md.id}
-                        final_response.append(resp)
+
+                    resp = {"img_data": encoded_string, "message_id": md.id}
+                    final_response.append(resp)
 
     except Exception as e:
-        print("got error")
         print(e)
         final_response.append({"error_data": e})
 
