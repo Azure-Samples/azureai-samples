@@ -28,9 +28,8 @@ def get_embeddings(text: str) -> str:
         azure_endpoint=open_ai_embedding_endpoint,
         api_version="2024-02-15-preview",
     )
-    embedding = embedding_client.embeddings.create(
-        input=[text], model=open_ai_embedding_deployment_name
-    )
+    depl_model = open_ai_embedding_deployment_name
+    embedding = embedding_client.embeddings.create(input=[text], model=depl_model)
     return embedding.data[0].embedding
 
 
