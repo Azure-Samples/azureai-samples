@@ -28,6 +28,8 @@ search_endpoint = os.getenv("SEARCH_ENDPOINT")
 search_key = os.getenv("SEARCH_KEY")
 search_index_name = os.getenv("SEARCH_INDEX_NAME")
 
+cred = AzureKeyCredential(search_key)
+
 
 def get_index(name: str) -> SearchIndex:
     fields = [
@@ -82,6 +84,9 @@ def get_index(name: str) -> SearchIndex:
 
 
 def get_intent_documents() -> list:
+    file_path = "./index_data/contoso_financial_intent.json"
+    with Path.open(file_path, "r") as file:
+        intent_data = json.load(file)
     docs = []
 
     sno = 1
@@ -111,31 +116,25 @@ def get_result(results: list) -> list:
     res = []
     for result in results:
         sno = sno + 1
-        res.append(
-            {"Category": result["Category"], "Subcategory": result["Subcategory"]}
-        )
+        catg = result["Category"]
+        subcatg = result["Subcategory"]
+        res.append({"Category": catg, "Subcategory": subcatg})
         if sno == 10:
             break
     return res
 
 
 def keyword_search(query: str) -> list:
-    search_client = SearchClient(
-        search_endpoint, search_index_name, AzureKeyCredential(search_key)
-    )
-
-    results = search_client.search(
-        search_text=query,
-        select=["Category", "Subcategory"],
-    )
+    cred = AzureKeyCredential(search_key)
+    search_client = SearchClient(search_endpoint, search_index_name, cred)
+    sel_fields = ["Category", "Subcategory"]
+    results = search_client.search(search_text=query, select=sel_fields)
 
     return get_result(results)
 
 
 def vector_search(query: str) -> list:
-    search_client = SearchClient(
-        search_endpoint, search_index_name, AzureKeyCredential(search_key)
-    )
+    search_client = SearchClient(search_endpoint, search_index_name, cred)
     vector_query = VectorizedQuery(
         vector=get_embeddings(query),
         k_nearest_neighbors=3,
@@ -151,9 +150,7 @@ def vector_search(query: str) -> list:
 
 
 def hybrid_search(query: str) -> list:
-    search_client = SearchClient(
-        search_endpoint, search_index_name, AzureKeyCredential(search_key)
-    )
+    search_client = SearchClient(search_endpoint, search_index_name, cred)
     vector_query = VectorizedQuery(
         vector=get_embeddings(query),
         k_nearest_neighbors=3,
@@ -171,18 +168,14 @@ def hybrid_search(query: str) -> list:
     return get_result(results)
 
 
-credential = AzureKeyCredential(search_key)
-index_client = SearchIndexClient(search_endpoint, credential)
-index = get_index(search_index_name)
-index_names = index_client.list_index_names()
-if search_index_name not in index_names:
-    index_client.create_index(index)
-    client = SearchClient(search_endpoint, search_index_name, credential)
+def main() -> None:
+    index_client = SearchIndexClient(search_endpoint, cred)
+    index = get_index(search_index_name)
+    index_names = index_client.list_index_names()
+    if search_index_name not in index_names:
+        index_client.create_index(index)
+        client = SearchClient(search_endpoint, search_index_name, cred)
 
-    file_path = "./index_data/contoso_financial_intent.json"
-    with Path.open(file_path, "r") as file:
-        intent_data = json.load(file)
+        intent_docs = get_intent_documents()
 
-    intent_docs = get_intent_documents()
-
-    res = client.upload_documents(documents=intent_docs)
+        client.upload_documents(documents=intent_docs)

@@ -185,18 +185,16 @@ def poll_run_till_completion(
                         if call.type == "function":
                             # print(call.function.name, available_functions)
                             if call.function.name not in available_functions:
-                                raise Exception(
-                                    "Function requested by the model does not exist"
-                                )
+                                msg = f"Function does not exist: {call.function.name}"
+                                raise Exception(msg)
                             function_to_call = available_functions[call.function.name]
                             # print(call.function.arguments)
                             tool_response = function_to_call(
                                 **json.loads(call.function.arguments)
                             )
                             # print(tool_response)
-                            tool_responses.append(
-                                {"tool_call_id": call.id, "output": tool_response}
-                            )
+                            resp = {"tool_call_id": call.id, "output": tool_response}
+                            tool_responses.append(resp)
 
                 run = g_runs.submit_tool_outputs(
                     thread_id=thread_id, run_id=run.id, tool_outputs=tool_responses
@@ -244,9 +242,8 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     annotations = mc.text.annotations
                     bytes_val = txt_val.encode("utf-8")
                     encoded_val = base64.b64encode(bytes_val).decode("utf-8")
-                    final_response.append(
-                        {"text_data": encoded_val, "message_id": md.id}
-                    )
+                    resp = {"text_data": encoded_val, "message_id": md.id}
+                    final_response.append(resp)
                     print("\n--------------------")
                     print("mc:", mc)
                     print("\n--------------------")
@@ -258,9 +255,8 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                             encoded_string = base64.b64encode(image_data).decode(
                                 "utf-8"
                             )
-                            final_response.append(
-                                {"img_data": encoded_string, "message_id": md.id}
-                            )
+                            resp = {"img_data": encoded_string, "message_id": md.id}
+                            final_response.append(resp)
                 # Check if valid image field is present in the mc object
                 elif mc.type == "image_file":
                     print("Found image file")
@@ -272,9 +268,8 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                             found = True
                             break
                     if not found:
-                        final_response.append(
-                            {"img_data": encoded_string, "message_id": md.id}
-                        )
+                        resp = {"img_data": encoded_string, "message_id": md.id}
+                        final_response.append(resp)
 
     except Exception as e:
         print("got error")
