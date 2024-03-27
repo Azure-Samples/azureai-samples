@@ -47,7 +47,7 @@ def evaluate_my_data(eval_name: str) -> None:
         data=data_path,  # get example QA data
         task_type="qa",
         metrics_list=[
-            "hate_fairness",
+            "hate_unfairness",
             "violence",
             "self_harm",
             "sexual",
