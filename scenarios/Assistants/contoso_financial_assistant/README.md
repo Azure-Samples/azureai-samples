@@ -1,50 +1,22 @@
 # Contoso Financial Assistant
-
-![Contoso Financials](media/ContosoFinancials.jpg)
+![Banner](./readme_assets/banner.jpg)
 
 ## Description
 
-This repository contains the backend and frontend code for the Contoso Financials Assistant. It is designed to provide financial assistance to users by leveraging various technologies. It caters to below types of queries
+This repository contains the backend and frontend code for the Contoso Financials Assistant. 
+Contoso Financial Assistant caters to below types of queries:
 - Contoso financial financial performance in year 2023
 - Contoso financial product lines
 - Late EMI related queries for paurchases made using Conto Premier Credit Card 
 
 
-## Backend - Tools and Functionalities
+## Tools
 
-### Code Interpreter
+- Code Interpreter
+- Custom Function to Categorize User Query
+- Data file for interest charged on late EMIs
+- Data file for info on Contoso Finacial Product portfolio and financial performance
 
-- **Dynamic Response Generation:** This tool is leveraged for generating dynamic responses to queries that require real-time data processing or when a custom response generation is necessary, ensuring flexibility and adaptability in handling user requests.
-
-### Web Search with Freshness Filter
-
-- **Integration with Bing's Search API:** This feature leverages Bing's search API to find web content related to a user's query, enriching the data available for response generation. This is optional feature.
-
-### Categorize User Query
-
-- **AI-Powered Categorization:** Utilizing AI Search and Azure Open AI, this functionality determines the most relevant category and subcategory for a given user query.
-
-
-## Integration and Workflow
-
-### User Query Processing
-
-Depending on the type of query, the backend may:
-- Perform a web search using Bing's API for up-to-date information.
-- Access local data files for static data.
-- Invoke the code interpreter for dynamic data processing, catering to a wide range of informational and transactional queries.
-
-### Response Generation
-
-For complex queries or those requiring bespoke responses, the backend utilizes Azure OpenAI's capabilities to generate coherent and contextually accurate responses. This allows the Contoso Financials Assistant to address a wide range of financial queries with sophisticated understanding.
-
-### Integration with Frontend
-
-The processed responses are then formatted and sent back to the frontend application, where they are presented to the user in an easily digestible format. This ensures that users receive information that is not only accurate but also accessible and actionable, enhancing overall user experience.
-
-## Frontend: 
-Frontend application is a basic HTML, CSS, and JavaScript app.
-The main file in this project is `assistant.html`.
 
 ## Installation
 
@@ -78,17 +50,24 @@ I purchased a Washing Machine on Premier Credit Card.
 My EMI is 1000 Rs for 12 months.  
 I missed my last EMI. How much do i pay now?
 
-
-
-
 ## Contributing
 
-Contributions are welcome! If you would like to contribute to this project, please follow the guidelines outlined in [CONTRIBUTING.md](path/to/CONTRIBUTING.md).
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
-## License
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
-This project is licensed under the [MIT License](path/to/LICENSE).
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-## Contact
+## Trademarks
 
-If you have any questions or suggestions, feel free to reach out to us at [shagrawal@microsoft.com](mailto:shagrawal@microsoft.com).
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
+trademarks or logos is subject to and must follow 
+[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
+Any use of third-party trademarks or logos are subject to those third-party's policies.
