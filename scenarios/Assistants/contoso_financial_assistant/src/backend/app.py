@@ -71,14 +71,14 @@ def init_assistant() -> any:
     prompt_file = "assistant_config/prompt.txt"
     data_folder = "assistant_data"
 
-    with Path.open(config_file, "r") as f:
+    with Path(config_file).open("r") as f:
         config = json.load(f)
         assistant_name = config["assistant_name"]
 
     assistant_files = upload_file(data_folder)
     file_ids = list(assistant_files.values())
 
-    with Path.open(prompt_file, "r") as file:
+    with Path(prompt_file).open("r") as file:
         instructions = file.read()
 
     for filename in assistant_files:
