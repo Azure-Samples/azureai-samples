@@ -166,7 +166,7 @@ def num_bytes(arg: str) -> int:
         "YB": 8,
     }
 
-    shift = shift_values.get(suffix, None)
+    shift = shift_values.get(suffix)
 
     if shift is None:
         raise error
