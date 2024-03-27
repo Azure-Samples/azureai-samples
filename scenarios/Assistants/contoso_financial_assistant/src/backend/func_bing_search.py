@@ -4,7 +4,7 @@ import re
 import os
 from dotenv import load_dotenv
 import json
-from open_ai_response import get_response_from_openai
+from open_ai_response import get_ai_resp
 from typing import Optional
 
 load_dotenv(override=True)
@@ -63,7 +63,7 @@ def search_web_with_freshness_filter(query: str, freshness: str) -> str:
         You share the output as json."""
         output_json = {"Answer": "<Answer based on input knowledgebase>"}
         system_content = f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
-        resp = get_response_from_openai(query, system_content)
+        resp = get_ai_resp(query, system_content)
         print(resp)
     except Exception as e:
         print(e)

@@ -152,6 +152,34 @@ def get_step_details(run: any, thread: any) -> any:
     return arr_retval, arr_stepid
 
 
+def process_action(thread_id: str, run_id: any, available_functions: dict) -> None:
+    print("requires action")
+    run = g_runs.retrieve(thread_id=thread_id, run_id=run_id)
+    tool_responses = []
+    if (
+        run.required_action.type == "submit_tool_outputs"
+        and run.required_action.submit_tool_outputs.tool_calls is not None
+    ):
+        tool_calls = run.required_action.submit_tool_outputs.tool_calls
+
+        for call in tool_calls:
+            if call.type == "function":
+                # print(call.function.name, available_functions)
+                if call.function.name not in available_functions:
+                    msg = f"Function does not exist: {call.function.name}"
+                    raise Exception(msg)
+                function_to_call = available_functions[call.function.name]
+                # print(call.function.arguments)
+                func_args = json.loads(call.function.arguments)
+                tool_response = function_to_call(**func_args)
+                # print(tool_response)
+                resp = {"tool_call_id": call.id, "output": tool_response}
+                tool_responses.append(resp)
+    run = g_runs.submit_tool_outputs(
+        thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses
+    )
+
+
 def poll_run_till_completion(
     client: AzureOpenAI,
     thread_id: str,
@@ -173,32 +201,7 @@ def poll_run_till_completion(
             print(run.status)
             print("------------\n")
             if run.status == "requires_action":
-                print("requires action")
-                tool_responses = []
-                if (
-                    run.required_action.type == "submit_tool_outputs"
-                    and run.required_action.submit_tool_outputs.tool_calls is not None
-                ):
-                    tool_calls = run.required_action.submit_tool_outputs.tool_calls
-
-                    for call in tool_calls:
-                        if call.type == "function":
-                            # print(call.function.name, available_functions)
-                            if call.function.name not in available_functions:
-                                msg = f"Function does not exist: {call.function.name}"
-                                raise Exception(msg)
-                            function_to_call = available_functions[call.function.name]
-                            # print(call.function.arguments)
-                            tool_response = function_to_call(
-                                **json.loads(call.function.arguments)
-                            )
-                            # print(tool_response)
-                            resp = {"tool_call_id": call.id, "output": tool_response}
-                            tool_responses.append(resp)
-
-                run = g_runs.submit_tool_outputs(
-                    thread_id=thread_id, run_id=run.id, tool_outputs=tool_responses
-                )
+                process_action(thread_id, run_id, available_functions)
             if run.status == "failed":
                 print("Run failed")
                 # print(f"Run failed: {run.last_error}")

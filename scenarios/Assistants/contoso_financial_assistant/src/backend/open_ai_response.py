@@ -28,16 +28,12 @@ def get_embeddings(text: str) -> str:
         azure_endpoint=open_ai_embedding_endpoint,
         api_version="2024-02-15-preview",
     )
-    embedding = embedding_client.embeddings.create(
-        input=[text], model=open_ai_embedding_deployment_name
-    )
+    depl_model = open_ai_embedding_deployment_name
+    embedding = embedding_client.embeddings.create(input=[text], model=depl_model)
     return embedding.data[0].embedding
 
 
-# add type annotations to the function signature imcluding for max_tokens
-def get_response_from_openai(
-    query: str, system_content: str, max_tokens: int = 200
-) -> str:
+def get_ai_resp(query: str, system_content: str, max_tokens: int = 200) -> str:
     try:
         message_text = [
             {"role": "system", "content": system_content},

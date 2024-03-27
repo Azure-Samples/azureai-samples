@@ -1,5 +1,5 @@
 from create_intent_index import hybrid_search
-from open_ai_response import get_response_from_openai
+from open_ai_response import get_ai_resp
 
 
 def categorize_user_query(user_query: str) -> str:
@@ -16,5 +16,5 @@ def categorize_user_query(user_query: str) -> str:
     system_content = f"{system_content}Output Json:\n{output_json}\n"
     system_content = f"{system_content}Knowledge Base:\n{knowledgebase}\n"
 
-    return get_response_from_openai(user_query, system_content)
+    return get_ai_resp(user_query, system_content)
     # print(resp)
