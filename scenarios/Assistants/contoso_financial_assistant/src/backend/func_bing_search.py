@@ -65,8 +65,8 @@ def search_web_with_freshness_filter(query: str, freshness: str) -> str:
         system_content = f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
         resp = get_response_from_openai(query, system_content)
         print(resp)
-    except Exception:
-        resp = {
-            "Answer": "Unable to retrieve results at this time. Please try again later."
-        }
+    except Exception as e:
+        print(e)
+        error_msg = "Unable to retrieve results at this time. Please try again later."
+        resp = {"Answer": error_msg}
     return resp

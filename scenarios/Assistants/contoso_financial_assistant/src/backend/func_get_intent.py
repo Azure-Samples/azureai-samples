@@ -12,8 +12,9 @@ def categorize_user_query(user_query: str) -> str:
         "Category": "<value of best matching Category>",
         "Subcategory": "<value of 1st best Subcategory for best matching Category>",
     }
-    system_content = (
-        f"{system_role}\noutput_json={output_json}\nKnowledge Base:\n{knowledgebase}\n"
-    )
+    system_content = f"{system_role}\n"
+    system_content = f"{system_content}Output Json:\n{output_json}\n"
+    system_content = f"{system_content}Knowledge Base:\n{knowledgebase}\n"
+
     return get_response_from_openai(user_query, system_content)
     # print(resp)
