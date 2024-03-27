@@ -3,7 +3,7 @@ import os
 import time
 from typing import Optional
 from pathlib import Path
-import base64
+from base64 import b64encode
 
 from openai import AzureOpenAI
 from open_ai_client import client, open_ai_deployment_name
@@ -130,12 +130,16 @@ def process_action(thread_id: str, run_id: any, available_functions: dict) -> No
                 resp = {"tool_call_id": call.id, "output": tool_response}
                 tool_responses.append(resp)
     run = g_runs.submit_tool_outputs(
-        thread_id=thread_id, run_id=run_id, tool_outputs=tool_responses  # submit
+        thread_id=thread_id,  # thread_id
+        run_id=run_id,  # run_id
+        tool_outputs=tool_responses,  # tool_outputs
     )
 
 
 def poll_run_till_completion(
-    thread_id: str, run_id: str, available_functions: dict  # poll
+    thread_id: str,  # thread_id
+    run_id: str,  # run_id
+    available_functions: dict,  # available_functions
 ) -> None:
     max_steps = 100
     wait = 1
@@ -160,6 +164,11 @@ def poll_run_till_completion(
         return 0
 
 
+def get_encoded_image(image_data: bytes, message_id: str) -> dict:
+    encoded_string = b64encode(image_data).decode("utf-8")
+    return {"img_data": encoded_string, "message_id": message_id}
+
+
 def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
     final_response = []
     try:
@@ -176,17 +185,14 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     txt_val = mc.text.value
                     annotations = mc.text.annotations
                     bytes_val = txt_val.encode("utf-8")
-                    encoded_val = base64.b64encode(bytes_val).decode("utf-8")
+                    encoded_val = b64encode(bytes_val).decode("utf-8")
                     resp = {"text_data": encoded_val, "message_id": md.id}
                     final_response.append(resp)
 
                     for _index, annotation in enumerate(annotations):
                         if file_path := getattr(annotation, "file_path", None):
                             image_data = client.files.content(file_path.file_id).content
-                            encoded_string = base64.b64encode(image_data).decode(
-                                "utf-8"  # encode
-                            )
-                            resp = {"img_data": encoded_string, "message_id": md.id}
+                            resp = get_encoded_image(image_data, md.id)
                             final_response.append(resp)
                             img_already_added = True
 
@@ -194,9 +200,7 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
                     if img_already_added:
                         continue
                     image_data = client.files.content(mc.image_file.file_id).content
-                    encoded_string = base64.b64encode(image_data).decode("utf-8")
-
-                    resp = {"img_data": encoded_string, "message_id": md.id}
+                    resp = get_encoded_image(image_data, md.id)
                     final_response.append(resp)
 
     except Exception as e:
