@@ -126,10 +126,10 @@ while True:
         client.beta.threads.delete(thread.id)
         
         break
-    elif run.status = "requires_action":
+    elif run.status == "requires_action":
         # handle function calling and continue with the execution
         pass
-    elif run.status = "expired" or run.status=="failed" or run.status=="cancelled":
+    elif run.status == "expired" or run.status == "failed" or run.status == "cancelled":
         # run failed, expired, or was cancelled
         break    
     else:
