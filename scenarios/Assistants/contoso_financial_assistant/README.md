@@ -1,3 +1,12 @@
+---
+page_type: sample
+languages:
+- python
+products:
+- azure-openai
+description: Sample Application leveraging Assistant API
+---
+
 # Contoso Financial Assistant
 ![Banner](./readme_assets/banner.jpg)
 
