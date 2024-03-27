@@ -1,0 +1,2 @@
+# Force git to checkout text files with LF (line feed) as the ending (vs CRLF)
+* text=auto eol=lf
