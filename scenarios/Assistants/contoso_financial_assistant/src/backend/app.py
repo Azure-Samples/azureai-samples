@@ -19,6 +19,9 @@ from create_assistant import (
 )
 from open_ai_response import client
 
+g_runs = client.beta.threads.runs
+g_threads = client.beta.threads
+
 # clean_assistants()
 # clean_files()
 cache = {}
@@ -63,10 +66,10 @@ def get_answer_for_query(user_query: str, thread_id: str) -> dict:
     message = {"role": "user", "content": user_query}
     thread = create_thread(thread_id)
     create_message(client, thread.id, message["role"], message["content"])
-
-    run = client.beta.threads.runs.create(
-        thread_id=thread.id, assistant_id=assistant.id, instructions=instructions
-    )
+    th_id = thread.id
+    as_id = assistant.id
+    inst = instructions
+    run = g_runs.create(thread_id=th_id, assistant_id=as_id, instructions=inst)
     status = poll_run_till_completion(
         client=client,
         thread_id=thread.id,
@@ -108,8 +111,8 @@ def api_get_step() -> dict:
     if thread_id == "":
         return None
 
-    run = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run_id)
-    thread = client.beta.threads.retrieve(thread_id)
+    run = g_runs.retrieve(thread_id=thread_id, run_id=run_id)
+    thread = g_threads.retrieve(thread_id)
     step_list, step_id_list = get_step_details(run, thread)
     return {"step_list": step_list, "step_id_list": step_id_list}
 
