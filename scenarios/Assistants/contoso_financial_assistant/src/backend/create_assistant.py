@@ -8,11 +8,14 @@ import base64
 from openai import AzureOpenAI
 from open_ai_response import client, open_ai_deployment_name
 
+g_assistant = client.beta.assistants
+g_messages = client.beta.threads.messages
+g_runs = client.beta.threads.runs
+g_threads = client.beta.threads
 
 DATA_FOLDER = "./data/"
 
 
-# add type annotations to the function signature
 def upload_file() -> list[str]:
     arr = os.listdir(DATA_FOLDER)
     assistant_files = {}
@@ -37,12 +40,8 @@ def upload_file() -> list[str]:
     return assistant_files
 
 
-# In[57]:
-
-
-# add type annotations to the function signature
 def create_assistant(name: str, instructions: str, tools: list, file_ids: list) -> any:
-    my_assistants = client.beta.assistants.list(
+    my_assistants = g_assistant.list(
         order="desc",
         limit="20",
     )
@@ -50,7 +49,7 @@ def create_assistant(name: str, instructions: str, tools: list, file_ids: list) 
         if assistant.name == name:
             return assistant
 
-    return client.beta.assistants.create(
+    return g_assistant.create(
         name=name,
         instructions=instructions,
         tools=tools,
@@ -59,37 +58,30 @@ def create_assistant(name: str, instructions: str, tools: list, file_ids: list) 
     )
 
 
-# add type annotations to the function signature
 def create_thread(thread_id: Optional[str] = None) -> any:
-    # Create a thread
     if thread_id:
         print("retrieving thread")
-        thread = client.beta.threads.retrieve(thread_id)
+        thread = g_threads.retrieve(thread_id)
         if thread:
             print(thread.id)
     else:
         print("creating thread")
-        thread = client.beta.threads.create()
+        thread = g_threads.create()
         print(thread.id)
     return thread
 
 
-# add type annotations to the function signature
 def clean_assistants() -> None:
-    my_assistants = client.beta.assistants.list(
+    my_assistants = g_assistant.list(
         order="desc",
         limit="20",
     )
     for assistant in my_assistants.data:
         print(assistant.id)
-        response = client.beta.assistants.delete(assistant.id)
+        response = g_assistant.delete(assistant.id)
         print(response)
 
 
-# In[19]:
-
-
-# add type annotations to the function signature
 def clean_files() -> None:
     my_files = client.files.list()
     for file in my_files.data:
@@ -98,47 +90,20 @@ def clean_files() -> None:
         print(response)
 
 
-# In[20]:
-
-
 def clean_threads() -> None:
-    my_threads = client.beta.assistants.list(
+    my_threads = g_assistant.list(
         order="desc",
         limit="20",
     )
     for thread in my_threads.data:
         print(thread.id)
-        response = client.beta.assistants.delete(thread.id)
+        response = g_assistant.delete(thread.id)
         print(response)
 
 
 def create_message(
-    client: AzureOpenAI,
-    thread_id: str,
-    role: str = "",
-    content: str = "",
-    file_ids: Optional[list] = None,
-    metadata: Optional[dict] = None,
-    message_id: Optional[str] = None,
+    client: AzureOpenAI, thread_id: str, role: str = "", content: str = ""
 ) -> any:
-    """
-    Create a message in a thread using the client.
-
-    @param client: OpenAI client
-    @param thread_id: Thread ID
-    @param role: Message role (user or assistant)
-    @param content: Message content
-    @param file_ids: Message file IDs
-    @param metadata: Message metadata
-    @param message_id: Message ID
-    @return: Message object
-
-    """
-    if metadata is None:
-        metadata = {}
-    if file_ids is None:
-        file_ids = []
-
     if client is None:
         print("Client parameter is required.")
         return None
@@ -148,49 +113,16 @@ def create_message(
         return None
 
     try:
-        if message_id is not None:
-            return client.beta.threads.messages.retrieve(
-                thread_id=thread_id, message_id=message_id
-            )
-
-        if (
-            file_ids is not None
-            and len(file_ids) > 0
-            and metadata is not None
-            and len(metadata) > 0
-        ):
-            return client.beta.threads.messages.create(
-                thread_id=thread_id,
-                role=role,
-                content=content,
-                file_ids=file_ids,
-                metadata=metadata,
-            )
-
-        if file_ids is not None and len(file_ids) > 0:
-            return client.beta.threads.messages.create(
-                thread_id=thread_id, role=role, content=content, file_ids=file_ids
-            )
-
-        if metadata is not None and len(metadata) > 0:
-            return client.beta.threads.messages.create(
-                thread_id=thread_id, role=role, content=content, metadata=metadata
-            )
-
-        return client.beta.threads.messages.create(
-            thread_id=thread_id, role=role, content=content
-        )
-
+        return g_messages.create(thread_id=thread_id, role=role, content=content)
     except Exception as e:
         print(e)
         return None
 
 
-# add type annotations to the function signature
 def get_step_details(run: any, thread: any) -> any:
     arr_retval = []
     arr_stepid = []
-    run_steps = client.beta.threads.runs.steps.list(thread_id=thread.id, run_id=run.id)
+    run_steps = g_runs.steps.list(thread_id=thread.id, run_id=run.id)
     for run_step in run_steps:
         if run_step.type == "tool_calls":
             for tool in run_step.step_details.tool_calls:
@@ -204,7 +136,7 @@ def get_step_details(run: any, thread: any) -> any:
                     arr_retval.append(tool.type)
         else:
             message_id = run_step.step_details.message_creation.message_id
-            message = client.beta.threads.messages.retrieve(
+            message = g_messages.retrieve(
                 message_id=message_id,
                 thread_id=thread.id,
             )
@@ -228,19 +160,6 @@ def poll_run_till_completion(
     max_steps: int = 20,
     wait: int = 0.5,
 ) -> None:
-    """
-    Poll a run until it is completed or failed or exceeds a certain number of iterations (MAX_STEPS)
-    with a preset wait in between polls
-
-    @param client: OpenAI client
-    @param thread_id: Thread ID
-    @param run_id: Run ID
-    @param assistant_id: Assistant ID
-    @param verbose: Print verbose output
-    @param max_steps: Maximum number of steps to poll
-    @param wait: Wait time in seconds between polls
-
-    """
     max_steps = 100
     if (client is None and thread_id is None) or run_id is None:
         print("Client, Thread ID and Run ID are required.")
@@ -248,7 +167,7 @@ def poll_run_till_completion(
     try:
         cnt = 0
         while cnt < max_steps:
-            run = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run_id)
+            run = g_runs.retrieve(thread_id=thread_id, run_id=run_id)
             cnt += 1
             print("------------\n")
             print(run.status)
@@ -279,7 +198,7 @@ def poll_run_till_completion(
                                 {"tool_call_id": call.id, "output": tool_response}
                             )
 
-                run = client.beta.threads.runs.submit_tool_outputs(
+                run = g_runs.submit_tool_outputs(
                     thread_id=thread_id, run_id=run.id, tool_outputs=tool_responses
                 )
             if run.status == "failed":
@@ -296,7 +215,6 @@ def poll_run_till_completion(
         return 0
 
 
-# add type annotations to the function signature
 def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
     """
     Retrieve a list of messages in a thread and print it out with the query and response
@@ -310,7 +228,7 @@ def retrieve_and_print_messages(client: AzureOpenAI, thread_id: str) -> any:
     """
     final_response = []
     try:
-        messages = client.beta.threads.messages.list(thread_id=thread_id)
+        messages = g_messages.list(thread_id=thread_id)
         # print(messages)
         for md in reversed(messages.data):
             if md.role == "user":
