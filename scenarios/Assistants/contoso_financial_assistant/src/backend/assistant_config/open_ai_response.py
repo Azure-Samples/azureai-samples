@@ -26,7 +26,6 @@ client = create_openai_client()
 
 
 def get_embeddings(text: str) -> str:
-    # There are a few ways to get embeddings. This is just one example.
     embedding_client = openai.AzureOpenAI(
         api_key=open_ai_embedding_key,
         azure_endpoint=open_ai_embedding_endpoint,
