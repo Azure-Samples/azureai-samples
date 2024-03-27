@@ -18,7 +18,9 @@ api_version = "2024-02-15-preview"
 
 def create_openai_client() -> AzureOpenAI:
     return AzureOpenAI(
-        api_key=open_ai_key, azure_endpoint=open_ai_endpoint, api_version=api_version
+        api_key=open_ai_key,  # key
+        azure_endpoint=open_ai_endpoint,  # gpt4
+        api_version=api_version,  # ver
     )
 
 
