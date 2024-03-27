@@ -5,7 +5,7 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Fine-tuning and inference with finction calling samples
+description: Fine-tuning and inference with function calling samples
 ---
 
 ## Overview
