@@ -1,7 +1,6 @@
 # ---------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # ---------------------------------------------------------
-# pylint: skip-file
 import asyncio
 from azure.ai.resources.client import AIClient
 from azure.ai.resources.entities import AzureOpenAIModelConfiguration
