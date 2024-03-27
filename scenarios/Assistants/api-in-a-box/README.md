@@ -127,7 +127,7 @@ while True:
         
         break
     elif run.status == "requires_action":
-        # handle funcation calling and continue with the execution
+        # handle function calling and continue with the execution
         pass
     elif run.status == "expired" or run.status == "failed" or run.status == "cancelled":
         # run failed, expired, or was cancelled

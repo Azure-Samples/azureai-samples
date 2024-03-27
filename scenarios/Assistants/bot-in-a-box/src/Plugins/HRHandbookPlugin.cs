@@ -35,7 +35,7 @@ public class HRHandbookPlugin
         _turnContext = turnContext;
     }
 
-    [KernelFunction, Description("Search for HR information in the handbook. Whenever you use information from this source, you must provide itemized sources at the end of your response, including the document name, and link where available. When adding links, always include query paramenters. If the result is a PDF file and the page number is available, append #page={page number} to the end of the link. Do not provide links if they were not retrieved.")]
+    [KernelFunction, Description("Search for HR information in the handbook. Whenever you use information from this source, you must provide itemized sources at the end of your response, including the document name, and link where available. When adding links, always include query parameters. If the result is a PDF file and the page number is available, append #page={page number} to the end of the link. Do not provide links if they were not retrieved.")]
     public async Task<string> FindHR(
         [Description("The query to be used in the search")] string query
     )
