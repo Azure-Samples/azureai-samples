@@ -14,7 +14,9 @@ open_ai_deployment_name = os.getenv("OPEN_AI_DEPLOYMENT_NAME")
 
 api_version = "2024-02-15-preview"
 
-client = openai.AzureOpenAI(api_key=open_ai_key, azure_endpoint=open_ai_endpoint, api_version=api_version)
+client = openai.AzureOpenAI(
+    api_key=open_ai_key, azure_endpoint=open_ai_endpoint, api_version=api_version
+)
 
 
 def get_embeddings(text: str) -> str:
