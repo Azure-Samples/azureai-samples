@@ -1,19 +1,16 @@
 
 ## Getting started
-After creating your workspace, set up your Python environment `>=3.10` and run `az login` to verify your credentials. Fill out the `config.json` file with your subscription ID, resource group, and project/workspace name.
+After creating your workspace, set up your Python environment `>=3.10` and run `az login` to verify your credentials. 
 
 Next, install the azure-ai-generative package with evaluate and simulator extras like this:
-```
+
 pip install azure_ai_generative[evaluate,simulator]
 ```
 
-You can install `openai` and `promptflow` with the following versions:
-```
-pip install openai==1.11.1
-pip install promptflow==1.4.1
+ow==1.4.1
 ```
 ## Sample descriptions
-This samples folder contains python scripts which demonstrates the following scenarios:
+This samples folder contains python notebooks and scripts which demonstrates the following scenarios:
 
 |scenario|description  |
 |--|--|
