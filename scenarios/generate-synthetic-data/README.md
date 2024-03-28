@@ -17,13 +17,8 @@ This samples folder contains python scripts which demonstrates the following sce
 
 |scenario|description  |
 |--|--|
-| `content-generation/simulate_and_evaluate_grounded_content_generator.ipynb` | A Jupyter notebook for simulating and evaluating grounded content generation.
-|`adversarial-simulator/content-generation/simulate_and_evaluate_ungrounded_content_generation.ipynb` | A Jupyter notebook for simulating and evaluating ungrounded content generation. | 
-|`adversarial-simulator/conversation/simulate_and_evaluate_conversation.ipynb` | A Jupyter notebook for simulating and evaluating conversation. |  
-|`adversarial-simulator/qa/simulate_and_evaluate_qa.ipynb` | A Jupyter notebook for simulating and evaluating QA. | 
-|`adversarial-simulator/rag/simulate_and_evaluate_rag.py` | A Python script for simulating and evaluating RAG. | 
-|`adversarial-simulator/rewrite/simulate_and_evaluate_rewrite.ipynb` | A Jupyter notebook for simulating and evaluating rewrite. | 
-|`adversarial-simulator/search/simulate_and_evaluate_search.ipynb` | A Jupyter notebook for simulating and evaluating search. | 
-|`adversarial-simulator/summarization/simulate_and_evaluate_summarization.ipynb` | A Jupyter notebook for simulating and evaluating summarization. |  
-|`non-adversarial-simulator/conversation/simulate_and_evaluate_conversation.ipynb` | A Jupyter notebook for simulating and evaluating conversation. | 
-|`non-adversarial-simulator/summarization/simulate_and_evaluate_summarization.ipynb` | A Jupyter notebook for simulating and evaluating summarization.
+|`simulate-adversarial-interactions/conversation/simulate_and_evaluate_conversation.ipynb` | A Jupyter notebook for simulating and evaluating conversation. |  
+|`simulate-adversarial-interactions/qa/simulate_and_evaluate_qa.ipynb` | A Jupyter notebook for simulating and evaluating QA. | 
+|`simulate-adversarial-interactions/rag/simulate_and_evaluate_rag.py` | A Python script for simulating and evaluating RAG. | 
+|`simulate-non-adversarial-interactions/conversation/simulate_and_evaluate_conversation.ipynb` | A Jupyter notebook for simulating and evaluating conversation. | 
+|`simulate-non-adversarial-interactions/summarization/simulate_and_evaluate_summarization.ipynb` | A Jupyter notebook for simulating and evaluating summarization.
