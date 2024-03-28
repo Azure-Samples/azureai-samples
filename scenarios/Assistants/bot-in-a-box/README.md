@@ -1,9 +1,25 @@
-# Assistant API Bot in-a-box
+# Assistant API Bot in-a-Box
 ![Banner](./readme_assets/banner.png)
 
-This project deploys a virtual Assistant template to Azure.
+### Overview
 
-## Solution Architecture
+This sample provides a step-by-step guide on how to deploy a virtual assistant leveraging the Azure OpenAI Assistants API. It covers the infrastructure deployment, configuration on the AI Studio and Azure Portal, and end-to-end testing examples.
+
+### Objective
+
+The main objective of this tutorial is to help users understand how to leverage the Assistants API to create a fully-fledged virtual assistant application.
+By the end of this tutorial, you should be able to:
+
+ - Deploy the necessary infrastructure to support an Azure OpenAI Assistant
+ - Configure as Assistant with the required tools
+ - Connect a Bot Framework application to your Assistant to deploy the chat to multiple channels
+
+### Programming Languages
+ - C#
+
+### Estimated Runtime: 30 mins
+
+### Solution Architecture
 
 The solution architecture is described in the diagram below.
 
@@ -15,7 +31,7 @@ The flow of messages is as follows:
 - Messages get processed through Azure Bot Services, which communicates with a .NET application running on App Services.
 - The .NET application connects to the Assistants API, creates a new thread for each conversation.
 - Every time a new message comes through, it is added to the thread, and an Assistant is executed on the thread to respond.
-- The .NET application waits for the Assistant to conclude processing, while providing feedback to the user.
+- The .NET application waits for the Assistant to conclude processing, while providing progress updates to the user.
 - Once the Assistant completes work, its response is posted to the user.
 
 ## Pre-requisites
