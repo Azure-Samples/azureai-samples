@@ -1,0 +1,85 @@
+{
+    "Category_List": [
+      {
+        "Category_Name": "EMI Card",
+        "Subcategory_List": [
+          "Late EMI Payment",
+          "EMI Card Activation",
+          "EMI Card Application",
+          "EMI Card Benefits",
+          "EMI Card Charges"
+        ]
+      },
+      {
+        "Category_Name": "Contoso Financial Debit Card",
+        "Subcategory_List": [
+          "Card Usage Guidelines",
+          "Daily Withdrawal Limit",
+          "Request Additional Card",
+          "Application Process",
+          "Security Concerns",
+          "E-commerce Transactions",
+          "Card Features and Offers",
+          "Fees and Charges",
+          "Card Reactivation",
+          "Card Replacement",
+          "Secure Transactions Authorization"
+        ]
+      },
+      {
+        "Category_Name": "Contoso Health Benefits Card",
+        "Subcategory_List": [
+          "Spending Limit",
+          "Card Reactivation Process",
+          "Health Card Benefits and Network Hospitals",
+          "Security Issues",
+          "Benefit Details",
+          "Usage Instructions"
+        ]
+      },
+      {
+        "Category_Name": "Contoso Premier Credit Card",
+        "Subcategory_List": [
+          "Billing Disputes",
+          "Application Assistance",
+          "Card Tracking and Activation",
+          "Payment Options",
+          "Installment Plans",
+          "Service Fees",
+          "Product Information",
+          "Identity Verification",
+          "Credit Limit",
+          "Monthly Statements",
+          "Cardholder Perks",
+          "Activating Card",
+          "Account Management",
+          "Emergency Cash Services",
+          "Update Information",
+          "Eligibility Requirements",
+          "Card Features"
+        ]
+      },
+      {
+        "Category_Name": "Contoso Rewards Credit Card",
+        "Subcategory_List": [
+          "Application Process",
+          "Delivery and Activation",
+          "Bill Payment",
+          "EMI Conversion",
+          "Charges and Fees",
+          "Know Your Customer (KYC)",
+          "Credit Limit Inquiries",
+          "Rewards and Offers",
+          "Statement Queries",
+          "Account Settings",
+          "Balance Transfers",
+          "Transaction Details",
+          "Choosing EMI Options",
+          "Membership Onboarding",
+          "Reward Points",
+          "Profile Updates"
+        ]
+      }
+    ]
+  }
+  
