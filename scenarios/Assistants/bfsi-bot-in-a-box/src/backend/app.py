@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import logging
-from app_config import configure_logger, client
+from app_config import configure_logger
 from create_bfsi_assistant import create_app_assistant
 from run_assistant import create_thread, create_msg, create_run
 from run_assistant import get_steps, poll_run, get_msgs
@@ -12,14 +12,15 @@ g_cache = {}
 
 g_assistant_id, func_list = create_app_assistant()
 
+
 def get_answer_for_query(user_query: str, thread_id: str) -> dict:
     thread_id = create_thread(thread_id)
 
     message_role = "user"
     create_msg(thread_id, message_role, user_query)
-    
+
     run_id = create_run(thread_id, g_assistant_id)
-    
+
     run_status = poll_run(thread_id, run_id, func_list)
 
     if run_status == 1:
@@ -33,7 +34,7 @@ def get_answer_for_query(user_query: str, thread_id: str) -> dict:
 
 def get_answer_from_cache(query: str, thread_id: str) -> dict:
     if thread_id == "":
-        return
+        return None
     if thread_id in g_cache:
         thread_catch = g_cache[thread_id]
         if query in thread_catch:
@@ -58,7 +59,7 @@ def api_get_step() -> dict:
     run_id = request.form.get("run_id")
 
     if thread_id == "":
-        return
+        return None
 
     step_detail_list, step_id_list = get_steps(run_id, thread_id)
     return {"step_detail_list": step_detail_list, "step_id_list": step_id_list}

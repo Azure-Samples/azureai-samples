@@ -10,7 +10,7 @@ configure_logger()
 
 def create_thread(thread_id: Optional[str] = None) -> any:
     if thread_id:
-        user_thread = client.beta.threads.retrieve(thread_id) 
+        user_thread = client.beta.threads.retrieve(thread_id)
     else:
         user_thread = client.beta.threads.create()
     return user_thread.id
@@ -25,21 +25,21 @@ def create_run(thread_id: str, assistant_id: str) -> any:
 def create_msg(thread_id: str, role: str, content: str) -> any:
     msg_obj = client.beta.threads.messages
     msg_obj.create(thread_id=thread_id, role=role, content=content)
-    
-    
+
+
 def process_action(thread_id: str, run_id: any, func_list: dict) -> None:
     run_obj = client.beta.threads.runs
     run = run_obj.retrieve(thread_id=thread_id, run_id=run_id)
-    
+
     if run.required_action.type != "submit_tool_outputs":
         return
-        
-    tool_calls = run.required_action.submit_tool_outputs.tool_calls    
+
+    tool_calls = run.required_action.submit_tool_outputs.tool_calls
     if tool_calls is None:
         return
-    
+
     tool_responses = []
-    
+
     for call in tool_calls:
         if call.type == "function":
             if call.function.name not in func_list:
@@ -82,7 +82,7 @@ def poll_run(thread_id: str, run_id: str, func_list: dict) -> None:
     except Exception as e:
         logging.info(e)
         return 0
-    
+
 
 def get_encoded_image(image_data: bytes, msg_id: str) -> dict:
     encoded_string = b64encode(image_data).decode("utf-8")
@@ -93,12 +93,12 @@ def get_encode_txt(txt_val: str, msg_id: str) -> str:
     bytes_val = txt_val.encode("utf-8")
     encoded_val = b64encode(bytes_val).decode("utf-8")
     return {"text_data": encoded_val, "msg_id": msg_id}
-    
+
 
 def get_text_msg(msg_text: str, msg_id: str) -> dict:
     txt_val = msg_text.value
-    return get_encode_txt(txt_val, msg_id)                    
-    
+    return get_encode_txt(txt_val, msg_id)
+
 
 def get_msgs(thread_id: str) -> any:
     final_response = []
@@ -157,7 +157,7 @@ def get_steps(run_id: str, thread_id: str) -> any:
         else:
             msg_id = run_step.step_details.message_creation.message_id
             message = msg_obj.retrieve(message_id=msg_id, thread_id=thread_id)
-            
+
             for msg in message.content:
                 step_id_list.append(run_step.id)
                 if msg.type == "image_file":
@@ -165,12 +165,3 @@ def get_steps(run_id: str, thread_id: str) -> any:
                 else:
                     step_detail_list.append("Creating Message")
     return step_detail_list, step_id_list
-
-
-
-
-
-
-
-
-

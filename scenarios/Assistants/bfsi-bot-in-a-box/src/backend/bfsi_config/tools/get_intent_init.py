@@ -21,8 +21,8 @@ from azure.search.documents.indexes.models import (
 import json
 from bfsi_config.tools.open_ai_response import get_embeddings
 
-#Use this when running the code in the same directory as open_ai_response.py
-#from open_ai_response import get_embeddings 
+# Use this when running the code in the same directory as open_ai_response.py
+# from open_ai_response import get_embeddings
 from pathlib import Path
 
 load_dotenv(override=True)
@@ -183,7 +183,7 @@ def main() -> None:
     intent_docs = get_intent_documents()
 
     client.upload_documents(documents=intent_docs)
-    
+
 
 if __name__ == "__main__":
     main()

@@ -32,12 +32,7 @@ def create_app_assistant() -> any:
 
     logging.info(instructions)
 
-    app_assistant = create_assistant(
-        assistant_name, 
-        instructions, 
-        tools_list, 
-        file_ids
-    )
+    app_assistant = create_assistant(assistant_name, instructions, tools_list, file_ids)
     assistant_id = app_assistant.id
 
     return assistant_id, func_list
