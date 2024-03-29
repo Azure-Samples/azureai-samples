@@ -49,12 +49,12 @@ Contoso Financial Assistant caters to below types of queries:
 
 ## Usage
 
-1. Create AI Search index for user query categorization by executing func_get_intent_init.py 
+1. Create AI Search index for user query categorization by executing get_intent_init.py 
 2. Start the backend server using command flask run --host 0.0.0.0 --port 5007
 3. Launch the frontend application by opening `assistant.html` file in your browser.
 4. Sample conversation:
-Can you tell me about performance of contoso financials in 2023?
+Tell me about performance of contoso financials in 2023.
 Or
-I purchased a Washing Machine on Premier Credit Card. 
+I purchased a Washing Machine on EMI Card. 
 My EMI is 1000 Rs for 12 months.  
 I missed my last EMI. How much do i pay now?
