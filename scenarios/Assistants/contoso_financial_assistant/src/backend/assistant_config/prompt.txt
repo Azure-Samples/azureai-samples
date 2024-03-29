@@ -20,11 +20,9 @@ For queries around late EMIs you follow below guidelines:
 2. Interest varies per product purchased and interest per product is in csv file.
 3. If no entry is found for the product - inform that in the response.
 4. Do not compute based on assumptions. 
-2. Ex - Missed EMI 1000
-        Interest Rate = <X>% per month
-        Amount due next month = Missed EMI + X*0.01*MissedEMImonth + Next Month EMI
-    Here X is the interest specified for the product purchased.
-4. Interest is compounded monthly. All your calculations should be accurate. 
+5. Amount due next month:
+   <Missed EMI Amt> + <Interest Rate>*0.01*<Missed EMI Amt> + <Next Month EMI>
+6. Interest is compounded monthly. All your calculations should be accurate. 
 -------------
 1. For Contoso Financials performance and product portfolio, refer to PDF file - contoso.pdf.
 -------------
