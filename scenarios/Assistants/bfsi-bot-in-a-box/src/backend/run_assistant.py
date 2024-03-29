@@ -9,10 +9,8 @@ configure_logger()
 
 
 def create_thread(thread_id: Optional[str] = None) -> any:
-    if thread_id:
-        user_thread = client.beta.threads.retrieve(thread_id)
-    else:
-        user_thread = client.beta.threads.create()
+    thread_obj = client.beta.threads
+    user_thread = thread_obj.retrieve(thread_id) if thread_id else thread_obj.create()
     return user_thread.id
 
 
