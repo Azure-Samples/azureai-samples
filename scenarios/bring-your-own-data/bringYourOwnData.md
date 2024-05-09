@@ -1,4 +1,4 @@
-# Use Azure OpenAI On Your Data With openai-node Library
+# Use Azure OpenAI On Your Data with openai
 
 ## Objective
 
@@ -13,17 +13,17 @@ You should expect to spend 5-10 minutes running this sample.
 
 ## Before you begin
 
-### Set Environment Variables
+### Set environment variables
 
 To start with let us create a config `.env` file with your project details. This file can be used in this sample or other samples to connect to your workspace. A sample `.env` file is provided below with the variables that you need.
 
 ```js
-OPENAI_API_VERSION="Insert the targeted API version here"
-AZURE_OPENAI_ENDPOINT="Insert your endpoint here"
+OPENAI_API_VERSION="Insert the desired Azure OpenAI API version here"
+AZURE_OPENAI_ENDPOINT="Insert your Azure OpenAI resource endpoint here"
 AZURE_OPENAI_API_KEY="Insert your API Key here"
 ```
 
-### Connect To Your Data Sources
+### Connect to your data source
 We need to connect to a data source to upload our data. We will set up your own designated data sources using Azure AI Search. 
 
 ```js
@@ -47,7 +47,7 @@ const dataSources = {
 ### Using Azure OpenAI client
 We will access Azure Open AI service through `openai-node` library. 
 
-#### Authenticate Using Microsoft Entra ID
+#### Authenticate using Microsoft Entra ID
 ```js
 const { AzureOpenAI } = require("openai");  
 const { getBearerTokenProvider, DefaultAzureCredential } = require("@azure/identity");  
@@ -60,7 +60,7 @@ const client = new AzureOpenAI({
 });
 ```
 
-## Run AI Models On Your Data
+## Run AI models on your data
 
 Now we can use Azure on your own data with Chat Completions. Providing our search endpoint, key, and index name in the `data_sources` options, any questions posed to the model will now be grounded in our own data. An additional property, `context`, will be provided in the response to show the data the model referenced to answer the question.
 
