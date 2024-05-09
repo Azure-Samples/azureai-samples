@@ -21,12 +21,22 @@ To start with let us create a config `.env` file with your project details. This
 OPENAI_API_VERSION="Insert the desired Azure OpenAI API version here"
 AZURE_OPENAI_ENDPOINT="Insert your Azure OpenAI resource endpoint here"
 AZURE_OPENAI_API_KEY="Insert your API Key here"
+
+AZURE_SEARCH_ENDPOINT="Insert your Search Endpoint here"
+AZURE_SEARCH_INDEX="Insert your Search index name here"
+AZURE_SEARCH_KEY="Insert your Search API Key here"
 ```
 
 ### Connect to your data source
-We need to connect to a data source to upload our data. We will set up your own designated data sources using Azure AI Search. 
+We need to connect to a data source to upload our data. We will set up your own designated data sources using Azure AI Search and import the values from our `.env` file.
 
 ```js
+require('dotenv').config();
+
+const azureSearchEndpoint = process.env["AZURE_SEARCH_ENDPOINT"] || "<search endpoint>";
+const azureSearchIndexName = process.env["AZURE_SEARCH_INDEX"] || "<search index>";
+const azureSearchAdminKey = process.env["AZURE_SEARCH_KEY"] || "<search key>";
+
 const dataSources = {
     data_sources: [
         {
@@ -45,7 +55,7 @@ const dataSources = {
 ```
 
 ### Using Azure OpenAI client
-We will access Azure Open AI service through `openai-node` library. 
+We will access Azure Open AI service through `openai` library. To authenticate our client, we will need to import `@azure/identity` to use Microsoft Entra ID token authentication. To learn more about the credential, refer to the README.md for the package [here]( https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/identity/identity/README.md).
 
 #### Authenticate using Microsoft Entra ID
 ```js
@@ -70,7 +80,7 @@ async function main() {
     const deploymentName = "gpt-4";
     const result = await client.chat.completions.create({
         model: deploymentName, 
-        messages: [{ role: 'user', content: 'Write a poem to celebrate my birthday!' }],
+        messages: [{ role: "user", content: "Write a poem to celebrate my birthday!" }],
         ...dataSources
     });
     console.log("The content received:", result.choices[0].message?.content);
@@ -93,14 +103,14 @@ async function main() {
         stream: true,
         model: deploymentName,
         messages: [{ role: 'user', content: 'Write a poem to celebrate my birthday!' }],
-        ...dataSources as any
+        ...dataSources
     });
 
     console.log("The content received:", result.choices[0].message?.content);
     for (const choice of chunk.choices) {
         console.log(choice.delta?.content);
-        console.log((choice.delta as any).context?.citations);
-        console.log((choice.delta as any).context?.intent);
+        console.log(choice.delta?.context?.citations);
+        console.log(choice.delta?.context?.intent);
     }
 }
 
