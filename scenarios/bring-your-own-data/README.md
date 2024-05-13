@@ -18,10 +18,10 @@ This tutorial provides a step-by-step guide on how to use AzureOpenAI client in 
 
 The main objective of this tutorial is to help users understand the process of chatting on top of your own data. By the end of this tutorial, you should be able to:
 
- - Connect to Azure using AzureOpenAI client
+ - Connect to Azure using Azure OpenAI client
  - Get chat response with your own data
 
 ### Programming languages
- - Javascript
+ - JavaScript
 
 ### Estimated Runtime: 5 mins

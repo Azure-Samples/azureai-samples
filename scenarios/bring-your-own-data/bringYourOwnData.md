@@ -4,7 +4,7 @@
 
 The main objective of this tutorial is to help users understand the process of chatting on top of your own data. By the end of this tutorial, you should be able to:
 
- - Connect to Azure using AzureOpenAI client
+ - Connect to Azure using an Azure OpenAI client
  - Get chat response with your own data
 
 ## Time
@@ -15,20 +15,18 @@ You should expect to spend 5-10 minutes running this sample.
 
 ### Set environment variables
 
-To start with let us create a config `.env` file with your project details. This file can be used in this sample or other samples to connect to your workspace. A sample `.env` file is provided below with the variables that you need.
+To start, create a config `.env` file with your project details. This file can be used in this sample or other samples to connect to your workspace. A sample `.env` file is provided below with the variables that you need.
 
 ```js
 OPENAI_API_VERSION="Insert the desired Azure OpenAI API version here"
 AZURE_OPENAI_ENDPOINT="Insert your Azure OpenAI resource endpoint here"
-AZURE_OPENAI_API_KEY="Insert your API Key here"
 
 AZURE_SEARCH_ENDPOINT="Insert your Search Endpoint here"
 AZURE_SEARCH_INDEX="Insert your Search index name here"
-AZURE_SEARCH_KEY="Insert your Search API Key here"
 ```
 
 ### Connect to your data source
-We need to connect to a data source to upload our data. We will set up your own designated data sources using Azure AI Search and import the values from our `.env` file.
+We need to connect to a data source to upload our data. We will set up your own designated data sources using Azure AI Search and import the values from our `.env` file. The easiest way to allow Azure AI Search to recognize your Azure OpenAI service is to toggle on system assigned managed identity through the Azure portal. Refer to [this documentation](https://learn.microsoft.com/azure/ai-services/openai/how-to/use-your-data-securely#enable-managed-identity) for more information.
 
 ```js
 require('dotenv').config();
@@ -45,8 +43,7 @@ const dataSources = {
                 endpoint: azureSearchEndpoint,
                 index_name: azureSearchIndexName,
                 authentication: {
-                    type: "api_key",
-                    key: azureSearchAdminKey,
+                    type: "system_assigned_managed_identity";
                 }
             }
         }
@@ -55,9 +52,8 @@ const dataSources = {
 ```
 
 ### Using Azure OpenAI client
-We will access Azure Open AI service through `openai` library. To authenticate our client, we will need to import `@azure/identity` to use Microsoft Entra ID token authentication. To learn more about the credential, refer to the README.md for the package [here]( https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/identity/identity/README.md).
+We'll access the Azure Open AI service through the `openai` library. To authenticate our client, we will need to import `@azure/identity` to use Microsoft Entra ID token authentication. To learn more about the library's credentials, refer to the README.md for the package [here]( https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/identity/identity/README.md).
 
-#### Authenticate using Microsoft Entra ID
 ```js
 const { AzureOpenAI } = require("openai");  
 const { getBearerTokenProvider, DefaultAzureCredential } = require("@azure/identity");  
