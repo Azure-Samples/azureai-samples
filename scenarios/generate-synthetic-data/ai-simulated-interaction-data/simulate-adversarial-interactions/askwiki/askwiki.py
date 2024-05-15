@@ -1,3 +1,7 @@
+# ---------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# ---------------------------------------------------------
+# pylint: disable=ANN201,ANN001,RET505
 import os
 import pathlib
 import random
@@ -10,6 +14,8 @@ import bs4
 import re
 from concurrent.futures import ThreadPoolExecutor
 from openai import AzureOpenAI
+from typing import List, Tuple, Dict
+
 
 # Create a session for making HTTP requests
 session = requests.Session()
@@ -21,12 +27,12 @@ system_message_template = templateEnv.get_template("system-message.jinja2")
 
 
 # Function to decode a string
-def decode_str(string):
+def decode_str(string: str) -> str:
     return string.encode().decode("unicode-escape").encode("latin1").decode("utf-8")
 
 
 # Function to remove nested parentheses from a string
-def remove_nested_parentheses(string):
+def remove_nested_parentheses(string: str) -> str:
     pattern = r"\([^()]+\)"
     while re.search(pattern, string):
         string = re.sub(pattern, "", string)
@@ -34,7 +40,7 @@ def remove_nested_parentheses(string):
 
 
 # Function to get sentences from a page
-def get_page_sentence(page, count: int = 10):
+def get_page_sentence(page: str, count: int = 10) -> str:
     # find all paragraphs
     paragraphs = page.split("\n")
     paragraphs = [p.strip() for p in paragraphs if p.strip()]
@@ -49,7 +55,7 @@ def get_page_sentence(page, count: int = 10):
 
 
 # Function to fetch text content from a URL
-def fetch_text_content_from_url(url: str, count: int = 10):
+def fetch_text_content_from_url(url: str, count: int = 10) -> Tuple[str, str]:
     # Send a request to the URL
     try:
         headers = {
@@ -71,13 +77,11 @@ def fetch_text_content_from_url(url: str, count: int = 10):
                     page += "\n"
             text = get_page_sentence(page, count=count)
             return (url, text)
-        else:
-            msg = (
-                f"Get url failed with status code {response.status_code}.\nURL: {url}\nResponse: "
-                f"{response.text[:100]}"
-            )
-            print(msg)
-            return (url, "No available content")
+        msg = (
+            f"Get url failed with status code {response.status_code}.\nURL: {url}\nResponse: " f"{response.text[:100]}"
+        )
+        print(msg)
+        return (url, "No available content")
 
     except Exception as e:
         print("Get url failed with error: {}".format(e))
@@ -85,24 +89,18 @@ def fetch_text_content_from_url(url: str, count: int = 10):
 
 
 # Function to get search results from a list of URLs
-def search_result_from_url(url_list: list, count: int = 10):
+def search_result_from_url(url_list: List[str], count: int = 10) -> List[Tuple[str, str]]:
     results = []
-    partial_func_of_fetch_text_content_from_url = partial(
-        fetch_text_content_from_url,
-        count=count
-    )
+    partial_func_of_fetch_text_content_from_url = partial(fetch_text_content_from_url, count=count)
     with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = executor.map(
-            partial_func_of_fetch_text_content_from_url,
-            url_list
-        )
+        futures = executor.map(partial_func_of_fetch_text_content_from_url, url_list)
         for feature in futures:
             results.append(feature)
     return results
 
 
 # Function to get Wikipedia URL for a given entity
-def get_wiki_url(entity: str, count=2):
+def get_wiki_url(entity: str, count: int = 2) -> List[str]:
     # Send a request to the URL
     url = f"https://en.wikipedia.org/w/index.php?search={entity}"
     url_list = []
@@ -142,28 +140,27 @@ def get_wiki_url(entity: str, count=2):
 
 
 # Function to process search results
-def process_search_result(search_result):
-    def format(doc: dict):
+def process_search_result(search_result: List[Tuple[str, str]]) -> str:
+    def format(doc: dict) -> str:
         return f"Content: {doc['Content']}"
 
     try:
         context = []
-        for url, content in search_result:
+        for _url, content in search_result:
             context.append(
                 {
                     "Content": content,
                     # "Source": url
                 }
             )
-        context_str = "\n\n".join([format(c) for c in context])
-        return context_str
+        return "\n\n".join([format(c) for c in context])
     except Exception as e:
         print(f"Error: {e}")
         return ""
 
 
 # Function to perform augmented QA
-def augemented_qa(question, context):
+def augemented_qa(question: str, context: str) -> str:
     system_message = system_message_template.render(contexts=context)
 
     messages = [{"role": "system", "content": system_message}, {"role": "user", "content": question}]
@@ -181,7 +178,7 @@ def augemented_qa(question, context):
 
 
 # Function to ask Wikipedia
-def ask_wiki(question):
+def ask_wiki(question: str) -> Dict[str, str]:
     url_list = get_wiki_url(question, count=2)
     search_result = search_result_from_url(url_list, count=10)
     context = process_search_result(search_result)
