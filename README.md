@@ -46,6 +46,7 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 #### OpenAI
 
 * **[openai/openai-cookbook]** - Example code for common tasks within OpenAI.
+* **[Azure-Samples/serverless-chat-langchainjs](https://github.com/Azure-Samples/serverless-chat-langchainjs)** - Sample implementing a serverless ChatGPT with Retrieval-Augmented-Generation using LangChain.js, that can run locally with Ollama and Mistral 7B.
 
 ## Contributing
 
@@ -80,3 +81,4 @@ If you'd like to implement it yourself, please refer to our [contributing guidel
 [microsoft/chat-copilot]: https://github.com/microsoft/chat-copilot
 [new issue page]: https://github.com/Azure-Samples/azureai-samples/issues/new/choose
 [openai/openai-cookbook]: https://github.com/openai/openai-cookbook/tree/main/examples
+[Azure-Samples/serverless-chat-langchainjs]: https://github.com/Azure-Samples/serverless-chat-langchainjs
