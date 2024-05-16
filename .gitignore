@@ -165,5 +165,3 @@ cython_debug/
 
 # macOS Finder
 .DS_Store
-*.ignore.*
-*outputs*
