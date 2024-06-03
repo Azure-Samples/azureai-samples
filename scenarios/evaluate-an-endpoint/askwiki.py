@@ -14,7 +14,7 @@ import bs4
 import re
 from concurrent.futures import ThreadPoolExecutor
 from openai import AzureOpenAI
-from typing import List, Tuple, Dict
+from typing import List, Tuple, TypedDict
 
 
 # Create a session for making HTTP requests
@@ -178,7 +178,14 @@ def augemented_qa(question: str, context: str) -> str:
 
 
 # Function to ask Wikipedia
-def ask_wiki(question: str) -> Dict[str, str]:
+
+
+class Response(TypedDict):
+    answer: str
+    context: str
+
+
+def ask_wiki(question: str) -> Response:
     url_list = get_wiki_url(question, count=2)
     search_result = search_result_from_url(url_list, count=10)
     context = process_search_result(search_result)
