@@ -21,10 +21,10 @@ from typing import List, Tuple, TypedDict
 session = requests.Session()
 
 # Set up Jinja2 for templating
-templateLoader = jinja2.FileSystemLoader(pathlib.Path(__file__).parent.parent.resolve())
+templateLoader = jinja2.FileSystemLoader(pathlib.Path(__file__).parent.resolve())
 templateEnv = jinja2.Environment(loader=templateLoader)
 system_message_template = templateEnv.get_template(
-    "generate-synthetic-data/simulate-adversarial-interactions/askwiki/system-message.jinja2"
+    "system-message.jinja2"
 )
 
 
