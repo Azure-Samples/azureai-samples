@@ -23,9 +23,7 @@ session = requests.Session()
 # Set up Jinja2 for templating
 templateLoader = jinja2.FileSystemLoader(pathlib.Path(__file__).parent.resolve())
 templateEnv = jinja2.Environment(loader=templateLoader)
-system_message_template = templateEnv.get_template(
-    "system-message.jinja2"
-)
+system_message_template = templateEnv.get_template("system-message.jinja2")
 
 
 # Function to decode a string
