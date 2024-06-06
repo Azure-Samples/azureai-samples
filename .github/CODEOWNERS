@@ -4,3 +4,4 @@
 
 # Default owner for everything, unless overridden by a more specific rule.
 * @Azure-Samples/azure-ai-samples-maintainers
+/scenarios/resource-creation/basic/AIStudioHubAndProject.ipynb @sdgilley @msakande @Blackmist @ssalgadodev @lgayhardt @fbsolo-ms1
