@@ -152,4 +152,4 @@ output id string = workspace.id
 @description('The name of the workspace connection to the Search Service.')
 output acs_connection_name string = (searchName != '') ? workspaceName_Azure_Cognitive_Search.name : ''
 output azure_openai_endpoint string = workspaceName_Azure_OpenAI.properties.endpointUri
-output openai_endpoint_name string = (endpointOption == 'new') ? workspaceName_Azure_OpenAI.name : ''
+output azure_openai_connection_name string = (endpointOption == 'new') ? workspaceName_Azure_OpenAI.name : ''

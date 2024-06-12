@@ -1,7 +1,7 @@
 param name string
 param properties object
 param project_name string
-param openai_endpoint_name string
+param azure_openai_connection_name string
 
 resource project 'Microsoft.MachineLearningServices/workspaces@2023-10-01' existing = {
   name: project_name
@@ -22,7 +22,7 @@ var properties_with_defaults = union(defaults, properties)
 #disable-next-line BCP081
 resource endpoint 'Microsoft.MachineLearningServices/workspaces/endpoints@2023-08-01-preview' existing = {
   parent: project
-  name: openai_endpoint_name
+  name: azure_openai_connection_name
 
   #disable-next-line BCP081
   resource deployment 'deployments' = {
