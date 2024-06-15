@@ -19,8 +19,7 @@ var defaults = {
 
 var properties_with_defaults = union(defaults, properties)
 
-#disable-next-line BCP081
-resource endpoint 'Microsoft.MachineLearningServices/workspaces/endpoints@2023-08-01-preview' existing = {
+resource endpoint 'Microsoft.MachineLearningServices/workspaces/connections@2023-08-01-preview' existing = {
   parent: project
   name: azure_openai_connection_name
 
