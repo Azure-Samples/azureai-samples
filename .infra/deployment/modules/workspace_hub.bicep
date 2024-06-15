@@ -15,6 +15,9 @@ param publicNetworkAccess string = 'Enabled'
 ])
 param isolationMode string = 'Disabled'
 
+@description('AI services name')
+param aiServicesName string = '${name}-aiservices'
+
 @description('Determines whether or not new ApplicationInsights should be provisioned.')
 @allowed([
   'new'
@@ -96,36 +99,36 @@ resource workspace 'Microsoft.MachineLearningServices/workspaces@2023-02-01-prev
   }
 }
 
-#disable-next-line BCP081
-resource workspaceName_Azure_OpenAI 'Microsoft.MachineLearningServices/workspaces/endpoints@2023-08-01-preview' = if (endpointOption == 'new') {
-  parent: workspace
-  name: 'Azure.OpenAI'
+resource aiServices 'Microsoft.CognitiveServices/accounts@2021-10-01' = {
+  name: aiServicesName
+  location: location
+  sku: {
+    name: 'S0'
+  }
+  kind: endpointKind
   properties: {
-    name: 'Azure.OpenAI'
-    endpointType: 'Azure.OpenAI'
-    associatedResourceId: null
+    apiProperties: {
+      statisticsEnabled: false
+    }
   }
 }
 
-#disable-next-line BCP081
-resource workspaceName_Azure_ContentSafety 'Microsoft.MachineLearningServices/workspaces/endpoints@2023-08-01-preview' = if ((endpointKind == 'AIServices') && (endpointOption == 'new')) {
+resource aiServicesConnection 'Microsoft.MachineLearningServices/workspaces/connections@2023-10-01' = {
   parent: workspace
-  name: 'Azure.ContentSafety'
+  name: '${name}-connection-AzureOpenAI'
   properties: {
-    name: 'Azure.ContentSafety'
-    endpointType: 'Azure.ContentSafety'
-    associatedResourceId: null
-  }
-}
-
-#disable-next-line BCP081
-resource workspaceName_Azure_Speech 'Microsoft.MachineLearningServices/workspaces/endpoints@2023-08-01-preview' = if ((endpointKind == 'AIServices') && (endpointOption == 'new')) {
-  parent: workspace
-  name: 'Azure.Speech'
-  properties: {
-    name: 'Azure.Speech'
-    endpointType: 'Azure.Speech'
-    associatedResourceId: null
+    category: 'AzureOpenAI'
+    target: aiServices.properties.endpoint
+    #disable-next-line BCP036
+    authType: 'ApiKey'
+    isSharedToAll: true
+    credentials: {
+      key: aiServices.listKeys().key1
+    }
+    metadata: {
+      ApiType: 'Azure'
+      ResourceId: aiServices.id
+    }
   }
 }
 
@@ -151,5 +154,5 @@ resource workspaceName_Azure_Cognitive_Search 'Microsoft.MachineLearningServices
 output id string = workspace.id
 @description('The name of the workspace connection to the Search Service.')
 output acs_connection_name string = (searchName != '') ? workspaceName_Azure_Cognitive_Search.name : ''
-output azure_openai_endpoint string = workspaceName_Azure_OpenAI.properties.endpointUri
-output azure_openai_connection_name string = (endpointOption == 'new') ? workspaceName_Azure_OpenAI.name : ''
+output azure_openai_endpoint string = aiServices.properties.endpoint
+output azure_openai_connection_name string = (endpointOption == 'new') ? aiServicesConnection.name : ''
