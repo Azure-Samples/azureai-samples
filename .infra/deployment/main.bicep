@@ -59,7 +59,7 @@ var deployments = [
       type: 'Azure.OpenAI'
       sku: {
         name: 'Standard'
-        capacity: 120
+        capacity: 1
       }
     }
   }
