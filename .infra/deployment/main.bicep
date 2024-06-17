@@ -1,6 +1,6 @@
 targetScope = 'subscription'
-param workspaceName string = 'samples_ai'
-param projectName string = 'samples_ai_proj'
+param workspaceName string = 'azureai_samples_hub'
+param projectName string = 'azureai_samples_proj'
 param resourceGroupName string = 'azureai-samples-validation-${utcNow('yyyyMM')}'
 param location string = 'westus'
 
