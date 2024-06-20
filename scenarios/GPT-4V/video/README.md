@@ -19,6 +19,6 @@ This Jupyter notebook is dedicated to exploring the process of conducting Q&A se
 The objective is to equip developers with the skills and methodologies for effectively implementing Q&A functionalities by analyzing video inputs in GPT-4 Turbo with Vision, enhancing interactive and dynamic video processing capabilities.
 
 ### Programming Languages
- - Python
+ - Python 3.8+
 
 ### Estimated Runtime: 5-10 minutes
