@@ -18,7 +18,9 @@ extend-select = [
   "ANN",
   "RUF",
 ]
-
+ignore = [
+  "ANN101", # missing-type-self: This can be inferred and will be deprecated by ruff
+]
 
 [tool.ruff.lint.extend-per-file-ignores]
 "*.ipynb" = [
