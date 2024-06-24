@@ -4,3 +4,4 @@ python-dotenv ~= 1.0
 pytest ~= 8.0
 pytest-iovis[papermill] @ git+https://github.com/kdestin/pytest-iovis.git
 ipykernel ~= 6.0
+.infra/pytest_plugins/changed_samples
