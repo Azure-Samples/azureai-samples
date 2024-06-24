@@ -65,6 +65,7 @@ var deployments = [
   }
 ]
 
+@batchSize(1)
 module project_deployments 'modules/ai_project_deployment.bicep' = [for deployment in deployments: {
   name: 'project_deployment-${deployment.name}'
   params: {
