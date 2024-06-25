@@ -66,7 +66,7 @@ response = client.complete(
         SystemMessage(content="You are a helpful assistant."),
         UserMessage(content="What is the capital of France?"),
     ],
-    model_extras={"model": model_name},
+    model=model_name,
 )
 
 print(response.choices[0].message.content)
@@ -107,7 +107,7 @@ messages = [
     UserMessage(content="What about Spain?"),
 ]
 
-response = client.complete(messages=messages, model_extras={"model": model_name})
+response = client.complete(messages=messages, model=model_name)
 
 print(response.choices[0].message.content)
 ```
@@ -140,7 +140,7 @@ response = client.complete(
         SystemMessage(content="You are a helpful assistant."),
         UserMessage(content="Give me 5 good reasons why I should exercise every day."),
     ],
-    model_extras={"model": model_name},
+    model=model_name,
 )
 
 for update in response:
