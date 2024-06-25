@@ -36,7 +36,7 @@ export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
 Set model name in an env variable:
 
 ```bash
-export MODEL_NAME=gpt-4o
+export MODEL_NAME=Phi-3-mini-4k-instruct
 ```
 
 ## 4. Run a basic code sample
@@ -147,45 +147,5 @@ for update in response:
     print(update.choices[0].delta.content or "", end="")
 
 client.close()
-```
-
-
-### Chat with an image input
-
-This model supports using images as inputs. To run a chat completion
-using a local image file, use the following sample:
-
-
-```python
-import os
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage, TextContentItem, ImageContentItem, ImageUrl
-from azure.core.credentials import AzureKeyCredential
-
-endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
-model_name = os.environ["MODEL_NAME"]
-
-client = ChatCompletionsClient(
-    endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
-)
-
-response = client.complete(
-    messages=[
-        SystemMessage(
-            content="You are a helpful assistant that describes images in details."
-        ),
-        UserMessage(
-            content=[
-                TextContentItem(text="What's in this image?"),
-                ImageContentItem(image_url=ImageUrl.load(image_file="sample.png", image_format="png"))
-            ],
-        ),
-    ],
-    model=model_name,
-)
-
-print(response.choices[0].message.content)
 ```
 

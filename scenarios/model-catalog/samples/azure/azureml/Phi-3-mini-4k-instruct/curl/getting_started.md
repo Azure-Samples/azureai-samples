@@ -2,22 +2,11 @@
 
 # Getting Started
 
-- [Create a personal access token](#create-a-personal-access-token)
 - [Set environment variables](#set-environment-variables)
 - [Run a basic code sample](#run-a-basic-code-sample)
 - [Explore more code snippets](#explore-more-samples)
 
-## 1. Create a personal access token
-
-You'll need to **[create a token](https://github.com/settings/tokens)** to enable free API access. The token will be sent to a Microsoft service but does not need any permissions.
-
-## 2. Set environment variables
-Update or create an environment variable to set your token as the key for the client code.
-
-```bash
-export TOKEN="<your-key-goes-here>"
-
-```
+## 1. Set environment variables
 Get the model endpoint url and use it in the code below by exporting it as an environment variable
 
 ```bash
@@ -27,15 +16,16 @@ export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
 Set model name in an env variable:
 
 ```bash
-export MODEL_NAME=gpt-4o
+export MODEL_NAME=Phi-3-mini-4k-instruct
 ```
 
-## 3. Call basic code sample
+## 2. Call basic code sample
 
 Paste the following into a shell:
 
 
 ```console
+TOKEN=$(az account get-access-token --resource=https://ai.azure.com);
 curl -X GET "$MODEL_ENDPOINT/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $TOKEN" \
@@ -55,7 +45,7 @@ curl -X GET "$MODEL_ENDPOINT/completions" \
 ```
 
 
-## 4. Explore more samples
+## 3. Explore more samples
 
 
 ### Run a multi-turn conversation
@@ -64,6 +54,7 @@ Call the chat completion API and pass the chat history:
 
 
 ```console
+TOKEN=$(az account get-access-token --resource=https://ai.azure.com);
 curl -X GET "$MODEL_ENDPOINT/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $TOKEN" \
@@ -97,6 +88,7 @@ This is an example of calling the endpoint and streaming the response.
 
 
 ```console
+TOKEN=$(az account get-access-token --resource=https://ai.azure.com);
 curl -X GET "$MODEL_ENDPOINT/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $TOKEN" \

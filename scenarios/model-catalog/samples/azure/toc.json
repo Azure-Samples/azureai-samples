@@ -23,16 +23,16 @@
             }
         }
     },
-    "azureml://registries/azureml-mistral/models/mistral-large": {
-        "name": "mistral-large",
-        "subdir": "azureml-mistral/mistral-large/",
+    "azureml://registries/azureml-mistral/models/Mistral-large": {
+        "name": "Mistral-large",
+        "subdir": "azureml-mistral/Mistral-large/",
         "samples": {
             "python": {
                 "friendly_name": "Python",
                 "sdks": {
                     "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml-mistral/mistral-large/python/azure_ai_inference/getting_started.md"
+                        "path": "azureml-mistral/Mistral-large/python/azure_ai_inference/getting_started.md"
                     }
                 }
             },
@@ -41,22 +41,22 @@
                 "sdks": {
                     "curl": {
                         "friendly_name": "cURL",
-                        "path": "azureml-mistral/mistral-large/curl/getting_started.md"
+                        "path": "azureml-mistral/Mistral-large/curl/getting_started.md"
                     }
                 }
             }
         }
     },
-    "azureml://registries/azureml-mistral/models/mistral-small": {
-        "name": "mistral-small",
-        "subdir": "azureml-mistral/mistral-small/",
+    "azureml://registries/azureml-mistral/models/Mistral-small": {
+        "name": "Mistral-small",
+        "subdir": "azureml-mistral/Mistral-small/",
         "samples": {
             "python": {
                 "friendly_name": "Python",
                 "sdks": {
                     "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml-mistral/mistral-small/python/azure_ai_inference/getting_started.md"
+                        "path": "azureml-mistral/Mistral-small/python/azure_ai_inference/getting_started.md"
                     }
                 }
             },
@@ -65,22 +65,22 @@
                 "sdks": {
                     "curl": {
                         "friendly_name": "cURL",
-                        "path": "azureml-mistral/mistral-small/curl/getting_started.md"
+                        "path": "azureml-mistral/Mistral-small/curl/getting_started.md"
                     }
                 }
             }
         }
     },
-    "azureml://registries/azureml/models/phi-3-mini-4k-instruct": {
-        "name": "phi-3-mini-4k-instruct",
-        "subdir": "azureml/phi-3-mini-4k-instruct/",
+    "azureml://registries/azureml/models/Phi-3-mini-4k-instruct": {
+        "name": "Phi-3-mini-4k-instruct",
+        "subdir": "azureml/Phi-3-mini-4k-instruct/",
         "samples": {
             "python": {
                 "friendly_name": "Python",
                 "sdks": {
                     "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml/phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
+                        "path": "azureml/Phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
                     }
                 }
             },
@@ -89,7 +89,7 @@
                 "sdks": {
                     "curl": {
                         "friendly_name": "cURL",
-                        "path": "azureml/phi-3-mini-4k-instruct/curl/getting_started.md"
+                        "path": "azureml/Phi-3-mini-4k-instruct/curl/getting_started.md"
                     }
                 }
             }
