@@ -1,0 +1,130 @@
+{
+    "azureml://registries/azure-openai/models/gpt-4o": {
+        "name": "gpt-4o",
+        "subdir": "azure-openai/gpt-4o/",
+        "samples": {
+            "python": {
+                "friendly_name": "Python",
+                "sdks": [
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azure-openai/gpt-4o/python/azure_ai_inference/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azure-openai/gpt-4o/python/azure_ai_inference/getting_started.md"
+                    }
+                ]
+            },
+            "rest": {
+                "friendly_name": "REST",
+                "sdks": [
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azure-openai/gpt-4o/curl/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azure-openai/gpt-4o/curl/getting_started.md"
+                    }
+                ]
+            }
+        }
+    },
+    "azureml://registries/azureml-mistral/models/mistral-large": {
+        "name": "mistral-large",
+        "subdir": "azureml-mistral/mistral-large/",
+        "samples": {
+            "python": {
+                "friendly_name": "Python",
+                "sdks": [
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/mistral-large/python/azure_ai_inference/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/mistral-large/python/azure_ai_inference/getting_started.md"
+                    }
+                ]
+            },
+            "rest": {
+                "friendly_name": "REST",
+                "sdks": [
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml-mistral/mistral-large/curl/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml-mistral/mistral-large/curl/getting_started.md"
+                    }
+                ]
+            }
+        }
+    },
+    "azureml://registries/azureml-mistral/models/mistral-small": {
+        "name": "mistral-small",
+        "subdir": "azureml-mistral/mistral-small/",
+        "samples": {
+            "python": {
+                "friendly_name": "Python",
+                "sdks": [
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/mistral-small/python/azure_ai_inference/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/mistral-small/python/azure_ai_inference/getting_started.md"
+                    }
+                ]
+            },
+            "rest": {
+                "friendly_name": "REST",
+                "sdks": [
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml-mistral/mistral-small/curl/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml-mistral/mistral-small/curl/getting_started.md"
+                    }
+                ]
+            }
+        }
+    },
+    "azureml://registries/azureml/models/phi-3-mini-4k-instruct": {
+        "name": "phi-3-mini-4k-instruct",
+        "subdir": "azureml/phi-3-mini-4k-instruct/",
+        "samples": {
+            "python": {
+                "friendly_name": "Python",
+                "sdks": [
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml/phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml/phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
+                    }
+                ]
+            },
+            "rest": {
+                "friendly_name": "REST",
+                "sdks": [
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml/phi-3-mini-4k-instruct/curl/getting_started.md"
+                    },
+                    {
+                        "friendly_name": "cURL",
+                        "path": "azureml/phi-3-mini-4k-instruct/curl/getting_started.md"
+                    }
+                ]
+            }
+        }
+    }
+}
