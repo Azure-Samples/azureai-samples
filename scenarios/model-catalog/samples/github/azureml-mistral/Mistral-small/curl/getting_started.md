@@ -27,7 +27,7 @@ export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
 Set model name in an env variable:
 
 ```bash
-export MODEL_NAME=gpt-4o
+export MODEL_NAME=Mistral-small
 ```
 
 ## 3. Call basic code sample
