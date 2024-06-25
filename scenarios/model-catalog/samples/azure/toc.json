@@ -5,29 +5,21 @@
         "samples": {
             "python": {
                 "friendly_name": "Python",
-                "sdks": [
-                    {
-                        "friendly_name": "Azure AI Inference SDK",
-                        "path": "azure-openai/gpt-4o/python/azure_ai_inference/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azure-openai/gpt-4o/python/azure_ai_inference/getting_started.md"
                     }
-                ]
+                }
             },
             "rest": {
                 "friendly_name": "REST",
-                "sdks": [
-                    {
-                        "friendly_name": "cURL",
-                        "path": "azure-openai/gpt-4o/curl/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "curl": {
                         "friendly_name": "cURL",
                         "path": "azure-openai/gpt-4o/curl/getting_started.md"
                     }
-                ]
+                }
             }
         }
     },
@@ -37,29 +29,21 @@
         "samples": {
             "python": {
                 "friendly_name": "Python",
-                "sdks": [
-                    {
-                        "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml-mistral/mistral-large/python/azure_ai_inference/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azureml-mistral/mistral-large/python/azure_ai_inference/getting_started.md"
                     }
-                ]
+                }
             },
             "rest": {
                 "friendly_name": "REST",
-                "sdks": [
-                    {
-                        "friendly_name": "cURL",
-                        "path": "azureml-mistral/mistral-large/curl/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "curl": {
                         "friendly_name": "cURL",
                         "path": "azureml-mistral/mistral-large/curl/getting_started.md"
                     }
-                ]
+                }
             }
         }
     },
@@ -69,29 +53,21 @@
         "samples": {
             "python": {
                 "friendly_name": "Python",
-                "sdks": [
-                    {
-                        "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml-mistral/mistral-small/python/azure_ai_inference/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azureml-mistral/mistral-small/python/azure_ai_inference/getting_started.md"
                     }
-                ]
+                }
             },
             "rest": {
                 "friendly_name": "REST",
-                "sdks": [
-                    {
-                        "friendly_name": "cURL",
-                        "path": "azureml-mistral/mistral-small/curl/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "curl": {
                         "friendly_name": "cURL",
                         "path": "azureml-mistral/mistral-small/curl/getting_started.md"
                     }
-                ]
+                }
             }
         }
     },
@@ -101,29 +77,21 @@
         "samples": {
             "python": {
                 "friendly_name": "Python",
-                "sdks": [
-                    {
-                        "friendly_name": "Azure AI Inference SDK",
-                        "path": "azureml/phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azureml/phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
                     }
-                ]
+                }
             },
             "rest": {
                 "friendly_name": "REST",
-                "sdks": [
-                    {
-                        "friendly_name": "cURL",
-                        "path": "azureml/phi-3-mini-4k-instruct/curl/getting_started.md"
-                    },
-                    {
+                "sdks": {
+                    "curl": {
                         "friendly_name": "cURL",
                         "path": "azureml/phi-3-mini-4k-instruct/curl/getting_started.md"
                     }
-                ]
+                }
             }
         }
     }
