@@ -58,8 +58,9 @@ model_name = os.environ["MODEL_NAME"]
 client = ChatCompletionsClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
-
 
 response = client.complete(
     messages=[
@@ -97,7 +98,10 @@ api_key = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
-    endpoint=endpoint, credential=AzureKeyCredential(api_key)
+    endpoint=endpoint,
+    credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
 
 messages = [
@@ -132,6 +136,8 @@ model_name = os.environ["MODEL_NAME"]
 client = ChatCompletionsClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
 
 response = client.complete(
@@ -159,7 +165,13 @@ using a local image file, use the following sample:
 ```python
 import os
 from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage, TextContentItem, ImageContentItem, ImageUrl
+from azure.ai.inference.models import (
+    SystemMessage,
+    UserMessage,
+    TextContentItem,
+    ImageContentItem,
+    ImageUrl,
+)
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
@@ -169,6 +181,8 @@ model_name = os.environ["MODEL_NAME"]
 client = ChatCompletionsClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
 
 response = client.complete(
@@ -179,7 +193,9 @@ response = client.complete(
         UserMessage(
             content=[
                 TextContentItem(text="What's in this image?"),
-                ImageContentItem(image_url=ImageUrl.load(image_file="sample.png", image_format="png"))
+                ImageContentItem(
+                    image_url=ImageUrl.load(image_file="sample.png", image_format="png")
+                ),
             ],
         ),
     ],

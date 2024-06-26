@@ -58,8 +58,9 @@ model_name = os.environ["MODEL_NAME"]
 client = ChatCompletionsClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
-
 
 response = client.complete(
     messages=[
@@ -97,7 +98,10 @@ api_key = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
-    endpoint=endpoint, credential=AzureKeyCredential(api_key)
+    endpoint=endpoint,
+    credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
 
 messages = [
@@ -132,6 +136,8 @@ model_name = os.environ["MODEL_NAME"]
 client = ChatCompletionsClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(api_key),
+    # NOTE: this is a temporary hotfix
+    headers={"x-ms-model-mesh-model-name": model_name},
 )
 
 response = client.complete(
