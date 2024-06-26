@@ -39,13 +39,13 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 # All versions follow the YYYY-MM-DD date structure.
 openai_api_version = config_details["OPENAI_API_VERSION"]
 
+
 # %% [markdown]
 # ## Funciontion to Call GPT-4 Turbo with Vision
 def call_GPT4V(messages: list) -> object:
     # Construct the API request URL
     api_url = (
-        f"{openai_api_base}/openai/deployments/{deployment_name}"
-        f"/chat/completions?api-version={openai_api_version}"
+        f"{openai_api_base}/openai/deployments/{deployment_name}" f"/chat/completions?api-version={openai_api_version}"
     )
 
     # Including the api-key in HTTP headers
@@ -346,6 +346,7 @@ def call_face_API(image_file_path: str, face_api_endpoint: str, face_api_key: st
         print(f"An error occurred: {e}")
         return None, None
 
+
 def download_video(sas_url: str, local_file_path: str) -> bool:
     try:
         response = requests.get(sas_url, stream=True)
@@ -361,7 +362,10 @@ def download_video(sas_url: str, local_file_path: str) -> bool:
         print(f"An error occurred during download: {e}")
         return False
 
-def sample_frames(clip : VideoFileClip, num_frames : int) -> list:
+
+def sample_frames(clip: VideoFileClip, num_frames: int) -> list:
     frame_times = [int(i * clip.duration / num_frames) for i in range(num_frames)]
     frames = [(t, clip.get_frame(t)) for t in frame_times]
-    return [(frame[0], base64.b64encode(cv2.imencode('.jpg', frame[1])[1].tostring()).decode('utf-8')) for frame in frames]
+    return [
+        (frame[0], base64.b64encode(cv2.imencode(".jpg", frame[1])[1].tostring()).decode("utf-8")) for frame in frames
+    ]
