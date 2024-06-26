@@ -361,8 +361,7 @@ def download_video(sas_url: str, local_file_path: str) -> bool:
         print(f"An error occurred during download: {e}")
         return False
 
-def sample_frames(clip : VideoFileClip, num_frames : int):
+def sample_frames(clip : VideoFileClip, num_frames : int) -> list:
     frame_times = [int(i * clip.duration / num_frames) for i in range(num_frames)]
     frames = [(t, clip.get_frame(t)) for t in frame_times]
-    encode_frames =[(frame[0], base64.b64encode(cv2.imencode('.jpg', frame[1])[1].tostring()).decode('utf-8')) for frame in frames]
-    return encode_frames
+    return [(frame[0], base64.b64encode(cv2.imencode('.jpg', frame[1])[1].tostring()).decode('utf-8')) for frame in frames]
