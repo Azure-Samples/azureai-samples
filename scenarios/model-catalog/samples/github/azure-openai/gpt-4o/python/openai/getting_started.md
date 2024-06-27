@@ -14,10 +14,10 @@ You'll need to **[create a token](https://github.com/settings/tokens)** to enabl
 
 ## 2. Install dependencies
 
-Install Azure AI Inferencing package using the following command:
+Install OpenAI python package using the following command:
 
 ```
-pip install azure-ai-inference
+pip install openai
 ```
 
 ## 3. Set environment variables
@@ -36,7 +36,7 @@ export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
 Set model name in an env variable:
 
 ```bash
-export MODEL_NAME=Mistral-large
+export MODEL_NAME=gpt-4o
 ```
 
 ## 4. Run a basic code sample
@@ -47,25 +47,29 @@ It is leveraging your endpoint and key. The call is synchronous.
 
 ```python
 import os
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
+from openai import OpenAI
 
 endpoint = os.environ["MODEL_ENDPOINT"]
 token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
-client = ChatCompletionsClient(
-    endpoint=endpoint,
-    credential=AzureKeyCredential(token),
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
     # NOTE: this is a temporary hotfix
-    headers={"x-ms-model-mesh-model-name": model_name},
+    default_headers={"x-ms-model-mesh-model-name": model_name}
 )
 
-response = client.complete(
+response = client.chat.completions.create(
     messages=[
-        SystemMessage(content="You are a helpful assistant."),
-        UserMessage(content="What is the capital of France?"),
+        {
+            "role": "system",
+            "content": "You are a helpful assistant.",
+        },
+        {
+            "role": "user",
+            "content": "What is the capital of France?",
+        }
     ],
     model=model_name,
 )
@@ -122,33 +126,107 @@ of the model so that the first token shows up early and you avoid waiting for lo
 
 ```python
 import os
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
+from openai import OpenAI
 
 endpoint = os.environ["MODEL_ENDPOINT"]
 token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
-client = ChatCompletionsClient(
-    endpoint=endpoint,
-    credential=AzureKeyCredential(token),
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
     # NOTE: this is a temporary hotfix
-    headers={"x-ms-model-mesh-model-name": model_name},
+    default_headers={"x-ms-model-mesh-model-name": model_name}
 )
 
-response = client.complete(
-    stream=True,
+response = client.chat.completions.create(
     messages=[
-        SystemMessage(content="You are a helpful assistant."),
-        UserMessage(content="Give me 5 good reasons why I should exercise every day."),
+        {
+            "role": "system",
+            "content": "You are a helpful assistant.",
+        },
+        {
+            "role": "user",
+            "content": "Give me 5 good reasons why I should exercise every day.",
+        }
+    ],
+    model=model_name,
+    stream=True
+)
+
+for update in response:
+    if update.choices[0].delta.content:
+        print(update.choices[0].delta.content, end="")
+```
+
+
+### Chat with an image input
+
+This model supports using images as inputs. To run a chat completion
+using a local image file, use the following sample:
+
+
+```python
+import os
+import base64
+from openai import OpenAI
+
+endpoint = os.environ["MODEL_ENDPOINT"]
+token = os.environ["TOKEN"]
+model_name = os.environ["MODEL_NAME"]
+
+def get_image_data_url(image_file: str, image_format: str) -> str:
+    """
+    Helper function to converts an image file to a data URL string.
+
+    Args:
+        image_file (str): The path to the image file.
+        image_format (str): The format of the image file.
+
+    Returns:
+        str: The data URL of the image.
+    """
+    try:
+        with open(image_file, "rb") as f:
+            image_data = base64.b64encode(f.read()).decode("utf-8")
+    except FileNotFoundError:
+        print(f"Could not read '{image_file}'.")
+        exit()
+    return f"data:image/{image_format};base64,{image_data}"
+
+
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
+    # NOTE: this is a temporary hotfix
+    default_headers={"x-ms-model-mesh-model-name": model_name}
+)
+
+response = client.chat.completions.create(
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a helpful assistant that describes images in details.",
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "What's in this image?",
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": get_image_data_url("sample.png", "png")
+                    },
+                },
+            ],
+        },
     ],
     model=model_name,
 )
 
-for update in response:
-    print(update.choices[0].delta.content or "", end="")
-
-client.close()
+print(response.choices[0].message.content)
 ```
 

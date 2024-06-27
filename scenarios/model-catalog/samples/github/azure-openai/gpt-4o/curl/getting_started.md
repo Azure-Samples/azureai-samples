@@ -15,7 +15,7 @@ You'll need to **[create a token](https://github.com/settings/tokens)** to enabl
 Update or create an environment variable to set your token as the key for the client code.
 
 ```bash
-export TOKEN="<your-key-goes-here>"
+export TOKEN="<your-github-token-goes-here>"
 
 ```
 Get the model endpoint url and use it in the code below by exporting it as an environment variable
