@@ -24,7 +24,7 @@ pip install azure-ai-inference
 Update or create an environment variable to set your token as the key for the client code.
 
 ```bash
-export TOKEN="<your-key-goes-here>"
+export TOKEN="<your-github-token-goes-here>"
 
 ```
 Get the model endpoint url and use it in the code below by exporting it as an environment variable
@@ -52,12 +52,12 @@ from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )
@@ -76,9 +76,6 @@ print(response.choices[0].message.content)
 
 ## 5. Explore more samples
 
-For a better user experience, you will want to stream the response
-of the model so that the first token shows up early and you avoid waiting for long responses.
-
 
 ### Run a multi-turn conversation
 
@@ -94,12 +91,12 @@ from azure.ai.inference.models import AssistantMessage, SystemMessage, UserMessa
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )
@@ -130,12 +127,12 @@ from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )

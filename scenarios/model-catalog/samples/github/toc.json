@@ -6,9 +6,22 @@
             "python": {
                 "friendly_name": "Python",
                 "sdks": {
+                    "openai": {
+                        "friendly_name": "OpenAI SDK",
+                        "path": "azure-openai/gpt-4o/python/openai/getting_started.md"
+                    },
                     "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azure-openai/gpt-4o/python/azure_ai_inference/getting_started.md"
+                    }
+                }
+            },
+            "js": {
+                "friendly_name": "JavaScript",
+                "sdks": {
+                    "azure-ai-inference": {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azure-openai/gpt-4o/js/azure_ai_inference/getting_started.md"
                     }
                 }
             },
@@ -36,6 +49,15 @@
                     }
                 }
             },
+            "js": {
+                "friendly_name": "JavaScript",
+                "sdks": {
+                    "azure-ai-inference": {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/Mistral-large/js/azure_ai_inference/getting_started.md"
+                    }
+                }
+            },
             "rest": {
                 "friendly_name": "REST",
                 "sdks": {
@@ -60,6 +82,15 @@
                     }
                 }
             },
+            "js": {
+                "friendly_name": "JavaScript",
+                "sdks": {
+                    "azure-ai-inference": {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml-mistral/Mistral-small/js/azure_ai_inference/getting_started.md"
+                    }
+                }
+            },
             "rest": {
                 "friendly_name": "REST",
                 "sdks": {
@@ -81,6 +112,15 @@
                     "azure-ai-inference": {
                         "friendly_name": "Azure AI Inference SDK",
                         "path": "azureml/Phi-3-mini-4k-instruct/python/azure_ai_inference/getting_started.md"
+                    }
+                }
+            },
+            "js": {
+                "friendly_name": "JavaScript",
+                "sdks": {
+                    "azure-ai-inference": {
+                        "friendly_name": "Azure AI Inference SDK",
+                        "path": "azureml/Phi-3-mini-4k-instruct/js/azure_ai_inference/getting_started.md"
                     }
                 }
             },
