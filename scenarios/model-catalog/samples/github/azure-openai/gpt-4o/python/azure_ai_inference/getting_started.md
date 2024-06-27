@@ -52,12 +52,12 @@ from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )
@@ -94,12 +94,12 @@ from azure.ai.inference.models import AssistantMessage, SystemMessage, UserMessa
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )
@@ -130,12 +130,12 @@ from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )
@@ -175,12 +175,12 @@ from azure.ai.inference.models import (
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
-api_key = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
 client = ChatCompletionsClient(
     endpoint=endpoint,
-    credential=AzureKeyCredential(api_key),
+    credential=AzureKeyCredential(token),
     # NOTE: this is a temporary hotfix
     headers={"x-ms-model-mesh-model-name": model_name},
 )

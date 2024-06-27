@@ -14,10 +14,10 @@ You'll need to **[create a token](https://github.com/settings/tokens)** to enabl
 
 ## 2. Install dependencies
 
-Install Azure AI Inferencing package using the following command:
+Install OpenAI python package using the following command:
 
 ```
-pip install azure-ai-inference
+pip install openai
 ```
 
 ## 3. Set environment variables
@@ -36,7 +36,7 @@ export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
 Set model name in an env variable:
 
 ```bash
-export MODEL_NAME=Mistral-large
+export MODEL_NAME=gpt-4o
 ```
 
 ## 4. Run a basic code sample
@@ -47,25 +47,29 @@ It is leveraging your endpoint and key. The call is synchronous.
 
 ```python
 import os
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
+from openai import OpenAI
 
 endpoint = os.environ["MODEL_ENDPOINT"]
 token = os.environ["TOKEN"]
 model_name = os.environ["MODEL_NAME"]
 
-client = ChatCompletionsClient(
-    endpoint=endpoint,
-    credential=AzureKeyCredential(token),
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
     # NOTE: this is a temporary hotfix
-    headers={"x-ms-model-mesh-model-name": model_name},
+    default_headers={"x-ms-model-mesh-model-name": model_name}
 )
 
-response = client.complete(
+response = client.chat.completions.create(
     messages=[
-        SystemMessage(content="You are a helpful assistant."),
-        UserMessage(content="What is the capital of France?"),
+        {
+            "role": "system",
+            "content": "You are a helpful assistant.",
+        },
+        {
+            "role": "user",
+            "content": "What is the capital of France?",
+        }
     ],
     model=model_name,
 )
@@ -125,8 +129,56 @@ of the model so that the first token shows up early and you avoid waiting for lo
 
 ```python
 import os
+from openai import OpenAI
+
+endpoint = os.environ["MODEL_ENDPOINT"]
+token = os.environ["TOKEN"]
+model_name = os.environ["MODEL_NAME"]
+
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
+    # NOTE: this is a temporary hotfix
+    default_headers={"x-ms-model-mesh-model-name": model_name}
+)
+
+response = client.chat.completions.create(
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a helpful assistant.",
+        },
+        {
+            "role": "user",
+            "content": "Give me 5 good reasons why I should exercise every day.",
+        }
+    ],
+    model=model_name,
+    stream=True
+)
+
+for update in response:
+    if update.choices[0].delta.content:
+        print(update.choices[0].delta.content, end="")
+```
+
+
+### Chat with an image input
+
+This model supports using images as inputs. To run a chat completion
+using a local image file, use the following sample:
+
+
+```python
+import os
 from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
+from azure.ai.inference.models import (
+    SystemMessage,
+    UserMessage,
+    TextContentItem,
+    ImageContentItem,
+    ImageUrl,
+)
 from azure.core.credentials import AzureKeyCredential
 
 endpoint = os.environ["MODEL_ENDPOINT"]
@@ -141,17 +193,22 @@ client = ChatCompletionsClient(
 )
 
 response = client.complete(
-    stream=True,
     messages=[
-        SystemMessage(content="You are a helpful assistant."),
-        UserMessage(content="Give me 5 good reasons why I should exercise every day."),
+        SystemMessage(
+            content="You are a helpful assistant that describes images in details."
+        ),
+        UserMessage(
+            content=[
+                TextContentItem(text="What's in this image?"),
+                ImageContentItem(
+                    image_url=ImageUrl.load(image_file="sample.png", image_format="png")
+                ),
+            ],
+        ),
     ],
     model=model_name,
 )
 
-for update in response:
-    print(update.choices[0].delta.content or "", end="")
-
-client.close()
+print(response.choices[0].message.content)
 ```
 
