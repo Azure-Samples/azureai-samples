@@ -7,6 +7,9 @@ import json
 import os
 import requests
 import time
+import cv2
+from moviepy.editor import VideoFileClip
+import base64
 from pathlib import Path
 
 current_script_dir = Path(__file__).parent
@@ -35,6 +38,40 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 # Currently OPENAI API have the following versions available: 2022-12-01.
 # All versions follow the YYYY-MM-DD date structure.
 openai_api_version = config_details["OPENAI_API_VERSION"]
+
+
+# %% [markdown]
+# ## Funciontion to Call GPT-4 Turbo with Vision
+def call_GPT4V(messages: list) -> object:
+    # Construct the API request URL
+    api_url = (
+        f"{openai_api_base}/openai/deployments/{deployment_name}" f"/chat/completions?api-version={openai_api_version}"
+    )
+
+    # Including the api-key in HTTP headers
+    headers = {
+        "Content-Type": "application/json",
+        "api-key": openai_api_key,
+        "x-ms-useragent": "Azure-GPT-4V-video/1.0.0",
+    }
+
+    # Payload for the request
+    payload = {
+        "model": "gpt-4-vision-preview",
+        "messages": messages,
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 800,
+    }
+
+    # Send the request and handle the response
+    try:
+        response = requests.post(api_url, headers=headers, json=payload)
+        response.raise_for_status()  # Raise an error for bad HTTP status codes
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Failed to make the request. Error: {e}")
+
 
 # %% [markdown]
 # ## Funciontion to Call GPT-4 Turbo with Vision API with Image
@@ -308,3 +345,27 @@ def call_face_API(image_file_path: str, face_api_endpoint: str, face_api_key: st
     except Exception as e:
         print(f"An error occurred: {e}")
         return None, None
+
+
+def download_video(sas_url: str, local_file_path: str) -> bool:
+    try:
+        response = requests.get(sas_url, stream=True)
+        if response.status_code == 200:
+            with Path(local_file_path).open("wb") as file:
+                for chunk in response.iter_content(chunk_size=8192):
+                    file.write(chunk)
+            return True
+
+        print(f"Download failed with status code: {response.status_code}")
+        return False
+    except Exception as e:
+        print(f"An error occurred during download: {e}")
+        return False
+
+
+def sample_frames(clip: VideoFileClip, num_frames: int) -> list:
+    frame_times = [int(i * clip.duration / num_frames) for i in range(num_frames)]
+    frames = [(t, clip.get_frame(t)) for t in frame_times]
+    return [
+        (frame[0], base64.b64encode(cv2.imencode(".jpg", frame[1])[1].tostring()).decode("utf-8")) for frame in frames
+    ]
