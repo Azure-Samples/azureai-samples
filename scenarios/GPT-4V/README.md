@@ -13,9 +13,9 @@ This repository contains a collection of Jupyter notebooks demonstrating various
 | [Enhancing GPT-4 Turbo with Vision with OCR Technique](enhancement_OCR/enhancement_OCR_chatcompletions_example_restapi.ipynb) | Incorporating Optical Character Recognition (OCR) with image inputs in GPT-4 Turbo with Vision. | Image |
 | [Enhancing GPT-4 Turbo with Vision with Face Attributes](face/face_chatcompletions_example_restapi.ipynb) | Utilize face attributes obtained from the face API to assess face image quality in GPT-4 Turbo with Vision. | Image |
 | [Basic Video QnA in GPT-4 Turbo with Vision based on video index](video/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs (indexed) in GPT-4 Turbo with Vision. | Video |
-| [Basic Video QnA in GPT-4 Turbo with Vision](video_without_index/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs (no index) in GPT-4 Turbo with Vision. | Video |
-| [Video Chunk Processing Sequentially in GPT-4 Turbo with Vision based on video index](video_chunk/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks with video index in GPT-4 Turbo with Vision. | Video |
-| [Video Chunk Processing Sequentially in GPT-4 Turbo with Vision](video_chunk_without_index/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks without video index in GPT-4 Turbo with Vision. | Video |
+| [Basic Video QnA in GPT-4 Turbo with Vision by manual sampling](video_by_manual_sampling/video_chatcompletions_example_restapi.ipynb) | Conducting Q&A with video inputs by manually sampling frames in GPT-4 Turbo with Vision. | Video |
+| [Video Chunk Processing Sequentially in GPT-4 Turbo with Vision based on video index](video_chunk/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks (indexed) in GPT-4 Turbo with Vision. | Video |
+| [Video Chunk Processing Sequentially in GPT-4 Turbo with Vision by manual sampling](video_chunk_by_manual_sampling/video_chunk_chatcompletions_example_restapi.ipynb) | Sequential processing of video chunks by manually sampling frames in GPT-4 Turbo with Vision. | Video |
 
 
 ## Installation
