@@ -4,7 +4,7 @@
 
 ## Use Case
 
-Imagine an assistant that helps you figure out your finances, retrieves useful info, and does special functions—all in one go! It's like giving your app a brain that keeps getting smarter!
+Imagine an assistant that helps you figure out your finances, retrieves useful info, and does special functions—all in one go! 
 
 Using the Assistants API is simple. Just tell your assistant what to do, like having a conversation. It can understand different file formats, execute code (super techy!), and do all sorts of cool tricks. As Azure OpenAI adds more tools, your assistant can do even cooler things. It's a fun and easy way to add some brainpower to your GenAI app!
 
@@ -145,8 +145,9 @@ while True:
 |----------------------|--------------------------------------------------|
 | [Math Tutor](math_tutor/assistant-math_tutor.ipynb) | Showcases the foundational concepts of Assistants such as Threads, Messages, Runs, Tools, and lifecycle management. |
 | [Financial Assistant](personal_finance/assistant-personal_finance.ipynb) | Function Calling with Yfinance to get latest stock prices. Summarization of user provided article. Extract country info from article, extract country, capital and other aspects, and call an API to get more information about each country. |
-| [Failed Banks](failed_banks/assistant-failed_banks.ipynb) | Using Assistant tools Code Interpreter and Function calling, this bot can get a CSV file, gather a list of failed banks by state, and generate a chart to visually represent the data. |
+| [Failed Banks](failed_banks/assistant-failed_banks.ipynb) | Using Assistant tools Code Interpreter and Function calling, this Assistant can get a CSV file, gather a list of failed banks by state, and generate a chart to visually represent the data. |
 | [Wind Farm](wind_farm/assistant-wind_farm.ipynb) | Utilizing Assistant tools such as the Code Interpreter and Function calling, this bot is capable of retrieving a CSV file that illustrates turbine wind speed, voltage, and the last maintenance date. It assists you in reviewing the file contents and aids in determining whether a specific turbine is in need of maintenance. |
+| [Sales Assistant](sales_assistant/assistant_sales.ipynb) | Showcases how you can create an Assistant adept at managing various tasks, such as handling relational data across different files and supporting multiple users simultaneously within the same Assistant across distinct threads. |
 
 ## Prerequisites
 
