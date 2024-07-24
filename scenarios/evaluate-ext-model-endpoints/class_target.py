@@ -31,14 +31,9 @@ class ExternalEndpoints:
         else:
             output = self.call_default_endpoint(question)
         
-        print(output)    
-
         return output
 
     def call_tiny_llama_endpoint(self, question: str, *args, **kwargs) -> Response:
-
-        print(self.env["tiny_llama"]["endpoint"])
-        print(self.env["tiny_llama"]["key"])
 
         endpoint = self.env["tiny_llama"]["endpoint"]
         key = self.env["tiny_llama"]["key"]
@@ -102,7 +97,7 @@ class ExternalEndpoints:
             "inputs": question,
         })
         
-        answer = output["generated_text"]
+        answer = output[0]["generated_text"]
         return { "question" : question  , "answer" : answer }
     
     def call_default_endpoint(question: str, *args, **kwargs) -> Response:
