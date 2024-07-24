@@ -8,12 +8,11 @@ import requests
 from typing import List, Tuple, TypedDict
 from promptflow.tracing import trace
 
-class TargetEndpointClass:
+class ExternalEndpoints:
 
-    global _env
-
+    
     def __init__(self, env):
-        _env = env
+        self.env = env
         # contructor
 
     class Response(TypedDict):
@@ -26,7 +25,9 @@ class TargetEndpointClass:
         if (model_type == "tiny_llama"): 
             output = self.call_tiny_llama_endpoint(question)
         elif (model_type == "phi3_mini_serverless"):
-            output = self.call_phi3_mini_serverless_endpoint(question)    
+            output = self.call_phi3_mini_serverless_endpoint(question) 
+        elif (model_type == "gpt2"):
+            output = self.call_gpt2_endpoint(question)    
         else:
             output = self.call_default_endpoint(question)
         
@@ -34,13 +35,13 @@ class TargetEndpointClass:
 
         return output
 
-    def call_tiny_llama_endpoint(question: str) -> Response:
+    def call_tiny_llama_endpoint(self, question: str, *args, **kwargs) -> Response:
 
-        print(_env["tiny_llama"]["endpoint"])
-        print(_env["tiny_llama"]["key"])
+        print(self.env["tiny_llama"]["endpoint"])
+        print(self.env["tiny_llama"]["key"])
 
-        endpoint = _env["tiny_llama"]["endpoint"]
-        key = _env["tiny_llama"]["key"]
+        endpoint = self.env["tiny_llama"]["endpoint"]
+        key = self.env["tiny_llama"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
 
@@ -62,10 +63,10 @@ class TargetEndpointClass:
         answer = output["choices"][0]["message"]["content"]
         return { "question" : question  , "answer" : answer }
 
-    def call_phi3_mini_serverless_endpoint(question: str) -> str:
+    def call_phi3_mini_serverless_endpoint(self, question: str, *args, **kwargs) -> Response:
 
-        endpoint = _env["phi3_mini"]["endpoint"]
-        key = _env["phi3_mini"]["key"]
+        endpoint = self.env["phi3_mini_serverless"]["endpoint"]
+        key = self.env["phi3_mini_serverless"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
 
@@ -85,7 +86,26 @@ class TargetEndpointClass:
         answer = output["choices"][0]["message"]["content"]
         return { "question" : question  , "answer" : answer }
 
-    def call_default_endpoint(): 
+    def call_gpt2_endpoint(self, question: str, *args, **kwargs) -> Response:
+
+        endpoint = self.env["gpt2"]["endpoint"]
+        key = self.env["gpt2"]["key"]
+
+        headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
+
+        def query(payload):
+            print(payload)
+            response = requests.post(endpoint, headers=headers, json=payload)
+            return response.json()
+            
+        output = query({
+            "inputs": question,
+        })
+        
+        answer = output["generated_text"]
+        return { "question" : question  , "answer" : answer }
+    
+    def call_default_endpoint(question: str, *args, **kwargs) -> Response:
         return { "question" : "What is the capital of France?"  , "answer" : "Paris" }
     
         
