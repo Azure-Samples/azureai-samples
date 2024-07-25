@@ -27,7 +27,9 @@ class ExternalEndpoints:
         elif (model_type == "phi3_mini_serverless"):
             output = self.call_phi3_mini_serverless_endpoint(question) 
         elif (model_type == "gpt2"):
-            output = self.call_gpt2_endpoint(question)    
+            output = self.call_gpt2_endpoint(question)  
+        elif (model_type == 'mistral7b'):
+            output = self.call_mistral_endpoint(question)  
         else:
             output = self.call_default_endpoint(question)
         
@@ -99,7 +101,33 @@ class ExternalEndpoints:
         
         answer = output[0]["generated_text"]
         return { "question" : question  , "answer" : answer }
-    
+
+    def call_mistral_endpoint(self, question: str, *args, **kwargs) -> Response:
+
+        endpoint = self.env["mistral7b"]["endpoint"]
+        key = self.env["mistral7b"]["key"]
+
+        headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
+
+        def query(payload):
+            response = requests.post(endpoint, headers=headers, json=payload)
+            return response.json()
+            
+        output = query(
+        { 
+        "messages": [ 
+            { 
+            "content": "What is the capital of France?", 
+            "role": "user" 
+            } 
+        ], 
+        "max_tokens": 50
+        }
+        )
+        
+        answer = output["choices"][0]["message"]["content"]
+        return { "question" : question  , "answer" : answer }
+
     def call_default_endpoint(question: str, *args, **kwargs) -> Response:
         return { "question" : "What is the capital of France?"  , "answer" : "Paris" }
     
