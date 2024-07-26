@@ -18,9 +18,13 @@ def call_external_endpoints(question: str, model_type: str) -> Response:
     if (model_type == "tiny_llama"): 
         output = call_tiny_llama_endpoint(question)
     elif (model_type == "phi3_mini_serverless"):
-        output = call_phi3_mini_serverless_endpoint(question)    
+        output = call_phi3_mini_serverless_endpoint(question) 
+    elif (model_type == "gpt2"):
+        output = call_gpt2_endpoint(question)  
+    elif (model_type == 'mistral7b'):
+        output = call_mistral_endpoint(question)  
     else:
-        output = call_default_endpoint(question)  
+        output = call_default_endpoint(question)
 
     return output
 
@@ -73,6 +77,57 @@ def call_phi3_mini_serverless_endpoint(question: str) -> Response:
             }],
         "max_tokens": 500
         })
+    
+    answer = output["choices"][0]["message"]["content"]
+    return { "question" : question  , "answer" : answer }
+
+def call_gpt2_endpoint(self, question: str, *args, **kwargs) -> Response:
+
+    # endpoint = self.env["gpt2"]["endpoint"]
+    # key = self.env["gpt2"]["key"]
+
+    endpoint="https://api-inference.huggingface.co/models/openai-community/gpt2"
+    key="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"
+
+    headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
+
+    def query(payload):
+        print(payload)
+        response = requests.post(endpoint, headers=headers, json=payload)
+        return response.json()
+        
+    output = query({
+        "inputs": question,
+    })
+    
+    answer = output[0]["generated_text"]
+    return { "question" : question  , "answer" : answer }
+
+def call_mistral_endpoint(self, question: str, *args, **kwargs) -> Response:
+
+    # endpoint = self.env["mistral7b"]["endpoint"]
+    # key = self.env["mistral7b"]["key"]
+
+    endpoint="https://mistral-7b-east1092381.eastus2.inference.ml.azure.com/chat/completions"
+    key="lnAZ0Upil4nK279UC7Bv1ASawFzgHyAL"
+
+    headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
+
+    def query(payload):
+        response = requests.post(endpoint, headers=headers, json=payload)
+        return response.json()
+        
+    output = query(
+    { 
+    "messages": [ 
+        { 
+        "content": "What is the capital of France?", 
+        "role": "user" 
+        } 
+    ], 
+    "max_tokens": 50
+    }
+    )
     
     answer = output["choices"][0]["message"]["content"]
     return { "question" : question  , "answer" : answer }
