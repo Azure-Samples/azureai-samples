@@ -1,4 +1,1 @@
-{"question":"What is the capital of France","context":"France is the country in Europe.","ground_truth":"Paris","model_type":"gpt2"}
-{"question":"What is the capital of France","context":"France is the country in Europe.","ground_truth":"Paris","model_type":"tiny_llama"}
-{"question":"What is the capital of France","context":"France is the country in Europe.","ground_truth":"Paris","model_type":"phi3_mini_serverless"}
-{"question":"What is the capital of France","context":"France is the country in Europe.","ground_truth":"Paris","model_type":"mistral7b"}
+{"question":"What is the capital of France","context":"France is the country in Europe.","ground_truth":"Paris"}
