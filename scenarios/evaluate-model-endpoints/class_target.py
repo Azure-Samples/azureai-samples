@@ -118,7 +118,7 @@ class ModelEndpoints:
         { 
         "messages": [ 
             { 
-            "content": "What is the capital of France?", 
+            "content": question, 
             "role": "user" 
             } 
         ], 
