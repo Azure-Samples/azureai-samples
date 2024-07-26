@@ -8,11 +8,12 @@ import requests
 from typing import List, Tuple, TypedDict
 from promptflow.tracing import trace
 
-class ExternalEndpoints:
+class ModelEndpoints:
 
     
-    def __init__(self, env):
+    def __init__(self, env, model_type):
         self.env = env
+        self.model_type = model_type
         # contructor
 
     class Response(TypedDict):
@@ -20,15 +21,15 @@ class ExternalEndpoints:
         answer: str
 
     @trace
-    def __call__(self, *, question: str, model_type: str, **kwargs) -> Response:
+    def __call__(self, *, question: str, **kwargs) -> Response:
 
-        if (model_type == "tiny_llama"): 
+        if (self.model_type == "tiny_llama"): 
             output = self.call_tiny_llama_endpoint(question)
-        elif (model_type == "phi3_mini_serverless"):
+        elif (self.model_type == "phi3_mini_serverless"):
             output = self.call_phi3_mini_serverless_endpoint(question) 
-        elif (model_type == "gpt2"):
+        elif (self.model_type == "gpt2"):
             output = self.call_gpt2_endpoint(question)  
-        elif (model_type == 'mistral7b'):
+        elif (self.model_type == 'mistral7b'):
             output = self.call_mistral_endpoint(question)  
         else:
             output = self.call_default_endpoint(question)
