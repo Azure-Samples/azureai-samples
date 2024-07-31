@@ -1,7 +1,7 @@
 
 import requests
-
-from typing import TypedDict, Self
+from typing_extensions import Self
+from typing import TypedDict
 from promptflow.tracing import trace
 
 class ModelEndpoints:
