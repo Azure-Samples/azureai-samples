@@ -1,11 +1,7 @@
 
-import os
-import pathlib
-import random
-import time
 import requests
 
-from typing import List, Tuple, TypedDict
+from typing import TypedDict
 from promptflow.tracing import trace
 
 class ModelEndpoints:
@@ -14,7 +10,7 @@ class ModelEndpoints:
     def __init__(self, env, model_type):
         self.env = env
         self.model_type = model_type
-        # contructor
+        
 
     class Response(TypedDict):
         question: str
