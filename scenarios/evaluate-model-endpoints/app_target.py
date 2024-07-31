@@ -1,13 +1,13 @@
 
 import requests
 
-from typing import TypedDict
+from typing import TypedDict, Self
 from promptflow.tracing import trace
 
 class ModelEndpoints:
 
     
-    def __init__(self, env, model_type):
+    def __init__(self: Self, env: dict, model_type: str) -> str:
         self.env = env
         self.model_type = model_type
         
@@ -17,7 +17,7 @@ class ModelEndpoints:
         answer: str
 
     @trace
-    def __call__(self, *, question: str, **kwargs) -> Response:
+    def __call__(self: Self, question: str) -> Response:
 
         if (self.model_type == "tiny_llama"): 
             output = self.call_tiny_llama_endpoint(question)
@@ -31,20 +31,20 @@ class ModelEndpoints:
             output = self.call_default_endpoint(question)
         
         return output
+    
+    def query(self: Self, endpoint: str, headers: str, payload: str) -> str:
+        response = requests.post(url=endpoint, headers=headers, json=payload)
+        return response.json()
+            
 
-    def call_tiny_llama_endpoint(self, question: str, *args, **kwargs) -> Response:
+    def call_tiny_llama_endpoint(self: Self, question: str) -> Response:
 
         endpoint = self.env["tiny_llama"]["endpoint"]
         key = self.env["tiny_llama"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
-
-        def query(payload):
-            print(payload)
-            response = requests.post(endpoint, headers=headers, json=payload)
-            return response.json()
-            
-        output = query({
+        
+        payload = {
             "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
             "messages": [{
                 "role": "user", 
@@ -52,80 +52,68 @@ class ModelEndpoints:
                 }],
             "max_tokens": 500,
             "stream": False
-            })
-
+            }
+        
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
         return { "question" : question  , "answer" : answer }
 
-    def call_phi3_mini_serverless_endpoint(self, question: str, *args, **kwargs) -> Response:
+    def call_phi3_mini_serverless_endpoint(self: Self, question: str) -> Response:
 
         endpoint = self.env["phi3_mini_serverless"]["endpoint"]
         key = self.env["phi3_mini_serverless"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
 
-        def query(payload):
-            print(payload)
-            response = requests.post(endpoint, headers=headers, json=payload)
-            return response.json()
-            
-        output = query({
+        payload = {
             "messages": [{
                 "role": "user", 
                 "content": question
                 }],
             "max_tokens": 500
-            })
+            }
         
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
         return { "question" : question  , "answer" : answer }
 
-    def call_gpt2_endpoint(self, question: str, *args, **kwargs) -> Response:
+    def call_gpt2_endpoint(self: Self, question: str) -> Response:
 
         endpoint = self.env["gpt2"]["endpoint"]
         key = self.env["gpt2"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
 
-        def query(payload):
-            print(payload)
-            response = requests.post(endpoint, headers=headers, json=payload)
-            return response.json()
-            
-        output = query({
+        payload = {
             "inputs": question,
-        })
+        }
         
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output[0]["generated_text"]
         return { "question" : question  , "answer" : answer }
 
-    def call_mistral_endpoint(self, question: str, *args, **kwargs) -> Response:
+    def call_mistral_endpoint(self: Self, question: str) -> Response:
 
         endpoint = self.env["mistral7b"]["endpoint"]
         key = self.env["mistral7b"]["key"]
 
         headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key) }
 
-        def query(payload):
-            response = requests.post(endpoint, headers=headers, json=payload)
-            return response.json()
-            
-        output = query(
-        { 
-        "messages": [ 
-            { 
-            "content": question, 
-            "role": "user" 
-            } 
-        ], 
-        "max_tokens": 50
+        payload = { 
+            "messages": [ 
+                { 
+                "content": question, 
+                "role": "user" 
+                } 
+            ], 
+            "max_tokens": 50
         }
-        )
         
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
         return { "question" : question  , "answer" : answer }
 
-    def call_default_endpoint(question: str, *args, **kwargs) -> Response:
+    def call_default_endpoint(question: str) -> Response:
         return { "question" : "What is the capital of France?"  , "answer" : "Paris" }
     
         
