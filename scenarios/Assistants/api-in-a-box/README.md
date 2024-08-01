@@ -154,7 +154,7 @@ while True:
 - Create and deploy an [Azure OpenAI Service Resource](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource)
   - In Azure create OpenAI endpoints for:
     - Model version: GPT 4 (1106-Preview)
-    - API version: 2024-02-15-preview
+    - API version: 2024-05-01-preview
     - Copy the deployment name, endpoint, and API key information
 - Clone this repo
 - Make sure the VS Code is installed as well as the VS Code Polyglot extension
@@ -164,7 +164,7 @@ while True:
 ```
 OPENAI_URI=https://<NAME>.openai.azure.com/
 OPENAI_KEY=<API_KEY>
-OPENAI_VERSION=2024-02-15-preview
+OPENAI_VERSION=2024-05-01-preview
 OPENAI_GPT_DEPLOYMENT=<GPT_DEPLOYMENT_NAME>
 OPENAI_ADA_DEPLOYMENT=<ADA_DEPLOYMENT_NAME>
 ```
