@@ -2,11 +2,6 @@ import requests
 from typing_extensions import Self
 from typing import TypedDict
 from promptflow.tracing import trace
-from openai import AzureOpenAI
-
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
 
 
 class ModelEndpoints:
