@@ -15,14 +15,18 @@ class ModelEndpoints:
 
     @trace
     def __call__(self: Self, question: str) -> Response:
-        if self.model_type == "tiny_llama":
+        if self.model_type == "gpt4-0613":
+            output = self.call_gpt4_endpoint(question)
+        elif self.model_type == "gpt35-turbo":
+            output = self.call_gpt35_turbo_endpoint(question)
+        elif self.model_type == "mistral7b":
+            output = self.call_mistral_endpoint(question)
+        elif self.model_type == "tiny_llama":
             output = self.call_tiny_llama_endpoint(question)
         elif self.model_type == "phi3_mini_serverless":
             output = self.call_phi3_mini_serverless_endpoint(question)
         elif self.model_type == "gpt2":
             output = self.call_gpt2_endpoint(question)
-        elif self.model_type == "mistral7b":
-            output = self.call_mistral_endpoint(question)
         else:
             output = self.call_default_endpoint(question)
 
@@ -31,6 +35,30 @@ class ModelEndpoints:
     def query(self: Self, endpoint: str, headers: str, payload: str) -> str:
         response = requests.post(url=endpoint, headers=headers, json=payload)
         return response.json()
+
+    def call_gpt4_endpoint(self: Self, question: str) -> Response:
+        endpoint = self.env["gpt4-0613"]["endpoint"]
+        key = self.env["gpt4-0613"]["key"]
+
+        headers = {"Content-Type": "application/json", "api-key": key}
+
+        payload = {"messages": [{"role": "user", "content": question}], "max_tokens": 500}
+
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
+        answer = output["choices"][0]["message"]["content"]
+        return {"question": question, "answer": answer}
+
+    def call_gpt35_turbo_endpoint(self: Self, question: str) -> Response:
+        endpoint = self.env["gpt35-turbo"]["endpoint"]
+        key = self.env["gpt35-turbo"]["key"]
+
+        headers = {"Content-Type": "application/json", "api-key": key}
+
+        payload = {"messages": [{"role": "user", "content": question}], "max_tokens": 500}
+
+        output = self.query(endpoint=endpoint, headers=headers, payload=payload)
+        answer = output["choices"][0]["message"]["content"]
+        return {"question": question, "answer": answer}
 
     def call_tiny_llama_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["tiny_llama"]["endpoint"]
