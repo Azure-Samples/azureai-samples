@@ -47,11 +47,11 @@ class ModelEndpoints:
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
         return {"question": question, "answer": answer}
-    
+
     def call_gpt35_turbo_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["gpt35-turbo"]["endpoint"]
         key = self.env["gpt35-turbo"]["key"]
-        
+
         headers = {"Content-Type": "application/json", "api-key": key}
 
         payload = {"messages": [{"role": "user", "content": question}], "max_tokens": 500}
@@ -59,7 +59,7 @@ class ModelEndpoints:
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
         return {"question": question, "answer": answer}
-    
+
     def call_tiny_llama_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["tiny_llama"]["endpoint"]
         key = self.env["tiny_llama"]["key"]
