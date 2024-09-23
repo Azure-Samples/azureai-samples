@@ -3,7 +3,6 @@ page_type: sample
 languages:
 - python
 products:
-- ai-services
 - azure-openai
 description: Use the QADataGenerator to generate high-quality questions and answers from your data using LLMs.
 ---
@@ -18,7 +17,7 @@ This sample will be useful to developers and for data scientists who need data f
 
 ### Objective
 
-The main objective of this tutorial is to demonstrate how to use the QADataGenerator to generate high-quality questions and answers from your data using LLMs.
+The main objective of this tutorial is to demonstrate how to use the Simualtor to generate high-quality synthetic data.
 
 This tutorial uses the following Azure AI services:
 
