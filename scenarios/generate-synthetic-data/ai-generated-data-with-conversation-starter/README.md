@@ -11,9 +11,7 @@ description: Use the Simulator to generate high-quality simulated data with pre 
 
 ### Overview
 
-Large Language Models (LLMs) can help you create question and answer datasets from your existing data sources. These datasets can be useful for various tasks, such as testing your retrieval capabilities, evaluating and improving your RAG workflows, tuning your prompts and more. In this sample, we will explore how to use the Simulator to generate high-quality simulated data with pre defined conversation starters using LLMs.
-
-This sample will be useful to developers and for data scientists who need data for developing RAG workflows or evaluating and improving RAG workflows.
+Large Language Models (LLMs) can help you create query and response datasets from your existing data sources. These datasets can be useful for various tasks, such as testing your retrieval capabilities, evaluating and improving your RAG workflows, tuning your prompts and more. In this sample, we will explore how to use the Simulator to generate high-quality simulated data with pre defined conversation starters using LLMs.
 
 ### Objective
 
