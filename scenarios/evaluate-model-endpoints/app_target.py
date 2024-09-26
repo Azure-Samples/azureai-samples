@@ -15,7 +15,7 @@ class ModelEndpoints:
 
     @trace
     def __call__(self: Self, question: str) -> Response:
-        if self.model_type == "gpt4-0613" or self.model_type == "gpt-4o-mini":
+        if self.model_type == "gpt4-0613":
             output = self.call_gpt4_endpoint(question)
         elif self.model_type == "gpt35-turbo":
             output = self.call_gpt35_turbo_endpoint(question)
