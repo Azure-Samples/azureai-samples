@@ -45,7 +45,7 @@ class ModelEndpoints:
         payload = {"messages": [{"role": "user", "content": question}], "max_tokens": 500}
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
-        answer =  output["choices"][0]["message"]["content"]
+        answer = output["choices"][0]["message"]["content"]
         return {"query": question, "response": answer}
 
     def call_gpt35_turbo_endpoint(self: Self, question: str) -> Response:

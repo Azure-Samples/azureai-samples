@@ -160,10 +160,10 @@ def process_search_result(search_result: List[Tuple[str, str]]) -> str:
 
 
 # Function to perform augmented QA
-def augemented_qa(question: str, context: str) -> str:
+def augemented_qa(query: str, context: str) -> str:
     system_message = system_message_template.render(contexts=context)
 
-    messages = [{"role": "system", "content": system_message}, {"role": "user", "content": question}]
+    messages = [{"role": "system", "content": system_message}, {"role": "user", "content": query}]
 
     with AzureOpenAI(
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
@@ -181,17 +181,17 @@ def augemented_qa(question: str, context: str) -> str:
 
 
 class Response(TypedDict):
-    answer: str
+    response: str
     context: str
 
 
-def ask_wiki(question: str) -> Response:
-    url_list = get_wiki_url(question, count=2)
+def ask_wiki(query: str) -> Response:
+    url_list = get_wiki_url(query, count=2)
     search_result = search_result_from_url(url_list, count=10)
     context = process_search_result(search_result)
-    answer = augemented_qa(question, context)
+    response = augemented_qa(query, context)
 
-    return {"answer": answer, "context": str(context)}
+    return {"response": response, "context": str(context)}
 
 
 # Main function
