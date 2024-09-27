@@ -46,7 +46,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_gpt35_turbo_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["gpt35-turbo"]["endpoint"]
@@ -58,7 +58,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_tiny_llama_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["tiny_llama"]["endpoint"]
@@ -75,7 +75,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_phi3_mini_serverless_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["phi3_mini_serverless"]["endpoint"]
@@ -87,7 +87,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_gpt2_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["gpt2"]["endpoint"]
@@ -101,7 +101,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output[0]["generated_text"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_mistral_endpoint(self: Self, question: str) -> Response:
         endpoint = self.env["mistral7b"]["endpoint"]
@@ -113,7 +113,7 @@ class ModelEndpoints:
 
         output = self.query(endpoint=endpoint, headers=headers, payload=payload)
         answer = output["choices"][0]["message"]["content"]
-        return {"question": question, "answer": answer}
+        return {"query": question, "response": answer}
 
     def call_default_endpoint(question: str) -> Response:
-        return {"question": "What is the capital of France?", "answer": "Paris"}
+        return {"query": "What is the capital of France?", "response": "Paris"}
