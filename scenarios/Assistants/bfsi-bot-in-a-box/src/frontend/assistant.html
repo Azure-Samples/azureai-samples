@@ -410,12 +410,18 @@ function display_assistant_response(json_data){
       prv_messages.push(decodedContent)
       assistantResponse = decodedContent;
 
+      let tableStartIndex = assistantResponse.indexOf('<table');
+      let tableEndIndex = assistantResponse.indexOf('</table>') + 8; // 8 is the length of '</table>'
+      if (tableStartIndex !== -1 && tableEndIndex !== -1) {
+          assistantResponse = assistantResponse.substring(tableStartIndex, tableEndIndex);
+      }
+
       var chatArea = document.getElementById('chatArea');
       var assistantDiv = document.createElement('div');
 
       assistantDiv.className = 'chat-message assistant-message';
       assistantDiv.style.flexGrow = '1'; 
-      assistantDiv.textContent = assistantResponse;
+      assistantDiv.innerHTML = assistantResponse;
 
       // add image called assistant_icon.png
       var img = document.createElement('img');
