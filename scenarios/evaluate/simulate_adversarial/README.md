@@ -20,7 +20,6 @@ The main objective of this tutorial is to help users understand the process of c
 By the end of this tutorial, you should be able to:
 - Use the simulator
 - Run the simulator to have an adversarial question answering scenario
-- Evaluate the results
 
 ### Programming Languages
  - Python
