@@ -18,9 +18,8 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 #### Azure AI Studio
 
 * **[Azure/aistudio-copilot-sample]** - Quickstart repo for building an enterprise chat copilot in Azure AI Studio.
-* **[Azure-Samples/aistudio-python-quickstart-sample](https://github.com/Azure-Samples/aistudio-python-quickstart-sample)** - Quickstart Python sample for getting started with SDK or CLI.
-* **[Azure-Samples/aistudio-python-langchain-sample](https://github.com/Azure-Samples/aistudio-python-langchain-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the LangChain framework.
-* **[Azure-Samples/aistudio-python-promptflow-sample](https://github.com/Azure-Samples/aistudio-python-promptflow-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the PromptFlow framework.
+* **[Azure-Samples/contoso-chat](https://github.com/Azure-Samples/contoso-chat)** - End-to-end solution sample for a custom RAG-based retail copilot built code-first with Prompty & Azure AI Studio.
+* **[Azure-Samples/contoso-chat](https://github.com/Azure-Samples/contoso-chat)** - End-to-end solution sample for a custom multi-agent creative writer built code-first with Prompty & Azure AI Studio.
 
 #### Azure AI Search
 
