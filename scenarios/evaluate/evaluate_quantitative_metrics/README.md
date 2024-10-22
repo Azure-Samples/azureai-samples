@@ -5,7 +5,7 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Evaluate with math evaluators
+description: Evaluate with quantitative evaluators
 ---
 
 ## Evaluate with math evaluators
