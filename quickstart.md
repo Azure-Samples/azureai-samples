@@ -278,3 +278,104 @@ with project_client:
 ```
 
 ## C#
+
+Use the following package in your C# project 
+
+```console
+dotnet add package Azure.AI.Project --prerelease 
+```
+
+Then use the following sample code to create an agent.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Azure.Core;
+using Azure.Identity;
+using NUnit.Framework;
+
+namespace Azure.AI.Projects.Tests
+{
+    public partial class Sample_Agent_Basics
+    {
+        [Test]
+        public async Task BasicExample()
+        {
+            #region Snippet:OverviewCreateClient
+            var connectionString = Environment.GetEnvironmentVariable("AZURE_AI_CONNECTION_STRING");
+            AgentsClient client = new AgentsClient(connectionString, new DefaultAzureCredential());
+            #endregion
+
+            // Step 1: Create an agent with a model, agent name, and instructions to help it respond
+            Response<Agent> agentResponse = await client.CreateAgentAsync(
+                model: "gpt-4-1106-preview",
+                name: "Math Tutor",
+                instructions: "You are a personal math tutor. Write and run code to answer math questions.",
+                tools: new List<ToolDefinition> { new CodeInterpreterToolDefinition() }
+            );
+            Agent agent = agentResponse.Value;
+
+            // The agent should now be listed
+            Response<PageableList<Agent>> agentListResponse = await client.GetAgentsAsync();
+
+            // Step 2: Create a thread, which will be used to store messages during conversation
+            Response<AgentThread> threadResponse = await client.CreateThreadAsync();
+            AgentThread thread = threadResponse.Value;
+
+            // Step 3: Add a message to a thread, starting a conversation with the agent
+            Response<ThreadMessage> messageResponse = await client.CreateMessageAsync(
+                thread.Id,
+                MessageRole.User,
+                "I need to solve the equation `3x + 11 = 14`. Can you help me?"
+            );
+            ThreadMessage message = messageResponse.Value;
+
+            // The message is now correlated with thread
+            // Sending a List messages will retrieve the message just added
+            Response<PageableList<ThreadMessage>> messagesListResponse = await client.GetMessagesAsync(thread.Id);
+            Assert.That(messagesListResponse.Value.Data[0].Id == message.Id);
+
+            // Step 4: Run the agent, which will activate the assistant to begin running based on the contents of the thread
+            Response<ThreadRun> runResponse = await client.CreateRunAsync(
+                thread.Id,
+                agent.Id,
+                additionalInstructions: "Please address the user as Jane Doe. The user has a premium account."
+            );
+            ThreadRun run = runResponse.Value;
+
+            // Wait for the agent to finish running before retrieving the response
+            do
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(500));
+                runResponse = await client.GetRunAsync(thread.Id, runResponse.Value.Id);
+            }
+            while (runResponse.Value.Status == RunStatus.Queued || runResponse.Value.Status == RunStatus.InProgress);
+            #endregion
+
+            #region Snippet:OverviewListUpdatedMessages
+            Response<PageableList<ThreadMessage>> afterRunMessagesResponse = await client.GetMessagesAsync(thread.Id);
+            IReadOnlyList<ThreadMessage> messages = afterRunMessagesResponse.Value.Data;
+
+            // Note: messages iterate from newest to oldest, with the messages[0] being the most recent
+            foreach (ThreadMessage threadMessage in messages)
+            {
+                Console.Write($"{threadMessage.CreatedAt:yyyy-MM-dd HH:mm:ss} - {threadMessage.Role,10}: ");
+                foreach (MessageContent contentItem in threadMessage.ContentItems)
+                {
+                    if (contentItem is MessageTextContent textItem)
+                    {
+                        Console.Write(textItem.Text);
+                    }
+                    else if (contentItem is MessageImageFileContent imageFileItem)
+                    {
+                        Console.Write($"<image from ID: {imageFileItem.FileId}");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            #endregion
+        }
+    }
+}
+```
