@@ -13,6 +13,7 @@ import requests
 import bs4
 import re
 from concurrent.futures import ThreadPoolExecutor
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from openai import AzureOpenAI
 from typing import List, Tuple, TypedDict
 
@@ -162,13 +163,14 @@ def process_search_result(search_result: List[Tuple[str, str]]) -> str:
 # Function to perform augmented QA
 def augemented_qa(query: str, context: str) -> str:
     system_message = system_message_template.render(contexts=context)
+    token_provider = get_bearer_token_provider(DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default")
 
     messages = [{"role": "system", "content": system_message}, {"role": "user", "content": query}]
 
     with AzureOpenAI(
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-        api_key=os.environ["AZURE_OPENAI_API_KEY"],
         api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+        azure_ad_token_provider=token_provider,
     ) as client:
         response = client.chat.completions.create(
             model=os.environ.get("AZURE_OPENAI_DEPLOYMENT"), messages=messages, temperature=0.7, max_tokens=800

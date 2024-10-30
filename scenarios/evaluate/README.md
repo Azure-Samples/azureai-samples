@@ -41,7 +41,7 @@ The main objective of this tutorial is to help users understand the process of e
 
 
 ### Pre-requisites
-To use the `azure-ai-evaluation` SDK, install with```pythonpip install azure-ai-evaluation```Python 3.8 or later is required to use this package.- See our Python reference documentation for our `azure-ai-evaluation` SDK[here](https://aka.ms/azureaieval-python-ref) for more granular details oninput/output requirements and usage instructions.- Check out our Github repo for `azure-ai-evaluation` SDK [here](    https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/evaluation/azure-ai-evaluation). 
+To use the `azure-ai-evaluation` SDK, install with```python pip install azure-ai-evaluation``` Python 3.8 or later is required to use this package.- See our Python reference documentation for our `azure-ai-evaluation` SDK[here](https://aka.ms/azureaieval-python-ref) for more granular details on input/output requirements and usage instructions.- Check out our Github repo for `azure-ai-evaluation` SDK [here](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/evaluation/azure-ai-evaluation). 
 
 
 ### Programming Languages
