@@ -8,9 +8,12 @@ Please note that developers and end users don’t have access to raw chunks retu
 
 ## Setup  
 
+> [!IMPORTANT]
+> Grounding with Bing Search has a separate Terms of Use agreement you need to agree to in order to move forward. Please use this form[pending link] to sign the agreement. After you have signed the form, it will take 1-3 days for us to whitelist your subscription.
+
 1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
 
-1. Create a Bing Search resource. If you don’t have one, you can use the Azure CLI or Azure portal to create one: 
+1. Create a Bing Search resource. If you don’t have one, you can use the Azure CLI or Azure portal to create one[pending Bing update]: 
     
     ```console
     az cognitiveservices account create \ 

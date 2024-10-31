@@ -2,6 +2,22 @@
 
 Code Interpreter allows the Agent to write and run Python code in a sandboxed execution environment. With Code Interpreter enabled, your Agent can run code iteratively to solve more challenging code, math, and data analysis problems.
 
+
+## Examples
+
+Run the code samples below and view the output. 
+
+>[!NOTE]
+> Be sure that you've installed the [correct SDK](../../quickstart.md#install-the-sdk-package) for your language.
+
+* [Python](./python-sample.py)
+* [C#](./csharp-sample.cs)
+
+# Additional samples
+
+* [Math tutor](https://github.com/openai/openai-cookbook/blob/main/examples/data/oai_docs/tool-code-interpreter.txt)
+
+
 ## Supported file types
 
 |File format|MIME Type|
@@ -33,17 +49,3 @@ Code Interpreter allows the Agent to write and run Python code in a sandboxed ex
 |.xlsx|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|
 |.xml|application/xml or "text/xml"|
 |.zip|application/zip|
-
-## Examples
-
-Run the code samples below and view the output. 
-
->[!NOTE]
-> Be sure that you've installed the [correct SDK](../../quickstart.md#install-the-sdk-package) for your language.
-
-* [Python](./python-sample.py)
-* [C#](./csharp-sample.cs)
-
-# Additional samples
-
-* [Math tutor](https://github.com/openai/openai-cookbook/blob/main/examples/data/oai_docs/tool-code-interpreter.txt)
