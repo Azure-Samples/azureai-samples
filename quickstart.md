@@ -143,6 +143,21 @@ Follow these steps to set up your hub and project:
     az ml workspace create --kind project --hub-id {my_hub_ARM_ID} --resource-group {my_resource_group} --name {my_project_name} 
     ```
 
+## Install the SDK package
+
+Depending on your programming language of choice install the SDK using the following steps:
+
+### Python
+
+1. Download the [Python .whl file](./packages/azure_ai_project-1.0.0b1-py3-none-any.whl) to your project directory.
+1. Install the SDK with `pip install azure_ai_project-1.0.0b1-py3-none-any.whl --user --force-reinstall`
+    >[!NOTE]
+    > We recommend creating a virtual environment with [venv](https://docs.python.org/3/library/venv.html).
+
+### C#
+
+TBD
+
 ## Configure and run your first agent
 
 
