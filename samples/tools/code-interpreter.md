@@ -147,3 +147,7 @@ class Program
     }
 }
 ```
+
+# Samples
+
+* [Math tutor](https://github.com/openai/openai-cookbook/blob/main/examples/data/oai_docs/tool-code-interpreter.txt)

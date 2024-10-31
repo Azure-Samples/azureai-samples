@@ -152,3 +152,7 @@ class Program
     }
 }
 ```
+
+## Samples
+
+* [Assistant function calling with Bing Search](https://github.com/Azure-Samples/azureai-samples/tree/main/scenarios/Assistants/function_calling)
