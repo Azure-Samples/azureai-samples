@@ -185,19 +185,13 @@ project_client = AIProjectClient.from_connection_string(
 
 with project_client:
 
-    # upload a file and wait for it to be processed
-    file = project_client.agents.upload_file_and_poll(
-        file_path="nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
-    )
-    print(f"Uploaded file, file ID: {file.id}")
-
     code_interpreter = CodeInterpreterTool(file_ids=[file.id])
 
     # notice that CodeInterpreter must be enabled in the agent creation, otherwise the agent will not be able to see the file attachment
     agent = project_client.agents.create_agent(
         model="gpt-4-1106-preview",
         name="my-agent",
-        instructions="You are helpful agent",
+        instructions="You are a helpful agent",
         tools=code_interpreter.definitions,
         tool_resources=code_interpreter.resources,
     )
@@ -210,7 +204,7 @@ with project_client:
     message = project_client.agents.create_message(
         thread_id=thread.id,
         role="user",
-        content="Could you please create bar chart in TRANSPORTATION sector for the operating profit from the uploaded csv file and provide file to me?",
+        content="Hi, Agent! Draw a graph for a line with a slope of 4 and y-intercept of 9.",
     )
     print(f"Created message, message ID: {message.id}")
 
@@ -220,9 +214,6 @@ with project_client:
     if run.status == "failed":
         # Check if you got "Rate limit is exceeded.", then you want to get more quota
         print(f"Run failed: {run.last_error}")
-
-    project_client.agents.delete_file(file.id)
-    print("Deleted file")
 
     messages = project_client.agents.get_messages(thread_id=thread.id)
     print(f"Messages: {messages}")
