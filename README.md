@@ -34,12 +34,11 @@ Azure AI Agent Service is a fully-managed service designed to empower developers
 
 ✅ **Extensive data connections**: Ground your AI agents with relevant, secure enterprise knowledge from a variety of data sources. Azure AI Agent Service offers seamless integration with Microsoft Bing, Microsoft SharePoint, Microsoft Fabric, Azure AI Search, and third-party APIs. This extensive connectivity enables AI agents to access and process data from multiple sources, providing accurate and comprehensive responses to user queries. New data sources include: 
 
-- Microsoft Bing
-- Microsoft SharePoint (coming soon)
+- Grounding with Bing Search
+- SharePoint (coming soon)
 - Local Files
 - Microsoft Fabric (coming soon)
 - Azure Blob Storage (coming soon)
-- Third-party APIs (Booking.com, TripAdvisor) (coming soon)
 
 ✅ **Flexible model selection**: Leverage the best model for the job, whether it's GPT-4o, Llama 3, or other specialized models from OpenAI, Meta, and Azure AI. Azure AI Agent Service supports a variety of models, allowing developers to optimize AI agent performance for specific use cases. This flexibility ensures that developers can choose the most suitable model to meet their business needs and achieve the desired outcomes. Key features include: 
 
