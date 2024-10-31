@@ -182,3 +182,7 @@ namespace Azure.AI.Projects.Tests
     }
 }
 ```
+
+## Samples
+
+* [Python Quart app](https://github.com/Azure-Samples/azureai-assistant-tool/tree/main/samples/FileSearch)

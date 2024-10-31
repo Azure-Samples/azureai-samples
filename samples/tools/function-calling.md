@@ -273,3 +273,7 @@ namespace Azure.AI.Projects.Tests
     }
 }
 ```
+
+# Samples
+
+Get the latest stock price using function calling with Yfinance ([shown in Personal Finance Assistant](https://github.com/Azure-Samples/azureai-samples/blob/main/scenarios/Assistants/api-in-a-box/personal_finance/assistant-personal_finance.ipynb))
