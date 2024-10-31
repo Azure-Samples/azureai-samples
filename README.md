@@ -48,7 +48,7 @@ Azure AI Agent Service is a fully-managed service designed to empower developers
 
 ## Get started 
 
-QuickStart (link) 
+See the QuickStart to [get started](./quickstart.md).  
 
 ## Get help 
 
