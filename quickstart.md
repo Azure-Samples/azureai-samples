@@ -68,24 +68,6 @@ Follow these steps to set up your hub and project:
 
     Save the id that gets output, you’ll need it later. It will look similar to: `https://eastus.api.cognitive.microsoft.com/ai_services_resource_id: /subscriptions/1234-5678-abcd-9fc6-62780b3d3e05/resourceGroups/my-resource-group/providers/Microsoft.CognitiveServices/accounts/multi-service-resource` 
 
-1. Create a Bing grounding resource.
- 
-    ```console
-    az cognitiveservices account create \ 
-    
-      --name bing-grounding-resource \ 
-    
-      --resource-group <resource-group-name> \ 
-    
-      --kind Bing.Grounding \ 
-    
-      --sku G1 \ 
-    
-      --location Global \ 
-    
-      --yes 
-    ```
-
 1. Create an Azure AI Hub.  
 
     > [!NOTE] the following command auto creates a storage account, AML workspace and Key Vault. 
@@ -186,14 +168,12 @@ python -m pip install azure-ai-projects azure-identity
 Use the following code to create and run an agent.
 
 ```python
-import os  
-from azure.ai.projects import AIProjectClient  
-from azure.ai.projects.models import Agent, MessageDeltaChunk, MessageDeltaTextContent, RunStep, ThreadMessage, ThreadRun  
-from azure.ai.projects.models import AgentEventHandler  
-from azure.ai.projects.operations import AgentsOperations  
-from azure.identity import DefaultAzureCredential  
-from azure.ai.projects.models import CodeInterpreterTool, bing_grounding, ToolSet  
-from typing import Any  
+import os
+from azure.ai.projects import AIProjectClient
+from azure.ai.projects.models import CodeInterpreterTool
+from azure.ai.projects.models import FilePurpose
+from azure.identity import DefaultAzureCredential
+from pathlib import Path
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
@@ -203,81 +183,70 @@ project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )
 
-# When using CodeInterpreterTool with ToolSet in agent creation, the tool call events are handled inside the create_stream
-# method and functions gets automatically called by default.
-class MyEventHandler(AgentEventHandler):
-
-    def on_message_delta(self, delta: "MessageDeltaChunk") -> None:
-        for content_part in delta.delta.content:
-            if isinstance(content_part, MessageDeltaTextContent):
-                text_value = content_part.text.value if content_part.text else "No text"
-                print(f"Text delta received: {text_value}")
-
-    def on_thread_message(self, message: "ThreadMessage") -> None:
-        print(f"ThreadMessage created. ID: {message.id}, Status: {message.status}")
-
-    def on_thread_run(self, run: "ThreadRun") -> None:
-        print(f"ThreadRun status: {run.status}")
-
-        if run.status == "failed":
-            print(f"Run failed. Error: {run.last_error}")
-
-    def on_run_step(self, step: "RunStep") -> None:
-        print(f"RunStep type: {step.type}, Status: {step.status}")
-
-    def on_error(self, data: str) -> None:
-        print(f"An error occurred. Data: {data}")
-
-    def on_done(self) -> None:
-        print("Stream completed.")
-
-    def on_unhandled_event(self, event_type: str, event_data: Any) -> None:
-        print(f"Unhandled Event Type: {event_type}, Data: {event_data}")
-
-# create a connection to the grounding with bing search resource
-connection_name = "bing_grounding_connection"
-target = "GROUNDING_WITH_BING_SEARCH_API"
-wps_connection = WorkspaceConnection(
-    name=connection_name,
-    type="custom",
-    target=target,
-    credentials=ApiKeyConfiguration(key="API_KEY"),
-)
-ml_client.connections.create_or_update(workspace_connection=wps_connection)
-
 with project_client:
-    # Create Grounding with Bing Search tool with resources
-    bing_grounding_tool = bing_grounding(connection_id=[connection id of Grounding with Bing Search resource])
-    code_interpreter = CodeInterpreterTool()
-    toolset = ToolSet()
-    toolset.add(code_interpreter)
-    toolset.add(bing_grounding_tool)
 
-    agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview", name="my-agent", instructions="You are a helpful agent", toolset=toolset
+    # upload a file and wait for it to be processed
+    file = project_client.agents.upload_file_and_poll(
+        file_path="nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
     )
-    print(f"Created agent, ID: {agent.id}")
+    print(f"Uploaded file, file ID: {file.id}")
+
+    code_interpreter = CodeInterpreterTool(file_ids=[file.id])
+
+    # notice that CodeInterpreter must be enabled in the agent creation, otherwise the agent will not be able to see the file attachment
+    agent = project_client.agents.create_agent(
+        model="gpt-4-1106-preview",
+        name="my-agent",
+        instructions="You are helpful agent",
+        tools=code_interpreter.definitions,
+        tool_resources=code_interpreter.resources,
+    )
+    print(f"Created agent, agent ID: {agent.id}")
 
     thread = project_client.agents.create_thread()
-    print(f"Created thread, thread ID {thread.id}")
+    print(f"Created thread, thread ID: {thread.id}")
 
+    # create a message
     message = project_client.agents.create_message(
         thread_id=thread.id,
         role="user",
-        content="Write code to calculate compound interest.",
+        content="Could you please create bar chart in TRANSPORTATION sector for the operating profit from the uploaded csv file and provide file to me?",
     )
-    print(f"Created message, message ID {message.id}")
+    print(f"Created message, message ID: {message.id}")
 
-    with project_client.agents.create_stream(
-        thread_id=thread.id, agent_id=agent.id, event_handler=MyEventHandler()
-    ) as stream:
-        stream.until_done()
+    run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
+    print(f"Run finished with status: {run.status}")
+
+    if run.status == "failed":
+        # Check if you got "Rate limit is exceeded.", then you want to get more quota
+        print(f"Run failed: {run.last_error}")
+
+    project_client.agents.delete_file(file.id)
+    print("Deleted file")
+
+    messages = project_client.agents.get_messages(thread_id=thread.id)
+    print(f"Messages: {messages}")
+
+    last_msg = messages.get_last_text_message_by_sender("assistant")
+    if last_msg:
+        print(f"Last Message: {last_msg.text.value}")
+
+    for image_content in messages.image_contents:
+        print(f"Image File ID: {image_content.image_file.file_id}")
+        file_name = f"{image_content.image_file.file_id}_image_file.png"
+        project_client.agents.save_file(file_id=image_content.image_file.file_id, file_name=file_name)
+        print(f"Saved image file to: {Path.cwd() / file_name}")
+
+    for file_path_annotation in messages.file_path_annotations:
+        print(f"File Paths:")
+        print(f"Type: {file_path_annotation.type}")
+        print(f"Text: {file_path_annotation.text}")
+        print(f"File ID: {file_path_annotation.file_path.file_id}")
+        print(f"Start Index: {file_path_annotation.start_index}")
+        print(f"End Index: {file_path_annotation.end_index}")
 
     project_client.agents.delete_agent(agent.id)
     print("Deleted agent")
-
-    messages = project_client.agents.list_messages(thread_id=thread.id)
-    print(f"Messages: {messages}")
 ```
 
 ## C#
@@ -294,85 +263,47 @@ Then use the following sample code to create an agent.
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Azure.Core;
 using Azure.Identity;
 using NUnit.Framework;
 
 namespace Azure.AI.Projects.Tests
 {
-    public partial class Sample_Agent_Basics
+    public class Sample_Agent_Streaming
     {
-        [Test]
-        public async Task BasicExample()
+        public async Task Streaming()
         {
-            #region Snippet:OverviewCreateClient
             var connectionString = Environment.GetEnvironmentVariable("AZURE_AI_CONNECTION_STRING");
             AgentsClient client = new AgentsClient(connectionString, new DefaultAzureCredential());
-            #endregion
 
-            // Step 1: Create an agent with a model, agent name, and instructions to help it respond
             Response<Agent> agentResponse = await client.CreateAgentAsync(
                 model: "gpt-4-1106-preview",
-                name: "Math Tutor",
-                instructions: "You are a personal math tutor. Write and run code to answer math questions.",
-                tools: new List<ToolDefinition> { new CodeInterpreterToolDefinition() }
-            );
+                name: "My Friendly Test Agent",
+                instructions: "You politely help with math questions. Use the code interpreter tool when asked to visualize numbers.",
+                tools: new List<ToolDefinition> { new CodeInterpreterToolDefinition() });
             Agent agent = agentResponse.Value;
 
-            // The agent should now be listed
-            Response<PageableList<Agent>> agentListResponse = await client.GetAgentsAsync();
-
-            // Step 2: Create a thread, which will be used to store messages during conversation
             Response<AgentThread> threadResponse = await client.CreateThreadAsync();
             AgentThread thread = threadResponse.Value;
 
-            // Step 3: Add a message to a thread, starting a conversation with the agent
             Response<ThreadMessage> messageResponse = await client.CreateMessageAsync(
                 thread.Id,
                 MessageRole.User,
-                "I need to solve the equation `3x + 11 = 14`. Can you help me?"
-            );
+                "Hi, Agent! Draw a graph for a line with a slope of 4 and y-intercept of 9.");
             ThreadMessage message = messageResponse.Value;
 
-            // The message is now correlated with thread
-            // Sending a List messages will retrieve the message just added
-            Response<PageableList<ThreadMessage>> messagesListResponse = await client.GetMessagesAsync(thread.Id);
-            Assert.That(messagesListResponse.Value.Data[0].Id == message.Id);
-
-            // Step 4: Run the agent, which will activate the agent to begin running based on the contents of the thread
-            Response<ThreadRun> runResponse = await client.CreateRunAsync(
-                thread.Id,
-                agent.Id,
-                additionalInstructions: "Please address the user as Jane Doe. The user has a premium account."
-            );
-            ThreadRun run = runResponse.Value;
-
-            // Wait for the agent to finish running before retrieving the response
-            do
+            await foreach (StreamingUpdate streamingUpdate in client.CreateRunStreamingAsync(thread.Id, agent.Id))
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(500));
-                runResponse = await client.GetRunAsync(thread.Id, runResponse.Value.Id);
-            }
-            while (runResponse.Value.Status == RunStatus.Queued || runResponse.Value.Status == RunStatus.InProgress);
-
-            Response<PageableList<ThreadMessage>> afterRunMessagesResponse = await client.GetMessagesAsync(thread.Id);
-            IReadOnlyList<ThreadMessage> messages = afterRunMessagesResponse.Value.Data;
-
-            // Note: messages iterate from newest to oldest, with the messages[0] being the most recent
-            foreach (ThreadMessage threadMessage in messages)
-            {
-                Console.Write($"{threadMessage.CreatedAt:yyyy-MM-dd HH:mm:ss} - {threadMessage.Role,10}: ");
-                foreach (MessageContent contentItem in threadMessage.ContentItems)
+                if (streamingUpdate.UpdateKind == StreamingUpdateReason.RunCreated)
                 {
-                    if (contentItem is MessageTextContent textItem)
+                    Console.WriteLine($"--- Run started! ---");
+                }
+                else if (streamingUpdate is MessageContentUpdate contentUpdate)
+                {
+                    Console.Write(contentUpdate.Text);
+                    if (contentUpdate.ImageFileId is not null)
                     {
-                        Console.Write(textItem.Text);
+                        Console.WriteLine($"[Image content file ID: {contentUpdate.ImageFileId}");
                     }
-                    else if (contentItem is MessageImageFileContent imageFileItem)
-                    {
-                        Console.Write($"<image from ID: {imageFileItem.FileId}");
-                    }
-                    Console.WriteLine();
                 }
             }
         }
