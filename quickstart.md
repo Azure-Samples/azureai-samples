@@ -251,7 +251,7 @@ with project_client:
     toolset.add(bing_grounding_tool)
 
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview", name="my-assistant", instructions="You are a helpful assistant", toolset=toolset
+        model="gpt-4-1106-preview", name="my-agent", instructions="You are a helpful agent", toolset=toolset
     )
     print(f"Created agent, ID: {agent.id}")
 
@@ -266,7 +266,7 @@ with project_client:
     print(f"Created message, message ID {message.id}")
 
     with project_client.agents.create_stream(
-        thread_id=thread.id, assistant_id=agent.id, event_handler=MyEventHandler()
+        thread_id=thread.id, agent_id=agent.id, event_handler=MyEventHandler()
     ) as stream:
         stream.until_done()
 
@@ -336,7 +336,7 @@ namespace Azure.AI.Projects.Tests
             Response<PageableList<ThreadMessage>> messagesListResponse = await client.GetMessagesAsync(thread.Id);
             Assert.That(messagesListResponse.Value.Data[0].Id == message.Id);
 
-            // Step 4: Run the agent, which will activate the assistant to begin running based on the contents of the thread
+            // Step 4: Run the agent, which will activate the agent to begin running based on the contents of the thread
             Response<ThreadRun> runResponse = await client.CreateRunAsync(
                 thread.Id,
                 agent.Id,
@@ -351,9 +351,7 @@ namespace Azure.AI.Projects.Tests
                 runResponse = await client.GetRunAsync(thread.Id, runResponse.Value.Id);
             }
             while (runResponse.Value.Status == RunStatus.Queued || runResponse.Value.Status == RunStatus.InProgress);
-            #endregion
 
-            #region Snippet:OverviewListUpdatedMessages
             Response<PageableList<ThreadMessage>> afterRunMessagesResponse = await client.GetMessagesAsync(thread.Id);
             IReadOnlyList<ThreadMessage> messages = afterRunMessagesResponse.Value.Data;
 
@@ -374,7 +372,6 @@ namespace Azure.AI.Projects.Tests
                     Console.WriteLine();
                 }
             }
-            #endregion
         }
     }
 }
