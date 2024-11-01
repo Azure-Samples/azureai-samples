@@ -168,6 +168,7 @@ python -m pip install azure-ai-projects azure-identity
 Use the following code to create and run an agent.
 
 ```python
+#Make sure to download nifty_500_quarterly_results.csv from the data file before starting
 #First install the azure-ai-project sdk using the whl file provided in the repo
 # %pip install --force-reinstall azure_ai_project-1.0.0b1-py3-none-any.whl
 
