@@ -183,7 +183,6 @@ from typing import Any
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
-os.environ['PROJECT_CONNECTION_STRING'] = "eastus2euap.api.azureml.ms;47f1c914-e299-4953-a99d-3e34644cfe1c;rg-agent-test-westus2;proj-eastus2euap-brefmanyqpzrq"
 
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
