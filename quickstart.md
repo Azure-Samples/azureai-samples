@@ -168,75 +168,102 @@ python -m pip install azure-ai-projects azure-identity
 Use the following code to create and run an agent.
 
 ```python
+#First install the azure-ai-project sdk using the whl file provided in the repo
+# %pip install --force-reinstall azure_ai_project-1.0.0b1-py3-none-any.whl
+
+#Install the azure-identity SDK
+# %pip install azure-identity
 import os
-from azure.ai.projects import AIProjectClient
-from azure.ai.projects.models import CodeInterpreterTool
-from azure.ai.projects.models import FilePurpose
+from azure.ai.project import *
+from azure.ai.project.models import *
 from azure.identity import DefaultAzureCredential
-from pathlib import Path
+from typing import Any
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
+os.environ['PROJECT_CONNECTION_STRING'] = "eastus2euap.api.azureml.ms;47f1c914-e299-4953-a99d-3e34644cfe1c;rg-agent-test-westus2;proj-eastus2euap-brefmanyqpzrq"
 
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )
 
 with project_client:
+    #Set up the Event Handler Class. This class handles all of the various action for the Agent.
+    class MyEventHandler(AgentEventHandler):  
+        def on_message_delta(self, delta: "MessageDeltaChunk") -> None:  
+            for content_part in delta.delta.content:  
+                if isinstance(content_part, MessageDeltaTextContent):  
+                    text_value = content_part.text.value if content_part.text else "No text"  
+                    print(f"Text delta received: {text_value}")  
 
-    code_interpreter = CodeInterpreterTool(file_ids=[file.id])
+        def on_thread_message(self, message: "ThreadMessage") -> None:  
+            print(f"ThreadMessage created. ID: {message.id}, Status: {message.status}")  
+
+        def on_thread_run(self, run: "ThreadRun") -> None:  
+            print(f"ThreadRun status: {run.status}")  
+            if run.status == "failed":  
+                print(f"Run failed. Error: {run.last_error}")  
+
+        def on_run_step(self, step: "RunStep") -> None:  
+            print(f"RunStep type: {step.type}, Status: {step.status}")  
+
+        def on_error(self, data: str) -> None:  
+            print(f"An error occurred. Data: {data}")  
+
+        def on_done(self) -> None:  
+            print("Stream completed.")  
+
+        def on_unhandled_event(self, event_type: str, event_data: Any) -> None:  
+            print(f"Unhandled Event Type: {event_type}, Data: {event_data}")  
+    
+    #Upload the file to be used in the Agent scenario
+    file = project_client.agents.upload_file_and_poll(
+            file_path="nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
+        )
+    print(f"Uploaded file, file ID: {file.id}")
+    
+    #Create the CodeInterpreterTool and add it to the toolset
+    code_interpreter = CodeInterpreterTool()
+    code_interpreter.file_ids = [file.id]
+    toolset = ToolSet()
+    toolset.add(code_interpreter)
 
     # notice that CodeInterpreter must be enabled in the agent creation, otherwise the agent will not be able to see the file attachment
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview",
-        name="my-agent",
-        instructions="You are a helpful agent",
-        tools=code_interpreter.definitions,
-        tool_resources=code_interpreter.resources,
+        model="gpt-4-1106-preview", 
+        name="my-agent", 
+        instructions="you are a helpful agent", 
+        toolset=toolset
     )
-    print(f"Created agent, agent ID: {agent.id}")
+    print(f"Created agent, ID: {agent.id}") 
 
-    thread = project_client.agents.create_thread()
-    print(f"Created thread, thread ID: {thread.id}")
+    #Create an agentic thread
+    thread = project_client.agents.create_thread()  
+    print(f"Created thread, thread ID {thread.id}") 
 
-    # create a message
-    message = project_client.agents.create_message(
+    #Send a message to the agent
+    message = project_client.agents.create_message(  
         thread_id=thread.id,
         role="user",
-        content="Hi, Agent! Draw a graph for a line with a slope of 4 and y-intercept of 9.",
-    )
-    print(f"Created message, message ID: {message.id}")
+        content="Write code to calculate compound interest.",
+    )  
 
-    run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
-    print(f"Run finished with status: {run.status}")
+    print(f"Created message, message ID {message.id}")  
 
-    if run.status == "failed":
-        # Check if you got "Rate limit is exceeded.", then you want to get more quota
-        print(f"Run failed: {run.last_error}")
+    #Create and run the agent stream
+    with project_client.agents.create_stream(  
+        thread_id=thread.id, assistant_id=agent.id, event_handler=MyEventHandler()  
+    ) as stream:
+        stream.until_done()  
 
-    messages = project_client.agents.get_messages(thread_id=thread.id)
+    #Display the messages and output from the agent
+    messages = project_client.agents.list_messages(thread_id=thread.id)  
     print(f"Messages: {messages}")
+    print(f"Content: {messages.data[0].content[0].text.value}")
 
-    last_msg = messages.get_last_text_message_by_sender("assistant")
-    if last_msg:
-        print(f"Last Message: {last_msg.text.value}")
-
-    for image_content in messages.image_contents:
-        print(f"Image File ID: {image_content.image_file.file_id}")
-        file_name = f"{image_content.image_file.file_id}_image_file.png"
-        project_client.agents.save_file(file_id=image_content.image_file.file_id, file_name=file_name)
-        print(f"Saved image file to: {Path.cwd() / file_name}")
-
-    for file_path_annotation in messages.file_path_annotations:
-        print(f"File Paths:")
-        print(f"Type: {file_path_annotation.type}")
-        print(f"Text: {file_path_annotation.text}")
-        print(f"File ID: {file_path_annotation.file_path.file_id}")
-        print(f"Start Index: {file_path_annotation.start_index}")
-        print(f"End Index: {file_path_annotation.end_index}")
-
-    project_client.agents.delete_agent(agent.id)
+    #Delete the agent when finished
+    project_client.agents.delete_agent(agent.id)  
     print("Deleted agent")
 ```
 
