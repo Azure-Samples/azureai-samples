@@ -58,11 +58,8 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2023-08-01-preview'
     properties: {
       category: 'AzureOpenAI'
       target: aiServicesTarget
-      authType: 'ApiKey'
+      authType: 'AAD'
       isSharedToAll: true
-      credentials: {
-        key: '${listKeys(aiServicesId, '2021-10-01').key1}'
-      }
       metadata: {
         ApiType: 'Azure'
         ResourceId: aiServicesId
@@ -70,5 +67,6 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2023-08-01-preview'
     }
   }
 }
+
 
 output aiHubID string = aiHub.id
