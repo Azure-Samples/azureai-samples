@@ -125,21 +125,6 @@ Follow these steps to set up your hub and project:
     az ml workspace create --kind project --hub-id {my_hub_ARM_ID} --resource-group {my_resource_group} --name {my_project_name} 
     ```
 
-## Install the SDK package
-
-Depending on your programming language of choice install the SDK using the following steps:
-
-### Python
-
-1. Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
-1. Install the SDK with `pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall`
-    >[!NOTE]
-    > We recommend creating a virtual environment with [venv](https://docs.python.org/3/library/venv.html).
-
-### C#
-
-TBD
-
 ## Configure and run your first agent
 
 
@@ -159,21 +144,18 @@ Use the following code to create an agent and send a message to it. This agent w
 > [!NOTE]
 > You can find [C# code below](#c).
 
-Run the following command to install the python package. 
+Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
+
+Run the following commands to install the python packages. 
 
 ```console
-python -m pip install azure-ai-project azure-identity 
+pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall azure-identity
+pip install azure-identity
 ```
 
 Use the following code to create and run an agent.
 
 ```python
-#Make sure to download nifty_500_quarterly_results.csv from the `data` folder before starting
-#First install the azure-ai-project sdk using the whl file provided in the repo
-# %pip install --force-reinstall azure_ai_project-1.0.0b1-py3-none-any.whl
-
-#Install the azure-identity SDK
-# %pip install azure-identity
 import os
 from azure.ai.projects import *
 from azure.ai.projects.models import *
@@ -182,6 +164,7 @@ from typing import Any
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
+# HostName can be found by navigating to your discovery_url and removing the leading "https://" and trailing "/discovery" 
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 
 project_client = AIProjectClient.from_connection_string(
@@ -253,63 +236,4 @@ with project_client:
 ```
 
 ## C#
-
-Use the following package in your C# project 
-
-```console
-dotnet add package Azure.AI.Project --prerelease 
-```
-
-Then use the following sample code to create an agent.
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Azure.Identity;
-using NUnit.Framework;
-
-namespace Azure.AI.Projects.Tests
-{
-    public class Sample_Agent_Streaming
-    {
-        public async Task Streaming()
-        {
-            var connectionString = Environment.GetEnvironmentVariable("AZURE_AI_CONNECTION_STRING");
-            AgentsClient client = new AgentsClient(connectionString, new DefaultAzureCredential());
-
-            Response<Agent> agentResponse = await client.CreateAgentAsync(
-                model: "gpt-4-1106-preview",
-                name: "My Friendly Test Agent",
-                instructions: "You politely help with math questions. Use the code interpreter tool when asked to visualize numbers.",
-                tools: new List<ToolDefinition> { new CodeInterpreterToolDefinition() });
-            Agent agent = agentResponse.Value;
-
-            Response<AgentThread> threadResponse = await client.CreateThreadAsync();
-            AgentThread thread = threadResponse.Value;
-
-            Response<ThreadMessage> messageResponse = await client.CreateMessageAsync(
-                thread.Id,
-                MessageRole.User,
-                "Hi, Agent! Draw a graph for a line with a slope of 4 and y-intercept of 9.");
-            ThreadMessage message = messageResponse.Value;
-
-            await foreach (StreamingUpdate streamingUpdate in client.CreateRunStreamingAsync(thread.Id, agent.Id))
-            {
-                if (streamingUpdate.UpdateKind == StreamingUpdateReason.RunCreated)
-                {
-                    Console.WriteLine($"--- Run started! ---");
-                }
-                else if (streamingUpdate is MessageContentUpdate contentUpdate)
-                {
-                    Console.Write(contentUpdate.Text);
-                    if (contentUpdate.ImageFileId is not null)
-                    {
-                        Console.WriteLine($"[Image content file ID: {contentUpdate.ImageFileId}");
-                    }
-                }
-            }
-        }
-    }
-}
-```
+C# support coming soon!
