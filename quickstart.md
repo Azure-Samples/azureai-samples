@@ -162,7 +162,7 @@ Use the following code to create an agent and send a message to it. This agent w
 Run the following command to install the python package. 
 
 ```console
-python -m pip install azure-ai-projects azure-identity 
+python -m pip install azure-ai-project azure-identity 
 ```
 
 Use the following code to create and run an agent.
