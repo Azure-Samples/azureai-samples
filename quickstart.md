@@ -143,9 +143,6 @@ Use the following code to create an agent and send a message to it. This agent w
 
 ## Python SDK
 
-> [!NOTE]
-> You can find [C# code below](#c).
-
 Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
 
 Run the following commands to install the python packages. 
@@ -156,6 +153,9 @@ pip install azure-identity
 ```
 
 Use the following code to create and run an agent.
+
+> [!TIP]
+> Want to use the OpenAI SDK? You can find [examples of using the Azure AI Agent service with the OpenAI SDK](./samples/use-openai.md) in the samples folder of this repo. 
 
 ```python
 import os

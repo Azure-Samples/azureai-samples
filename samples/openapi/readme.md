@@ -35,8 +35,7 @@ Authentication can be either `anonymous` (no authentication) or `managed_identit
 Run the code samples below and view the output. 
 
 >[!NOTE]
-> Be sure that you've installed the [correct SDK](../../quickstart.md#install-the-sdk-package) for your language.
+> Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
 * [Python](./python-sample.py)
-* [C#](./csharp-sample.cs)
  
