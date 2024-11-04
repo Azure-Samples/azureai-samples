@@ -43,7 +43,6 @@ module aiDependencies 'modules/dependent-resources.bicep' = {
     location: location
     storageName: 'st${name}${uniqueSuffix}'
     keyvaultName: 'kv-${name}-${uniqueSuffix}'
-    applicationInsightsName: 'appi-${name}-${uniqueSuffix}'
     containerRegistryName: 'cr${name}${uniqueSuffix}'
     aiServicesName: 'ais${name}${uniqueSuffix}'
     tags: tags
@@ -63,7 +62,6 @@ module aiHub 'modules/ai-hub.bicep' = {
     // dependent resources
     aiServicesId: aiDependencies.outputs.aiservicesID
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget
-    applicationInsightsId: aiDependencies.outputs.applicationInsightsId
     containerRegistryId: aiDependencies.outputs.containerRegistryId
     keyVaultId: aiDependencies.outputs.keyvaultId
     storageAccountId: aiDependencies.outputs.storageId

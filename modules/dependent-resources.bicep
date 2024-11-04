@@ -9,9 +9,6 @@ param tags object = {}
 @description('AI services name')
 param aiServicesName string
 
-@description('Application Insights resource name')
-param applicationInsightsName string
-
 @description('Container registry name')
 param containerRegistryName string
 
@@ -20,24 +17,6 @@ param keyvaultName string
 
 var containerRegistryNameCleaned = replace(containerRegistryName, '-', '')
 
-resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: applicationInsightsName
-  location: location
-  tags: tags
-  kind: 'web'
-  properties: {
-    Application_Type: 'web'
-    DisableIpMasking: false
-    DisableLocalAuth: false
-    Flow_Type: 'Bluefield'
-    ForceCustomerStorageForProfiler: false
-    ImmediatePurgeDataOn30Days: true
-    IngestionMode: 'ApplicationInsights'
-    publicNetworkAccessForIngestion: 'Enabled'
-    publicNetworkAccessForQuery: 'Disabled'
-    Request_Source: 'rest'
-  }
-}
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
   name: containerRegistryNameCleaned
@@ -96,28 +75,10 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-@description('Name of the storage account')
-param storageName string
-
-@allowed([
-  'Standard_LRS'
-  'Standard_ZRS'
-  'Standard_GRS'
-  'Standard_GZRS'
-  'Standard_RAGRS'
-  'Standard_RAGZRS'
-  'Premium_LRS'
-  'Premium_ZRS'
-])
-
-@description('Storage SKU')
-param storageSkuName string = 'Standard_LRS'
-
-var storageNameCleaned = replace(storageName, '-', '')
 
 resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = {
   name: aiServicesName
-  location: location
+  location: 'eastus2'
   sku: {
     name: 'S0'
   }
@@ -126,7 +87,7 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = 
     type: 'SystemAssigned'
   }
   properties: {
-    customSubDomainName: toLower('${aiServicesName}')
+    customSubDomainName: toLower('${toLower(aiServicesName)}')
     apiProperties: {
       statisticsEnabled: false
     }
@@ -148,6 +109,25 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
     }
   }
 }
+
+@description('Name of the storage account')
+param storageName string
+
+@allowed([
+  'Standard_LRS'
+  'Standard_ZRS'
+  'Standard_GRS'
+  'Standard_GZRS'
+  'Standard_RAGRS'
+  'Standard_RAGZRS'
+  'Premium_LRS'
+  'Premium_ZRS'
+])
+
+@description('Storage SKU')
+param storageSkuName string = 'Standard_LRS'
+
+var storageNameCleaned = replace(storageName, '-', '')
 
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageNameCleaned
@@ -204,4 +184,3 @@ output aiservicesTarget string = aiServices.properties.endpoint
 output storageId string = storage.id
 output keyvaultId string = keyVault.id
 output containerRegistryId string = containerRegistry.id
-output applicationInsightsId string = applicationInsights.id
