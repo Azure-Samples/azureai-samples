@@ -9,7 +9,7 @@ Please note that developers and end users don’t have access to raw chunks retu
 ## Setup  
 
 > [!IMPORTANT]
-> Grounding with Bing Search has a separate Terms of Use agreement you need to agree to in order to move forward. Please [use this form](https://forms.office.com/r/2j3Sgu8S9K) to sign the agreement. After you have signed the form, it will take 1-3 days for us to whitelist your subscription.
+> Grounding with Bing Search has a separate [Terms of Use agreement](https://www.microsoft.com/en-us/bing/apis/grounding-legal-preview) you need to agree to in order to move forward. Please [use this form](https://forms.office.com/r/2j3Sgu8S9K) to sign the agreement. After you have signed the form, it will take 1-3 days for us to whitelist your subscription.
 
 1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
 
