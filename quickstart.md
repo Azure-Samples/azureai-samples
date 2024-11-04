@@ -149,7 +149,7 @@ Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-an
 Run the following commands to install the python packages. 
 
 ```console
-pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall azure-identity
+pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall
 pip install azure-identity
 ```
 
