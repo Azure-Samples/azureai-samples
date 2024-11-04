@@ -15,9 +15,6 @@ param aiHubFriendlyName string = aiHubName
 @description('AI hub description')
 param aiHubDescription string
 
-@description('Resource ID of the container registry resource for storing docker images')
-param containerRegistryId string
-
 @description('Resource ID of the key vault resource for storing connection strings')
 param keyVaultId string
 
@@ -45,7 +42,6 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
     // dependent resources
     keyVault: keyVaultId
     storageAccount: storageAccountId
-    containerRegistry: containerRegistryId
   }
   kind: 'hub'
 

@@ -9,46 +9,8 @@ param tags object = {}
 @description('AI services name')
 param aiServicesName string
 
-@description('Container registry name')
-param containerRegistryName string
-
 @description('The name of the Key Vault')
 param keyvaultName string
-
-var containerRegistryNameCleaned = replace(containerRegistryName, '-', '')
-
-
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
-  name: containerRegistryNameCleaned
-  location: location
-  tags: tags
-  sku: {
-    name: 'Premium'
-  }
-  properties: {
-    adminUserEnabled: true
-    dataEndpointEnabled: false
-    networkRuleBypassOptions: 'AzureServices'
-    networkRuleSet: {
-      defaultAction: 'Deny'
-    }
-    policies: {
-      quarantinePolicy: {
-        status: 'enabled'
-      }
-      retentionPolicy: {
-        status: 'enabled'
-        days: 7
-      }
-      trustPolicy: {
-        status: 'disabled'
-        type: 'Notary'
-      }
-    }
-    publicNetworkAccess: 'Disabled'
-    zoneRedundancy: 'Disabled'
-  }
-}
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: keyvaultName
@@ -87,7 +49,7 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = 
     type: 'SystemAssigned'
   }
   properties: {
-    customSubDomainName: toLower('${toLower(aiServicesName)}')
+    customSubDomainName: toLower('${(aiServicesName)}')
     apiProperties: {
       statisticsEnabled: false
     }
@@ -183,4 +145,3 @@ output aiservicesID string = aiServices.id
 output aiservicesTarget string = aiServices.properties.endpoint
 output storageId string = storage.id
 output keyvaultId string = keyVault.id
-output containerRegistryId string = containerRegistry.id
