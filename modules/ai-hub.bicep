@@ -56,14 +56,18 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
   resource aiServicesConnection 'connections@2024-07-01-preview' = {
     name: '${aiHubName}-connection-AIServices'
     properties: {
-      category: 'OpenAI'
+      category: 'AIServices'
       target: aiServicesTarget
       // useWorkspaceManagedIdentity: true
-      peRequirement: 'Required'
       authType: 'ApiKey'
       isSharedToAll: true
       credentials: {
-        key: '${listKeys(aiServicesId, '2021-10-01').key1}'
+        key: '${listKeys(aiServicesId, '2022-10-01').key1}'
+      }
+      metadata: {
+        ApiType: 'Azure'
+        ResourceId: aiServicesId
+        Location: location
       }
     }
   }

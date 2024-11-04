@@ -126,29 +126,28 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = 
     type: 'SystemAssigned'
   }
   properties: {
+    customSubDomainName: toLower('${aiServicesName}')
     apiProperties: {
       statisticsEnabled: false
     }
     publicNetworkAccess: 'Enabled'
   }
 }
-/*
 resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-06-01-preview'= {
   parent: aiServices
   name: 'gpt-4o-mini'
   sku : {
     capacity: 1
-    name: 'Standard'
+    name: 'GlobalStandard'
   }
   properties: {
     model:{
       name: 'gpt-4o-mini'
       format: 'OpenAI'
-      // version: '2024-07-18'
+      version: '2024-07-18'
     }
   }
 }
-*/
 
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageNameCleaned
