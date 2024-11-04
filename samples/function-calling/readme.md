@@ -4,14 +4,14 @@ Azure AI Agents Service supports function calling, which allows you to describe 
 
 ## Setup
 
-<TBD: info about creating a function>
+To use function calling, you need a function defined that can be called by the AI Agent service. You can find an example in the [user_functions.py](./user_functions.py) file in this folder. 
 
 ## Examples
 
 Run the code samples below and view the output. 
 
 >[!NOTE]
-> Be sure that you've installed the [correct SDK](../../quickstart.md#install-the-sdk-package) for your language.
+> Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
 * [Python](./python-sample.py)
 
