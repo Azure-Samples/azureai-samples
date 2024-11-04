@@ -189,81 +189,66 @@ project_client = AIProjectClient.from_connection_string(
 )
 
 with project_client:
-    #Set up the Event Handler Class. This class handles all of the various action for the Agent.
-    class MyEventHandler(AgentEventHandler):  
-        def on_message_delta(self, delta: "MessageDeltaChunk") -> None:  
-            for content_part in delta.delta.content:  
-                if isinstance(content_part, MessageDeltaTextContent):  
-                    text_value = content_part.text.value if content_part.text else "No text"  
-                    print(f"Text delta received: {text_value}")  
-
-        def on_thread_message(self, message: "ThreadMessage") -> None:  
-            print(f"ThreadMessage created. ID: {message.id}, Status: {message.status}")  
-
-        def on_thread_run(self, run: "ThreadRun") -> None:  
-            print(f"ThreadRun status: {run.status}")  
-            if run.status == "failed":  
-                print(f"Run failed. Error: {run.last_error}")  
-
-        def on_run_step(self, step: "RunStep") -> None:  
-            print(f"RunStep type: {step.type}, Status: {step.status}")  
-
-        def on_error(self, data: str) -> None:  
-            print(f"An error occurred. Data: {data}")  
-
-        def on_done(self) -> None:  
-            print("Stream completed.")  
-
-        def on_unhandled_event(self, event_type: str, event_data: Any) -> None:  
-            print(f"Unhandled Event Type: {event_type}, Data: {event_data}")  
-    
-    #Upload the file to be used in the Agent scenario
-    file = project_client.agents.upload_file_and_poll(
-            file_path="nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
-        )
-    print(f"Uploaded file, file ID: {file.id}")
-    
-    #Create the CodeInterpreterTool and add it to the toolset
+    # Create an instance of the CodeInterpreterTool
     code_interpreter = CodeInterpreterTool()
-    code_interpreter.file_ids = [file.id]
-    toolset = ToolSet()
-    toolset.add(code_interpreter)
-
-    # notice that CodeInterpreter must be enabled in the agent creation, otherwise the agent will not be able to see the file attachment
+ 
+    # The CodeInterpeterTool needs to be included in creation of the agent
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview", 
-        name="my-agent", 
-        instructions="you are a helpful agent", 
-        toolset=toolset
+        model="gpt-4-1106-preview",
+        name="my-assistant",
+        instructions="You are helpful assistant",
+        tools=code_interpreter.definitions,
+        tool_resources=code_interpreter.resources,
     )
-    print(f"Created agent, ID: {agent.id}") 
-
-    #Create an agentic thread
-    thread = project_client.agents.create_thread()  
-    print(f"Created thread, thread ID {thread.id}") 
-
-    #Send a message to the agent
-    message = project_client.agents.create_message(  
+    print(f"Created agent, agent ID: {agent.id}")
+    
+    # Create a thread
+    thread = project_client.agents.create_thread()
+    print(f"Created thread, thread ID: {thread.id}")
+ 
+    # Create a message
+    message = project_client.agents.create_message(
         thread_id=thread.id,
         role="user",
-        content="Write code to calculate compound interest.",
-    )  
+        content="Could you please create a bar chart for the operating profit using the following data and provide the file to me? Company A: $1.2 million, Company B: $2.5 million, Company C: $3.0 million, Company D: $1.8 million",
+    )
+    print(f"Created message, message ID: {message.id}")
+    
+    # Run the agent
+    run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
+    print(f"Run finished with status: {run.status}")
+ 
+    if run.status == "failed":
+        # Check if you got "Rate limit is exceeded.", then you want to get more quota
+        print(f"Run failed: {run.last_error}")
 
-    print(f"Created message, message ID {message.id}")  
-
-    #Create and run the agent stream
-    with project_client.agents.create_stream(  
-        thread_id=thread.id, assistant_id=agent.id, event_handler=MyEventHandler()  
-    ) as stream:
-        stream.until_done()  
-
-    #Display the messages and output from the agent
-    messages = project_client.agents.list_messages(thread_id=thread.id)  
+    # Get messages from the thread 
+    messages = project_client.agents.get_messages(thread_id=thread.id)
     print(f"Messages: {messages}")
-    print(f"Content: {messages.data[0].content[0].text.value}")
-
-    #Delete the agent when finished
-    project_client.agents.delete_agent(agent.id)  
+    
+    # Get the last message from the sender
+    last_msg = messages.get_last_text_message_by_sender("assistant")
+    if last_msg:
+        print(f"Last Message: {last_msg.text.value}")
+    
+    # Generate an image file for the bar chart
+    for image_content in messages.image_contents:
+        print(f"Image File ID: {image_content.image_file.file_id}")
+        file_name = f"{image_content.image_file.file_id}_image_file.png"
+        project_client.agents.save_file(file_id=image_content.image_file.file_id, file_name=file_name)
+        print(f"Saved image file to: {Path.cwd() / file_name}")
+ 
+    # Print the file path(s) from the messages
+    for file_path_annotation in messages.file_path_annotations:
+        print(f"File Paths:")
+        print(f"Type: {file_path_annotation.type}")
+        print(f"Text: {file_path_annotation.text}")
+        print(f"File ID: {file_path_annotation.file_path.file_id}")
+        print(f"Start Index: {file_path_annotation.start_index}")
+        print(f"End Index: {file_path_annotation.end_index}")
+    
+    # Delete the agent once done
+    project_client.agents.delete_agent(agent.id)
     print("Deleted agent")
 ```
 
