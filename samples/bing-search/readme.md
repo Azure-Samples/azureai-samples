@@ -13,7 +13,7 @@ Please note that developers and end users don’t have access to raw chunks retu
 
 1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
 
-1. Create a Bing Search resource. If you don’t have one, you can use the Azure CLI or Azure portal to create one[pending Bing update]: 
+1. Create a Bing Search resource. If you don’t have one, you can use the Azure CLI to create one[pending Bing update]: 
     
     ```console
     az cognitiveservices account create \ 
