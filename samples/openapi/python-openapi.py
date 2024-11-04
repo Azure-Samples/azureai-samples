@@ -1,3 +1,5 @@
+# Use this sample to call an OpenAPI tool. You might 
+
 import os, time  
 from azure.ai.projects import AIProjectClient  
 from azure.identity import DefaultAzureCredential  
