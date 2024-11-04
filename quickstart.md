@@ -161,6 +161,7 @@ from azure.ai.projects import *
 from azure.ai.projects.models import *
 from azure.identity import DefaultAzureCredential
 from typing import Any
+from pathlib import Path
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
