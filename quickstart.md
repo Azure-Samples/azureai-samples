@@ -55,14 +55,14 @@ Follow these steps to set up your hub and project:
     > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future. 
 
     ```console
-     az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location westus2 --kind OpenAI --sku s0
+     az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location westus --kind OpenAI --sku s0
     ```
   
 
     Alternatively, you can create an AI Services resource: 
     
     ```console
-    az cognitiveservices account create --name {my-multi-service-resource} --resource-group {my_resource_group} --kind AIServices --sku s0 --location westus2    
+    az cognitiveservices account create --name {my-multi-service-resource} --resource-group {my_resource_group} --kind AIServices --sku s0 --location westus    
     ```
   
 
@@ -113,7 +113,7 @@ Follow these steps to set up your hub and project:
 
 1. Create a Project.  
 
-    1. Run the following command to find your ARM Template: 
+    1. Run the following command to find your ARM ID: 
 
     ```console
     az ml workspace show -n {my_hub_name} --resource-group {my_resource_group} --query id 
@@ -131,8 +131,8 @@ Depending on your programming language of choice install the SDK using the follo
 
 ### Python
 
-1. Download the [Python .whl file](./packages/azure_ai_project-1.0.0b1-py3-none-any.whl) to your project directory.
-1. Install the SDK with `pip install azure_ai_project-1.0.0b1-py3-none-any.whl --user --force-reinstall`
+1. Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
+1. Install the SDK with `pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall`
     >[!NOTE]
     > We recommend creating a virtual environment with [venv](https://docs.python.org/3/library/venv.html).
 
@@ -175,8 +175,8 @@ Use the following code to create and run an agent.
 #Install the azure-identity SDK
 # %pip install azure-identity
 import os
-from azure.ai.project import *
-from azure.ai.project.models import *
+from azure.ai.projects import *
+from azure.ai.projects.models import *
 from azure.identity import DefaultAzureCredential
 from typing import Any
 
