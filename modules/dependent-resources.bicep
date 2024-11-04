@@ -39,7 +39,7 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2021-09-01' = {
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
   name: containerRegistryNameCleaned
   location: location
   tags: tags
@@ -115,7 +115,7 @@ param storageSkuName string = 'Standard_LRS'
 
 var storageNameCleaned = replace(storageName, '-', '')
 
-resource aiServices 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
+resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = {
   name: aiServicesName
   location: location
   sku: {
@@ -132,8 +132,25 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
     publicNetworkAccess: 'Enabled'
   }
 }
+/*
+resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-06-01-preview'= {
+  parent: aiServices
+  name: 'gpt-4o-mini'
+  sku : {
+    capacity: 1
+    name: 'Standard'
+  }
+  properties: {
+    model:{
+      name: 'gpt-4o-mini'
+      format: 'OpenAI'
+      // version: '2024-07-18'
+    }
+  }
+}
+*/
 
-resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
+resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageNameCleaned
   location: location
   tags: tags

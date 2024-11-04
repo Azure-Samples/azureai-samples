@@ -4,7 +4,7 @@
 @minLength(2)
 @maxLength(12)
 @description('Name for the AI resource and used to derive name of dependent resources.')
-param aiHubName string = 'demo'
+param aiHubName string = 'hub-demo'
 
 @description('Friendly name for your Azure AI resource')
 param aiHubFriendlyName string = 'Demo AI resource'
@@ -31,7 +31,10 @@ var name = toLower('${aiHubName}')
 var projectName = toLower('${aiProjectName}')
 
 // Create a short, unique suffix, that will be unique to each resource group
-var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
+// var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
+param deploymentTimestamp string = utcNow('yyyyMMddHHmmss')
+var uniqueSuffix = substring(uniqueString('${resourceGroup().id}-${deploymentTimestamp}'), 0, 4)
+
 
 // Dependent resources for the Azure Machine Learning workspace
 module aiDependencies 'modules/dependent-resources.bicep' = {
@@ -51,7 +54,7 @@ module aiHub 'modules/ai-hub.bicep' = {
   name: 'ai-${name}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
-    aiHubName: 'aih-${name}-${uniqueSuffix}'
+    aiHubName: 'ai-${name}-${uniqueSuffix}'
     aiHubFriendlyName: aiHubFriendlyName
     aiHubDescription: aiHubDescription
     location: location
@@ -71,7 +74,7 @@ module aiProject 'modules/ai-project.bicep' = {
   name: 'ai-${projectName}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
-    aiProjectName: 'aip-${projectName}-${uniqueSuffix}'
+    aiProjectName: 'ai-${projectName}-${uniqueSuffix}'
     aiProjectFriendlyName: aiProjectFriendlyName
     aiProjectDescription: aiProjectDescription
     location: location
