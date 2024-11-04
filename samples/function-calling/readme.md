@@ -14,7 +14,7 @@ Run the code samples below and view the output.
 > Be sure that you've installed the [correct SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
 * [Python](./python-sample.py)
-* [C#](./csharp-sample.cs)
+
 
 
 # Additional samples
