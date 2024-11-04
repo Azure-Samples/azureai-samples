@@ -10,15 +10,17 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 ## Setup your Azure AI Hub and Agent project 
 
-To set up an [Azure AI hub and project](https://learn.microsoft.com/azure/ai-studio/quickstarts/get-started-playground): 
+TThe following section will show you how to set up an [Azure AI hub and project](https://learn.microsoft.com/azure/ai-studio/quickstarts/get-started-playground) by: 
 
-1. Create an Azure AI Hub to set up your app environment and network HOBO resources  
+1. Creating an Azure AI Hub to set up your app environment and network HOBO resources  
 
-1. Create an Azure AI project under your Hub to provides an endpoint for your app to call, and set up proxy app services to access to resources in your tenant.  
+1. Creating an Azure AI project under your Hub to provides an endpoint for your app to call, and set up proxy app services to access to resources in your tenant.  
 
-1. Connect an Azure OpenAI resource or an Azure AI resource 
+1. Connecting an Azure OpenAI resource or an Azure AI resource 
 
-Follow these steps to set up your hub and project: 
+If you already have these resources set up, skip to the [configure and run your first agent section below](#configure-and-run-your-first-agent).
+
+### Follow these steps to set up hub and project: 
 
 1. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
@@ -44,7 +46,7 @@ Follow these steps to set up your hub and project:
 2. Create a resource group: 
 
     ```console
-    az group create --name {my_resource_group} --location westus2 
+    az group create --name {my_resource_group} --location westus 
     ```
 
   
@@ -149,7 +151,7 @@ Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-an
 Run the following commands to install the python packages. 
 
 ```console
-pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall azure-identity
+pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall
 pip install azure-identity
 ```
 
@@ -157,14 +159,16 @@ Use the following code to create and run an agent.
 
 ```python
 import os
-from azure.ai.projects import *
-from azure.ai.projects.models import *
+from azure.ai.projects import AIProjectClient
+from azure.ai.projects.models import CodeInterpreterTool
 from azure.identity import DefaultAzureCredential
 from typing import Any
+from pathlib import Path
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # HostName can be found by navigating to your discovery_url and removing the leading "https://" and trailing "/discovery" 
+# To find your HostName, run the CLI command: az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 
 project_client = AIProjectClient.from_connection_string(
