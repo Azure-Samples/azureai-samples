@@ -160,15 +160,16 @@ Use the following code to create an agent and send a message to it. This agent w
 
 ## Python SDK
 
-Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
+### Setup
+1. Download the [Python .whl file](./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl) to your project directory.
 
-Run the following commands to install the python packages. 
+2. Run the following commands to install the python packages. 
 
-```console
-pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall
-pip install azure-identity
-```
-
+    ```console
+    pip install azure_ai_projects-1.0.0b1-py3-none-any.whl --user --force-reinstall
+    pip install azure-identity
+    ```
+### Create an Agent
 Use the following code to create and run an agent.
 
 > [!TIP]
