@@ -6,7 +6,9 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 1. Create an Azure Subscription for [free](https://azure.microsoft.com/free/ai-services/), if you don't have one already. 
 
-1. check the [RBAC roles](./rbac.md). 
+2. Make sure all developers have the role: **Azure AI Develeper** assigned at the hub level. [Learn more](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/rbac-ai-studio)
+
+3. Check the [RBAC roles](./rbac.md). 
 
 ## Setup your Azure AI Hub and Agent project 
 
@@ -31,6 +33,7 @@ If you already have these resources set up, skip to the [configure and run your 
     - Microsoft.CognitiveServices
     - Microsoft.Storage
     - Microsoft.MachineLearningServices
+    - Microsoft.Search
     
     ```console
     az provider register –namespace  {my_resource_namespace} 
@@ -54,13 +57,17 @@ If you already have these resources set up, skip to the [configure and run your 
     az group create --name {my_resource_group} --location westus 
     ```
 
-3. Option 1: Use the standard agent configuration
+3. <br>
+
+    **Option 1**: Use the standard agent configuration
     ```console
     az deployment group create --resource-group {my_resource_group} --template-file main.bicep
     ```
     An hub, project, storage account, key vault, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus2 region.
 
-  
+    <br>
+
+    **Option 2**: Follw steps 6-10 if you want specific control over the creation and configuration of these resources. 
 
 1. Create an Azure OpenAI resource: 
 
@@ -99,9 +106,9 @@ If you already have these resources set up, skip to the [configure and run your 
  
 1. Connect your Hub to your Azure AI resource or Azure OpenAI resource. Replace the resource group and hub name with your resource and hub name. 
 
-    1. Save the following in a file named `connection.yml`.
+    - Save the following in a file named `connection.yml`.
 
-    1. If using an AI Services resource, use the following and replace ai_services_resource_id with the fully qualified ID from earlier.   
+    -  If using an AI Services resource, use the following and replace ai_services_resource_id with the fully qualified ID from earlier.   
 
     ```yml
     name: myazai_connection  
@@ -110,7 +117,7 @@ If you already have these resources set up, skip to the [configure and run your 
     ai_services_resource_id: /subscriptions/12345678-abcd-1234-9fc6-62780b3d3e05/resourceGroups/my-ai-resource-group/providers/Microsoft.CognitiveServices/accounts/multi-service-resource 
     ```
 
-    1. If using an Azure OpenAI resource, create the following `connection.yml` file: 
+    - If using an Azure OpenAI resource, create the following `connection.yml` file: 
     ```yml
     name: {my_connection_name} 
     type: azure_open_ai 
@@ -125,14 +132,13 @@ If you already have these resources set up, skip to the [configure and run your 
     ```
 
 1. Create a Project.  
-
-    1. Run the following command to find your ARM ID: 
+    - Run the following command to find your ARM ID: 
 
     ```console
     az ml workspace show -n {my_hub_name} --resource-group {my_resource_group} --query id 
     ```
 
-    1. Now run this command to create your project 
+    - Now run this command to create your project 
 
     ```console
     az ml workspace create --kind project --hub-id {my_hub_ARM_ID} --resource-group {my_resource_group} --name {my_project_name} 
