@@ -19,7 +19,6 @@ param aiProjectFriendlyName string = 'Agents standard project resource'
 @description('Description of your Azure AI resource dispayed in AI studio')
 param aiProjectDescription string = 'A standard project resource required for the agent setup.'
 
-
 @description('Azure region used for the deployment of all resources.')
 param location string = resourceGroup().location
 
