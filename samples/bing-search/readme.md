@@ -27,7 +27,7 @@ Grounding with Bing Search is a free service during private preview and your usa
         --template-file "$path_to_arm_template_file"​  
         --parameters "$path_to_parameters_file";​  
     ```
-You can find the the template file [here](../bingsearch_arm.json).
+You can find the the template file [here](../bing-search/bingsearch_arm.json).
 An example of the CLI template:
 ```console
     az deployment group create​  
