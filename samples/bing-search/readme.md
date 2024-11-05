@@ -18,7 +18,7 @@ Grounding with Bing Search is a free service during private preview and your usa
 
 1. Ensure you have loged in to Azure, using `az login`
 
-1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bing_search_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure cli command: 
+1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bingsearch_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure cli command: 
     
     ```console
     az deployment group create​  
