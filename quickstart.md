@@ -54,7 +54,7 @@ If you already have these resources set up, skip to the [configure and run your 
 2. Create a resource group: 
 
     ```console
-    az group create --name {my_resource_group} --location westus 
+    az group create --name {my_resource_group} --location eastus 
     ```
 
 3. <br>
