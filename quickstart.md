@@ -60,7 +60,17 @@ If you already have these resources set up, skip to the [configure and run your 
 3. <br>
 
 **Option 1**: Use the standard agent configuration.
-- Download the `standard-agent.bicep` file and the `modules-standard` folder to your project directory.
+- Download the `standard-agent.bicep` file and the `modules-standard` folder to your project directory. Your directory should look like this
+
+    ```
+    /my-project
+    - standard-agent.bicep
+    /modules-standard
+        - standard-ai-hub.bicep
+        - standard-ai-project.bicep
+        - standard-dependent-resources.bicep
+    ```
+
 - Using the resource group you created in the previous step, run one of the following commands:
    - To use default resource names, run:
   
