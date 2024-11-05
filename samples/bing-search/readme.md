@@ -18,7 +18,7 @@ Grounding with Bing Search is a free service during private preview and your usa
 
 1. Ensure you have loged in to Azure, using `az login`
 
-1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bingsearch_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure cli command: 
+1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bingsearch_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure CLI command: 
     
     ```console
     az deployment group create​  
@@ -41,15 +41,16 @@ Grounding with Bing Search is a free service during private preview and your usa
 1. Click the Grounding with Bing Search resource you have created and copy any of the API key
 ![image](https://github.com/user-attachments/assets/be98e07d-c91d-4ff9-a97c-6f02c3265221)
 1. Go to [Azure AI Studio](https://ai.azure.com/) and select the AI Project(make sure it's in the same resource group of your Grounding with Bing Search resource). Click Settings and then "+new connection" button in Settings page
-   ![image](https://github.com/user-attachments/assets/28bfebda-f3a4-4638-b714-a128a8fa48cb)
-   ![image](https://github.com/user-attachments/assets/7bb9c98e-dd46-4031-be9d-17c70613f222)
+![image](https://github.com/user-attachments/assets/28bfebda-f3a4-4638-b714-a128a8fa48cb)
+![image](https://github.com/user-attachments/assets/7bb9c98e-dd46-4031-be9d-17c70613f222)
 1. Select "API key" custom connection in other resource types
 ![image](https://github.com/user-attachments/assets/7577c912-cf0f-433a-910b-3d9e0ad138c4)
-1. Enter the following information and then create
+1. Enter the following information and then create a new connection to your Grounding with Bing Search resource
 - Endpoint: https://api.bing.microsoft.com/
 - Key: YOUR_API_KEY
 - Connection name: YOUR_CONNECTION_NAME
-You will use this connection name in the sample code below.
+- Access: you can choose either "this project only" or "shared to all projects". Just make sure in the sample code below, the project you entered connection string for has access to this connection.
+You will use this connection name in the sample code below. 
 
 ## Examples
 
