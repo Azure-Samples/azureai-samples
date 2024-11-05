@@ -59,4 +59,4 @@ Run the code samples below and view the output.
 >[!NOTE]
 > Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
-* [Python](./python-sample.py)
+* [Python](./bing-python.py)

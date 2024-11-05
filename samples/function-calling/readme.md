@@ -13,7 +13,7 @@ Run the code samples below and view the output.
 >[!NOTE]
 > Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
-* [Python - function calling](./python-sample.py)
+* [Python - function calling](./python-function-calling.py)
 * [Python - function calling with automatic tool calling](./python-function-calling-toolset.py)
 * [Python - function calling with streaming](./python-function-calling-streaming.py)
 

@@ -6,7 +6,7 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 1. Create an Azure Subscription for [free](https://azure.microsoft.com/free/ai-services/), if you don't have one already. 
 
-2. Make sure all developers have the role: **Azure AI Developer** assigned at the hub level. [Learn more](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/rbac-ai-studio)
+2. Make sure all developers have the role: **Azure AI Developer** assigned at the hub level. [Learn more](https://learn.microsoft.com/azure/ai-studio/concepts/rbac-ai-studio)
 
 3. Check the [RBAC roles](./rbac.md). 
 
