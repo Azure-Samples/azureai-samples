@@ -67,22 +67,23 @@ If you already have these resources set up, skip to the [configure and run your 
 
     <br>
 
-    **Option 2**: Follw steps 6-10 if you want specific control over the creation and configuration of these resources. 
+<details>
+    <summary><b>Option 2</b>: Follow steps 6-10 if you want specific control over the creation and configuration of these resources.</summary>
 
-1. Create an Azure OpenAI resource: 
+6. Create an Azure OpenAI resource: 
 
     > [!NOTE]
     > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future. 
 
     ```console
-     az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location westus --kind OpenAI --sku s0
+     az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location eastus --kind OpenAI --sku s0
     ```
   
 
     Alternatively, you can create an AI Services resource: 
     
     ```console
-    az cognitiveservices account create --name {my-multi-service-resource} --resource-group {my_resource_group} --kind AIServices --sku s0 --location westus    
+    az cognitiveservices account create --name {my-multi-service-resource} --resource-group {my_resource_group} --kind AIServices --sku s0 --location eastus    
     ```
   
 
@@ -143,6 +144,7 @@ If you already have these resources set up, skip to the [configure and run your 
     ```console
     az ml workspace create --kind project --hub-id {my_hub_ARM_ID} --resource-group {my_resource_group} --name {my_project_name} 
     ```
+    </details>
 
 ## Configure and run your first agent
 
