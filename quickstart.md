@@ -12,7 +12,7 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 ## Setup your Azure AI Hub and Agent project 
 
-TThe following section will show you how to set up an [Azure AI hub and project](https://learn.microsoft.com/azure/ai-studio/quickstarts/get-started-playground) by: 
+The following section will show you how to set up an [Azure AI hub and project](https://learn.microsoft.com/azure/ai-studio/quickstarts/get-started-playground) by: 
 
 1. Creating an Azure AI Hub to set up your app environment and network HOBO resources  
 
