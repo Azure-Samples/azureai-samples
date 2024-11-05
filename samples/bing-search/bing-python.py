@@ -51,7 +51,7 @@ bing = BingGroundingTool(connection_id=conn_id)
 # Create agent with the bing tool and process assistant run
 with project_client:
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview",
+        model="gpt-4o-mini",
         name="my-assistant",
         instructions="You are a helpful assistant",
         tools=bing.definitions,

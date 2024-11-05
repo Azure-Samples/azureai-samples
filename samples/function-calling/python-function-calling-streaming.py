@@ -67,7 +67,7 @@ with project_client:
     toolset.add(functions)
 
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview", name="my-assistant", instructions="You are a helpful assistant", toolset=toolset
+        model="gpt-4o-mini", name="my-assistant", instructions="You are a helpful assistant", toolset=toolset
     )
     print(f"Created agent, ID: {agent.id}")
 

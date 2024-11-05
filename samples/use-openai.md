@@ -24,7 +24,7 @@ with AIProjectClient.from_connection_string(
 
     with client:
         agent = client.beta.assistants.create(
-            model="gpt-4-1106-preview", name="my-agent", instructions="You are a helpful agent"
+            model="gpt-4o-mini", name="my-agent", instructions="You are a helpful agent"
         )
         print(f"Created agent, agent ID: {agent.id}")
 
@@ -79,7 +79,7 @@ with AIProjectClient.from_connection_string(
 
     with client:
         agent = client.beta.assistants.create(
-            model="gpt-4-1106-preview", name="my-agent", instructions="You are a helpful agent", tools=functions.definitions
+            model="gpt-4o-mini", name="my-agent", instructions="You are a helpful agent", tools=functions.definitions
         )
         print(f"Created agent, agent ID: {agent.id}")
 
@@ -170,7 +170,7 @@ with AIProjectClient.from_connection_string(
 
     with client:
         agent = client.beta.assistants.create(
-            model="gpt-4-1106-preview", name="my-agent", instructions="You are a helpful agent", tools=file_search.definitions, tool_resources=file_search.resources
+            model="gpt-4o-mini", name="my-agent", instructions="You are a helpful agent", tools=file_search.definitions, tool_resources=file_search.resources
         )
         print(f"Created agent, agent ID: {agent.id}")
 
