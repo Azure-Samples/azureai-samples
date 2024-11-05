@@ -6,7 +6,7 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 1. Create an Azure Subscription for [free](https://azure.microsoft.com/free/ai-services/), if you don't have one already. 
 
-2. Make sure all developers have the role: **Azure AI Develeper** assigned at the hub level. [Learn more](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/rbac-ai-studio)
+2. Make sure all developers have the role: **Azure AI Developer** assigned at the hub level. [Learn more](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/rbac-ai-studio)
 
 3. Check the [RBAC roles](./rbac.md). 
 
@@ -60,7 +60,7 @@ If you already have these resources set up, skip to the [configure and run your 
 3. <br>
 
 **Option 1**: Use the standard agent configuration.
-- Download the `standard-agent.bicep` file and the `standard-modules` folder to your project directory.
+- Download the `standard-agent.bicep` file and the `modules-standard` folder to your project directory.
 - Using the resource group you created in the previous step, run one of the following commands:
    - To use default resource names, run:
   
@@ -202,7 +202,8 @@ from pathlib import Path
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # HostName can be found by navigating to your discovery_url and removing the leading "https://" and trailing "/discovery" 
-# To find your HostName, run the CLI command: az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url
+# To find your discovery_url, run the CLI command: az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url
+# Project Connection example: eastus.api.azureml.ms;12345678-abcd-1234-9fc6-62780b3d3e05;my-resource-group;my-hub-name
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 
 project_client = AIProjectClient.from_connection_string(
