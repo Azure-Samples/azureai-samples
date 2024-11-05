@@ -17,6 +17,6 @@ Run the code samples below and view the output.
 * [Python - function calling with automatic tool calling](./python-function-calling-toolset.py)
 * [Python - function calling with streaming](./python-function-calling-streaming.py)
 
-# Additional samples
+## Additional samples
 
 Get the latest stock price using function calling with Yfinance ([shown in Personal Finance Assistant](https://github.com/Azure-Samples/azureai-samples/blob/main/scenarios/Assistants/api-in-a-box/personal_finance/assistant-personal_finance.ipynb))
