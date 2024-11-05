@@ -75,9 +75,6 @@ If you already have these resources set up, skip to the [configure and run your 
         
     Resources for the hub, project, storage account, and AI Services will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A Microsoft-managed key vault will be used by default.
 
-   If you prefer to deploy your own key vault, download the `main.bicep` file and `modules` folder and rerun the command, replacing `--template-file standard-agent.bicep` with `--template-file main.bicep.`
-
-
 
     <br>
 
