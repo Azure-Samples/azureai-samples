@@ -64,11 +64,11 @@ If you already have these resources set up, skip to the [configure and run your 
 
     ```
     /my-project
-    - standard-agent.bicep
-    /modules-standard
-        - standard-ai-hub.bicep
-        - standard-ai-project.bicep
-        - standard-dependent-resources.bicep
+        - standard-agent.bicep
+        /modules-standard
+            - standard-ai-hub.bicep
+            - standard-ai-project.bicep
+            - standard-dependent-resources.bicep
     ```
 
 - Using the resource group you created in the previous step, run one of the following commands:
