@@ -59,15 +59,16 @@ If you already have these resources set up, skip to the [configure and run your 
 
 3. <br>
 
-    **Option 1**: Use the standard agent configuration. Download the `main.bicep` file and the `modules` folder to your project directory. Using the resource group you created in the previous step, run the command:
+    **Option 1**: Use the standard agent configuration. Download the `standard-agent.bicep` file and the `standard-modules` folder to your project directory. Using the resource group you created in the previous step, run the command:
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file main.bicep
+    az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep
     ```
-    [Optional] Name the hub and project: 
+    [Optional] Name the hub, project, storage account, and/or azure ai service resource:
+    Note: A randomly generated suffix will be added to each name to prevent accidental duplication of resource names
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file main.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name'
+    az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
     ```
-    An hub, project, storage account, key vault, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region.
+    An hub, project, storage account, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A microsoft managed key-vault is used. If you want to use your deploy your own key vault, download the `main.bicep` file and the `modules` folder and rerun the command, replacing `--template-file standard-agent.bicep` with `--template-file main.bicep.`
 
     <br>
 
