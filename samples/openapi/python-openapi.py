@@ -16,7 +16,7 @@ project_client = AIProjectClient.from_connection_string(
 with project_client:
     # Create an agent and run user's request with function calls
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview",
+        model="gpt-4o-mini",
         name="my-agent",
         instructions="You are a helpful agent",
         tools=[{

@@ -21,11 +21,3 @@ You can now create agents using Llama 3 in Azure AI Agents Service. To get start
     ```python
     agent = project_client.agents.create_agent( model="llama-3", name="my-agent", instructions="You are a helpful agent" ) 
     ```
-    
-    ```csharp
-    Response<Agent> agentResponse = await client.CreateAgentAsync( 
-                model: "llama-3", 
-                name: "Math Tutor", 
-                instructions: "You are a helpful agent", 
-    ); 
-    ```

@@ -48,7 +48,7 @@ with project_client:
 
     # notice that CodeInterpreter must be enabled in the agent creation, otherwise the agent will not be able to see the file attachment
     agent = project_client.agents.create_agent(
-        model="gpt-4-1106-preview",
+        model="gpt-4o-mini",
         name="my-agent",
         instructions="You are helpful agent",
         tools=code_interpreter.definitions,

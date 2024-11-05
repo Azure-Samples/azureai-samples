@@ -26,7 +26,7 @@ with project_client:
  
     # Create agent with file search tool and process the agent run 
     agent = project_client.agents.create_agent( 
-        model="gpt-4-1106-preview", 
+        model="gpt-4o-mini", 
         name="my-agent", 
         instructions="Hello, you are helpful agent and can search information from uploaded files", 
         tools=file_search.definitions, 
