@@ -48,6 +48,9 @@ If you already have these resources set up, skip to the [configure and run your 
     ```
 1. To authenticate to your Azure subscription from the Azure CLI, use the following command: 
 
+    > [!NOTE]
+    > Be sure to run these commands with the subscription that has been allowlisted for the private preview. 
+
     ```console
     az login
     ```
@@ -193,7 +196,19 @@ Use the following code to create an agent and send a message to it. This agent w
     pip install azure-identity
     ```
 ### Create an Agent
-Use the following code to create and run an agent.
+Use the following code to create and run an agent. To run this code, you will need to create a connection string using information from your project. This string is in the format: 
+
+`<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>`
+
+`HostName` can be found by navigating to your `discovery_url` and removing the leading `https://` and trailing `/discovery`. To find your `discovery_url`, run this CLI command: 
+
+`az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url`
+
+For example, your connection string may look something like:
+
+`eastus.api.azureml.ms;12345678-abcd-1234-9fc6-62780b3d3e05;my-resource-group;my-hub-name`
+
+Set this connection string as an evironment variable named `PROJECT_CONNECTION_STRING`.
 
 > [!TIP]
 > Want to use the OpenAI SDK? You can find [examples of using the Azure AI Agent service with the OpenAI SDK](./samples/use-openai.md) in the samples folder of this repo. 
