@@ -275,7 +275,8 @@ with project_client:
         print(f"File ID: {file_path_annotation.file_path.file_id}")
         print(f"Start Index: {file_path_annotation.start_index}")
         print(f"End Index: {file_path_annotation.end_index}")
-    
+        project_client.agents.save_file(file_id=file_path_annotation.file_path.file_id, file_name=Path(file_path_annotation.text).name)
+
     # Delete the agent once done
     project_client.agents.delete_agent(agent.id)
     print("Deleted agent")
