@@ -59,7 +59,7 @@ If you already have these resources set up, skip to the [configure and run your 
 
 3. <br>
 
-    **Option 1**: Use the standard agent configuration
+    **Option 1**: Use the standard agent configuration. Download the `main.bicep` file and the `modules` folder to your project directory.
     ```console
     az deployment group create --resource-group {my_resource_group} --template-file main.bicep
     ```
