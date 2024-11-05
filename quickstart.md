@@ -68,7 +68,11 @@ If you already have these resources set up, skip to the [configure and run your 
     ```console
     az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
     ```
-    An hub, project, storage account, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A microsoft managed key-vault is used. If you want to use your deploy your own key vault, download the `main.bicep` file and the `modules` folder and rerun the command, replacing `--template-file standard-agent.bicep` with `--template-file main.bicep.`
+    Resources for the hub, project, storage account, and AI Services will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A Microsoft-managed key vault will be used by default.
+
+   If you prefer to deploy your own key vault, download the `main.bicep` file and `modules` folder and rerun the command, replacing `--template-file standard-agent.bicep` with `--template-file main.bicep.`
+
+
 
     <br>
 
