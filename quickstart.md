@@ -8,15 +8,15 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 2. Make sure all developers have the role: **Azure AI Developer** assigned at the hub level. [Learn more](https://learn.microsoft.com/azure/ai-studio/concepts/rbac-ai-studio)
 
-3. Check the [RBAC roles](./rbac.md). 
+    If you're using a hub/project that already exists, check the [RBAC roles](./rbac.md). 
 
 ## Setup your Azure AI Hub and Agent project 
 
 The following section will show you how to set up an [Azure AI hub and project](https://learn.microsoft.com/azure/ai-studio/quickstarts/get-started-playground) by: 
 
-1. Creating an Azure AI Hub to set up your app environment and network HOBO resources  
+1. Creating an Azure AI Hub to set up your app environment and Azure resources  
 
-1. Creating an Azure AI project under your Hub to provides an endpoint for your app to call, and set up proxy app services to access to resources in your tenant.  
+1. Creating an Azure AI project under your Hub provisions an endpoint for your app to call, and sets up app services to access to resources in your tenant.  
 
 1. Connecting an Azure OpenAI resource or an Azure AI resource 
 
@@ -94,7 +94,7 @@ If you already have these resources set up, skip to the [configure and run your 
 6. Create an Azure OpenAI resource: 
 
     > [!NOTE]
-    > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future. 
+    > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions that are compatible with Azure Assisants (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#assistants-preview)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future. 
 
     ```console
      az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location eastus --kind OpenAI --sku s0
