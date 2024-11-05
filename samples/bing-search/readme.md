@@ -18,7 +18,7 @@ Grounding with Bing Search is a free service during private preview and your usa
 
 1. Ensure you have loged in to Azure, using `az login`
 
-1. Create a Bing Search resource. If you don’t have one, you can use the Azure CLI to create one 
+1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bing_search_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure cli command: 
     
     ```console
     az deployment group create​  
@@ -27,15 +27,29 @@ Grounding with Bing Search is a free service during private preview and your usa
         --template-file "$path_to_arm_template_file"​  
         --parameters "$path_to_parameters_file";​  
     ```
-You can find the the template file [here](../bing-search/bingsearch_arm.json).
-An example of the CLI template:
-```console
-    az deployment group create​  
-        --name "az-cli-ARM-TEST"​  
-        --resource-group "ApiSearch-Test-WestUS2"​  
-        --template-file ".\bingsearch_arm.json"​  
-        --parameters ".\bingsearch_arm_params.json";
-```
+    An example of the CLI command:
+   ```console
+       az deployment group create​  
+        --name az-cli-ARM-TEST 
+        --resource-group ApiSearch-Test-WestUS2
+        --template-file bingsearch_arm.json
+        --parameters bingsearch_para.json
+    ```
+   Make sure you have created this Grounding with Bing Search resource in the same resource group of your Azure AI Agent, AI Project, etc.
+1. After you have created a Grounding with Bing Search resource, you can find it in [Azure Portal](https://ms.portal.azure.com/#home). Going to the resource group you have created the resource at, search for the Grounding with Bing Search resource you have created.
+![image](https://github.com/user-attachments/assets/3b22c48d-987c-4234-a9eb-67aefe3af81c)
+1. Click the Grounding with Bing Search resource you have created and copy any of the API key
+![image](https://github.com/user-attachments/assets/be98e07d-c91d-4ff9-a97c-6f02c3265221)
+1. Go to [Azure AI Studio](https://ai.azure.com/) and select the AI Project(make sure it's in the same resource group of your Grounding with Bing Search resource). Click Settings and then "+new connection" button in Settings page
+   ![image](https://github.com/user-attachments/assets/28bfebda-f3a4-4638-b714-a128a8fa48cb)
+   ![image](https://github.com/user-attachments/assets/7bb9c98e-dd46-4031-be9d-17c70613f222)
+1. Select "API key" custom connection in other resource types
+![image](https://github.com/user-attachments/assets/7577c912-cf0f-433a-910b-3d9e0ad138c4)
+1. Enter the following information and then create
+- Endpoint: https://api.bing.microsoft.com/
+- Key: YOUR_API_KEY
+- Connection name: YOUR_CONNECTION_NAME
+You will use this connection name in the sample code below.
 
 ## Examples
 
