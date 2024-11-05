@@ -25,6 +25,12 @@ If you already have these resources set up, skip to the [configure and run your 
 1. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
 1. Register a provider. 
+
+    The following providers must be registered:
+    - Microsoft.KeyVault
+    - Microsoft.CognitiveServices
+    - Microsoft.Storage
+    - Microsoft.MachineLearningServices
     
     ```console
     az provider register –namespace  {my_resource_namespace} 
@@ -37,7 +43,6 @@ If you already have these resources set up, skip to the [configure and run your 
     
                          [--wait] 
     ```
-
 1. To authenticate to your Azure subscription from the Azure CLI, use the following command: 
 
     ```console
@@ -48,6 +53,12 @@ If you already have these resources set up, skip to the [configure and run your 
     ```console
     az group create --name {my_resource_group} --location westus 
     ```
+
+3. Option 1: Use the standard agent configuration
+    ```console
+    az deployment group create --resource-group {my_resource_group} --template-file main.bicep
+    ```
+    An hub, project, storage account, key vault, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus2 region.
 
   
 
