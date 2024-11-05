@@ -1,10 +1,15 @@
 # Use OpenAPI 3.0 Specified Tools 
 
-The Custom Tools feature allows developers to describe custom tools in the Agent API using an [OpenAPI schema](https://www.openapis.org/), enabling the model to intelligently call these functions based on user input. You can use any API spec that is written according to the OpenAPI 3.0 schema.   
+The Custom Tools feature allows developers to describe custom tools in the Agent API using an [OpenAPI schema](https://www.openapis.org/), enabling the model to intelligently call these functions based on user input. You can use any API spec that is written according to the OpenAPI 3.0 schema. 
+
+While you can use [function calling](../function-calling/readme.md) to define functions you want your agent to call, the OpenAPI tool described here gives you:
+
+* Standardization by letting you leverage the OpenAPI spec when defining your tools 
+* Server-side integration with the ability to use managed identity
 
 ## Setup 
 
-You need a function defined using the OpenAPI Schema. See the [example function](./function-example.json) for details. It will look something like this:  
+You need a function defined using the OpenAPI Schema. See the [example function](./function-example.json) for a full sample of a possible tool definition. It will look something like this:  
 
 ```yml
 openapi: 3.0.1  
