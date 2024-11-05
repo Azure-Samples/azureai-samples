@@ -61,11 +61,11 @@ If you already have these resources set up, skip to the [configure and run your 
 
     **Option 1**: Use the standard agent configuration. Download the `main.bicep` file and the `modules` folder to your project directory. Using the resource group you created in the previous step, run the command:
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file main.bicep --parameters aiHubName=<your-hub-name> aiProjectName=<your-project-name>
+    az deployment group create --resource-group <your-resource-group> --template-file main.bicep
     ```
     [Optional] Name the hub and project: 
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file main.bicep --parameters aiHubName=<your-hub-name> aiProjectName=<your-project-name>
+    az deployment group create --resource-group <your-resource-group> --template-file main.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name'
     ```
     An hub, project, storage account, key vault, and AI Services resource will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region.
 
