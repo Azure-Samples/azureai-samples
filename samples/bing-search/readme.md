@@ -7,8 +7,9 @@ Citations show links to websites used to generate response, but don’t show lin
 ## Setup  
 
 > [!IMPORTANT]
-> Grounding with Bing Search has a separate [Terms of Use agreement](https://www.microsoft.com/en-us/bing/apis/grounding-legal-preview) you need to agree to in order to move forward. Please [use this form](https://forms.office.com/r/2j3Sgu8S9K) to sign the agreement. After you have signed the form, it will take 1-3 days for us to whitelist your subscription.
-> Please make sure your resource is created in `EastUS`.
+> 1. Grounding with Bing Search has a separate [Terms of Use agreement](https://www.microsoft.com/en-us/bing/apis/grounding-legal-preview) you need to agree to in order to move forward. Please [use this form](https://forms.office.com/r/2j3Sgu8S9K) to sign the agreement. After you have signed the form, it will take 1-3 days for us to whitelist your subscription.
+> 2. Please make sure your resource is created in `EastUS`.
+> 3. We recommend using the following models: `gpt-4o` and `gpt-4-1106-preview`
 
 1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
 
