@@ -48,9 +48,9 @@ Grounding with Bing Search is a free service during private preview and your usa
 1. Enter the following information and then create a new connection to your Grounding with Bing Search resource
 - Endpoint: https://api.bing.microsoft.com/
 - Key: YOUR_API_KEY
-- Connection name: YOUR_CONNECTION_NAME
+- Connection name: YOUR_CONNECTION_NAME (You will use this connection name in the sample code below.)
 - Access: you can choose either "this project only" or "shared to all projects". Just make sure in the sample code below, the project you entered connection string for has access to this connection.
-You will use this connection name in the sample code below. 
+
 
 ## Examples
 
