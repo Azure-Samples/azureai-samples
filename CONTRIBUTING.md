@@ -102,5 +102,40 @@ Note that samples are organized by scenario, find the one best-suited for your s
 
 That's it! Thank you for your contribution!
 
-[readme template]: ./notebooks/README-template.md
-[jupyter notebook template]: ./notebooks/template.ipynb
+> [!IMPORTANT]
+>
+> You should expect to budget time to engage with reviewers (responding to comments, fixing PR checks) before your PR is merged in. This is especially
+> relevant if your contribution is _time-sensitive_.
+>
+> Adhering to the guidance in this document (i.e [using pre-commit](#3-set-up-pre-commit), [using provided templates](#write-your-contribution)) ***will***
+> help expedite the review process.
+
+
+### Discoverability
+
+Examples in this repository can be indexed in the [Microsoft code samples browser](https://docs.microsoft.com/samples), enabling organic discoverability. To accomplish this, add the required YAML frontmatter at the top of the `README.md`
+
+The YAML frontmatter format looks like this:
+
+```YAML
+---
+page_type: sample
+languages:
+- language1
+- language2
+products:
+- ai-services
+description: Example description.
+---
+```
+
+Edit the product, description, and languages as needed.
+
+* You can find all valid product options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#product).
+* You can find valid language options [here](https://review.learn.microsoft.com/en-us/help/platform/metadata-taxonomies?branch=main#dev-lang).
+
+The Code Samples browser content is updated twice a week, so it may take a few days for your changes to be reflected.
+
+[readme template]: ./scenarios/README-template.md
+[jupyter notebook template]: ./scenarios/template.ipynb
+

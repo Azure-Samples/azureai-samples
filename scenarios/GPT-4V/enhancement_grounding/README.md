@@ -1,3 +1,12 @@
+---
+page_type: sample
+languages:
+- python
+products:
+- ai-services
+- azure-openai
+description: Apply grounding techniques to image inputs using the GPT-4 Turbo with Vision API.
+---
 
 ## REST API Grounding Enhanchment Samples
 

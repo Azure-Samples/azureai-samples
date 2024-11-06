@@ -1,4 +1,0 @@
-openai
-python-dotenv
-yfinance
-pillow

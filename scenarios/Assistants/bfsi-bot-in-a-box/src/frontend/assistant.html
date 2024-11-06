@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive UI</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  body, html {
+  overflow: hidden;
+  height: 100%; /* This ensures that the body takes up the full viewport height */
+  }
+
+  header, footer {
+    background-color: #004578; /* Microsoft's header/footer color */
+    color: white;
+    text-align: center;
+    padding: 1em;
+  }
+  .sidebar {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px); /* Adjust based on your header/footer height */
+  flex: 0 0 30%; /* Keep your width settings */
+  overflow: hidden; /* Prevent the sidebar itself from scrolling */
+  background-color: #f3f2f1;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+  .chat-area {
+  flex-grow: 1; /* Grow to fill available space */
+  overflow-y: auto; /* Only this area scrolls */
+  padding: 10px;
+  margin-bottom: 10px; /* Adjust or remove based on your layout */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+  .chat-input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        float: left;
+        font-size: 10px;
+  }
+  .send-button {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+  }
+
+  .chat-message {
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 10px;
+  }
+
+  .user-message {
+        background-color: #e7f3fe;
+  }
+
+  .assistant-message {
+        background-color: #e2e2e2;
+  }
+  .main-content {
+      text-align: center;
+  }
+  
+  .menu {
+    padding: 1em;
+    text-align: left;
+  }
+
+div[style="display: flex;"] {
+  display: flex;
+}
+
+.menu {
+  flex: 0 0 15%; /* Adjust the flex-basis to 20% of the parent container */
+  padding: 0.6em;
+  padding-right:0em;
+  text-align: left;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.main-content {
+  flex: 1; /* Take up the remaining space */
+  text-align: center;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .flash {
+    animation: flash 2s infinite;
+  }
+
+
+
+  .menu-item {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    background-color: #e4e4e4;
+    border: 1px solid #009dff;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  .menu-item:hover {
+    background-color: #d4d4d4;
+  }
+
+  .session-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .processing-circle {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f2f1;
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    display: none; /* Hidden by default */
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  #toggleAnimation {
+    cursor: pointer;
+  }
+  .input-container {
+  /* Additional styles as needed, ensure it doesn't grow */
+  display: flex;
+  justify-content: space-between;
+}
+</style>
+</head>
+<body>
+
+<header>
+  Contoso Financial Assistant
+</header>
+
+<div class="session-icon">
+  <!-- Session Icon Placeholder -->
+  &#9881;
+</div>
+
+<div style="display: flex;">
+  <div class="menu" >
+    <!--<div class="menu-item" onclick="adTechFunction()" >Ad Tech</div>
+    <div class="menu-item" onclick="customerServiceFunction()">Customer Service</div>-->
+  </div>
+
+  
+  <div class="main-content">
+    <img id="toggleAnimation" src="Assistant.jpg" alt="Assistant" width="92%">
+    <div class="processing-circle"></div>
+  </div>
+  
+  <div class="sidebar" >
+    
+    <div class="chat-area" id="chatArea">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="input-container">
+      <input type="text" class="chat-input" id="userInput" placeholder="Type your query...">
+      <button class="send-button" onclick="sendMessage()" id="btnInput">Send</button>
+    </div>
+  </div>
+  
+</div>
+
+<footer style="font-size: 16px;">
+AI GBB Asia
+</footer>
+
+<script>
+  let menu_items = ["🍴 Chopping Salad", "🥗 Salad Dressing", "* Special Dish", "#1 Best Seller", "⭐ Featured Item"];
+let currentIndex = 0;
+
+
+pending_count = 0
+
+async function addMenuItem() {
+    
+    if (thread_id == "" || run_id == "")
+      return
+    if (pending_count > 0)
+      return
+    console.log(pending_count)
+    pending_count += 1
+    console.log(pending_count)
+    const menu = document.querySelector('.menu');
+
+    url="http://localhost:5007/get_step"
+    const formData = new URLSearchParams();
+    formData.append('run_id', run_id);
+    formData.append('thread_id', thread_id);
+    
+    const data1 = await call_url(url, formData);
+    pending_count -= 1
+    console.log(pending_count)
+    data = JSON.parse(data1)
+    console.log(data)
+    step_id_list = data["step_id_list"];
+    step_list = data["step_detail_list"];
+    
+
+    // Create a new menu item
+    for (i=0; i < step_list.length; ++i) { 
+      id = step_id_list[i]
+      //check if element if id exists
+      if (document.getElementById(id) != null)
+        continue
+
+    while (menu.children.length >= 15) {
+        menu.removeChild(menu.firstChild);
+    }  
+      const menuItem = document.createElement('div');
+      menuItem.className = 'menu-item'; // Initially, don't add the 'flash' class
+      menuItem.innerHTML = step_list[i];
+      menuItem.id = id;
+      menu.appendChild(menuItem);
+    }
+
+    // Add 'flash' class to the newly added item to make it flash
+    
+}
+
+// Setup the interval to add a menu item every 10 seconds
+
+
+// Set up the interval to add a menu item every 10 seconds
+
+ 
+
+  
+  document.getElementById('toggleAnimation').addEventListener('click', function() {
+    var processingCircle = document.querySelector('.processing-circle');
+    if (processingCircle.style.display === 'none') {
+      processingCircle.style.display = 'block';
+    } else {
+      processingCircle.style.display = 'none';
+    }
+  });
+
+  function adTechFunction() {
+    console.log('Ad Tech function called');
+    // Implement Ad Tech related functionality here
+  }
+
+  function customerServiceFunction() {
+    console.log('Customer Service function called');
+    // Implement Customer Service related functionality here
+  }
+
+
+  
+  async function call_url(url, formData){
+    try{
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData,
+            mode: 'cors'
+        });
+        data = await response.text();
+        console.log(data)
+        return data
+        
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.log('Request timed out');
+        } else {
+            console.log(error);
+            
+        }
+        data = '{"error": "I was unable to process your request. Please try again later."}'
+    }
+  }
+
+
+g_intervalId = -1
+thread_id = ""
+run_id = ""
+async function get_response(query) {
+        // This function should contain the logic to get the assistant's response
+        // For now, it just echoes the user's query
+        
+        url="http://localhost:5007/get_answer"
+        const formData = new URLSearchParams();
+        formData.append('query', query);
+        formData.append('thread_id', thread_id);
+
+        document.getElementById('userInput').disabled = true;
+        document.getElementById('btnInput').disabled = true;
+        
+        const data = await call_url(url, formData);
+        try{
+            data1 = JSON.parse(data)
+        } catch (error) {
+            console.log(data)
+            return
+        }
+        data1 = JSON.parse(data)
+        thread_id = data1["thread_id"];
+        run_id = data1["run_id"];
+
+        if (g_intervalId == -1) {              
+          g_intervalId = setInterval(addMenuItem, 2000);
+        }
+
+        display_assistant_response(data1);
+        
+        document.getElementById('userInput').disabled = false;
+        document.getElementById('btnInput').disabled = false;
+}
+
+function display_assistant_response(json_data){
+  //json_data = JSON.parse(data);
+  thread_id = json_data["thread_id"];
+  run_id = json_data["run_id"];
+  messages = json_data["messages"];
+  //for each response in json_data
+  //length of json_data
+
+  for (i=0; i< messages.length; ++i){
+    resp = messages[i];
+    if ("text_data" in resp) {
+      disp_text_data(resp);
+    }
+    if ("img_data" in resp) {
+      var img = document.createElement('img');
+      img.src = 'assistant_icon.jpg';
+      img.width = 20;
+      img.height = 20;
+      img.style.marginRight = '10px'
+      var assistantContainerDiv = document.createElement('div');
+      assistantContainerDiv.style.display = 'flex';
+      assistantContainerDiv.style.alignItems = 'center';
+      assistantContainerDiv.appendChild(img);
+
+      let base64String = resp["img_data"];
+      plot_img = document.createElement('img');
+      plot_img.src = 'data:image/png;base64,' + base64String;
+      plot_img.style.width = "90%";
+      
+      assistantContainerDiv.appendChild(plot_img);
+      chatArea.appendChild(assistantContainerDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      
+    }
+  }
+}
+  function base64DecodeUtf8(str) {
+        // Decode the Base64 string to binary
+        const binaryString = window.atob(str);
+        // Convert the binary string to percent-encoded string
+        const percentEncodedStr = encodeURI(binaryString).replace(/%([0-9A-F]{2})/g,
+            function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+        });
+        // Decode percent-encoded string to UTF-8
+        const decodedStr = decodeURIComponent(percentEncodedStr);
+        return decodedStr;
+    }
+
+
+    function replaceAllCaseInsensitive(originalString, searchValue, replaceValue) {
+      // Create a regular expression with 'gi' flags: 'g' for global, 'i' for case-insensitive
+      const regExp = new RegExp(searchValue, 'gi');
+      // Replace all occurrences of searchValue with replaceValue
+      const resultString = originalString.replace(regExp, replaceValue);
+      return resultString;
+    }
+
+    prv_messages = []
+    function disp_text_data(resp){
+      let content = resp["text_data"]
+      let decodedContent = atob(content);
+      if (decodedContent in prv_messages) {
+        return
+      }
+      decodedContent = replaceAllCaseInsensitive(decodedContent, "bajaj", "Contoso");
+      prv_messages.push(decodedContent)
+      assistantResponse = decodedContent;
+
+      var chatArea = document.getElementById('chatArea');
+      var assistantDiv = document.createElement('div');
+
+      assistantDiv.className = 'chat-message assistant-message';
+      assistantDiv.style.flexGrow = '1'; 
+      assistantDiv.textContent = assistantResponse;
+
+      // add image called assistant_icon.png
+      var img = document.createElement('img');
+      img.src = 'assistant_icon.jpg';
+      img.width = 20;
+      img.height = 20;
+      img.style.marginRight = '10px'
+      var assistantContainerDiv = document.createElement('div');
+      assistantContainerDiv.style.display = 'flex';
+      assistantContainerDiv.style.alignItems = 'center';
+      assistantContainerDiv.appendChild(img);
+      assistantContainerDiv.appendChild(assistantDiv);
+
+      chatArea.appendChild(assistantContainerDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+    
+    function display_user_query(userQuery) {
+        var chatArea = document.getElementById('chatArea');
+
+        var userDiv = document.createElement('div');
+        userDiv.className = 'chat-message user-message';
+        userDiv.style.flexGrow = '1';
+        userDiv.textContent = userQuery;
+        
+        var img = document.createElement('img');
+        img.src = 'user_icon.jpg';
+        img.width = 20;
+        img.height = 20;
+        img.style.marginRight = '10px'
+
+        var userContainerDiv = document.createElement('div');
+        userContainerDiv.style.display = 'flex';
+        userContainerDiv.style.alignItems = 'center';
+        userContainerDiv.appendChild(img);
+        userContainerDiv.appendChild(userDiv);
+
+        chatArea.appendChild(userContainerDiv);
+    }
+
+
+    function sendMessage() {
+        var input = document.getElementById('userInput');
+        var chatArea = document.getElementById('chatArea');
+        var userQuery = input.value.trim();
+        if(userQuery !== '') {
+            display_user_query(userQuery)
+            // Get and display assistant's response
+            get_response(userQuery);
+            // Clear the input field
+            input.value = '';
+            // Scroll to the bottom of the chat area
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    }
+
+    // Send message when the user presses the enter key
+    document.getElementById('userInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+</script>
+
+</body>
+</html>

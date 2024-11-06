@@ -4,3 +4,4 @@ pillow
 matplotlib
 moviepy
 typing
+opencv-python-headless

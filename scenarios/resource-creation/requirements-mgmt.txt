@@ -1,0 +1,5 @@
+azure-ai-ml==1.16.0b1
+azure-mgmt-resource
+azure-mgmt-cognitiveservices
+azure-mgmt-search
+azure-identity
