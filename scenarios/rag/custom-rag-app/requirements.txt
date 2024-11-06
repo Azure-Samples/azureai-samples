@@ -1,0 +1,6 @@
+azure-ai-projects
+azure-ai-inference
+azure-ai-identity
+azure-search-documents
+pandas
+python-dotenv
