@@ -2,6 +2,6 @@ tox ~= 4.0
 pre-commit ~= 3.0
 python-dotenv ~= 1.0
 pytest ~= 8.0
-pytest-iovis[papermill] @ git+https://github.com/kdestin/pytest-iovis.git
+pytest-iovis[papermill] == 0.1.0
 ipykernel ~= 6.0
 .infra/pytest_plugins/changed_samples
