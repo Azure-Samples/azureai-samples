@@ -25,6 +25,24 @@ param location string = resourceGroup().location
 @description('Set of tags to apply to all resources.')
 param tags object = {}
 
+@description('Model name for deployment')
+param modelName string = 'gpt-4o-mini'
+
+@description('Model format for deployment')
+param modelFormat string = 'OpenAI'
+
+@description('Model version for deployment')
+param modelVersion string = '2024-07-18'
+
+@description('Model deployment SKU name')
+param modelSkuName string = 'GlobalStandard'
+
+@description('Model deployment capacity')
+param modelCapacity int = 10
+
+@description('Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created.')
+param modelLocation string = 'eastus'
+
 // Variables
 var name = toLower('${aiHubName}')
 var projectName = toLower('${aiProjectName}')
@@ -48,6 +66,14 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
     storageName: '${storageName}${uniqueSuffix}'
     location: location
     tags: tags
+
+     // Model deployment parameters
+     modelName: modelName
+     modelFormat: modelFormat
+     modelVersion: modelVersion
+     modelSkuName: modelSkuName
+     modelCapacity: modelCapacity
+     modelLocation: modelLocation
   }
 }
 
@@ -62,6 +88,7 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
     tags: tags
 
     // dependent resources
+    modelLocation: modelLocation
     storageAccountId: aiDependencies.outputs.storageId
     aiServicesId: aiDependencies.outputs.aiservicesID
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget

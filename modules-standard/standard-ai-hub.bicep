@@ -24,6 +24,9 @@ param aiServicesId string
 @description('Resource ID of the AI Services endpoint')
 param aiServicesTarget string
 
+@description('Model/AI Resource deployment location')
+param modelLocation string 
+
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview' = {
   name: aiHubName
   location: location
@@ -55,7 +58,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
       metadata: {
         ApiType: 'Azure'
         ResourceId: aiServicesId
-        Location: location
+        Location: modelLocation
       }
     }
   }
