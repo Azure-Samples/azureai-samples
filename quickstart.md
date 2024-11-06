@@ -72,6 +72,7 @@ If you already have these resources set up, skip to the [configure and run your 
         ```console
         az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
         ```
+        
     - To customize additional parameters, including the OpenAI model deployment, download and edit the `standard-agent.parameters.json` file, then run:
         ```console
         az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters @standard-agent.parameters.json
