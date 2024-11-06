@@ -1,3 +1,4 @@
+
 # <chat_function>
 from azure.ai.inference.prompts import PromptTemplate
 
