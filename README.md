@@ -57,6 +57,9 @@ See the QuickStart to [get started](./quickstart.md).
 * GitHub Issues (Preferred) 
 * For other communications, please contact azureaiagents-preview@microsoft.com 
 
+## Feedback
+Send us your feedback at: [https://aka.ms/azureagents-feedback](https://aka.ms/azureagents-feedback)
+
 ## Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
