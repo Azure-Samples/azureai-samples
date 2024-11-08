@@ -1,4 +1,4 @@
-# <imports-and-config
+# <imports_and_config>
 import os
 import pandas as pd
 from azure.ai.projects import AIProjectClient
@@ -31,9 +31,9 @@ evaluator_model = {
 }
 
 groundedness = GroundednessEvaluator(evaluator_model)
-# </imports-and-config>
+# </imports_and_config>
 
-# <evaluate-wrapper>
+# <evaluate_wrapper>
 # create a wrapper function that implements the evaluation interface for query & response evaluation
 def evaluate_chat_with_products(query):
     response = chat_with_products(messages=[{"role": "user", "content": query}])
@@ -41,9 +41,9 @@ def evaluate_chat_with_products(query):
         "response": response["message"].content,
         "context": response["context"]["grounding_data"]
     }
-# </evaluate-wrapper>
+# </evaluate_wrapper>
 
-# <run-evaluation>
+# <run_evaluation>
 # Evaluate must be called inside of a __name__ == "__main__" block
 if __name__ == "__main__":
     from config import ASSET_PATH
@@ -80,4 +80,4 @@ if __name__ == "__main__":
     pprint("-----Tabular Result-----")
     pprint(tabular_result)
     pprint(f"View evaluation results in AI Studio: {result['studio_url']}")
-# </run-evaluation>
+# </run_evaluation>
