@@ -1,4 +1,5 @@
-# <chat-function>
+
+# <chat_function>
 from azure.ai.inference.prompts import PromptTemplate
 
 def get_chat_response(messages, context):
@@ -22,9 +23,9 @@ def get_chat_response(messages, context):
         presence_penalty=0.5)
 
     return response
-# </chat-function>
+# </chat_function>
 
-# <create-response>
+# <create_response>
 if __name__ == "__main__":
     response = get_chat_response(
         messages=[{"role": "user", "content": "what city has the best food in the world?"}],
@@ -34,4 +35,4 @@ if __name__ == "__main__":
     }
     )
     print(response.choices[0].message.content)
-# </create-response>
+# </create_response>
