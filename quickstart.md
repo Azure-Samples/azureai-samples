@@ -26,7 +26,7 @@ If you already have these resources set up, skip to the [configure and run your 
 
 1. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
-1. Register a provider.
+1. Register providers.
 
    The following providers must be registered:
 
@@ -79,19 +79,19 @@ If you already have these resources set up, skip to the [configure and run your 
   - To use default resource names, run:
 
     ```console
-     az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep
+     az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep
     ```
 
   - To specify custom names for the hub, project, storage account, and/or Azure AI service resources (Note: a randomly generated suffix will be added to prevent accidental duplication), run:
 
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
+    az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
     ```
 
   - To customize additional parameters, including the OpenAI model deployment, download and edit the `standard-agent.parameters.json` file, then run:
 
     ```console
-    az deployment group create --resource-group <your-resource-group> --template-file standard-agent.bicep --parameters @standard-agent.parameters.json
+    az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep --parameters @standard-agent.parameters.json
     ```
 
   Resources for the hub, project, storage account, and AI Services will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A Microsoft-managed key vault will be used by default.
