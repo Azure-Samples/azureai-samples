@@ -22,7 +22,7 @@ The following section will show you how to set up an [Azure AI hub and project](
 
 If you already have these resources set up, skip to the [configure and run your first agent section below](#configure-and-run-your-first-agent).
 
-### Follow these steps to set up hub and project:
+### Follow these steps to set up hub and project
 
 1. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
@@ -104,7 +104,7 @@ If you already have these resources set up, skip to the [configure and run your 
 6. Create an Azure OpenAI resource:
 
    > [!NOTE]
-   > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions that are compatible with Azure Assisants (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#assistants-preview)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future.
+   > Azure AI Agent Service is currently available for all OpenAI models in available Azure Regions that are compatible with Azure Assistants (see the [models guide](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#assistants-preview)) and Llama 3.1-405B-instruct. We will be expanding to more models in the future.
 
    ```console
     az cognitiveservices account create --name {MyOpenAIResource} --resource-group {my_resource_group} --location eastus --kind OpenAI --sku s0
