@@ -1,7 +1,7 @@
 azure-ai-projects
 azure-ai-inference
-azure-ai-identity
+azure-identity
 azure-search-documents
 pandas
 python-dotenv
-open-telemetry-api
+opentelemetry-api
