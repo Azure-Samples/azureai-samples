@@ -78,16 +78,21 @@ python3 -m venv .venv
 source venv/bin/activate
 ```
 
-Install the core dependencies to run the sample:
+Install the full set of dependencies to run the sample:
 ```Python
-pip install -r requirements.txt
+pip install -r dev-requirements.txt
 ```
 
 ## Configure project string
 
 Go back to the **Overview** page of your project, and in the upper right hand corner click the copy button beside the **Project connection string** field.
 
-Open the ```.env``` file and paste (ctrl-v) the value to the right of the ```PROJECT_CONNECTION_STRING=``` variable.
+Create a ```.env``` file using the sample:
+```
+cp .env.sample .env
+```
+
+Open the ```.env``` file and paste (ctrl-v) the value to the right of the ```AIPROJECT_CONNECTION_STRING=``` variable.
 
 
 ### Run the sample!

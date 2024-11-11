@@ -1,20 +1,15 @@
-# <imports-and-config>
+# <imports_and_config>
 import os
-import logging
 from opentelemetry import trace
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import ConnectionType
 from azure.identity import DefaultAzureCredential
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
-from config import LOGGING_HANDLER, LOGGING_LEVEL, ASSET_PATH
+from config import ASSET_PATH, get_logger
 
-# use the app telemetry settings to configure logging for this module
-logger = logging.getLogger(__name__)
-logger.addHandler(LOGGING_HANDLER)
-logger.setLevel(LOGGING_LEVEL)
-
-# initialize an open telemetry tracer
+# initialize logging and tracing objects
+logger = get_logger(__name__)
 tracer = trace.get_tracer(__name__)
 
 # create a project client using environment variables loaded from the .env file
@@ -39,9 +34,9 @@ search_client = SearchClient(
     endpoint=search_connection.endpoint_url,
     credential=AzureKeyCredential(key=search_connection.key)
 )
-# </imports-and-config>
+# </imports_and_config>
 
-# <get-product-documents>
+# <get_product_documents>
 from azure.ai.inference.prompts import PromptTemplate
 from azure.search.documents.models import VectorizedQuery
 
@@ -57,12 +52,12 @@ def get_product_documents(messages : list, context : dict = {}) -> dict:
 
     intent_mapping_response = chat.complete(
         model=os.environ["INTENT_MAPPING_MODEL"],
-        messages=intent_prompty.render(conversation=messages),
+        messages=intent_prompty.create_messages(conversation=messages),
         **intent_prompty.parameters,
     )
 
     search_query = intent_mapping_response.choices[0].message.content
-    logger.info(f"🧠 Intent mapping: {search_query}")
+    logger.debug(f"🧠 Intent mapping: {search_query}")
     
     # generate a vector representation of the search query
     embedding = embeddings.embed(model=os.environ["EMBEDDINGS_MODEL"], input=search_query)
@@ -101,13 +96,16 @@ def get_product_documents(messages : list, context : dict = {}) -> dict:
         context["grounding_data"] = []
     context["grounding_data"].append(documents)
 
-    logger.info(f"📄 {len(documents)} documents retrieved: {documents}")
+    logger.debug(f"📄 {len(documents)} documents retrieved: {documents}")
     return documents
-# </get-product-documents>
+# </get_product_documents>
 
-# <test-get-product-documents>
+# <test_get_documents>
 if __name__ == "__main__":
-    import argparse
+    import logging, argparse
+
+    # set logging level to debug when running this module directly
+    logger.setLevel(logging.DEBUG)
 
     # load command line arguments
     parser = argparse.ArgumentParser()
@@ -124,4 +122,4 @@ if __name__ == "__main__":
     result = get_product_documents(messages=[
         {"role": "user", "content": query}
     ])
-# </test-get-product-documents>
+# </test_get_documents>

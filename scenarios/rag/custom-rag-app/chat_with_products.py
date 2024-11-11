@@ -1,18 +1,13 @@
-# <imports-and-config>
+# <imports_and_config>
 import os
-import logging
 from opentelemetry import trace
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
-from config import LOGGING_HANDLER, LOGGING_LEVEL, ASSET_PATH, enable_telemetry
+from config import ASSET_PATH, get_logger, enable_telemetry
 from get_product_documents import get_product_documents
 
-# use the app telemetry settings to configure logging for this module
-logger = logging.getLogger(__name__)
-logger.addHandler(LOGGING_HANDLER)
-logger.setLevel(LOGGING_LEVEL)
-
-# initialize an open telemetry tracer
+# initialize logging and tracing objects
+logger = get_logger(__name__)
 tracer = trace.get_tracer(__name__)
 
 # create a project client using environment variables loaded from the .env file
@@ -23,9 +18,9 @@ project = AIProjectClient.from_connection_string(
 
 # create a chat client we can use for testing
 chat = project.inference.get_chat_completions_client()
-# </imports-and-config>
+# </imports_and_config>
 
-# <chat-function>
+# <chat_function>
 from azure.ai.inference.prompts import PromptTemplate
 
 @tracer.start_as_current_span(name="chat_with_products")
@@ -37,7 +32,7 @@ def chat_with_products(messages : list, context : dict = {}) -> dict:
         os.path.join(ASSET_PATH, "grounded_chat.prompty")
     )
 
-    system_message = grounded_chat_prompt.render(documents=documents, context=context)
+    system_message = grounded_chat_prompt.create_messages(documents=documents, context=context)
     response = chat.complete(
         model=os.environ["CHAT_MODEL"],
         messages=system_message + messages,
@@ -52,12 +47,12 @@ def chat_with_products(messages : list, context : dict = {}) -> dict:
     }
 
     return response
-# </chat-function>
+# </chat_function>
 
-# <test-function>
+# <test_function>
 if __name__ == "__main__":
     import argparse
-    
+
     # load command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -70,12 +65,11 @@ if __name__ == "__main__":
         help="Enable sending telemetry back to the project", 
     )
     args = parser.parse_args()
-
-    if (enable_telemetry):
+    if args.enable_telemetry:
         enable_telemetry(True)
 
     # run chat with products
     response = chat_with_products(messages=[
         {"role": "user", "content": args.query}
     ])
-# </test-function>
+# </test_function>

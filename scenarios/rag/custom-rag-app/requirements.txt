@@ -4,3 +4,4 @@ azure-ai-identity
 azure-search-documents
 pandas
 python-dotenv
+open-telemetry-api

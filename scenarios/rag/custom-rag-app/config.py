@@ -2,7 +2,6 @@ import os
 import sys
 import pathlib
 import logging
-
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
 from azure.ai.inference.tracing import AIInferenceInstrumentor
@@ -11,12 +10,25 @@ from azure.ai.inference.tracing import AIInferenceInstrumentor
 from dotenv import load_dotenv
 load_dotenv()
 
-LOGGING_HANDLER = logging.StreamHandler(stream=sys.stdout)
-LOGGING_LEVEL = logging.INFO
+# Set "./assets" as the path where assets are stored, resolving the absolute path:
 ASSET_PATH = os.path.join(pathlib.Path(__file__).parent.resolve(), "assets")
 
+# Configure an root app logger that prints info level logs to stdout
+root_logger = logging.getLogger("app")
+root_logger.setLevel(logging.INFO)
+root_logger.addHandler(logging.StreamHandler(stream=sys.stdout))
+
+# Returns a module-specific logger, inheriting from the root app logger
+def get_logger(module_name):
+    logger = logging.getLogger(f"app.{module_name}")
+    return logger
+
+# Enable instrumentation and logging of telemetry to the project
 def enable_telemetry(log_to_project : bool = False):
     AIInferenceInstrumentor().instrument()
+
+    # enable logging message contents
+    os.environ["AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED"] = "true"
 
     if log_to_project:
         from azure.monitor.opentelemetry import configure_azure_monitor

@@ -1,4 +1,4 @@
-# <imports-and-config>
+# <imports_and_config>
 import os
 import logging
 from azure.ai.projects import AIProjectClient
@@ -7,12 +7,11 @@ from azure.identity import DefaultAzureCredential
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
-from config import LOGGING_HANDLER, LOGGING_LEVEL
+from config import get_logger
+from get_product_documents import get_product_documents
 
-# use the app telemetry settings to configure logging for this module
-logger = logging.getLogger(__name__)
-logger.addHandler(LOGGING_HANDLER)
-logger.setLevel(LOGGING_LEVEL)
+# initialize logging object
+logger = get_logger(__name__)
 
 # create a project client using environment variables loaded from the .env file
 project = AIProjectClient.from_connection_string(
@@ -34,9 +33,9 @@ index_client = SearchIndexClient(
     endpoint=search_connection.endpoint_url,
     credential=AzureKeyCredential(key=search_connection.key)
 )
-# </imports-and-config>
+# </imports_and_config>
 
-# <create-search-index>
+# <create_search_index>
 import pandas as pd
 from azure.search.documents.indexes.models import SemanticSearch, SearchField, SimpleField, \
     SearchableField, SearchFieldDataType, SemanticConfiguration, SemanticPrioritizedFields, \
@@ -122,9 +121,9 @@ def create_index_definition(index_name : str, model : str) -> SearchIndex:
         semantic_search=semantic_search,
         vector_search=vector_search,
     )
-# </create-search-index>
+# </create_search_index>
 
-# <add-csv-to-index>
+# <add_csv_to_index>
 # define a function for indexing a csv file, that adds each row as a document
 # and generates vector embeddings for the specified content_column
 def create_docs_from_csv(path: str, content_column : str, model: str) -> list[dict[str, any]]:
@@ -147,9 +146,9 @@ def create_docs_from_csv(path: str, content_column : str, model: str) -> list[di
         items.append(rec)
 
     return items
-# </add-csv-to-index>
+# </add_csv_to_index>
 
-# <test-create-index
+# <test_create_index>
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
@@ -196,4 +195,4 @@ if __name__ == "__main__":
 
     results = search_client.upload_documents(docs)
     logger.info(f"➕ Uploaded {len(docs)} documents to '{index_name}' index")
-# </test-create-index>
+# </test_create_index>

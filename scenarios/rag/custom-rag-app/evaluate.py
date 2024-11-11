@@ -22,7 +22,6 @@ connection = project.connections.get_default(
     connection_type=ConnectionType.AZURE_OPEN_AI,
     with_credentials=True)
 
-# TODO: provide a better way to get this from project client
 evaluator_model = {
     "azure_endpoint": connection.endpoint_url,
     "azure_deployment": os.environ["EVALUATION_MODEL"],
@@ -33,8 +32,8 @@ evaluator_model = {
 groundedness = GroundednessEvaluator(evaluator_model)
 # </imports_and_config>
 
-# <evaluate_wrapper>
 # create a wrapper function that implements the evaluation interface for query & response evaluation
+# <evaluate_wrapper>
 def evaluate_chat_with_products(query):
     response = chat_with_products(messages=[{"role": "user", "content": query}])
     return {
@@ -44,7 +43,7 @@ def evaluate_chat_with_products(query):
 # </evaluate_wrapper>
 
 # <run_evaluation>
-# Evaluate must be called inside of a __name__ == "__main__" block
+# Evaluate must be called inside of __main__, not on import
 if __name__ == "__main__":
     from config import ASSET_PATH
 
@@ -54,8 +53,9 @@ if __name__ == "__main__":
     try:
         multiprocessing.set_start_method('spawn', force=True)
     except RuntimeError:
-        pass  # Start method has already been set, so we can ignore this error
+        pass
 
+    # run evaluation with a dataset and target function, log to the project
     result = evaluate(
         data=os.path.join(ASSET_PATH, "chat_eval_data.jsonl"),
         target=evaluate_chat_with_products,
@@ -70,6 +70,7 @@ if __name__ == "__main__":
                 "context": {"${target.context}"},
             }
         },
+        azure_ai_project=project.scope,
         output_path="./myevalresults.json"
     )
 
@@ -81,3 +82,7 @@ if __name__ == "__main__":
     pprint(tabular_result)
     pprint(f"View evaluation results in AI Studio: {result['studio_url']}")
 # </run_evaluation>
+
+# If encountering issues with uploading evaluation results, check out
+# the troubleshooting guide for known issues and workarounds:
+# https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/evaluation/azure-ai-evaluation/TROUBLESHOOTING.md#troubleshoot-remote-tracking-issues
