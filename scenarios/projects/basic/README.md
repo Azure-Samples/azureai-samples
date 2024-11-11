@@ -83,8 +83,12 @@ pip install -r requirements.txt
 
 Go back to the **Overview** page of your project, and in the upper right hand corner click the copy button beside the **Project connection string** field.
 
-Open the ```.env``` file and paste (ctrl-v) the value to the right of the ```AIPROJECT_CONNECTION_STRING=``` variable.
+Create a ```.env``` file using the sample:
+```
+cp .env.sample .env
+```
 
+Open the ```.env``` file and paste (ctrl-v) the value to the right of the ```AIPROJECT_CONNECTION_STRING=``` variable.
 
 ### Try out samples!
 
