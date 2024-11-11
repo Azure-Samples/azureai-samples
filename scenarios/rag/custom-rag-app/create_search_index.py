@@ -8,7 +8,6 @@ from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from config import get_logger
-from get_product_documents import get_product_documents
 
 # initialize logging object
 logger = get_logger(__name__)
