@@ -80,7 +80,7 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
 }
 
 module aiHub 'modules-standard/standard-ai-hub.bicep' = {
-  name: '${name}-${uniqueSuffix}-deployment'
+  name: 'ai-${name}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
     aiHubName: 'ai-${name}-${uniqueSuffix}'

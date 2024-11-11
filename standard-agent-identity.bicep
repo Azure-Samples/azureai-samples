@@ -27,16 +27,6 @@ param location string = resourceGroup().location
 @description('Set of tags to apply to all resources.')
 param tags object = {}
 
-// Variables
-var name = toLower('${aiHubName}')
-var projectName = toLower('${aiProjectName}')
-
-@description('Name of the storage account')
-param storageName string = 'agent-storage'
-
-@description('Name of the Azure AI Services account')
-param aiServicesName string = 'agent-ai-services'
-
 @description('Model name for deployment')
 param modelName string = 'gpt-4o-mini'
 
@@ -54,6 +44,16 @@ param modelCapacity int = 10
 
 @description('Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created.')
 param modelLocation string = 'eastus'
+
+// Variables
+var name = toLower('${aiHubName}')
+var projectName = toLower('${aiProjectName}')
+
+@description('Name of the storage account')
+param storageName string = 'agent-storage'
+
+@description('Name of the Azure AI Services account')
+param aiServicesName string = 'agent-ai-services'
 
 
 // Create a short, unique suffix, that will be unique to each resource group
@@ -81,7 +81,7 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
 }
 
 module aiHub 'modules-standard/standard-ai-hub-identity.bicep' = {
-  name: '${name}-${uniqueSuffix}-deployment'
+  name: 'ai-${name}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
     aiHubName: 'ai-${name}-${uniqueSuffix}'
@@ -92,7 +92,6 @@ module aiHub 'modules-standard/standard-ai-hub-identity.bicep' = {
 
     // dependent resources
     modelLocation: modelLocation
-    aiServicesName: '${aiServicesName}${uniqueSuffix}'
     storageAccountId: aiDependencies.outputs.storageId
     aiServicesId: aiDependencies.outputs.aiservicesID
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget
@@ -110,6 +109,7 @@ module aiProject 'modules-standard/standard-ai-project-identity.bicep' = {
     tags: tags
 
     // dependent resources
+    aiServicesName: '${aiServicesName}${uniqueSuffix}'
     aiHubId: aiHub.outputs.aiHubID
   }
 }

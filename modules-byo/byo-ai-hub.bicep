@@ -21,6 +21,9 @@ param keyVaultId string
 @description('Resource ID of the storage account resource for storing experimentation outputs')
 param storageAccountId string
 
+@description('Model/AI Resource deployment location')
+param modelLocation string 
+
 @description('Resource ID of the AI Services resource')
 param aiServicesId string
 
@@ -38,7 +41,7 @@ param capabilityHostName string = 'caphost1'
 
 var acsConnectionName = '${aiHubName}-connection-AISearch'
 
-var aoaiConnection  = '${aiHubName}-connection-AIServices-aoai'
+var aoaiConnection  = '${aiHubName}-connection-AIServices_aoai'
 
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview' = {
   name: aiHubName
@@ -63,16 +66,12 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
     properties: {
       category: 'AIServices'
       target: aiServicesTarget
-      // useWorkspaceManagedIdentity: true
-      authType: 'ApiKey'
+      authType: 'AAD'
       isSharedToAll: true
-      credentials: {
-        key: '${listKeys(aiServicesId, '2022-10-01').key1}'
-      }
       metadata: {
         ApiType: 'Azure'
         ResourceId: aiServicesId
-        Location: location
+        Location: modelLocation
       }
     }
   }

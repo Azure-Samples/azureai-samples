@@ -33,6 +33,31 @@ param aiSearchName string = 'agent-ai-search'
 @description('Name for capabilityHost.')
 param capabilityHostName string = 'caphost1'
 
+@description('Name of the storage account')
+param storageName string = 'agent-storage'
+
+@description('Name of the Azure AI Services account')
+param aiServicesName string = 'agent-ai-services'
+
+@description('Model name for deployment')
+param modelName string = 'gpt-4o-mini'
+
+@description('Model format for deployment')
+param modelFormat string = 'OpenAI'
+
+@description('Model version for deployment')
+param modelVersion string = '2024-07-18'
+
+@description('Model deployment SKU name')
+param modelSkuName string = 'GlobalStandard'
+
+@description('Model deployment capacity')
+param modelCapacity int = 10
+
+@description('Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created.')
+param modelLocation string = 'eastus'
+
+
 // Variables
 var name = toLower('${aiHubName}')
 var projectName = toLower('${aiProjectName}')
@@ -48,12 +73,20 @@ module aiDependencies 'modules-byo/byo-dependent-resources.bicep' = {
   name: 'dependencies-${name}-${uniqueSuffix}-deployment'
   params: {
     location: location
-    storageName: 'st${name}${uniqueSuffix}'
+    storageName: '${storageName}${uniqueSuffix}'
     keyvaultName: 'kv-${name}-${uniqueSuffix}'
-    aiServicesName: 'ais${name}${uniqueSuffix}'
+    aiServicesName: '${aiServicesName}${uniqueSuffix}'
     aiSearchName: '${aiSearchName}-${uniqueSuffix}'
     tags: tags
-  }
+
+     // Model deployment parameters
+     modelName: modelName
+     modelFormat: modelFormat
+     modelVersion: modelVersion
+     modelSkuName: modelSkuName
+     modelCapacity: modelCapacity  
+     modelLocation: modelLocation
+    }
 }
 
 module aiHub 'modules-byo/byo-ai-hub.bicep' = {
@@ -66,6 +99,7 @@ module aiHub 'modules-byo/byo-ai-hub.bicep' = {
     location: location
     tags: tags
     capabilityHostName: capabilityHostName
+    modelLocation: modelLocation
 
 
     aiSearchName: aiDependencies.outputs.aiSearchName
@@ -90,6 +124,7 @@ module aiProject 'modules-byo/byo-ai-project.bicep' = {
     
     capabilityHostName: capabilityHostName
     // dependent resources
+    aiServicesName: '${aiServicesName}${uniqueSuffix}'
     aiHubId: aiHub.outputs.aiHubID
     acsConnectionName: aiHub.outputs.acsConnectionName
     aoaiConnectionName: aiHub.outputs.aoaiConnectionName

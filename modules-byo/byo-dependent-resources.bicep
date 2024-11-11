@@ -20,6 +20,24 @@ param storageName string
 
 var storageNameCleaned = replace(storageName, '-', '')
 
+@description('Model name for deployment')
+param modelName string 
+
+@description('Model format for deployment')
+param modelFormat string 
+
+@description('Model version for deployment')
+param modelVersion string 
+
+@description('Model deployment SKU name')
+param modelSkuName string 
+
+@description('Model deployment capacity')
+param modelCapacity int 
+
+@description('Model/AI Resource deployment location')
+param modelLocation string 
+
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: keyvaultName
   location: location
@@ -48,7 +66,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
 
 resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = {
   name: aiServicesName
-  location: 'eastus'
+  location: modelLocation
   sku: {
     name: 'S0'
   }
@@ -66,16 +84,16 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = 
 }
 resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-06-01-preview'= {
   parent: aiServices
-  name: 'gpt-4o-mini'
+  name: modelName
   sku : {
-    capacity: 10
-    name: 'GlobalStandard'
+    capacity: modelCapacity
+    name: modelSkuName
   }
   properties: {
     model:{
-      name: 'gpt-4o-mini'
-      format: 'OpenAI'
-      version: '2024-07-18'
+      name: modelName
+      format: modelFormat
+      version: modelVersion
     }
   }
 }
