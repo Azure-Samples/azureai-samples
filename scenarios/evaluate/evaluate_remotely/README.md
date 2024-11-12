@@ -8,11 +8,11 @@ products:
 description: Evaluating remotely
 ---
 
-## Evaluating qualitative metrics
+## Evaluating in the cloud
 
 ### Overview
 
-This tutorial provides a step-by-step guide on how to evaluate LLMs remotely using a triggered evaluation.
+This tutorial provides a step-by-step guide on how to evaluate generative AI or LLMs remotely using a triggered evaluation.
 
 ### Objective
 
@@ -23,6 +23,17 @@ The main objective of this tutorial is to help users understand the process of e
 
 ### Note
 Remote evaluations do not support `Groundedness-Pro-Evaluator`, `Retrieval-Evaluator`, `Protected-Material-Evaluator`, `Indirect-Attack-Evaluator`, `ContentSafetyEvaluator`, and `QAEvaluator`. 
+
+#### Region Support for Evaluations
+
+| Region | Hate and Unfairness, Sexual, Violent, Self-Harm, XPIA | Groundedness | Protected Material |
+| - | - | - | - |
+| UK South | Will be deprecated 12/1/24 | no | no |
+| East US 2 | yes | yes | yes |
+| Sweden Central | yes | yes | no |
+| US North Central | yes | no | no |
+| France Central | yes | no | no |
+| Switzerland West | yes | no | no |
 
 ### Programming Languages
  - Python
