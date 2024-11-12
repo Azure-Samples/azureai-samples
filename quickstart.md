@@ -117,6 +117,17 @@ If you already have these resources set up, skip to the [configure and run your 
 
     <details>
         <summary><b>Option 2</b>: Use standard agent setup.</summary>
+       
+    - Download the `basic-agent-keys.bicep` file, `basic-agent-identity.bicep` file, and the `modules-basic` folder to your project directory. Your directory should look like this
+
+        ```console
+        /my-project
+            - standard-agent.bicep
+            /modules-standard
+                - standard-ai-hub.bicep
+                - standard-ai-project.bicep
+                - standard-dependent-resources.bicep
+        ```
     </details>
 
 
