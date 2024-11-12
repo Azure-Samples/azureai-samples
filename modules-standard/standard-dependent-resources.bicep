@@ -1,3 +1,5 @@
+// Creates Azure dependent resources for Azure AI studio
+
 @description('Azure region of the deployment')
 param location string = resourceGroup().location
 
@@ -6,6 +8,17 @@ param tags object = {}
 
 @description('AI services name')
 param aiServicesName string
+
+@description('The name of the Key Vault')
+param keyvaultName string
+
+@description('The name of the AI Search resource')
+param aiSearchName string
+
+@description('Name of the storage account')
+param storageName string
+
+var storageNameCleaned = replace(storageName, '-', '')
 
 @description('Model name for deployment')
 param modelName string 
@@ -25,6 +38,32 @@ param modelCapacity int
 @description('Model/AI Resource deployment location')
 param modelLocation string 
 
+resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
+  name: keyvaultName
+  location: location
+  tags: tags
+  properties: {
+    createMode: 'default'
+    enabledForDeployment: false
+    enabledForDiskEncryption: false
+    enabledForTemplateDeployment: false
+    enableSoftDelete: true
+    enableRbacAuthorization: true
+    enablePurgeProtection: true
+    networkAcls: {
+      bypass: 'AzureServices'
+      defaultAction: 'Deny'
+    }
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    softDeleteRetentionInDays: 7
+    tenantId: subscription().tenantId
+  }
+}
+
+
 resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = {
   name: aiServicesName
   location: modelLocation
@@ -36,14 +75,13 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' = 
     type: 'SystemAssigned'
   }
   properties: {
-    customSubDomainName: toLower('${toLower(aiServicesName)}')
+    customSubDomainName: toLower('${(aiServicesName)}')
     apiProperties: {
       statisticsEnabled: false
     }
     publicNetworkAccess: 'Enabled'
   }
 }
-
 resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-06-01-preview'= {
   parent: aiServices
   name: modelName
@@ -60,75 +98,60 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
   }
 }
 
-@description('Name of the storage account')
-param storageName string
-
-@allowed([
-  'Standard_LRS'
-  'Standard_ZRS'
-  'Standard_GRS'
-  'Standard_GZRS'
-  'Standard_RAGRS'
-  'Standard_RAGZRS'
-  'Premium_LRS'
-  'Premium_ZRS'
-])
-
-@description('Storage SKU')
-param storageSkuName string = 'Standard_LRS'
-
-var storageNameCleaned = replace(storageName, '-', '')
-
-resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
-  name: storageNameCleaned
+resource aiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = {
+  name: aiSearchName
   location: location
   tags: tags
-  sku: {
-    name: storageSkuName
+  identity: {
+    type: 'SystemAssigned'
   }
-  kind: 'StorageV2'
   properties: {
-    accessTier: 'Hot'
-    allowBlobPublicAccess: false
-    allowCrossTenantReplication: false
-    allowSharedKeyAccess: true
-    encryption: {
-      keySource: 'Microsoft.Storage'
-      requireInfrastructureEncryption: false
-      services: {
-        blob: {
-          enabled: true
-          keyType: 'Account'
-        }
-        file: {
-          enabled: true
-          keyType: 'Account'
-        }
-        queue: {
-          enabled: true
-          keyType: 'Service'
-        }
-        table: {
-          enabled: true
-          keyType: 'Service'
-        }
-      }
+    disableLocalAuth: false
+    authOptions: { aadOrApiKey: { aadAuthFailureMode: 'http401WithBearerChallenge'}}
+    encryptionWithCmk: {
+      enforcement: 'Unspecified'
     }
-    isHnsEnabled: false
-    isNfsV3Enabled: false
-    keyPolicy: {
-      keyExpirationPeriodInDays: 7
-    }
-    largeFileSharesState: 'Disabled'
-    minimumTlsVersion: 'TLS1_2'
-    networkAcls: {
-      bypass: 'AzureServices'
-      defaultAction: 'Deny'
-    }
-    supportsHttpsTrafficOnly: true
+    hostingMode: 'default'
+    partitionCount: 3
+    publicNetworkAccess: 'enabled'
+    replicaCount: 3
+    semanticSearch: 'disabled'
+  }
+  sku: {
+    name: 'standard'
   }
 }
 
+// Some regions doesn't support Standard Zone-Redundant storage, need to use Geo-redundant storage
+param noZRSRegions array = ['southindia', 'westus']
+param sku object = contains(noZRSRegions, location) ? { name: 'Standard_GRS' } : { name: 'Standard_ZRS' }
+
+resource storage 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+  name: storageNameCleaned
+  location: location
+  kind: 'StorageV2'
+  sku: sku
+  properties: {
+    minimumTlsVersion: 'TLS1_2'
+    allowBlobPublicAccess: false
+    publicNetworkAccess: 'Enabled'
+    networkAcls: {
+      bypass: 'AzureServices'
+      defaultAction: 'Allow'
+      virtualNetworkRules: []
+    }
+    allowSharedKeyAccess: false
+  }
+}
+
+output aiServicesName string = aiServices.name
 output aiservicesID string = aiServices.id
 output aiservicesTarget string = aiServices.properties.endpoint
+
+output aiSearchName string = aiSearch.name
+output aisearchID string = aiSearch.id
+
+output storageAccountName string = storage.name
 output storageId string = storage.id
+
+output keyvaultId string = keyVault.id
