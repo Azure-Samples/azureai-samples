@@ -90,7 +90,7 @@ If you already have these resources set up, skip to the [configure and run your 
         - `basic-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
 
 
-    - Using the resource group you created in the previous step and one of the template files (either standard-agent.bicep or standard-agent-identity.bicep), run one of the following commands:
+    - Using the resource group you created in the previous step and one of the template files (either basic-agent-keys.bicep or basic-agent-identity.bicep), run one of the following commands:
 
         - To use default resource names, run:
 
@@ -118,16 +118,31 @@ If you already have these resources set up, skip to the [configure and run your 
     <details>
         <summary><b>Option 2</b>: Use standard agent setup.</summary>
        
-    - Download the `basic-agent-keys.bicep` file, `basic-agent-identity.bicep` file, and the `modules-basic` folder to your project directory. Your directory should look like this
+    - Download the `standard-agent.bicep` file, `standard-agent.parameters.json` file, and the `modules-standard` folder to your project directory. Your directory should look like this
 
         ```console
         /my-project
             - standard-agent.bicep
+            - standard-agent.parameters.json 
             /modules-standard
                 - standard-ai-hub.bicep
                 - standard-ai-project.bicep
                 - standard-dependent-resources.bicep
         ```
+     - Using the resource group you created in the previous step, run one of the following commands:
+
+        - To use default resource names, run:
+
+        ```console
+        az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep
+        ```
+
+        - To customize additional parameters, including the OpenAI model deployment, hub name, etc, download and edit the `standard-agent.parameters.json` file, then run:
+
+        ```console
+        az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep --parameters @standard-agent.parameters.json
+        ```
+
     </details>
 
 
