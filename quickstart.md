@@ -62,32 +62,32 @@ If you already have these resources set up, skip to the [configure and run your 
 1. Choose Standard or Custom Agent Setup
     <br> 
 
-    **Standard Setup**:  Agents use multi-tenant search and storage resources fully managed by Microsoft. You won’t have visibility or control over these underlying Azure resources.
+    **Basic Setup**:  Agents use multi-tenant search and storage resources fully managed by Microsoft. You won’t have visibility or control over these underlying Azure resources.
 
-    **Custom Setup**: Agents use customer-owned, single-tenant search and storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
+    **Standard Setup**: Agents use customer-owned, single-tenant search and storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
 
     <br>
 
     <details>
-    <summary><b>Option 1</b>: Use standard agent setup.</summary>
+    <summary><b>Option 1</b>: Use basic agent setup.</summary>
 
-    - Download the `standard-agent.bicep` file, `standard-agent-identity.bicep` file, and the `modules-standard` folder to your project directory. Your directory should look like this
+    - Download the `basic-agent-keys.bicep` file, `basic-agent-identity.bicep` file, and the `modules-basic` folder to your project directory. Your directory should look like this
 
         ```console
         /my-project
-            - standard-agent.bicep
-            - standard-agent-identity.bicep
-            /modules-standard
-                - standard-ai-hub.bicep
-                - standard-ai-project.bicep
-                - standard-ai-hub-identity.bicep
-                - standard-ai-project-identity.bicep
-                - standard-dependent-resources.bicep
+            - basic-agent-keys.bicep
+            - basic-agent-identity.bicep
+            /modules-basic
+                - basic-ai-hub-keys.bicep
+                - basic-ai-project-keys.bicep
+                - basic-ai-hub-identity.bicep
+                - basic-ai-project-identity.bicep
+                - basic-dependent-resources.bicep
         ```
 
     - Before deploying resources, decide which configuration file to use:
-        - `standard-agent.bicep`: Use this file to use API keys for authentication.
-        - `standard-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
+        - `basic-agent-keys.bicep`: Use this file to use API keys for authentication.
+        - `basic-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
 
 
     - Using the resource group you created in the previous step and one of the template files (either standard-agent.bicep or standard-agent-identity.bicep), run one of the following commands:
@@ -104,7 +104,7 @@ If you already have these resources set up, skip to the [configure and run your 
         az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
         ```
 
-        - To customize additional parameters, including the OpenAI model deployment, download and edit the `standard-agent.parameters.json` file, then run:
+        - To customize additional parameters, including the OpenAI model deployment, download and edit the `basic-agent.parameters.json` file, then run:
 
         ```console
         az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters @standard-agent.parameters.json
@@ -116,7 +116,7 @@ If you already have these resources set up, skip to the [configure and run your 
 
 
     <details>
-        <summary><b>Option 2</b>: Use custom agent setup.</summary>
+        <summary><b>Option 2</b>: Use standard agent setup.</summary>
     </details>
 
 

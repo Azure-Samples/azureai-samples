@@ -9,12 +9,12 @@ To access your files, the file search tool uses the vector store object. Upload 
 - Files from message attachments
 - [coming soon] Azure Blob Storage
 
-### Standard Agent Setup <br> 
+### Basic Agent Setup <br> 
 The File Search tool has the same functionality as AOAI Assistants. Microsoft managed search and storage resources are used. 
 - Uploaded files get stored in Microsoft managed storage
 - A vector store is created using Microsoft managed search resources
 
-### Custom Agent Setup 
+### Standard Agent Setup 
 The File Search tool uses the Azure AI Search and Azure Blob Storage resources you connected during agent setup.  
 - Uploaded files get stored in your connected Azure Blob Storage account.  
 - Vector stores get created using your connected Azure AI Seach resource.
