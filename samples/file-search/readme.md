@@ -6,7 +6,6 @@ To access your files, the file search tool uses the vector store object. Upload 
 
 ### File Sources  
 - Uploading local files
-- Files from message attachments
 - [coming soon] Azure Blob Storage
 
 ### Basic Agent Setup <br> 
