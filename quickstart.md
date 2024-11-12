@@ -69,7 +69,7 @@ If you already have these resources set up, skip to the [configure and run your 
     <br>
 
     <details>
-    <summary><b>Option 1</b>: Use standard agent configuration.</summary>
+    <summary><b>Option 1</b>: Use standard agent setup.</summary>
 
     - Download the `standard-agent.bicep` file, `standard-agent-identity.bicep` file, and the `modules-standard` folder to your project directory. Your directory should look like this
 
@@ -116,7 +116,7 @@ If you already have these resources set up, skip to the [configure and run your 
 
 
     <details>
-        <summary><b>Option 2</b>: Use custom agent configuration.</summary>
+        <summary><b>Option 2</b>: Use custom agent setup.</summary>
     </details>
 
 
