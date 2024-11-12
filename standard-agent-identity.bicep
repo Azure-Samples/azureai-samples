@@ -1,4 +1,4 @@
-// Execute this main file to depoy Azure AI studio resources in the basic security configuraiton
+// Execute this main file to depoy Azure AI studio resources in the standard agent configuraiton wit Managed Identity
 
 // Parameters
 @minLength(2)
@@ -15,10 +15,10 @@ param aiHubDescription string = 'A standard hub resource required for the agent 
 @description('Name for the project')
 param aiProjectName string = 'standard-project'
 
-@description('Friendly name for your Azure AI resource')
+@description('Friendly name for your Azure AI project resource')
 param aiProjectFriendlyName string = 'Agents standard project resource'
 
-@description('Description of your Azure AI resource dispayed in AI studio')
+@description('Description of your Azure AI project resource dispayed in AI studio')
 param aiProjectDescription string = 'A standard project resource required for the agent setup.'
 
 @description('Azure region used for the deployment of all resources.')
@@ -55,6 +55,7 @@ param storageName string = 'agent-storage'
 @description('Name of the Azure AI Services account')
 param aiServicesName string = 'agent-ai-services'
 
+
 // Create a short, unique suffix, that will be unique to each resource group
 // var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
 param deploymentTimestamp string = utcNow('yyyyMMddHHmmss')
@@ -79,7 +80,7 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
   }
 }
 
-module aiHub 'modules-standard/standard-ai-hub.bicep' = {
+module aiHub 'modules-standard/standard-ai-hub-identity.bicep' = {
   name: 'ai-${name}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
@@ -97,7 +98,7 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
   }
 }
 
-module aiProject 'modules-standard/standard-ai-project.bicep' = {
+module aiProject 'modules-standard/standard-ai-project-identity.bicep' = {
   name: 'ai-${projectName}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
@@ -108,6 +109,7 @@ module aiProject 'modules-standard/standard-ai-project.bicep' = {
     tags: tags
 
     // dependent resources
+    aiServicesName: '${aiServicesName}${uniqueSuffix}'
     aiHubId: aiHub.outputs.aiHubID
   }
 }
