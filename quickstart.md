@@ -59,7 +59,7 @@ If you already have these resources set up, skip to the [configure and run your 
    az group create --name {my_resource_group} --location eastus
    ```
 
-1. Choose Standard or Custom Agent Setup
+1. Choose Basic or Standard Agent Setup
     <br> 
 
     **Basic Setup**:  Agents use multi-tenant search and storage resources fully managed by Microsoft. You won’t have visibility or control over these underlying Azure resources.
