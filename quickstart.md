@@ -59,55 +59,72 @@ If you already have these resources set up, skip to the [configure and run your 
    az group create --name {my_resource_group} --location eastus
    ```
 
-1. <br>
+1. Choose Standard or Custom Agent Setup
+    <br> 
 
-**Option 1**: Use the standard agent configuration.
+    **Standard Setup**:  Agents use multi-tenant search and storage resources fully managed by Microsoft. You won’t have visibility or control over these underlying Azure resources.
 
-- Download the `standard-agent.bicep` file, `standard-agent-identity.bicep` file, and the `modules-standard` folder to your project directory. Your directory should look like this
-
-  ```console
-  /my-project
-      - standard-agent.bicep
-      - standard-agent-identity.bicep
-      /modules-standard
-          - standard-ai-hub.bicep
-          - standard-ai-project.bicep
-          - standard-ai-hub-identity.bicep
-          - standard-ai-project-identity.bicep
-          - standard-dependent-resources.bicep
-  ```
-
-- Before deploying resources, decide which configuration file to use:
-   - `standard-agent.bicep`: Use this file to use API keys for authentication.
-   - `standard-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
-
-
-- Using the resource group you created in the previous step and one of the template files (either standard-agent.bicep or standard-agent-identity.bicep), run one of the following commands:
-
-  - To use default resource names, run:
-
-    ```console
-     az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep}
-    ```
-
-  - To specify custom names for the hub, project, storage account, and/or Azure AI service resources (Note: a randomly generated suffix will be added to prevent accidental duplication), run:
-
-    ```console
-    az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
-    ```
-
-  - To customize additional parameters, including the OpenAI model deployment, download and edit the `standard-agent.parameters.json` file, then run:
-
-    ```console
-    az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters @standard-agent.parameters.json
-    ```
-
-  Resources for the hub, project, storage account, and AI Services will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A Microsoft-managed key vault will be used by default.
+    **Custom Setup**: Agents use customer-owned, single-tenant search and storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
 
     <br>
 
+    <details>
+    <summary><b>Option 1</b>: Use standard agent configuration.</summary>
+
+    - Download the `standard-agent.bicep` file, `standard-agent-identity.bicep` file, and the `modules-standard` folder to your project directory. Your directory should look like this
+
+        ```console
+        /my-project
+            - standard-agent.bicep
+            - standard-agent-identity.bicep
+            /modules-standard
+                - standard-ai-hub.bicep
+                - standard-ai-project.bicep
+                - standard-ai-hub-identity.bicep
+                - standard-ai-project-identity.bicep
+                - standard-dependent-resources.bicep
+        ```
+
+    - Before deploying resources, decide which configuration file to use:
+        - `standard-agent.bicep`: Use this file to use API keys for authentication.
+        - `standard-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
+
+
+    - Using the resource group you created in the previous step and one of the template files (either standard-agent.bicep or standard-agent-identity.bicep), run one of the following commands:
+
+        - To use default resource names, run:
+
+        ```console
+        az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep}
+        ```
+
+        - To specify custom names for the hub, project, storage account, and/or Azure AI service resources (Note: a randomly generated suffix will be added to prevent accidental duplication), run:
+
+        ```console
+        az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters aiHubName='your-hub-name' aiProjectName='your-project-name' storageName='your-storage-name' aiServicesName='your-ai-services-name'
+        ```
+
+        - To customize additional parameters, including the OpenAI model deployment, download and edit the `standard-agent.parameters.json` file, then run:
+
+        ```console
+        az deployment group create --resource-group {my_resource_group} --template-file {template-file-name.bicep} --parameters @standard-agent.parameters.json
+        ```
+
+    Resources for the hub, project, storage account, and AI Services will be created for you. The AI Services account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. A Microsoft-managed key vault will be used by default.
+
+    </details>
+
+
+    <details>
+        <summary><b>Option 2</b>: Use custom agent configuration.</summary>
+    </details>
+
+
+<br>
+</br>
+
 <details>
-    <summary><b>Option 2</b>: Follow steps 6-10 if you want specific control over the creation and configuration of these resources.</summary>
+    <summary><b>Option 3</b>: Follow steps 6-10 if you want specific control over the creation and configuration of these resources.</summary>
 
 6. Create an Azure OpenAI resource:
 
