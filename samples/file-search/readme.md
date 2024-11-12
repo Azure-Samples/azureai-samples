@@ -15,7 +15,7 @@ The File Search tool has the same functionality as AOAI Assistants. Microsoft ma
 - A vector store is created using Microsoft managed search resources
 
 ### Custom Agent Setup 
-The File Search tool uses the Azure AI Search and Azure Blob Storage resources you connected during project and agent setup.  
+The File Search tool uses the Azure AI Search and Azure Blob Storage resources you connected during agent setup.  
 - Uploaded files get stored in your connected Azure Blob Storage account.  
 - Vector stores get created using your connected Azure AI Seach resource.
 <br> </br>
