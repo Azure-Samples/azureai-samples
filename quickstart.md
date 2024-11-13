@@ -35,9 +35,10 @@ If you already have these resources set up, skip to the [configure and run your 
    - Microsoft.Storage
    - Microsoft.MachineLearningServices
    - Microsoft.Search
+   - To use Bing Search tool: Microsoft.Bing
 
    ```console
-   az provider register –namespace  {my_resource_namespace}
+   az provider register -–namespace  {my_resource_namespace}
                         [--accept-terms]
                         [--consent-to-permissions]
                         [--management-group-id]
