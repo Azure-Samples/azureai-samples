@@ -22,4 +22,6 @@ response = chat.complete(
         {"role": "user", "content": "Hey, can you help me with my taxes? I'm a freelancer."},
     ]
 )
+
+print(response.choices[0].message.content)
 # </chat_completion>

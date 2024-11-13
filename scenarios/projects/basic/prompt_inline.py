@@ -2,11 +2,11 @@
 from azure.ai.inference.prompts import PromptTemplate
 
 # create a prompt template from an inline string (using mustache syntax)
-prompt_template = PromptTemplate.from_string(prompt_template="""
+prompt_template = PromptTemplate.from_string(prompt_template="""\
     system:
     You are a helpful writing assistant.
     The user's first name is {{first_name}} and their last name is {{last_name}}.
-    
+
     user:
     Write me a short poem about flowers
     """)

@@ -50,9 +50,7 @@ Now we'll need to deploy a model so that we can call it from code. To start, we'
  - Click the **+ Deploy Model** dropdown and click **Deploy a base model**
  - Select **gpt-4o-mini** from the list and click **Confirm**
 
-Repeat the above steps for the following models:
- - text-embedding-3-large
- - Phi-3.5-mini-instruct _coming soon: not currently available in AI Studio_
+Repeat the above steps to add a **text-embedding-ada-002**.
 
 ## Set up a local development environment
 

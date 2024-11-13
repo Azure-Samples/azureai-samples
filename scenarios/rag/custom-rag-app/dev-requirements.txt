@@ -1,5 +1,5 @@
 ./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl # azure AI projects package
-./packages/azure_ai_inference-1.0.0b5-py3-none-any.whl # azure AI inference package w prompts
+azure-ai-inference[prompts]
 azure-identity
 azure-monitor-opentelemetry
 azure-search-documents
