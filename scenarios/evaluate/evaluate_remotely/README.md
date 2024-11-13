@@ -22,11 +22,11 @@ The main objective of this tutorial is to help users understand the process of e
  - Evaluate LLM using various evaluators from Azure AI Evaluations SDK remotely in the cloud.
 
 ### Note
-Remote evaluations do not support `Groundedness-Pro-Evaluator`, `Retrieval-Evaluator`, `Protected-Material-Evaluator`, `Indirect-Attack-Evaluator`, `ContentSafetyEvaluator`, and `QAEvaluator`. 
+Remote evaluations do not support `Retrieval-Evaluator`, `ContentSafetyEvaluator`, and `QAEvaluator`. 
 
 #### Region Support for Evaluations
 
-| Region | Hate and Unfairness, Sexual, Violent, Self-Harm, XPIA | Groundedness | Protected Material |
+| Region | Hate and Unfairness, Sexual, Violent, Self-Harm, XPIA | Groundedness Pro | Protected Material |
 | - | - | - | - |
 | UK South | Will be deprecated 12/1/24 | no | no |
 | East US 2 | yes | yes | yes |
