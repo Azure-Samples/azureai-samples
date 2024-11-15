@@ -29,8 +29,22 @@ param aoaiConnectionName string
 
 param aiServicesName string
 
-resource aiServices 'Microsoft.CognitiveServices/accounts@2023-05-01' existing = {
+@description('Name AI Search resource')
+param aiSearchName string
+
+@description('Name storage resource')
+param aiStorageName string
+
+resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' existing = {
   name: aiServicesName
+}
+
+resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' existing = {
+  name: aiSearchName
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2024-06-01-preview' existing = {
+  name: aiStorageName
 }
 
 
@@ -114,8 +128,54 @@ resource cognitiveServicesUserRoleAssignment 'Microsoft.Authorization/roleAssign
   }
 }
 
+// search roles
+resource searchIndexDataContributorRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+  scope: resourceGroup()
+}
+
+resource searchIndexDataContributorAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: searchService
+  name: guid(aiProject.id, searchIndexDataContributorRole.id, searchService.id)
+  properties: {
+    principalId: aiProject.identity.principalId
+    roleDefinitionId: searchIndexDataContributorRole.id
+    principalType: 'ServicePrincipal'
+  }
+}
+
+resource searchServiceContributorRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
+  scope: resourceGroup()
+}
+
+resource searchServiceContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: searchService
+  name: guid(aiProject.id, searchServiceContributorRole.id, searchService.id)
+  properties: {
+    principalId: aiProject.identity.principalId
+    roleDefinitionId: searchServiceContributorRole.id
+    principalType: 'ServicePrincipal'
+  }
+}
+
+//blob storage
+resource storageBlobDataContributorRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+  scope: resourceGroup()
+}
+
+resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(aiProject.id, storageBlobDataContributorRole.id, storageAccount.id)
+  properties: {
+    principalId: aiProject.identity.principalId
+    roleDefinitionId: storageBlobDataContributorRole.id
+    principalType: 'ServicePrincipal'
+  }
+}
+
 output aiProjectName string = aiProject.name
 output aiProjectResourceId string = aiProject.id
 output aiProjectWorkspaceId string = aiProject.properties.workspaceId
-
 output enterpriseAgentsEndpoint string = aiProject.tags.AgentsEndpointUri

@@ -71,7 +71,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
       metadata: {
         ApiType: 'Azure'
         ResourceId: aiServicesId
-        Location: modelLocation
+        location: modelLocation
       }
     }
   }
