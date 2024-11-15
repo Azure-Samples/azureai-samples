@@ -39,19 +39,19 @@ namespace ApprovalWithHumanInteraction.Functions
             ILogger log)
         {
             // initiate the overall workflow by starting the orchestrator.
-            var instanceId = await durableOrchestrationClient.StartNewAsync(nameof(WorkflowOrchestrator), input);
+            var instanceId = await durableOrchestrationClient.StartNewAsync(nameof(WorklowOrchestrator), input);
             log.LogInformation($"Started orchestration instanceId: {instanceId}");
         }
 
         /// <summary>
         /// Orchestration function to start approval process
         /// </summary>
-        [FunctionName(nameof(WorkflowOrchestrator))]
-        public static async Task WorkflowOrchestrator(
+        [FunctionName(nameof(WorklowOrchestrator))]
+        public static async Task WorklowOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             ILogger log)
         {
-            log.LogInformation($"{nameof(WorkflowOrchestrator)} triggered, orchestration instanceId: {context.InstanceId}");
+            log.LogInformation($"{nameof(WorklowOrchestrator)} triggered, orchestration instanceId: {context.InstanceId}");
             var workflowInput = context.GetInput<WorkflowInput>();
 
             // call activity function(s) to perform actual work
@@ -60,7 +60,7 @@ namespace ApprovalWithHumanInteraction.Functions
             // wait for the approval response
             var response = await context.WaitForExternalEvent<bool>("ApprovalResponse");
 
-            log.LogInformation($"{nameof(WorkflowOrchestrator)} ApprovalResponse received: {response}, orchestration instanceId: {context.InstanceId}");
+            log.LogInformation($"{nameof(WorklowOrchestrator)} ApprovalResponse received: {response}, orchestration instanceId: {context.InstanceId}");
 
             // complete the approval process
             await context.CallActivityAsync(
