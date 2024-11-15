@@ -67,7 +67,7 @@ with project_client:
     message = project_client.agents.create_message(
         thread_id=thread.id,
         role="user",
-        content="How does wikipedia explain Euler's Identity?",
+        content="How is the weather in Seattle today?",
     )
     print(f"Created message, ID: {message.id}")
 

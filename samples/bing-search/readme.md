@@ -4,6 +4,8 @@ Grounding with Bing Search allows your Azure AI Agents to incorporate real-time 
 
 Citations show links to websites used to generate response, but don’t show links to the bing query used for the search. Developers and end users don’t have access to raw content returned from Grounding with Bing Search. 
 
+You can ask questions such as "what is the weather in Seattle?" "what is the recent update in ratail industry in the US?" that require real-time public data.
+
 > [!IMPORTANT]
 Grounding with Bing Search is a free service during private preview and your usage will start incurring cost since the integration with Azure AI Agent Service releases to public preview.	 
 
@@ -17,6 +19,11 @@ Grounding with Bing Search is a free service during private preview and your usa
 1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
 
 1. Ensure you have loged in to Azure, using `az login`
+
+1. Register the Bing Search provider
+   ```console
+       az provider register --namespace 'Microsoft.Bing'
+   ```
 
 1. Create a new Grounding with Bing Search resource. You can find the the template file [here](./bingsearch_arm.json) and parameter file [here](./bingsearch_para.json). Make sure you have replace "BING_RESOURCE_NAME" in the parameter file. You can use Azure CLI command: 
     
