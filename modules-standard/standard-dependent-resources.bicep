@@ -100,7 +100,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
 
 resource aiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = {
   name: aiSearchName
-  location: 'eastus2'
+  location: location
   tags: tags
   identity: {
     type: 'SystemAssigned'

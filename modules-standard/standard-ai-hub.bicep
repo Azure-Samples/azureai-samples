@@ -86,7 +86,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
       metadata: {
         ApiType: 'Azure'
         ResourceId: aiSearchId
-        location: 'eastus2'
+        location: location
       }
     }
   }
