@@ -60,6 +60,8 @@ If you already have these resources set up, skip to the [configure and run your 
    az group create --name {my_resource_group} --location eastus
    ```
 
+   Make sure you have the role **Azure AI Developer** on the resource group you just created.
+   
 1. Choose Basic or Standard Agent Setup
     <br> 
 
