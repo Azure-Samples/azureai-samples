@@ -24,7 +24,7 @@ embeddings = project.inference.get_embeddings_client()
 # use the project client to get the default search connection
 search_connection = project.connections.get_default(
     connection_type=ConnectionType.AZURE_AI_SEARCH,
-    with_credentials=True)
+    include_credentials=True)
 
 # Create a search index client using the search connection
 # This client will be used to create and delete search indexes
