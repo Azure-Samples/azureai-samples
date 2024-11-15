@@ -33,6 +33,13 @@ import os, sys, time
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from opentelemetry import trace
+from dotenv import load_dotenv
+
+# Create an AI Project Client from a connection string, copied from your AI Studio project.
+# At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
+# Customer needs to login to Azure subscription via Azure CLI and set the environment variables
+
+load_dotenv()
 
 # Create an AI Project Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
@@ -54,7 +61,7 @@ tracer = trace.get_tracer(__name__)
 with tracer.start_as_current_span(scenario):
     with project_client:
         agent = project_client.agents.create_agent(
-            model="gpt-4-1106-preview", name="my-assistant", instructions="You are helpful assistant"
+            model="gpt-4o", name="my-assistant", instructions="You are helpful assistant"
         )
         print(f"Created agent, agent ID: {agent.id}")
 
