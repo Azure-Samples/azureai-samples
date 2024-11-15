@@ -102,7 +102,7 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
     modelLocation: modelLocation
 
 
-    aiSearchName: aiDependencies.outputs.aiSearchName
+    aiSearchName: '${aiSearchName}-${uniqueSuffix}'
     aiSearchId: aiDependencies.outputs.aisearchID
     aiServicesId: aiDependencies.outputs.aiservicesID
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget
@@ -124,7 +124,9 @@ module aiProject 'modules-standard/standard-ai-project.bicep' = {
     
     capabilityHostName: capabilityHostName
     // dependent resources
+    aiSearchName: '${aiSearchName}-${uniqueSuffix}'
     aiServicesName: '${aiServicesName}${uniqueSuffix}'
+    aiStorageName: aiDependencies.outputs.storageAccountName
     aiHubId: aiHub.outputs.aiHubID
     acsConnectionName: aiHub.outputs.acsConnectionName
     aoaiConnectionName: aiHub.outputs.aoaiConnectionName

@@ -100,7 +100,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
 
 resource aiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = {
   name: aiSearchName
-  location: location
+  location: 'eastus2'
   tags: tags
   identity: {
     type: 'SystemAssigned'
@@ -112,9 +112,9 @@ resource aiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = {
       enforcement: 'Unspecified'
     }
     hostingMode: 'default'
-    partitionCount: 3
+    partitionCount: 1
     publicNetworkAccess: 'enabled'
-    replicaCount: 3
+    replicaCount: 1
     semanticSearch: 'disabled'
   }
   sku: {
