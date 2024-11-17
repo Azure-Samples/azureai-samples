@@ -3,10 +3,11 @@ page_type: sample
 languages:
 - python
 products:
+- ai-products
 - ai-model-inference
 - ai-search
 - ai-evaluation
-description: Example description.
+description: Hello world samples for the projects SDK client
 ---
 
 ## Project SDK Basic samples

@@ -6,7 +6,7 @@ products:
 - ai-model-inference
 - ai-search
 - ai-evaluation
-description: Example description.
+description: Custom rag app sample using Azure AI SDKs
 ---
 
 ## Custom RAG App
