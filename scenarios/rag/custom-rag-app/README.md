@@ -35,9 +35,10 @@ To run this sample, you'll need to create an Azure AI Project with an Azure AI S
 ### Create an AI Project and AI Services resource
 
 First we'll create a project in Azure AI Studio:
- - Go to [https://aka.ms/aistudio/ignite2024](https://aka.ms/aistudio/ignite2024)
+ - Navigate to [ai.azure.com](ai.azure.com)
  - Click **New Project** on the homepage
  - Enter a project name
+ - In **Customize** change the location to **East US 2** or **Sweden Central**
  - Click **Create new hub**, provide a hub name
  - Click **Create Project**
 

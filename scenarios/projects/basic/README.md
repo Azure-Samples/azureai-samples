@@ -9,7 +9,7 @@ products:
 description: Example description.
 ---
 
-## Custom RAG App
+## Project SDK Basic samples
 
 ### Overview
 
@@ -26,10 +26,11 @@ To run this sample, you'll need to create an Azure AI Project with an Azure AI S
 ### Create an AI Project and AI Services resource
 
 First we'll create a project in Azure AI Studio:
- - Go to [https://aka.ms/aistudio/ignite2024](https://aka.ms/aistudio/ignite2024)
+ - Navigate to [ai.azure.com](ai.azure.com)
  - Click **New Project** on the homepage
  - Enter a project name
  - Click **Create new hub**, provide a hub name
+ - In **Customize** change the location to **East US 2** or **Sweden Central**
  - Click **Create Project**
 
 This will take about 3 minutes to complete.
@@ -41,9 +42,7 @@ Now we'll need to deploy a model so that we can call it from code. To start, we'
  - Click the **+ Deploy Model** dropdown and click **Deploy a base model**
  - Select **gpt-4o-mini** from the list and click **Confirm**
 
-Repeat the above steps for the following models:
- - text-embedding-3-large
- - Phi-3.5-mini-instruct _coming soon: not currently available in AI Studio_
+Repeat the above steps for text-embedding-ada-002
 
 ## Set up a local development environment
 
@@ -92,7 +91,7 @@ Open the ```.env``` file and paste (ctrl-v) the value to the right of the ```AIP
 
 ### Try out samples!
 
-Run the different python files to make sure they run:
+Run the different python files to run different code samples in this folder:
 ```
 python <file_name>.py
 ```

@@ -17,6 +17,9 @@ def test_openai():
 def test_evaluation():
     import evaluate_violence
 
+def test_tracing():
+    import tracing_enable
+
 # TODO add when public: 
 # def test_agents():
 #     import agents

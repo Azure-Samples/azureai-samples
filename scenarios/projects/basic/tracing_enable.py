@@ -16,10 +16,10 @@ from azure.monitor.opentelemetry import configure_azure_monitor
 from azure.ai.inference.tracing import AIInferenceInstrumentor
 
 # Enable OpenTelemetry instrumentation of the Inference SDK, add other OpenTelemetry instrumenters as needed
-AIInferenceInstrumentor().instrument()
+project.telemetry.enable(destination=None)
 
 # Construct a URL for the project's tracing page
-project_url = f"https://int.ai.azure.com/tracing?wsid=/subscriptions/{project.scope['subscription_id']}/resourceGroups/{project.scope['resource_group_name']}/providers/Microsoft.MachineLearningServices/workspaces/{project.scope['project_name']}"
+project_url = f"https://ai.azure.com/tracing?wsid=/subscriptions/{project.scope['subscription_id']}/resourceGroups/{project.scope['resource_group_name']}/providers/Microsoft.MachineLearningServices/workspaces/{project.scope['project_name']}"
 
 # Log telemetry to the project's application insights resource
 application_insights_connection_string = project.telemetry.get_connection_string()

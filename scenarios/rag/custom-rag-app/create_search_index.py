@@ -145,33 +145,13 @@ def create_docs_from_csv(path: str, content_column : str, model: str) -> list[di
         items.append(rec)
 
     return items
-# </add_csv_to_index>
 
-# <test_create_index>
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--index-name", 
-        type=str, 
-        help="index name to use when creating the AI Search index", 
-        default=os.environ["AISEARCH_INDEX_NAME"]
-    )
-    parser.add_argument(
-        "--csv-file",
-         type=str, 
-         help="path to data for creating search index",
-         default="assets/products.csv"
-    )
-    args = parser.parse_args()
-    index_name = args.index_name
-    csv_file = args.csv_file
-
+def create_index_from_csv(index_name, csv_file):
     # If a search index already exists, delete it:
     try:
         index_definition = index_client.get_index(index_name)
         index_client.delete_index(index_name)
-        logger.info(f"🗑️ Found existing index named '{index_name}', and deleted it")
+        logger.info(f"🗑️  Found existing index named '{index_name}', and deleted it")
     except:
         pass
 
@@ -194,4 +174,27 @@ if __name__ == "__main__":
 
     results = search_client.upload_documents(docs)
     logger.info(f"➕ Uploaded {len(docs)} documents to '{index_name}' index")
+# </add_csv_to_index>
+
+# <test_create_index>
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--index-name", 
+        type=str, 
+        help="index name to use when creating the AI Search index", 
+        default=os.environ["AISEARCH_INDEX_NAME"]
+    )
+    parser.add_argument(
+        "--csv-file",
+         type=str, 
+         help="path to data for creating search index",
+         default="assets/products.csv"
+    )
+    args = parser.parse_args()
+    index_name = args.index_name
+    csv_file = args.csv_file
+
+    create_index_from_csv(index_name, csv_file)
 # </test_create_index>
