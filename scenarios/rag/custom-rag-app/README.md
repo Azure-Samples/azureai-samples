@@ -81,6 +81,12 @@ Install the full set of dependencies to run the sample:
 pip install -r dev-requirements.txt
 ```
 
+### Log in to the Azure CLI
+If you haven't already, you'll need to log in to the Azure CLI in your terminal. It will open a browser for you to authenticate and then log you in in the terminal.
+```Python
+az login
+```
+
 ## Configure project string
 
 Go back to the **Overview** page of your project, and in the upper right hand corner click the copy button beside the **Project connection string** field.

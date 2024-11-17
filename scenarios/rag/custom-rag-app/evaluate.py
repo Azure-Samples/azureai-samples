@@ -20,7 +20,7 @@ project = AIProjectClient.from_connection_string(
 
 connection = project.connections.get_default(
     connection_type=ConnectionType.AZURE_OPEN_AI,
-    with_credentials=True)
+    include_credentials=True)
 
 evaluator_model = {
     "azure_endpoint": connection.endpoint_url,

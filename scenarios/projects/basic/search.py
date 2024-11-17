@@ -18,7 +18,7 @@ from azure.search.documents.indexes import SearchIndexClient
 
 # use the project client to get the default search connection
 search_connection = project.connections.get_default(
-    connection_type=ConnectionType.AZURE_AI_SEARCH, 
+    connection_type=ConnectionType.AZURE_AI_SEARCH,
     include_credentials=True)
 
 # Create a client to create and manage search indexes
