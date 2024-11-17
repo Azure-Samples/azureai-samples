@@ -1,3 +1,7 @@
+# ruff: noqa: E402, ANN201, ANN001
+
+chat = None
+
 # <chat_function>
 from azure.ai.inference.prompts import PromptTemplate
 
@@ -17,15 +21,13 @@ def get_chat_response(messages, context):
     system_message = prompt_template.render(data=context)
 
     # add the prompt messages to the user messages
-    response = chat.complete(
+    return chat.complete(
         model="gpt-4o-mini",
         messages=system_message + messages,
         temperature=1,
         frequency_penalty=0.5,
         presence_penalty=0.5,
     )
-
-    return response
 
 
 # </chat_function>

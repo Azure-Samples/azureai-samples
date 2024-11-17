@@ -1,5 +1,8 @@
+# ruff: noqa: E402, RUF013
+
 # <imports_and_config>
 import os
+from pathlib import Path
 from opentelemetry import trace
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import ConnectionType
@@ -41,12 +44,15 @@ from azure.search.documents.models import VectorizedQuery
 
 
 @tracer.start_as_current_span(name="get_product_documents")
-def get_product_documents(messages: list, context: dict = {}) -> dict:
+def get_product_documents(messages: list, context: dict = None) -> dict:
+    if context is None:
+        context = {}
+
     overrides = context.get("overrides", {})
     top = overrides.get("top", 5)
 
     # generate a search query from the chat messages
-    intent_prompty = PromptTemplate.from_prompty(os.path.join(ASSET_PATH, "intent_mapping.prompty"))
+    intent_prompty = PromptTemplate.from_prompty(Path(ASSET_PATH) / "intent_mapping.prompty")
 
     intent_mapping_response = chat.complete(
         model=os.environ["INTENT_MAPPING_MODEL"],

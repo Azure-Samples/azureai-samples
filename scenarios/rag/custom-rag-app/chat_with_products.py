@@ -1,10 +1,14 @@
+# ruff: noqa: E402, RUF013
+
 # <imports_and_config>
 import os
+from pathlib import Path
 from opentelemetry import trace
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from config import ASSET_PATH, get_logger, enable_telemetry
 from get_product_documents import get_product_documents
+
 
 # initialize logging and tracing objects
 logger = get_logger(__name__)
@@ -24,11 +28,14 @@ from azure.ai.inference.prompts import PromptTemplate
 
 
 @tracer.start_as_current_span(name="chat_with_products")
-def chat_with_products(messages: list, context: dict = {}) -> dict:
+def chat_with_products(messages: list, context: dict = None) -> dict:
+    if context is None:
+        context = {}
+
     documents = get_product_documents(messages, context)
 
     # do a grounded chat call using the search results
-    grounded_chat_prompt = PromptTemplate.from_prompty(os.path.join(ASSET_PATH, "grounded_chat.prompty"))
+    grounded_chat_prompt = PromptTemplate.from_prompty(Path(ASSET_PATH) / "grounded_chat.prompty")
 
     system_message = grounded_chat_prompt.create_messages(documents=documents, context=context)
     response = chat.complete(
@@ -39,9 +46,7 @@ def chat_with_products(messages: list, context: dict = {}) -> dict:
     logger.info(f"💬 Response: {response.choices[0].message}")
 
     # Return a chat protocol compliant response
-    response = {"message": response.choices[0].message, "context": context}
-
-    return response
+    return {"message": response.choices[0].message, "context": context}
 
 
 # </chat_function>

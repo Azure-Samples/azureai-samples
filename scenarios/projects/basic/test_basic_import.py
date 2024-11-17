@@ -1,29 +1,45 @@
+# ruff: noqa: ANN201, ANN001
+
 # Tests that the python files in this folder can be imported (and therefore run without errors)
 #
 
 
 def test_inference():
-    pass
+    import inference
+
+    print(inference)
 
 
 def test_prompts():
-    pass
+    import prompt_inline
+    import prompt_promptyfile
+
+    print(prompt_inline)
+    print(prompt_promptyfile)
 
 
 def test_search():
-    pass
+    import search
+
+    print(search)
 
 
 def test_openai():
-    pass
+    import openai_client
+
+    print(openai_client)
 
 
 def test_evaluation():
-    pass
+    import evaluate_violence
+
+    print(evaluate_violence)
 
 
 def test_tracing():
-    pass
+    import tracing_enable
+
+    print(tracing_enable)
 
 
 # TODO add when public:

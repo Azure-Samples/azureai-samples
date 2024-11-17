@@ -1,3 +1,5 @@
+# ruff: noqa: E402, ANN201, ANN001
+
 # <imports_and_config>
 import os
 import pandas as pd
@@ -47,16 +49,16 @@ if __name__ == "__main__":
 
     # workaround for multiprocessing issue on linux
     from pprint import pprint
+    from pathlib import Path
     import multiprocessing
+    import contextlib
 
-    try:
+    with contextlib.suppress(RuntimeError):
         multiprocessing.set_start_method("spawn", force=True)
-    except RuntimeError:
-        pass
 
     # run evaluation with a dataset and target function, log to the project
     result = evaluate(
-        data=os.path.join(ASSET_PATH, "chat_eval_data.jsonl"),
+        data=Path(ASSET_PATH) / "chat_eval_data.jsonl",
         target=evaluate_chat_with_products,
         evaluation_name="evaluate_chat_with_products",
         evaluators={

@@ -1,3 +1,5 @@
+# ruff: noqa: E402, ANN201, ANN001, RUF001
+
 # <imports_and_config>
 import os
 from azure.ai.projects import AIProjectClient
@@ -166,12 +168,12 @@ def create_index_from_csv(index_name, csv_file):
         index_definition = index_client.get_index(index_name)
         index_client.delete_index(index_name)
         logger.info(f"🗑️  Found existing index named '{index_name}', and deleted it")
-    except:
+    except Exception:
         pass
 
     # create an empty search index
     index_definition = create_index_definition(index_name, model=os.environ["EMBEDDINGS_MODEL"])
-    index = index_client.create_index(index_definition)
+    index_client.create_index(index_definition)
 
     # create documents from the products.csv file, generating vector embeddings for the "description" column
     docs = create_docs_from_csv(path=csv_file, content_column="description", model=os.environ["EMBEDDINGS_MODEL"])
@@ -183,7 +185,7 @@ def create_index_from_csv(index_name, csv_file):
         credential=AzureKeyCredential(key=search_connection.key),
     )
 
-    results = search_client.upload_documents(docs)
+    search_client.upload_documents(docs)
     logger.info(f"➕ Uploaded {len(docs)} documents to '{index_name}' index")
 
 

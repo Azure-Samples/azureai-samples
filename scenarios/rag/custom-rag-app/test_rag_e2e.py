@@ -1,3 +1,5 @@
+# ruff: noqa: ANN201
+
 # Tests running of the custom rag app end-to-end
 #
 
@@ -12,3 +14,4 @@ def test_chat_with_products():
     response = chat_with_products(
         messages=[{"role": "user", "content": "what kind of tents would you recommend for 4 people?"}]
     )
+    print(response)

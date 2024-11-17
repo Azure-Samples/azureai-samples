@@ -1,3 +1,6 @@
+# ruff: noqa
+# File is WIP
+
 from chat_with_products import chat_with_products
 import os
 
