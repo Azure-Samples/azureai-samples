@@ -19,4 +19,6 @@ To connect to Aspire Dashboard or another OpenTelemetry compatible backend, inst
 pip install opentelemetry-exporter-otlp
 ```
 
-These samples are broken into asynchronous and synchrounous samples. From there, each sample has two versions, one that traces and displays the results locally in the console, and one that sends the traces to the Azure Monitor in AI Studio. Navigate to the to the 'Tracing' tab in your AI Studio project page to enable the second set of samples.
+These samples are broken into asynchronous and synchronous samples. From there, each sample has two versions, one that traces and displays the results locally in the console, and one that sends the traces to the Azure Monitor in AI Studio. Navigate to the to the 'Tracing' tab in your AI Studio project page to enable the second set of samples.
+
+Note: the initial release of Azure AI Projects has a bug in the agents tracing functionality. The bug will cause agent function tool call related info (function names and parameter values, which could contain sensitive information) to be included in the traces even when content recoding is not enabled. We are working to fix this issue.
