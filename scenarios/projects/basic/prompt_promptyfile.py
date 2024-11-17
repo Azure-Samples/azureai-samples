@@ -27,3 +27,8 @@ response = chat.complete(
 
 print(response.choices[0].message.content)
 # </prompty_chat>
+
+assert(len(messages) == 2)
+assert(messages[0]["content"] == "You are a helpful writing assistant.\nThe user's first name is Jessie and their last name is Irwin.")
+assert(messages[0]["role"] == "system")
+assert(messages[1]["role"] == "user")

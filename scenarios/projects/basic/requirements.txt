@@ -1,10 +1,11 @@
-./packages/azure_ai_projects-1.0.0b1-py3-none-any.whl # azure AI projects package
-./packages/azure_ai_inference-1.0.0b5-py3-none-any.whl # azure AI inference package w prompts
+# inferencing
+azure-ai-projects
+azure-ai-inference[prompts]
 azure-identity
-azure-monitor-opentelemetry
-azure-search-documents
-python-dotenv
 openai
-pandas
-pyyaml
+python-dotenv
+# rag packages
+azure-search-documents
+# tracing and evaluation
+azure-monitor-opentelemetry
 azure-ai-evaluation
