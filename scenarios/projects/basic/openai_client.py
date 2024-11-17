@@ -3,11 +3,11 @@ from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 project = AIProjectClient.from_connection_string(
-    conn_str=os.environ['AIPROJECT_CONNECTION_STRING'],
-    credential=DefaultAzureCredential()
+    conn_str=os.environ["AIPROJECT_CONNECTION_STRING"], credential=DefaultAzureCredential()
 )
 
 # <get_openai_client>
@@ -17,7 +17,7 @@ response = openai.chat.completions.create(
     messages=[
         {"role": "system", "content": "You are a helpful writing assistant"},
         {"role": "user", "content": "Write me a poem about flowers"},
-    ]
+    ],
 )
 
 print(response.choices[0].message.content)

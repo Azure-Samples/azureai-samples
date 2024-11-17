@@ -3,11 +3,11 @@ from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 project = AIProjectClient.from_connection_string(
-    conn_str=os.environ['AIPROJECT_CONNECTION_STRING'],
-    credential=DefaultAzureCredential()
+    conn_str=os.environ["AIPROJECT_CONNECTION_STRING"], credential=DefaultAzureCredential()
 )
 
 # <prompty_chat>
@@ -28,7 +28,10 @@ response = chat.complete(
 print(response.choices[0].message.content)
 # </prompty_chat>
 
-assert(len(messages) == 2)
-assert(messages[0]["content"] == "You are a helpful writing assistant.\nThe user's first name is Jessie and their last name is Irwin.")
-assert(messages[0]["role"] == "system")
-assert(messages[1]["role"] == "user")
+assert len(messages) == 2
+assert (
+    messages[0]["content"]
+    == "You are a helpful writing assistant.\nThe user's first name is Jessie and their last name is Irwin."
+)
+assert messages[0]["role"] == "system"
+assert messages[1]["role"] == "user"

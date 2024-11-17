@@ -10,16 +10,14 @@ from azure.ai.projects.models import ConnectionType
 from azure.identity import DefaultAzureCredential
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 project = AIProjectClient.from_connection_string(
-    conn_str=os.environ['AIPROJECT_CONNECTION_STRING'],
-    credential=DefaultAzureCredential()
+    conn_str=os.environ["AIPROJECT_CONNECTION_STRING"], credential=DefaultAzureCredential()
 )
 
-connection = project.connections.get_default(
-    connection_type=ConnectionType.AZURE_OPEN_AI,
-    include_credentials=True)
+connection = project.connections.get_default(connection_type=ConnectionType.AZURE_OPEN_AI, include_credentials=True)
 
 evaluator_model = {
     "azure_endpoint": connection.endpoint_url,
@@ -28,10 +26,11 @@ evaluator_model = {
     "api_key": connection.key,
 }
 
+
 async def custom_simulator_callback(
     messages: List[Dict],
     stream: bool = False,
-    session_state: Any = None, 
+    session_state: Any = None,
     context: Optional[Dict[str, Any]] = None,
 ) -> dict:
     # call your endpoint or ai application here
@@ -40,11 +39,12 @@ async def custom_simulator_callback(
     response = chat_with_products(actual_messages)
     message = {
         "role": "assistant",
-        "content": response['message']['content'],
-        "context": response['context']['grounding_data']
+        "content": response["message"]["content"],
+        "context": response["context"]["grounding_data"],
     }
     actual_messages.append(message)
-    return { "messages": actual_messages, "stream": stream, "session_state": session_state, "context": context }
+    return {"messages": actual_messages, "stream": stream, "session_state": session_state, "context": context}
+
 
 async def custom_simulator_raw_conversation_starter():
     outputs = await custom_simulator(
@@ -59,6 +59,7 @@ async def custom_simulator_raw_conversation_starter():
     with open("chat_output.jsonl", "w") as f:
         for output in outputs:
             f.write(output.to_eval_qr_json_lines())
+
 
 async def evaluate_custom_simulator_raw_conversation_starter():
     coherence_eval = CoherenceEvaluator(model_config=model_config)
@@ -76,7 +77,8 @@ async def evaluate_custom_simulator_raw_conversation_starter():
 
 if __name__ == "__main__":
     custom_simulator = Simulator(model_config=evaluator_model)
+
     async def main():
         await custom_simulator_raw_conversation_starter()
-    
+
     asyncio.run(main())

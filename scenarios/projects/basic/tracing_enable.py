@@ -3,17 +3,16 @@ from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 project = AIProjectClient.from_connection_string(
-    conn_str=os.environ['AIPROJECT_CONNECTION_STRING'],
-    credential=DefaultAzureCredential()
+    conn_str=os.environ["AIPROJECT_CONNECTION_STRING"], credential=DefaultAzureCredential()
 )
 
 # <enable_tracing>
 # Enable instrumentation of AI packages (inference, agents, openai, langchain)
 from azure.monitor.opentelemetry import configure_azure_monitor
-from azure.ai.inference.tracing import AIInferenceInstrumentor
 
 # Enable OpenTelemetry instrumentation of the Inference SDK, add other OpenTelemetry instrumenters as needed
 project.telemetry.enable(destination=None)

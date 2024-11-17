@@ -1,6 +1,5 @@
 # <imports_and_config>
 import os
-import logging
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import ConnectionType
 from azure.identity import DefaultAzureCredential
@@ -14,8 +13,7 @@ logger = get_logger(__name__)
 
 # create a project client using environment variables loaded from the .env file
 project = AIProjectClient.from_connection_string(
-    conn_str=os.environ['AIPROJECT_CONNECTION_STRING'],
-    credential=DefaultAzureCredential()
+    conn_str=os.environ["AIPROJECT_CONNECTION_STRING"], credential=DefaultAzureCredential()
 )
 
 # create a vector embeddings client that will be used to generate vector embeddings
@@ -23,30 +21,44 @@ embeddings = project.inference.get_embeddings_client()
 
 # use the project client to get the default search connection
 search_connection = project.connections.get_default(
-    connection_type=ConnectionType.AZURE_AI_SEARCH,
-    include_credentials=True)
+    connection_type=ConnectionType.AZURE_AI_SEARCH, include_credentials=True
+)
 
 # Create a search index client using the search connection
 # This client will be used to create and delete search indexes
 index_client = SearchIndexClient(
-    endpoint=search_connection.endpoint_url,
-    credential=AzureKeyCredential(key=search_connection.key)
+    endpoint=search_connection.endpoint_url, credential=AzureKeyCredential(key=search_connection.key)
 )
 # </imports_and_config>
 
 # <create_search_index>
 import pandas as pd
-from azure.search.documents.indexes.models import SemanticSearch, SearchField, SimpleField, \
-    SearchableField, SearchFieldDataType, SemanticConfiguration, SemanticPrioritizedFields, \
-    SemanticField, VectorSearch, HnswAlgorithmConfiguration, VectorSearchAlgorithmKind, \
-    HnswParameters, VectorSearchAlgorithmMetric, ExhaustiveKnnAlgorithmConfiguration, \
-    ExhaustiveKnnParameters, VectorSearchProfile, SearchIndex
+from azure.search.documents.indexes.models import (
+    SemanticSearch,
+    SearchField,
+    SimpleField,
+    SearchableField,
+    SearchFieldDataType,
+    SemanticConfiguration,
+    SemanticPrioritizedFields,
+    SemanticField,
+    VectorSearch,
+    HnswAlgorithmConfiguration,
+    VectorSearchAlgorithmKind,
+    HnswParameters,
+    VectorSearchAlgorithmMetric,
+    ExhaustiveKnnAlgorithmConfiguration,
+    ExhaustiveKnnParameters,
+    VectorSearchProfile,
+    SearchIndex,
+)
 
-def create_index_definition(index_name : str, model : str) -> SearchIndex:
-    dimensions = 1536 # text-embedding-ada-002
+
+def create_index_definition(index_name: str, model: str) -> SearchIndex:
+    dimensions = 1536  # text-embedding-ada-002
     if model == "text-embedding-3-large":
         dimensions = 3072
-    
+
     # The fields we want to index. The "embedding" field is a vector field that will
     # be used for vector search.
     fields = [
@@ -93,9 +105,7 @@ def create_index_definition(index_name : str, model : str) -> SearchIndex:
             ExhaustiveKnnAlgorithmConfiguration(
                 name="myExhaustiveKnn",
                 kind=VectorSearchAlgorithmKind.EXHAUSTIVE_KNN,
-                parameters=ExhaustiveKnnParameters(
-                    metric=VectorSearchAlgorithmMetric.COSINE
-                ),
+                parameters=ExhaustiveKnnParameters(metric=VectorSearchAlgorithmMetric.COSINE),
             ),
         ],
         profiles=[
@@ -120,12 +130,15 @@ def create_index_definition(index_name : str, model : str) -> SearchIndex:
         semantic_search=semantic_search,
         vector_search=vector_search,
     )
+
+
 # </create_search_index>
+
 
 # <add_csv_to_index>
 # define a function for indexing a csv file, that adds each row as a document
 # and generates vector embeddings for the specified content_column
-def create_docs_from_csv(path: str, content_column : str, model: str) -> list[dict[str, any]]:
+def create_docs_from_csv(path: str, content_column: str, model: str) -> list[dict[str, any]]:
     products = pd.read_csv(path)
     items = []
     for product in products.to_dict("records"):
@@ -146,6 +159,7 @@ def create_docs_from_csv(path: str, content_column : str, model: str) -> list[di
 
     return items
 
+
 def create_index_from_csv(index_name, csv_file):
     # If a search index already exists, delete it:
     try:
@@ -160,12 +174,9 @@ def create_index_from_csv(index_name, csv_file):
     index = index_client.create_index(index_definition)
 
     # create documents from the products.csv file, generating vector embeddings for the "description" column
-    docs = create_docs_from_csv(
-        path=csv_file, 
-        content_column="description", 
-        model=os.environ["EMBEDDINGS_MODEL"])
+    docs = create_docs_from_csv(path=csv_file, content_column="description", model=os.environ["EMBEDDINGS_MODEL"])
 
-    # Add the documents to the index using the Azure AI Search client   
+    # Add the documents to the index using the Azure AI Search client
     search_client = SearchClient(
         endpoint=search_connection.endpoint_url,
         index_name=index_name,
@@ -174,23 +185,23 @@ def create_index_from_csv(index_name, csv_file):
 
     results = search_client.upload_documents(docs)
     logger.info(f"➕ Uploaded {len(docs)} documents to '{index_name}' index")
+
+
 # </add_csv_to_index>
 
 # <test_create_index>
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--index-name", 
-        type=str, 
-        help="index name to use when creating the AI Search index", 
-        default=os.environ["AISEARCH_INDEX_NAME"]
+        "--index-name",
+        type=str,
+        help="index name to use when creating the AI Search index",
+        default=os.environ["AISEARCH_INDEX_NAME"],
     )
     parser.add_argument(
-        "--csv-file",
-         type=str, 
-         help="path to data for creating search index",
-         default="assets/products.csv"
+        "--csv-file", type=str, help="path to data for creating search index", default="assets/products.csv"
     )
     args = parser.parse_args()
     index_name = args.index_name
