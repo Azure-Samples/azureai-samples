@@ -52,7 +52,7 @@ namespace Azure.AI.Samples
             var connectionString = Environment.GetEnvironmentVariable("AIPROJECT_CONNECTION_STRING");
             var projectClient = new AIProjectClient(connectionString, new DefaultAzureCredential());
 
-            // <azure-openai>
+            // <azure_openai>
             var connections = projectClient.GetConnectionsClient();
             var connection = connections.GetDefaultConnection(ConnectionType.AzureAIServices, withCredential: true);
 
@@ -72,7 +72,7 @@ namespace Azure.AI.Samples
                 ]);
 
             Console.WriteLine($"{completion.Role}: {completion.Content[0].Text}");
-            // </azure-openai>
+            // </azure_openai>
         }
 
         public static void Inference()
@@ -104,14 +104,14 @@ namespace Azure.AI.Samples
             var connectionString = Environment.GetEnvironmentVariable("AIPROJECT_CONNECTION_STRING");
             var projectClient = new AIProjectClient(connectionString, new DefaultAzureCredential());
 
-            // <azure-aisearch>
+            // <azure_aisearch>
             var connections = projectClient.GetConnectionsClient();
             var connection = connections.GetDefaultConnection(ConnectionType.AzureAISearch, withCredential: true);
 
             SearchClient searchClient = new SearchClient(
                 new Uri(connection.Properties.Target),
                 new AzureKeyCredential(connection.Properties.Credentials.Key));
-            // </azure-aisearch>
+            // </azure_aisearch>
         }
         
         // Prompty: https://devblogs.microsoft.com/dotnet/add-ai-to-your-dotnet-apps-easily-with-prompty/
