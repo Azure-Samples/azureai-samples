@@ -28,6 +28,12 @@ Check out the following files for implementation details:
 
 The main objective of this sample is for you to understand how to build a custom knowledge retrieval (RAG) app using the Azure AI Inferencing SDK. We'll be putting together inferencing, tracing, evaluation, prompts and search to build a fully custom rag app!
 
+This tutorial uses the following services:
+ - Azure Model inference
+ - Azure AI Search
+ - Application Insights
+ - Azure AI projects
+
 ## Create resources
 
 To run this sample, you'll need to create an Azure AI Project with an Azure AI Services resource connected to it. If you have an existing one, you can skip these steps and move to the next section.
