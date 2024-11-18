@@ -38,11 +38,13 @@ If you already have these resources set up, skip to the [configure and run your 
    - To use Bing Search tool: Microsoft.Bing
 
    ```console
-   az provider register -–namespace  {my_resource_namespace}
-                        [--accept-terms]
-                        [--consent-to-permissions]
-                        [--management-group-id]
-                        [--wait]
+   az provider register -–namespace 'Microsoft.KeyVault'
+   az provider register -–namespace 'Microsoft.CognitiveServices'
+   az provider register -–namespace 'Microsoft.Storage'
+   az provider register -–namespace 'Microsoft.MachineLearningServices'
+   az provider register -–namespace 'Microsoft.Search'
+   # only to use Grounding with Bing Search tool
+   az provider register -–namespace 'Microsoft.Bing'
    ```
 
 1. To authenticate to your Azure subscription from the Azure CLI, use the following command:
