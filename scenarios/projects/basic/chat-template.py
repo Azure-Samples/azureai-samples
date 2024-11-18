@@ -1,3 +1,5 @@
+# This file is not meant to be run
+
 # ruff: noqa: E402, ANN201, ANN001
 
 chat = None
