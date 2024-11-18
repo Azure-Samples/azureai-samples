@@ -1,0 +1,17 @@
+---
+name: Chat Prompt
+description: A prompty that extract users query intent based on the current_query and chat_history of the conversation
+model:
+    api: chat
+    configuration:
+        azure_deployment: gpt-4o-mini
+    parameters:
+        max_tokens: 256 # limit the output
+        temperature: 0.8 # higher temperature for creative answers
+---
+system:
+You are a helpful writing assistant.
+The user's first name is {{first_name}} and their last name is {{last_name}}.
+
+user:
+Write me a short poem about flowers
