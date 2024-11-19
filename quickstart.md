@@ -72,7 +72,14 @@ If you already have these resources set up, skip to the [configure and run your 
     **Standard Setup**: Agents use customer-owned, single-tenant search and storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
 
     <br>
+    
+    | Template | Description   | Auto-deploy |
+    | ------------------- | -----------------------------------------------| -----------------------|
+    |`basic-agent-keys.bicep` | Deploy a basic agent setup that uses API keys for authentication. |  [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/basic-agent-identity.bicep?token=GHSAT0AAAAAACZNMQAEU5UTLTW3A6Z3APQAZZ4AQNA)
+    |`basic-agent-identity.bicep`| Deploy a basic agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/basic-agent-keys.bicep?token=GHSAT0AAAAAACZNMQAE36JD2ZDYQYKAOBCIZZ4ASBQ)
+    | `standard-agent.bicep`  | Deploy a standard agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/standard-agent.bicep?token=GHSAT0AAAAAACZNMQAE2AKFTITYODN3T62QZZ4BGYQ)
 
+    **Manually Deploy Templates**
     <details>
     <summary><b>Option 1</b>: Use basic agent setup.</summary>
 
@@ -90,11 +97,9 @@ If you already have these resources set up, skip to the [configure and run your 
                 - basic-ai-project-identity.bicep
                 - basic-dependent-resources.bicep
         ```
-
     - Before deploying resources, decide which configuration file to use:
         - `basic-agent-keys.bicep`: Use this file to use API keys for authentication.
         - `basic-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
-
 
     - Using the resource group you created in the previous step and one of the template files (either basic-agent-keys.bicep or basic-agent-identity.bicep), run one of the following commands:
 
