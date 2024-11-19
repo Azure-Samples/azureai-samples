@@ -12,7 +12,24 @@ description: Evaluate.
 
 ### Overview
 
-This tutorial provides a step-by-step guide on how to evaluate Generative AI models with Azure. Each of these samples uses the `azure-ai-evaluation` SDK. 
+This tutorial provides a step-by-step guide on how to evaluate Generative AI base models or AI Applications with Azure. Each of these samples uses the [`azure-ai-evaluation`](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/develop/evaluate-sdk) SDK. 
+
+When selecting a base model for building an application—or after building an AI application (such as a Retrieval-Augmented Generation (RAG) system or a multi-agent framework)—evaluation plays a pivotal role. Effective evaluation ensures that the chosen or developed AI model or application meets the intended safety, quality, and performance benchmarks.
+
+In both cases, running evaluations requires specific tools, methods, and datasets. Here’s a breakdown of the key components involved:
+
+* Testing with Evaluation Datasets
+
+    - Bring Your Own Data: Use datasets tailored to your application or domain.
+    - Redteaming Queries: Design adversarial prompts to test robustness.
+    - ![Azure AI Simulators](./Simulators/): Leverage Azure AI's context-specific or adversarial dataset generators to create relevant test cases.
+
+* Selecting the Appropriate Evaluators or Building Custom Ones
+
+    - Pre-Built Evaluators: Azure AI provides a range of [generation safety](\Supported_Evaluation_Metrics\AI_Judge_Evaluators_Safety_Risks\) and [quality/NLP evaluators](\Supported_Evaluation_Metrics\AI_Judge_Evaluators_Quality\) ready for immediate use.
+    - [Custom Evaluators](\Supported_Evaluation_Metrics\Custom_Evaluators\): Using the Azure AI Evaluation SDK, you can design and implement evaluators that align with the unique requirements of your application.
+
+* Generating and Visualizing Evaluation Results: Azure AI Evaluation SDK enables you to evaluate the target functions (such as [endpoints of your AI application](\Supported_Evaluation_Targets\Evaluate_App_Endpoint\) or your [model endpoints](\Supported_Evaluation_Targets\Evaluate_Base_Model_Endpoint\) on your dataset with either built-in or custom evaluators. You can run evaluations remotely in the cloud or locally on your own machine.
 
 ### Objective
 
@@ -26,17 +43,17 @@ The main objective of this tutorial is to help users understand the process of e
 
 | Sample name                            | adversarial | simulator | conversation starter | index | raw text | against model endpoint | against app | qualitative metrics | custom metrics | quantitative NLP metrics |
 |----------------------------------------|-------------|-----------|---------------------|-------|----------|-----------------------|-------------|---------------------|----------------|----------------------|
-| simulate_adversarial.ipynb            | X           | X         |                     |      |          | X                      |             |                     |                |                      |
-| simulate_conversation_starter.ipynb   |             | X         | X                   |       |         | X                      |             |                     |                |                      |
-| simulate_input_index.ipynb            |             | X         |                     | X     |          | X                      |             |                     |                |                      |
-| simulate_input_text.ipynb             |             | X         |                     |       | X        | X                     |             |                     |                |                      |
-| evaluate_endpoints.ipynb              |             |           |                     |      |          | X                      |            | X                    |                |                      |
-| evaluate_app.ipynb                    |             |           |                     |       |         |                       | X           | X                    |                |                      |
-| evaluate_qualitative.ipynb            |             |           |                     |       |         | X                      |            | X                    |                |                      |
-| evaluate_custom.ipynb                 |             |           |                     |       |         | X                      |            |                     | X               |                      |
-| evaluate_quantitative.ipynb            |             |           |                     |       |         | X                      |             |                     |               | X                     |
-| evaluate_safety_risk.ipynb            | X           |           |                     |       |          | X                     |             |                     |                |                      |
-| simulate_and_evaluate_endpoint.py      |             | X         |                     |      | X        | X                     |             | X                    |                |                    |
+| [Simulate_Adversarial.ipynb](scenarios\evaluate\Simulators\Simulate_Adversarial_Data\simulate_adversarial.ipynb)           | X           | X         |                     |      |          | X                      |             |                     |                |                      |
+| [Simulate_From_Conversation_Starter.ipynb](scenarios\evaluate\Simulators\Simulate_Context-Relevant_Data\Simulate_From_Conversation_Starter\Simulate_From_Conversation_Starter.ipynb)   |             | X         | X                   |       |         | X                      |             |                     |                |                      |
+| [Simulate_From_Azure_Search_Index.ipynb](scenarios\evaluate\Simulators\Simulate_Context-Relevant_Data\Simulate_From_Azure_Search_Index\Simulate_From_Azure_Search_Index.ipynb)            |             | X         |                     | X     |          | X                      |             |                     |                |                      |
+| [Simulate_From_Input_Text.ipynb](scenarios\evaluate\Simulators\Simulate_Context-Relevant_Data\Simulate_From_Input_Text\Simulate_From_Input_Text.ipynb)             |             | X         |                     |       | X        | X                     |             |                     |                |                      |
+| [Evaluate_Base_Model_Endpoint.ipynb](scenarios\evaluate\Supported_Evaluation_Targets\Evaluate_Base_Model_Endpoint\Evaluate_Base_Model_Endpoint.ipynb)              |             |           |                     |      |          | X                      |            | X                    |                |                      |
+| [Evaluate_App_Endpoint.ipynb](scenarios\evaluate\Supported_Evaluation_Targets\Evaluate_App_Endpoint\Evaluate_App_Endpoint.ipynb)                    |             |           |                     |       |         |                       | X           | X                    |                |                      |
+| [AI_Judge_evaluators_quality.ipynb](scenarios\evaluate\Supported_Evaluation_Metrics\AI_Judge_evaluators_quality\AI_Judge_evaluators_quality.ipynb)            |             |           |                     |       |         | X                      |            | X                    |                |                      |
+| [evaluate_custom.ipynb](scenarios\evaluate\Supported_Evaluation_Metrics\custom_evaluators\custom_evaluators.ipynb)                |             |           |                     |       |         | X                      |            |                     | X               |                      |
+| [NLP_evaluators.ipynb](scenarios\evaluate\Supported_Evaluation_Metrics\NLP_evaluators\NLP_evaluators.ipynb)            |             |           |                     |       |         | X                      |             |                     |               | X                     |
+| [AI_Judge_evaluators_safety_risks.ipynb](scenarios\evaluate\Supported_Evaluation_Metrics\AI_Judge_evaluators_safety_risks\AI_Judge_evaluators_safety_risks.ipynb)            | X           |           |                     |       |          | X                     |             |                     |                |                      |
+| [simulate_evaluate_groundedness.py](scenarios\evaluate\Simulators\simulate_evaluate_groundedness\simulate_evaluate_groundedness.ipynb)      |             | X         |                     |      | X        | X                     |             | X                    |                |                    |
 
 
 

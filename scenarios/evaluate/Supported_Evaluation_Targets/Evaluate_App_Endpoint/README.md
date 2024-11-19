@@ -5,10 +5,10 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Evaluating an endpoint
+description: Evaluating an application endpoint
 ---
 
-## Evaluating an endpoint
+## Evaluating an application endpoint
 
 ### Overview
 

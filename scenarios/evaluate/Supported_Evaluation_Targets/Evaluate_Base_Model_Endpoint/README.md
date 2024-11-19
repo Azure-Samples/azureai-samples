@@ -5,10 +5,10 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Evaluating model endpoints
+description: Evaluating base model endpoints
 ---
 
-## Evaluating model endpoints
+## Evaluating base model endpoints
 
 ### Overview
 
