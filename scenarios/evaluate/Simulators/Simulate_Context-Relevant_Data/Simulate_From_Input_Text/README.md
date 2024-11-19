@@ -4,10 +4,10 @@ languages:
 - python
 products:
 - azure-openai
-description: Use the Simulator to generate high-quality query and response interactions with your AI applications from your data using LLMs."
+description: Use the Simulator to generate high-quality query and response interactions with your AI applications from your data using LLMs
 ---
 
-## Generate Query and Response from your Azure Search Index
+## Generate Query and Response from your data
 
 ### Overview
 
@@ -21,7 +21,6 @@ This tutorial uses the following Azure AI services:
 
 - Access to Azure OpenAI Service - you can apply for access [here](https://go.microsoft.com/fwlink/?linkid=2222006)
 - An Azure AI Studio project - go to [aka.ms/azureaistudio](https://aka.ms/azureaistudio) to create a project
-- An Azure Search Index - learn more [here](https://learn.microsoft.com/en-us/azure/search/search-get-started-portal)
 
 ### Programming Languages
 
