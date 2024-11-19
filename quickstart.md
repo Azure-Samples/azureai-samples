@@ -75,9 +75,10 @@ If you already have these resources set up, skip to the [configure and run your 
     
     | Template | Description   | Auto-deploy |
     | ------------------- | -----------------------------------------------| -----------------------|
-    |`basic-agent-keys.bicep` | Deploy a basic agent setup that uses API keys for authentication. |  [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/basic-agent-identity.bicep?token=GHSAT0AAAAAACZNMQAEU5UTLTW3A6Z3APQAZZ4AQNA)
-    |`basic-agent-identity.bicep`| Deploy a basic agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/basic-agent-keys.bicep?token=GHSAT0AAAAAACZNMQAE36JD2ZDYQYKAOBCIZZ4ASBQ)
-    | `standard-agent.bicep`  | Deploy a standard agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/Azure/azure-ai-agents/refs/heads/main/standard-agent.bicep?token=GHSAT0AAAAAACZNMQAE2AKFTITYODN3T62QZZ4BGYQ)
+    |`basic-agent-keys.bicep` | Deploy a basic agent setup that uses API keys for authentication. |  [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-ai-agents%2Frefs%2Fheads%2Fmain%2Fbasic-agent-identity.bicep%3Ftoken%3DGHSAT0AAAAAACZNMQAEU5UTLTW3A6Z3APQAZZ4AQNA)
+    |`basic-agent-identity.bicep`| Deploy a basic agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-ai-agents%2Frefs%2Fheads%2Fmain%2Fbasic-agent-keys.bicep%3Ftoken%3DGHSAT0AAAAAACZNMQAE36JD2ZDYQYKAOBCIZZ4ASBQ)
+    | `standard-agent.bicep`  | Deploy a standard agent setup that uses Managed Identity for authetication. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-ai-agents%2Frefs%2Fheads%2Fmain%2Fstandard-agent.bicep%3Ftoken%3DGHSAT0AAAAAACZNMQAE2AKFTITYODN3T62QZZ4BGYQ)
+
 
     **Manually Deploy Templates**
     <details>
