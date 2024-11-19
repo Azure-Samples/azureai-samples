@@ -19,10 +19,10 @@ Currently, Azure AI Evaluation SDK supports three types of evaluators:
 
 * [Risk and safety evaluators](\AI_Judge_Evaluators_Safety_Risks\): Evaluating potential risks associated with AI-generated content is essential for safeguarding against content risks with varying degrees of severity. This includes evaluating an AI system's predisposition towards generating harmful or inappropriate content. 
 
-* Generation quality evaluators: This involves assessing metrics such as the groundedness, coherence and relevance of generated content using robust [AI-assisted](\AI_Judge_Evaluators_Quality\) and [NLP](scenarios\evaluate\Supported_Evaluation_Metrics\NLP_Evaluators\) metrics.
+* Generation quality evaluators: This involves assessing metrics such as the groundedness, coherence and relevance of generated content using robust [AI-assisted](AI_Judge_Evaluators_Quality\) and [NLP](NLP_Evaluators\) metrics.
 
 
-* [Custom evaluators](\Custom_Evaluators\): Tailored evaluation metrics can be designed to meet specific needs and goals, providing flexibility and precision in assessing unique aspects of AI-generated content. These custom evaluators allow for more detailed and specific analyses, addressing particular concerns or requirements that standard metrics may not cover. 
+* [Custom evaluators](Custom_Evaluators\): Tailored evaluation metrics can be designed to meet specific needs and goals, providing flexibility and precision in assessing unique aspects of AI-generated content. These custom evaluators allow for more detailed and specific analyses, addressing particular concerns or requirements that standard metrics may not cover. 
 
 
 
