@@ -25,17 +25,18 @@ namespace Azure.AI.Samples
             }
             
             String sample = args[0];
-            Console.WriteLine(sample);
 
             if (sample == "inference") {
                 Inference();
-            } else if (sample == "basic") {
+            } else if (sample == "agents") {
                 await AgentsBasic();
             } else if (sample == "azureopenai") {
                 AzureOpenAI();
-            } else if (sample == "basic-streaming") {
+            } else if (sample == "search") {
+                AzureAISearch();
+            } else if (sample == "agents-streaming") {
                 await AgentsBasicStreaming();
-            } 
+            }
         }
 
         public static void GetProject()
@@ -54,11 +55,17 @@ namespace Azure.AI.Samples
 
             // <azure_openai>
             var connections = projectClient.GetConnectionsClient();
-            var connection = connections.GetDefaultConnection(ConnectionType.AzureAIServices, withCredential: true);
+            ConnectionResponse connection = connections.GetDefaultConnection(ConnectionType.AzureOpenAI, withCredential: true);
+            var properties = connection.Properties as ConnectionPropertiesApiKeyAuth;
+            
+            if (properties == null) {
+                throw new Exception("Invalid auth type, expected API key auth");
+            }
 
+            // Create and use an Azure OpenAI client
             AzureOpenAIClient azureOpenAIClient = new(
-                new Uri(connection.Properties.Target),
-                new AzureKeyCredential(connection.Properties.Credentials.Key));
+                new Uri(properties.Target),
+                new AzureKeyCredential(properties.Credentials.Key));
 
             // This must match the custom deployment name you chose for your model
             ChatClient chatClient = azureOpenAIClient.GetChatClient("gpt-4o-mini");
@@ -106,19 +113,20 @@ namespace Azure.AI.Samples
 
             // <azure_aisearch>
             var connections = projectClient.GetConnectionsClient();
-            var connection = connections.GetDefaultConnection(ConnectionType.AzureAISearch, withCredential: true);
+            var connection = connections.GetDefaultConnection(ConnectionType.AzureAISearch, withCredential: true).Value;
 
+            var properties = connection.Properties as ConnectionPropertiesApiKeyAuth;
+            if (properties == null) {
+                throw new Exception("Invalid auth type, expected API key auth");
+            }
+            
             SearchClient searchClient = new SearchClient(
-                new Uri(connection.Properties.Target),
-                new AzureKeyCredential(connection.Properties.Credentials.Key));
+                new Uri(properties.Target),
+                "products",
+                new AzureKeyCredential(properties.Credentials.Key));
             // </azure_aisearch>
         }
         
-        // Prompty: https://devblogs.microsoft.com/dotnet/add-ai-to-your-dotnet-apps-easily-with-prompty/
-        // Tracing: https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Inference/samples/Sample8_ChatCompletionsWithOpenTelemetry.md
-        // RAG sample: https://azure.github.io/ai-app-templates/repo/azure-samples/azure-search-openai-demo-csharp/
-        // Evaluation sample: https://github.com/Azure-Samples/contoso-chat-csharp-prompty/blob/main/src/ContosoChatAPI/ContosoChat.Evaluation.Tests/Evalutate.cs
-
         public static async Task AgentsBasic()
         {
             Console.WriteLine($"-------- Azure AI Basic Sample --------");

@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.AI.OpenAI" Version="2.0.0" />
-    <PackageReference Include="Azure.AI.Projects" Version="1.0.0-alpha.20241114.3" />
+    <PackageReference Include="Azure.AI.Projects" Version="1.0.0-alpha.20241118.5" />
     <PackageReference Include="Azure.Search.Documents" Version="11.6.0" />
   </ItemGroup>
   
