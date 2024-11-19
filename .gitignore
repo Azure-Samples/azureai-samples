@@ -165,3 +165,8 @@ cython_debug/
 
 # macOS Finder
 .DS_Store
+
+
+# dotnet
+bin
+obj
