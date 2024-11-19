@@ -29,7 +29,7 @@ In both cases, running evaluations requires specific tools, methods, and dataset
     - Pre-Built Evaluators: Azure AI provides a range of [generation safety](\Supported_Evaluation_Metrics\AI_Judge_Evaluators_Safety_Risks\) and [quality/NLP evaluators](\Supported_Evaluation_Metrics\AI_Judge_Evaluators_Quality\) ready for immediate use.
     - [Custom Evaluators](\Supported_Evaluation_Metrics\Custom_Evaluators\): Using the Azure AI Evaluation SDK, you can design and implement evaluators that align with the unique requirements of your application.
 
-* Generating and Visualizing Evaluation Results: Azure AI Evaluation SDK enables you to evaluate the target functions (such as [endpoints of your AI application](\Supported_Evaluation_Targets\Evaluate_App_Endpoint\) or your [model endpoints](\Supported_Evaluation_Targets\Evaluate_Base_Model_Endpoint\) on your dataset with either built-in or custom evaluators. You can run evaluations remotely in the cloud or locally on your own machine.
+* Generating and Visualizing Evaluation Results: Azure AI Evaluation SDK enables you to evaluate the target functions (such as [endpoints of your AI application](\Supported_Evaluation_Targets\Evaluate_App_Endpoint\) or your [model endpoints](\Supported_Evaluation_Targets\Evaluate_Base_Model_Endpoint\) on your dataset with either built-in or custom evaluators. You can run evaluations [remotely](\Supported_Evaluation_Targets\Evaluate_Remotely\) in the cloud or locally on your own machine.
 
 ### Objective
 

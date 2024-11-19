@@ -26,4 +26,4 @@ Currently, Azure AI Evaluation SDK supports three types of evaluators:
 
 
 
-You can run evaluators locally or remotely, log results in the cloud using the evaluation SDK, or integrate them into automated evaluations within the Azure AI Studio UI. 
+You can run evaluators locally or [remotely](..\Supported_Evaluation_Targets\Evaluate_Remotely\Evaluate_Remotely.ipynb), log results in the cloud using the evaluation SDK, or integrate them into automated evaluations within the Azure AI Studio UI. 
