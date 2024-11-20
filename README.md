@@ -52,6 +52,10 @@ Azure AI Agent Service is a fully-managed service designed to empower developers
 
 See the QuickStart to [get started](./quickstart.md).  
 
+**E2E Agent Samples**
+* [Azure AI Travel Agent](https://github.com/Azure-Samples/azureai-travel-agent-python/tree/main)
+* [Sample App using Azure AI Agents](https://github.com/Azure-Samples/azure-ai-projects-file-search) 
+
 ## ❓Get help 
 
 * GitHub Issues (Preferred) 
