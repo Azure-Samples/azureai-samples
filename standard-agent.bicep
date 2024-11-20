@@ -52,7 +52,7 @@ param modelVersion string = '2024-07-18'
 param modelSkuName string = 'GlobalStandard'
 
 @description('Model deployment capacity')
-param modelCapacity int = 10
+param modelCapacity int = 50
 
 @description('Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created.')
 param modelLocation string = 'eastus'
