@@ -6,7 +6,7 @@ To access your files, the file search tool uses the vector store object. Upload 
 
 ### File Sources  
 - Uploading local files
-- [coming soon] Azure Blob Storage
+- [Coming Soon] Azure Blob Storage
 
 ### Basic Agent Setup <br> 
 The File Search tool has the same functionality as AOAI Assistants. Microsoft managed search and storage resources are used. 
