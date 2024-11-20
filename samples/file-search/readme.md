@@ -11,12 +11,12 @@ To access your files, the file search tool uses the vector store object. Upload 
 ### Basic Agent Setup <br> 
 The File Search tool has the same functionality as AOAI Assistants. Microsoft managed search and storage resources are used. 
 - Uploaded files get stored in Microsoft managed storage
-- A vector store is created using Microsoft managed search resources
+- A vector store is created using a Microsoft managed search resource
 
 ### Standard Agent Setup 
 The File Search tool uses the Azure AI Search and Azure Blob Storage resources you connected during agent setup.  
-- Uploaded files get stored in your connected Azure Blob Storage account.  
-- Vector stores get created using your connected Azure AI Seach resource.
+- Uploaded files get stored in your connected Azure Blob Storage account
+- Vector stores get created using your connected Azure AI Seach resource
 <br> </br>
 
 For both Agent setups, OpenAI handles the entire ingestion process, including automatically parsing and chunking documents, generating and storing embeddings, and utilizing both vector and keyword searches to retrieve relevant content for user queries. 
