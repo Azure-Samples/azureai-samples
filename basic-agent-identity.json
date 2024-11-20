@@ -97,7 +97,7 @@
     },
     "modelCapacity": {
       "type": "int",
-      "defaultValue": 10,
+      "defaultValue": 50,
       "metadata": {
         "description": "Model deployment capacity"
       }
