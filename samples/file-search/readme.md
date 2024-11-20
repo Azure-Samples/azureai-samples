@@ -31,6 +31,7 @@ Run the code samples below and view the output.
 > Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
 
 * [Python](./python-file-search.py)
+* [C#](./FileSearch.cs)
 
 ## Additional samples
 
