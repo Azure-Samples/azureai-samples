@@ -163,7 +163,6 @@ If you already have these resources set up, skip to the [configure and run your 
 
 <br>
 </br>
-
 <details>
     <summary><b>Option 3</b>: Follow steps 6-10 if you want specific control over the creation and configuration of these resources.</summary>
 
