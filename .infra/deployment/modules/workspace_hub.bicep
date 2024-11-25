@@ -18,15 +18,6 @@ param isolationMode string = 'Disabled'
 @description('AI services name')
 param aiServicesName string = '${name}-aiservices'
 
-@description('Determines whether or not new ApplicationInsights should be provisioned.')
-@allowed([
-  'new'
-  'existing'
-  'none'
-])
-param applicationInsightsOption string = 'new'
-param applicationInsightId string = 'null'
-
 @description('Determines whether or not a new container registry should be provisioned.')
 @allowed([
   'new'
@@ -64,15 +55,9 @@ module keyVault 'keyvault.bicep' = { name: 'keyvault', params: { name: 'kv-${uni
 module containerRegistry 'container_registry.bicep' = if (containerRegistryOption == 'new') {
   name: 'containerRegistry', params: { name: 'cr${uniqueSuffix}', location: location }
 }
-module applicationInsights 'application_insights.bicep' = if (applicationInsightsOption == 'new') {
-  name: 'applicationInsights', params: { name: 'appi-${uniqueSuffix}', logWorkspaceName: 'apws-${uniqueSuffix}', location: location }
-}
 
 @description('Either the user supplied ID, a new created one, or null')
 var actualContainerRegistryId = (containerRegistryOption == 'new') ? containerRegistry.outputs.id : (containerRegistryOption == 'existing') ? containerRegistryId : null
-
-@description('Either the user supplied ID, a new created one, or null')
-var actualApplicationInsightsId = (applicationInsightsOption == 'new') ? applicationInsights.outputs.id : (applicationInsightsOption == 'existing') ? applicationInsightId : null
 
 resource workspace 'Microsoft.MachineLearningServices/workspaces@2023-02-01-preview' = {
   name: name
@@ -85,7 +70,6 @@ resource workspace 'Microsoft.MachineLearningServices/workspaces@2023-02-01-prev
     friendlyName: nameFriendly
     storageAccount: storageAccount.outputs.id
     keyVault: keyVault.outputs.id
-    applicationInsights: actualApplicationInsightsId
     containerRegistry: actualContainerRegistryId
     publicNetworkAccess: publicNetworkAccess
     #disable-next-line BCP037
