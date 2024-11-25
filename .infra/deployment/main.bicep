@@ -3,6 +3,12 @@ param workspaceName string = 'azureai_samples_hub'
 param projectName string = 'azureai_samples_proj'
 param resourceGroupName string = 'azureai-samples-validation-${utcNow('yyyyMM')}'
 param location string = 'westus'
+@description('The ID of the principal (user, service principal, etc...) to create role assignments for.')
+param principalId string = ''
+
+@description('The Type of the principal (user, service principal, etc...) to create role assignments for.')
+@allowed([ 'User', 'ServicePrincipal', '' ])
+param principalType string = ''
 
 var acsName = 'acs-samples-${uniqueString(rg.id, workspaceName, workspaceName)}'
 
@@ -64,6 +70,21 @@ var deployments = [
     }
   }
 ]
+
+var roleDefinitionIds = [
+  'a001fd3d-188f-4b5d-821b-7da978bf7442' // Cognitive Services OpenAI Contributor
+  'ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Storage Blob Data Contributor
+]
+
+module role_assignments 'modules/role_assignment.bicep' = [for rd in roleDefinitionIds: if (!empty(principalId)) {
+  name: 'role_assignment-${rd}'
+  params: {
+    principalId: principalId
+    principalType: principalType
+    roleDefinitionId: rd
+  }
+  scope: rg
+}]
 
 @batchSize(1)
 module project_deployments 'modules/ai_project_deployment.bicep' = [for deployment in deployments: {
