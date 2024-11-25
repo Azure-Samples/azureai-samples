@@ -91,8 +91,8 @@ If you already have these resources set up, skip to the [configure and run your 
                 - basic-dependent-resources.bicep
         ```
     - Before deploying resources, decide which configuration file to use:
-        - `basic-agent-keys.bicep`: Use this file to use API keys for authentication.
-        - `basic-agent-identity.bicep`: Use this file if you prefer Managed Identity to securely access resources without API keys.
+        - `basic-agent-keys.bicep`: Uses API key authentication on the AI Services/AOAI connection.
+        - `basic-agent-identity.bicep`: Uses Managed Identity authentication on the AI Services/AOAI connection.
 
     - Using the resource group you created in the previous step and one of the template files (either basic-agent-keys.bicep or basic-agent-identity.bicep), run one of the following commands:
 
