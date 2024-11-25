@@ -75,8 +75,8 @@ If you already have these resources set up, skip to the [configure and run your 
 
     | Template | Description   | Auto-deploy |
     | ------------------- | -----------------------------------------------| -----------------------|
-    |`basic-agent-keys.bicep` | Deploy a basic agent setup that uses API key authentication on the AI Services/AOAI connection. |  [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-ai-agents%2Frefs%2Fheads%2Farm-template-updates%2Fbasic-agent-keys.json%3Ftoken%3DGHSAT0AAAAAACZNMQAFGRUUYPILZH2RVUZCZZ6KQ6Q)
-    |`basic-agent-identity.bicep`| Deploy a basic agent setup that uses Managed Identity authentication on the AI Services/AOAI connection. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-ai-agents%2Frefs%2Fheads%2Farm-template-updates%2Fbasic-agent-identity.json%3Ftoken%3DGHSAT0AAAAAACZNMQAFGV5RA2GPXABKXFLQZZ6KWGQ)
+    |`basic-agent-keys.bicep` | Deploy a basic agent setup that uses API key authentication on the AI Services/AOAI connection. | Coming Soon
+    |`basic-agent-identity.bicep`| Deploy a basic agent setup that uses Managed Identity authentication on the AI Services/AOAI connection. | Coming Soon
     | `standard-agent.bicep`  | Deploy a standard agent setup that uses Managed Identity authentication on the AI Services/AOAI connection. | [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Frefs%2Fheads%2Fmaster%2Fquickstarts%2Fmicrosoft.azure-ai-agent-service%2Fstandard-agent%2Fazuredeploy.json)
 
 
