@@ -32,9 +32,6 @@ param aiServicesName string
 @description('Name AI Search resource')
 param aiSearchName string
 
-@description('Name storage resource')
-param aiStorageName string
-
 resource aiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-preview' existing = {
   name: aiServicesName
 }
@@ -43,9 +40,11 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' exis
   name: aiSearchName
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2024-06-01-preview' existing = {
-  name: aiStorageName
-}
+//for constructing endpoint
+var subscriptionId = subscription().subscriptionId
+var resourceGroupName = resourceGroup().name
+
+var projectConnectionString = '${location}.api.azureml.ms;${subscriptionId};${resourceGroupName};${aiProjectName}'
 
 
 var storageConnections = ['${aiProjectName}/workspaceblobstore']
@@ -56,7 +55,9 @@ var aiServiceConnections = ['${aoaiConnectionName}']
 resource aiProject 'Microsoft.MachineLearningServices/workspaces@2023-08-01-preview' = {
   name: aiProjectName
   location: location
-  tags: tags
+  tags: union(tags, {
+    ProjectConnectionString: projectConnectionString
+  })
   identity: {
     type: 'SystemAssigned'
   }
@@ -162,4 +163,4 @@ resource searchServiceContributorRoleAssignment 'Microsoft.Authorization/roleAss
 output aiProjectName string = aiProject.name
 output aiProjectResourceId string = aiProject.id
 output aiProjectWorkspaceId string = aiProject.properties.workspaceId
-output enterpriseAgentsEndpoint string = aiProject.tags.AgentsEndpointUri
+output projectConnectionString string = aiProject.tags.ProjectConnectionString

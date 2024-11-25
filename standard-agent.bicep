@@ -90,15 +90,15 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
 }
 
 module aiHub 'modules-standard/standard-ai-hub.bicep' = {
-  name: 'ai-${name}-${uniqueSuffix}-deployment'
+  name: '${name}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
-    aiHubName: 'ai-${name}-${uniqueSuffix}'
+    aiHubName: '${name}-${uniqueSuffix}'
     aiHubFriendlyName: aiHubFriendlyName
     aiHubDescription: aiHubDescription
     location: location
     tags: tags
-    capabilityHostName: capabilityHostName
+    capabilityHostName: '${name}-${uniqueSuffix}-${capabilityHostName}'
     modelLocation: modelLocation
 
 
@@ -113,25 +113,24 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
 
 
 module aiProject 'modules-standard/standard-ai-project.bicep' = {
-  name: 'ai-${projectName}-${uniqueSuffix}-deployment'
+  name: '${projectName}-${uniqueSuffix}-deployment'
   params: {
     // workspace organization
-    aiProjectName: 'ai-${projectName}-${uniqueSuffix}'
+    aiProjectName: '${projectName}-${uniqueSuffix}'
     aiProjectFriendlyName: aiProjectFriendlyName
     aiProjectDescription: aiProjectDescription
     location: location
     tags: tags
     
-    capabilityHostName: capabilityHostName
+    capabilityHostName: '${projectName}-${uniqueSuffix}-${capabilityHostName}'
     // dependent resources
     aiSearchName: '${aiSearchName}-${uniqueSuffix}'
     aiServicesName: '${aiServicesName}${uniqueSuffix}'
-    aiStorageName: aiDependencies.outputs.storageAccountName
     aiHubId: aiHub.outputs.aiHubID
     acsConnectionName: aiHub.outputs.acsConnectionName
     aoaiConnectionName: aiHub.outputs.aoaiConnectionName
   }
 }
 
-output ENTERPRISE_AGENTS_ENDPOINT string = aiProject.outputs.enterpriseAgentsEndpoint
+output PROJECT_CONNECTION_STRING string = aiProject.outputs.projectConnectionString
 
