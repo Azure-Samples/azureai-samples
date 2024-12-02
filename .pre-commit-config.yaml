@@ -24,7 +24,7 @@ repos:
       require_serial: true
       additional_dependencies: []
       minimum_pre_commit_version: "2.9.2"
-      args: ["--fix", "--exit-non-zero-on-fix"]
+      args: ["--fix", "--exit-non-zero-on-fix", "--exclude", "detect_azure_secrets.py"]
     - id: black
       name: black
       description: "Black: The uncompromising Python code formatter"
@@ -34,3 +34,8 @@ repos:
       entry: python
       language: system
       args: ["-m", "tox", "-qqq", "run", "-e", "black", "--"]
+    - id: detect-azure-secrets-custom
+      name: Detect Azure Secrets
+      entry: python detect_azure_secrets.py
+      language: python
+      types: [file]
