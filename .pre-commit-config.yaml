@@ -24,7 +24,7 @@ repos:
       require_serial: true
       additional_dependencies: []
       minimum_pre_commit_version: "2.9.2"
-      args: ["--fix", "--exit-non-zero-on-fix", "--exclude", "detect_azure_secrets.py"]
+      args: ["--fix", "--exit-non-zero-on-fix"]
     - id: black
       name: black
       description: "Black: The uncompromising Python code formatter"
