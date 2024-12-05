@@ -20,4 +20,6 @@ jobs:
           python-version: "3.8"
       - run: pip install -r dev-requirements.txt
       - name: Run Pre-Commit
-        run: pre-commit run --all-files --config .pre-commit-config-remote.yaml
+        run: pre-commit run --all-files
+        env:
+          SKIP: detect-azure-secrets-custom

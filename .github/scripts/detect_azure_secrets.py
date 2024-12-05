@@ -3,7 +3,7 @@ import sys
 import json
 import os
 from typing import Union
-
+from pathlib import Path
 
 SECRET_PATTERNS = [
     re.compile(r'[\'"]?subscription_id[\'"]?\s*[:=]\s*[\'"][0-9a-f\-]{36}[\'"]', re.IGNORECASE),
@@ -22,7 +22,7 @@ SECRET_PATTERNS = [
 def check_ipynb_for_secrets(filename: Union[str, os.PathLike]) -> bool:
     """Jupyter notebooks can't be parsed directly - need to convert to JSON first"""
     try:
-        with open(filename, "r", encoding="utf-8") as file:
+        with Path(filename).open("r", encoding="utf-8") as file:
             notebook_data = json.load(file)
             failed = False
             for cell in notebook_data.get("cells", []):
@@ -38,13 +38,13 @@ def check_ipynb_for_secrets(filename: Union[str, os.PathLike]) -> bool:
         return True
 
 
-def main():
+def main() -> None:
     failed = False
 
     for filename in sys.argv[1:]:
         if filename.endswith((".py", ".yaml", ".yml", ".md")):
             try:
-                with open(filename, "r", encoding="utf-8") as file:
+                with Path(filename).open("r", encoding="utf-8") as file:
                     for line_number, line in enumerate(file, start=1):
                         for pattern in SECRET_PATTERNS:
                             if pattern.search(line):
@@ -52,9 +52,8 @@ def main():
                                 failed = True
             except UnicodeDecodeError:
                 print(f"Failed to read {filename}. Skipping secrets check.")
-        elif filename.endswith(".ipynb"):
-            if check_ipynb_for_secrets(filename):
-                failed = True
+        elif filename.endswith(".ipynb") and check_ipynb_for_secrets(filename):
+            failed = True
 
     if failed:
         sys.exit(1)
