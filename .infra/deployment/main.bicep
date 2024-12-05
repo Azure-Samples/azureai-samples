@@ -92,8 +92,7 @@ module project_deployments 'modules/ai_project_deployment.bicep' = [for deployme
   params: {
     name: deployment.name
     properties: deployment.properties
-    azure_openai_connection_name: workspace_hub.outputs.azure_openai_connection_name
-    project_name: project.outputs.name
+    ai_services_name: workspace_hub.outputs.ai_services_name
   }
   scope: rg
 }]

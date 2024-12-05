@@ -158,6 +158,8 @@ resource workspaceName_Azure_Cognitive_Search 'Microsoft.MachineLearningServices
 output id string = workspace.id
 @description('The name of the workspace connection to the Search Service.')
 output acs_connection_name string = (searchName != '') ? workspaceName_Azure_Cognitive_Search.name : ''
+@description('The name of AI Services resource.')
+output ai_services_name string = aiServices.name
 @description('The azure openai endpint.')
 output azure_openai_endpoint string = aoaiConnection.properties.target
 @description('The name of the azure openai connection.')
