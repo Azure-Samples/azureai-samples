@@ -16,7 +16,7 @@ param publicNetworkAccess string = 'Enabled'
 param isolationMode string = 'Disabled'
 
 @description('AI services name')
-param aiServicesName string = '${name}-aiservices'
+param aiServicesName string = 'samples-ai-${uniqueString(subscription().id, resourceGroup().name, name)}'
 
 @description('Determines whether or not a new container registry should be provisioned.')
 @allowed([
