@@ -38,13 +38,6 @@ param location string = resourceGroup().location
 ])
 param endpointKind string = 'AIServices'
 
-@description('Determines whether or not an OpenAI endpoint should be provisioned.')
-@allowed([
-  'new'
-  'none'
-])
-param endpointOption string = 'new'
-
 @description('The name of the search service.')
 param searchName string = ''
 
@@ -81,6 +74,7 @@ resource workspace 'Microsoft.MachineLearningServices/workspaces@2023-02-01-prev
       defaultWorkspaceResourceGroup: defaultProjectResourceGroupId
     }
   }
+  dependsOn: [ aiServices ]
 }
 
 resource aiServices 'Microsoft.CognitiveServices/accounts@2021-10-01' = {
@@ -91,21 +85,47 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2021-10-01' = {
   }
   kind: endpointKind
   properties: {
-    apiProperties: {
-      statisticsEnabled: false
+    customSubDomainName: toLower(aiServicesName)
+    apiProperties: {}
+  }
+}
+
+#disable-next-line BCP081
+resource aiServicesConnection 'Microsoft.MachineLearningServices/workspaces/connections@2024-07-01-preview' = {
+  parent: workspace
+  name: aiServicesName
+  properties: {
+    authType: 'ApiKey'
+    category: 'AIServices'
+    target: 'https://${aiServicesName}.cognitiveservices.azure.com/'
+    useWorkspaceManagedIdentity: true
+    isSharedToAll: true
+    sharedUserList: []
+    peRequirement: 'NotRequired'
+    peStatus: 'NotApplicable'
+    credentials: {
+      key: aiServices.listKeys().key1
+    }
+    metadata: {
+      ApiType: 'Azure'
+      ResourceId: aiServices.id
     }
   }
 }
 
-resource aiServicesConnection 'Microsoft.MachineLearningServices/workspaces/connections@2023-10-01' = {
+#disable-next-line BCP081
+resource aoaiConnection 'Microsoft.MachineLearningServices/workspaces/connections@2024-07-01-preview' = {
   parent: workspace
-  name: '${name}-connection-AzureOpenAI'
+  name: '${aiServicesName}_aoai'
   properties: {
-    category: 'AzureOpenAI'
-    target: aiServices.properties.endpoint
-    #disable-next-line BCP036
     authType: 'ApiKey'
+    category: 'AzureOpenAI'
+    target: 'https://${aiServicesName}.openai.azure.com/'
+    useWorkspaceManagedIdentity: true
     isSharedToAll: true
+    sharedUserList: []
+    peRequirement: 'NotRequired'
+    peStatus: 'NotApplicable'
     credentials: {
       key: aiServices.listKeys().key1
     }
@@ -138,5 +158,7 @@ resource workspaceName_Azure_Cognitive_Search 'Microsoft.MachineLearningServices
 output id string = workspace.id
 @description('The name of the workspace connection to the Search Service.')
 output acs_connection_name string = (searchName != '') ? workspaceName_Azure_Cognitive_Search.name : ''
-output azure_openai_endpoint string = aiServices.properties.endpoint
-output azure_openai_connection_name string = (endpointOption == 'new') ? aiServicesConnection.name : ''
+@description('The azure openai endpint.')
+output azure_openai_endpoint string = aoaiConnection.properties.target
+@description('The name of the azure openai connection.')
+output azure_openai_connection_name string = aoaiConnection.name
