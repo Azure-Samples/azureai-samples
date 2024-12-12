@@ -1,8 +1,7 @@
 ---
 page_type: sample
 languages:
-- language1
-- language2
+- python
 products:
 - ai-services
 - azure-openai
