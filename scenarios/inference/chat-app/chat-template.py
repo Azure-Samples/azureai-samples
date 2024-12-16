@@ -1,4 +1,5 @@
-# <chat-function>
+# contents of this file meant to be appended to the end of chat-simple.py
+# <chat_function>
 from azure.ai.inference.prompts import PromptTemplate
 
 
@@ -28,13 +29,13 @@ def get_chat_response(messages, context):
     return response
 
 
-# </chat-function>
+# </chat_function>
 
-# <create-response>
+# <create_response>
 if __name__ == "__main__":
     response = get_chat_response(
         messages=[{"role": "user", "content": "what city has the best food in the world?"}],
         context={"first_name": "Jessie", "last_name": "Irwin"},
     )
     print(response.choices[0].message.content)
-# </create-response>
+# </create_response>
