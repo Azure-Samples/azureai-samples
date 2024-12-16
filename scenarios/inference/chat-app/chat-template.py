@@ -1,4 +1,3 @@
-# contents of this file meant to be appended to chat.py
 # <chat-function>
 from azure.ai.inference.prompts import PromptTemplate
 
