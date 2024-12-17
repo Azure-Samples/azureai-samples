@@ -15,8 +15,11 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 
 ### Other Sample Repositories
 
-#### Azure AI Studio
+#### Azure AI Agent Service
+* **[Azure/azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/samples/agents)** - Repo containing Python SDK samples for the Azure AI Agent Service.
+* **[Azure/azure-sdk-for-net](https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/Azure.AI.Projects/tests/Samples/Agent)** - Repo containing .NET SDK samples for the Azure AI Agent Service.
 
+#### Azure AI Foundry
 * **[Azure/aistudio-copilot-sample]** - Quickstart repo for building an enterprise chat copilot in Azure AI Studio.
 * **[Azure-Samples/contoso-chat](https://github.com/Azure-Samples/contoso-chat)** - End-to-end solution sample for a custom RAG-based retail copilot built code-first with Prompty & Azure AI Studio.
 * **[Azure-Samples/contoso-creative-writer](https://github.com/Azure-Samples/contoso-creative-writer)** - End-to-end solution sample for a custom multi-agent creative writer solution built code-first with Prompty & Azure AI Studio.
