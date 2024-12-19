@@ -1,0 +1,7 @@
+azure-identity==1.19.0
+pandas==2.2.3
+yfinance==0.2.48
+python-dotenv==1.0.1
+Pillow==11.0.0
+matplotlib==3.9.2
+../../packages/azure_ai_projects-1.0.0b1-py3-none-any.whl
