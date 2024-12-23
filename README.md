@@ -11,11 +11,11 @@ This repository is entirely open source, guidance on how to contribute and links
 
 Use the samples in this repository to try out Azure AI scenarios on your local machine!
 
-This repository also serves as a hub for the Azure AI developer community. [Here](official-ai-resources-list.md) you can find a curated list of the official Microsoft SDKs, Samples and other guidance around Azure OpenAI and other Cognitive Services. For Python-specific list, see [here](official-ai-resources-list-python.md).
+## Supplementary Documentation
 
-## Contributing and Feature Requests
+### Other Sample Repositories
 
-We welcome contributions and suggestions!
+#### Azure AI Studio
 
 * **[Azure/aistudio-copilot-sample]** - Quickstart repo for building an enterprise chat copilot in Azure AI Studio.
 * **[Azure-Samples/contoso-chat](https://github.com/Azure-Samples/contoso-chat)** - End-to-end solution sample for a custom RAG-based retail copilot built code-first with Prompty & Azure AI Studio.
@@ -62,8 +62,10 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ### Issues
 
-If you find a bug in the source code or a mistake in the documentation, feel free to [submit a bug report][new issue page] or submit a pull request with a fix.
+If you find a bug in the source code or a mistake in the documentation, feel free to [submit bug report][new issue page]
+. Or you could submit a pull request with a fix.
 
+### Feature Requests
 
 If there's an sample that you'd like to see added, feel free to file a [Feature Request][new issue page].
 
