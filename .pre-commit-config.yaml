@@ -34,3 +34,8 @@ repos:
       entry: python
       language: system
       args: ["-m", "tox", "-qqq", "run", "-e", "black", "--"]
+    - id: detect-azure-secrets-custom
+      name: Detect Azure Secrets
+      entry: python .github/scripts/detect_azure_secrets.py
+      language: python
+      types: [file]
