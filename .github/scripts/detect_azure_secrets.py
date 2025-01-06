@@ -15,7 +15,10 @@ SECRET_PATTERNS = [
         re.IGNORECASE,
     ),
     re.compile(r'export\s+[A-Z_][A-Z0-9_]*\s*=\s*["\'][^"\']+["\']', re.IGNORECASE),
-    re.compile(r'os\.environ\["\s*[A-Za-z0-9_]*(API_KEY|ENDPOINT)[A-Za-z0-9_]*\s*"\]', re.IGNORECASE),
+    re.compile(
+        r'os\.environ\[\s*["\']\s*[A-Za-z0-9_]*(API_KEY|ENDPOINT|PROJECT_NAME|SUBSCRIPTION_ID|RESOURCE_GROUP)[A-Za-z0-9_]*\s*["\']\s*\]\s*=\s*["\'][^"\']+["\']',
+        re.IGNORECASE,
+    ),
 ]
 
 
