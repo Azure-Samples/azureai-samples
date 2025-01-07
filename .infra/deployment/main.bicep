@@ -41,8 +41,8 @@ module project 'modules/ai_project.bicep' = {
   scope: rg
 }
 
-var deployments = [
-  {
+var deployments = {
+  gpt35turbo: {
     name: 'gpt-35-turbo'
     properties: {
       model: {
@@ -52,7 +52,8 @@ var deployments = [
       }
     }
   }
-  {
+
+  text_embedding_ada_002: {
     name: 'text-embedding-ada-002'
     properties: {
       model: {
@@ -69,7 +70,7 @@ var deployments = [
       }
     }
   }
-]
+}
 
 var roleDefinitionIds = [
   'a001fd3d-188f-4b5d-821b-7da978bf7442' // Cognitive Services OpenAI Contributor
@@ -87,11 +88,11 @@ module role_assignments 'modules/role_assignment.bicep' = [for rd in roleDefinit
 }]
 
 @batchSize(1)
-module project_deployments 'modules/ai_project_deployment.bicep' = [for deployment in deployments: {
-  name: 'project_deployment-${deployment.name}'
+module project_deployments 'modules/ai_project_deployment.bicep' = [for deployment in items(deployments): {
+  name: 'project_deployment-${deployment.value.name}'
   params: {
-    name: deployment.name
-    properties: deployment.properties
+    name: deployment.value.name
+    properties: deployment.value.properties
     ai_services_name: workspace_hub.outputs.ai_services_name
   }
   scope: rg
