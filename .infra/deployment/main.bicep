@@ -42,13 +42,13 @@ module project 'modules/ai_project.bicep' = {
 }
 
 var deployments = {
-  gpt35turbo: {
-    name: 'gpt-35-turbo'
+  gpt4: {
+    name: 'gpt-4'
     properties: {
       model: {
         format: 'OpenAI'
-        name: 'gpt-35-turbo'
-        version: '1106'
+        name: 'gpt-4'
+        version: '1106-Preview'
       }
     }
   }
