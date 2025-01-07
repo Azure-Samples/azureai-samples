@@ -60,6 +60,10 @@ def pytest_collection(session: pytest.Session) -> None:
 def pytest_ignore_collect(
     collection_path: Path, config: pytest.Config
 ) -> Optional[bool]:
+    if DIFF_PATH_TRIE_KEY not in config.stash:
+        # Occures when calling `pytest --fixtures`
+        return None
+
     diff_path_trie = config.stash[DIFF_PATH_TRIE_KEY]
 
     # NOOP if diff is empty
