@@ -4,7 +4,7 @@
 
 
 class BlocklistEvaluator:
-    def __init__(self, blocklist) -> None:  # noqa: ANN101, ANN001
+    def __init__(self, blocklist) -> None:  # noqa: ANN001
         self._blocklist = blocklist
 
     def __call__(self: "BlocklistEvaluator", *, response: str):  # noqa: ANN204
