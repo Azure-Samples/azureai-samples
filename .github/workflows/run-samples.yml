@@ -24,7 +24,11 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Deploy resources
         run: |
-            az deployment sub create --location eastus --template-file .infra/deployment/main.bicep -o json
+            az deployment sub create --location eastus \
+              --template-file .infra/deployment/main.bicep \
+              --parameters principalType=ServicePrincipal \
+              --parameters principalId=${{ secrets.AZURE_CLIENT_ID }} \
+              -o json > deployment.json
       - name: Run samples
         run:
             pytest
