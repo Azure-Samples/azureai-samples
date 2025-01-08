@@ -19,3 +19,4 @@ resource project 'Microsoft.MachineLearningServices/workspaces@2023-10-01' = {
 }
 
 output name string = project.name
+output location string = project.location

@@ -104,6 +104,7 @@ output subscription_id string = subscription().subscriptionId
 output resource_group_name string = rg.name
 @description('The name of the Azure AI Project.')
 output project_name string = project.outputs.name
+output project_location string = project.outputs.location
 output azure_openai_endpoint string = workspace_hub.outputs.azure_openai_endpoint
 output azure_openai_gpt4_api_version string = '2024-08-01-preview'
 output azure_openai_gpt4_deployment_name string = deployments.gpt4.name
