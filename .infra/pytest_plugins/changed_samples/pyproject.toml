@@ -34,3 +34,9 @@ changed_samples = "pytest_changed_samples.plugin"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
