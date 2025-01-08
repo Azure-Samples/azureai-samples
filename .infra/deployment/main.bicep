@@ -2,7 +2,7 @@ targetScope = 'subscription'
 param workspaceName string = 'azureai_samples_hub'
 param projectName string = 'azureai_samples_proj'
 param resourceGroupName string = 'rg-azureai-samples-validation-${utcNow('yyyyMM')}'
-param location string = 'westus'
+param location string = 'eastus2'
 @description('The ID of the principal (user, service principal, etc...) to create role assignments for.')
 param principalId string = ''
 
