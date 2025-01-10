@@ -1,24 +1,26 @@
+from typing import Self
 import openai
 import os
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 
 class AzureOpenAITarget(object):
-    def __init__(self):
+    def __init__(self: Self) -> None:
         self._api_version = os.environ.get("AZURE_OPENAI_API_VERSION")
         self._azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
-        self._azure_deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT")
-        self._api_key = os.environ.get("AZURE_OPENAI_API_KEY")
+        self._azure_deployment = os.environ.get("OPENAI_AZURE_DEPLOYMENT")
+        self._model = os.environ.get("AZURE_OPENAI_DEPLOYMENT")
 
-    def __call__(self, *, messages, **kwargs):
+    def __call__(self: Self, *, messages: list) -> dict:
         client = openai.AzureOpenAI(
-            # azure_ad_token_provider=self.token_provider,
-            api_key=self._api_key,
             api_version=self._api_version,
             azure_endpoint=self._azure_endpoint,
-            azure_deployment=self._azure_deployment,
+            azure_ad_token_provider=get_bearer_token_provider(
+                DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+            ),
         )
         response = client.chat.completions.create(
-            model=self._azure_deployment,
+            model=self._model,
             messages=messages,
         )
         response = response.choices[0].message.content
