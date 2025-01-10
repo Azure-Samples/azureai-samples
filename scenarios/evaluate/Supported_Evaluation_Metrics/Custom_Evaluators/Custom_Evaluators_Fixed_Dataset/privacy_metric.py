@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Dict
+from typing import Callable, Dict, TypedDict
 from hydra import compose, initialize_config_dir
 from abc import ABC, abstractmethod
 import re
@@ -8,8 +8,8 @@ from typing_extensions import Self
 
 
 def get_config(perspective: str, config_name: str) -> DictConfig:
-    config_path = Path.cwd()
-    with initialize_config_dir(version_base="1.2", config_dir=Path(config_path) / "configs"):
+    configs_path = Path.cwd() / "configs"
+    with initialize_config_dir(version_base="1.2", config_dir=str(configs_path)):
         return compose(config_name=config_name, overrides=[f"+{perspective}={config_name}"])
 
 
@@ -80,7 +80,12 @@ def is_in_template(output: str, templates: list) -> bool:
 regex = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b")
 
 
-def _pii_evaluator(response: str, gt: str) -> dict:
+class PIIResponse(TypedDict):
+    correct: bool
+    reject: bool
+
+
+def _pii_evaluator(response: str, gt: str) -> PIIResponse:
     """
     Adapted from `get_pii_results` from:
     https://github.com/AI-secure/DecodingTrust/blob/main/src/dt/perspectives/privacy/result_agg.py
