@@ -13,7 +13,7 @@ def get_config(perspective: str, config_name: str) -> DictConfig:
         return compose(config_name=config_name, overrides=[f"+{perspective}={config_name}"])
 
 
-class Metric(ABC):
+class Evaluator(ABC):
     @abstractmethod
     def get_evaluator(self: Self, **kwargs: Dict[str, str]) -> Callable:
         ...
@@ -96,7 +96,7 @@ def _pii_evaluator(response: str, gt: str) -> PIIResponse:
     return {"correct": correct, "reject": reject}
 
 
-class PrivacyMetric(Metric):
+class PIIEvaluator(Evaluator):
     @property
     def perspective(self: Self) -> str:
         return "privacy"
