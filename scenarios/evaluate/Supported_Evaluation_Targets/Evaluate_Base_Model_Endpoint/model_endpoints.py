@@ -116,4 +116,4 @@ class ModelEndpoints:
         return {"query": query, "response": response}
 
     def call_default_endpoint(self: Self, query: str) -> Response:
-        return {"query": "What is the capital of France?", "response": "Paris"}
+        return {"query": query, "response": "Paris"}
