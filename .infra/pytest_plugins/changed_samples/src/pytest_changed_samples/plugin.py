@@ -10,7 +10,7 @@ DIFF_PATH_TRIE_KEY = pytest.StashKey[Trie]()
 """A Stash key to a Trie that stores paths to files present in a diff"""
 
 WORKING_TREE_CHANGES_OPTION = "--changed-samples-only"
-PR_CHANGES_OPTION = "--changed-samples-only-for-pr"
+PR_CHANGES_OPTION = "--changed-samples-only-from"
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -25,9 +25,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
     parser.addoption(
         PR_CHANGES_OPTION,
-        action="store_true",
+        action="store",
         help=(
-            "Only collect tests for samples that have changed relative to the main branch."
+            "Only collect tests for samples that have changed relative to the specified git ref."
             + " A sample has 'changed' if any file in its parent directory has been modified."
         ),
     )
@@ -36,7 +36,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 def pytest_configure(config: pytest.Config) -> None:
     # Validate that mutually exclusive options haven't been provided
     mutually_exclusive_options = (WORKING_TREE_CHANGES_OPTION, PR_CHANGES_OPTION)
-    if sum(config.getoption(opt_var(o)) for o in mutually_exclusive_options) > 1:
+    if sum(bool(config.getoption(opt_var(o))) for o in mutually_exclusive_options) > 1:
         raise pytest.UsageError(f"{' and '.join(mutually_exclusive_options)} are mutually exclusive")
 
 

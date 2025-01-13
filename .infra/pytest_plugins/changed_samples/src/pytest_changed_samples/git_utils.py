@@ -38,10 +38,10 @@ def get_all_modified_paths() -> Iterable[Path]:
     return get_diff_paths("HEAD", None)
 
 
-def get_branch_diff_paths() -> Iterable[Path]:
+def get_branch_diff_paths(ref: str = "main") -> Iterable[Path]:
     """Get a list of all paths changed between HEAD and the main branch
 
     :returns: List of changed paths
     :rtype: Iterable[Path]
     """
-    return get_diff_paths("HEAD", "main")
+    return get_diff_paths("HEAD", ref)
