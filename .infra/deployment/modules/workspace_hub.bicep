@@ -85,6 +85,7 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2021-10-01' = {
   }
   kind: endpointKind
   properties: {
+    publicNetworkAccess: 'Enabled'
     customSubDomainName: toLower(aiServicesName)
     apiProperties: {}
   }
