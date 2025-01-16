@@ -15,7 +15,7 @@ class ModelEndpoints:
 
     @trace
     def __call__(self: Self, query: str) -> Response:
-        if self.model_type == "gpt4-0821":
+        if self.model_type == "gpt4-0613":
             output = self.call_gpt4_endpoint(query)
         elif self.model_type == "gpt35-turbo":
             output = self.call_gpt35_turbo_endpoint(query)
@@ -37,8 +37,8 @@ class ModelEndpoints:
         return response.json()
 
     def call_gpt4_endpoint(self: Self, query: str) -> Response:
-        endpoint = self.env["gpt4-0821"]["endpoint"]
-        key = self.env["gpt4-0821"]["key"]
+        endpoint = self.env["gpt4-0613"]["endpoint"]
+        key = self.env["gpt4-0613"]["key"]
 
         headers = {"Content-Type": "application/json", "api-key": key}
 
@@ -115,5 +115,5 @@ class ModelEndpoints:
         response = output["choices"][0]["message"]["content"]
         return {"query": query, "response": response}
 
-    def call_default_endpoint(query: str) -> Response:
-        return {"query": "What is the capital of France?", "response": "Paris"}
+    def call_default_endpoint(self: Self, query: str) -> Response:
+        return {"query": query, "response": "Paris"}
