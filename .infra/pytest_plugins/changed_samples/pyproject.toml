@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-changed-samples"
+version = "0.1.0"
+authors = []
+readme = "README.md"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Testing",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+]
+description = "A Pytest plugin to add the option to only run changed samples"
+requires-python = ">=3.8"
+dependencies = ["gitpython~=3.0", "pytest>=7.0.0"]
+
+
+[project.entry-points.pytest11]
+changed_samples = "pytest_changed_samples.plugin"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120

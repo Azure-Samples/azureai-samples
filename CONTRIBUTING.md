@@ -73,6 +73,21 @@ pre-commit install
 `pre-commit` will run automatically when you commit changes, but you can also manually run it using 
 `pre-commit run --all-files`.
 
+Note: 
+
+pre-commit will check for any exposed secrets in your code. If you'd like to leave a placeholder for a secret, use this syntax to avoid being flagged by pre-commit:
+
+```python
+import os
+
+os.environ["AZURE_SUBSCRIPTION_ID"] = ""
+os.environ["AZURE_RESOURCE_GROUP"] = ""
+os.environ["AZURE_PROJECT_NAME"] = ""
+os.environ["AZURE_OPENAI_ENDPOINT"] = ""
+...
+```
+
+
 #### Write your contribution
 
 If you are writing/updating a sample, please follow this guidance on how the samples should be structured.
@@ -136,6 +151,6 @@ Edit the product, description, and languages as needed.
 
 The Code Samples browser content is updated twice a week, so it may take a few days for your changes to be reflected.
 
-[readme template]: ./scenarios/README-template.md
-[jupyter notebook template]: ./scenarios/template.ipynb
+[readme template]: ./.infra/templates/README-template.md
+[jupyter notebook template]: ./.infra/templates/template.ipynb
 
