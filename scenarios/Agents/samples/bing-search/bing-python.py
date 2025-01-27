@@ -35,11 +35,11 @@ from azure.ai.projects.models import BingGroundingTool
 
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(),
-    conn_str='eastus.api.azureml.ms;921496dc-987f-410f-bd57-426eb2611356;rg-test16;project-demo-iopw',
+    conn_str=os.environ["PROJECT_CONNECTION_STRING"],
 )
 
 bing_connection = project_client.connections.get(
-    connection_name='hub-demo-iopw-connection-Bing'
+    connection_name=os.environ["CONNECTION_NAME"]
 )
 conn_id = bing_connection.id
 
