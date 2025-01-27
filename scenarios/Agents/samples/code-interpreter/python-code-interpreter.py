@@ -39,7 +39,8 @@ with project_client:
 
     # upload a file and wait for it to be processed
     file = project_client.agents.upload_file_and_poll(
-        file_path="../../data/nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
+        file_path=os.environ["FILE_PATH"], purpose=FilePurpose.AGENTS
+        #File path = "../../data/nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
     )
     print(f"Uploaded file, file ID: {file.id}")
 
