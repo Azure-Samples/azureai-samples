@@ -2,6 +2,14 @@ targetScope = 'subscription'
 param workspaceName string = 'azureai_samples_hub'
 param projectName string = 'azureai_samples_proj'
 param resourceGroupName string = 'rg-azureai-samples-validation-${utcNow('yyyyMM')}'
+
+@description('The first day of the next month at deployment time in yyyy-MM-DD format.')
+param __firstOfNextMonth string = '${dateTimeAdd('${utcNow('yyyy-MM')}-01 00:00:00Z', 'P31D', 'yyyy-MM')}-01'
+
+param resourceGroupTags object = {
+  SkipAutoDeleteTill: __firstOfNextMonth
+}
+
 param location string = 'eastus2'
 @description('The ID of the principal (user, service principal, etc...) to create role assignments for.')
 param principalId string = ''
@@ -16,6 +24,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   #disable-next-line use-stable-resource-identifiers
   name: resourceGroupName
   location: location
+  tags: resourceGroupTags
 }
 
 module acs 'modules/acs.bicep' = { name: 'acs', params: { name: acsName, location: location }, scope: rg }
