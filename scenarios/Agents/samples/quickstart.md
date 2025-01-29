@@ -174,7 +174,7 @@ Resources for the hub, project, storage account, and AI Services will be created
         az deployment group create --resource-group {my_resource_group} --template-file standard-agent.bicep --parameters @standard-agent.parameters.json
     ```
 
-    Resources for the hub, project, storage account, key vault, AI Services, and Azure AI Search will be created for you. The AI Services, AI Search, and Azure Blob Storage account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. To deploy a Llama model see [here](https://github.com/Azure/azure-ai-agents/blob/main/samples/llama-3.md).
+    Resources for the hub, project, storage account, key vault, AI Services, and Azure AI Search will be created for you. The AI Services, AI Search, and Azure Blob Storage account will be connected to your project/hub and a gpt-4o-mini model will be deployed in the eastus region. To deploy a Llama model see [here](https://github.com/Vasanthik07/azureai-samples/blob/bing-search-module_forked/scenarios/Agents/samples/llama-3.md).
 
 
 </details>
