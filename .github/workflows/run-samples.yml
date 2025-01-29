@@ -83,4 +83,4 @@ jobs:
               -o json > deployment.json
       - name: Run samples
         run:
-            pytest --changed-samples-only-from ${{ github.base_ref }}
+            pytest --changed-samples-only-from ${{ github.event.pull_request.base.sha }}
