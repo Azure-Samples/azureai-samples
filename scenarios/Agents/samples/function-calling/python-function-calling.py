@@ -1,14 +1,15 @@
-import os, time
+import os
+import time
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import FunctionTool, SubmitToolOutputsAction, RequiredFunctionToolCall
-from user_functions import user_functions # found in the user_functions.py file in this directory.
+from user_functions import user_functions  # found in the user_functions.py file in this directory.
 
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
-
+#
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )

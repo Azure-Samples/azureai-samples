@@ -3,6 +3,7 @@ import datetime
 from typing import Any, Callable, Set, Dict, List, Optional
 
 # These are the user-defined functions that can be called by the agent.
+#
 
 
 def fetch_current_datetime(format: Optional[str] = None) -> str:

@@ -1,7 +1,6 @@
 import os
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import (
-    Agent,
     MessageDeltaChunk,
     MessageDeltaTextContent,
     RunStep,
@@ -9,12 +8,10 @@ from azure.ai.projects.models import (
     ThreadRun,
 )
 from azure.ai.projects.models import AgentEventHandler
-from azure.ai.projects.operations import AgentsOperations
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import FunctionTool, ToolSet
 
 
-import os
 from typing import Any
 
 from user_functions import user_functions
@@ -23,7 +20,7 @@ from user_functions import user_functions
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
-
+#
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )
@@ -32,7 +29,6 @@ project_client = AIProjectClient.from_connection_string(
 # When using FunctionTool with ToolSet in agent creation, the tool call events are handled inside the create_stream
 # method and functions gets automatically called by default.
 class MyEventHandler(AgentEventHandler):
-
     def on_message_delta(self, delta: "MessageDeltaChunk") -> None:
         for content_part in delta.delta.content:
             if isinstance(content_part, MessageDeltaTextContent):
