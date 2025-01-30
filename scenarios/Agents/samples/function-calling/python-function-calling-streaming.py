@@ -10,12 +10,8 @@ from azure.ai.projects.models import (
 from azure.ai.projects.models import AgentEventHandler
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects.models import FunctionTool, ToolSet
-
-
-from typing import Any
-
 from user_functions import user_functions
-
+from typing import Dict, Union
 
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
@@ -53,7 +49,7 @@ class MyEventHandler(AgentEventHandler):
     def on_done(self) -> None:
         print("Stream completed.")
 
-    def on_unhandled_event(self, event_type: str, event_data: Any) -> None:
+    def on_unhandled_event(self, event_type: str, event_data: Union[str, Dict[str, any]]) -> None:
         print(f"Unhandled Event Type: {event_type}, Data: {event_data}")
 
 
