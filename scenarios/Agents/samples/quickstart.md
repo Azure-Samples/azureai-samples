@@ -222,7 +222,7 @@ For example, your connection string may look something like:
 Set this connection string as an environment variable named `PROJECT_CONNECTION_STRING`.
 
 > [!TIP]
-> Want to use the OpenAI SDK? You can find [examples of using the Azure AI Agent service with the OpenAI SDK](./samples/use-openai.md) in the samples folder of this repo.
+> Want to use the OpenAI SDK? You can find [examples of using the Azure AI Agent service with the OpenAI SDK](./use-openai.md) in the samples folder of this repo.
 
 ```python
 import os
