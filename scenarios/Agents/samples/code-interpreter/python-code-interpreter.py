@@ -31,16 +31,17 @@ from pathlib import Path
 # Create an Azure AI Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
+#
 project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )
 
 with project_client:
-
     # upload a file and wait for it to be processed
     file = project_client.agents.upload_file_and_poll(
-        file_path=os.environ["FILE_PATH"], purpose=FilePurpose.AGENTS
-        #File path = "../../data/nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
+        file_path=os.environ["FILE_PATH"],
+        purpose=FilePurpose.AGENTS
+        # File path = "../../data/nifty_500_quarterly_results.csv", purpose=FilePurpose.AGENTS
     )
     print(f"Uploaded file, file ID: {file.id}")
 
@@ -96,10 +97,10 @@ with project_client:
         file_name = f"{image_content.image_file.file_id}_image_file.png"
         project_client.agents.save_file(file_id=image_content.image_file.file_id, file_name=file_name)
         print(f"Saved image file to: {Path.cwd() / file_name}")
-    
+
     # iterates through file_path_annotations in messages and prints details for each annotation
     for file_path_annotation in messages.file_path_annotations:
-        print(f"File Paths:")
+        print("File Paths:")
         print(f"Type: {file_path_annotation.type}")
         print(f"Text: {file_path_annotation.text}")
         print(f"File ID: {file_path_annotation.file_path.file_id}")
