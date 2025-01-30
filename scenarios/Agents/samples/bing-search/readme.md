@@ -16,7 +16,7 @@ Grounding with Bing Search is a free service during private preview and your usa
 > 2. Please make sure your resource is created in `EastUS`.
 > 3. We recommend using the following models: `gpt-3.5-turbo-0125`, `gpt-4-0125-preview`, `gpt-4-turbo-preview`, `gpt-4-turbo`, `gpt-4-turbo-2024-04-09`, `gpt-4o`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`
 
-1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../../quickstart.md).
+1. Ensure you've completed the prerequisites and setup steps in the [quickstart](../quickstart.md).
 
 1. Ensure you have loged in to Azure, using `az login`
 
@@ -64,7 +64,7 @@ Grounding with Bing Search is a free service during private preview and your usa
 Run the code samples below and view the output. 
 
 >[!NOTE]
-> Be sure that you've [installed the SDK](../../quickstart.md#install-the-sdk-package) for your language.
+> Be sure that you've [installed the SDK](../quickstart.md#install-the-sdk-package) for your language.
 
 * [Python](./bing-python.py)
 * [C#](./BingSearch.cs)
