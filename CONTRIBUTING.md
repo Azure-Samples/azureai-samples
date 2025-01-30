@@ -64,14 +64,17 @@ python -m pip install -r dev-requirements.txt
 [pre-commit](https://pre-commit.com/) is a tool that enables us to run code when committing to a local repository. We
 use this to automate running code formatters, linters, etc...
 
-To install pre-commit in the repository, run the following from the root of the repository:
+To enable `pre-commit`, run the following from the root of the repository:
 
 ```shell
 pre-commit install
 ```
 
-`pre-commit` will run automatically when you commit changes, but you can also manually run it using 
-`pre-commit run --all-files`.
+`pre-commit` will now automatically run a series of code quality checks when you commit changes, which
+will accelerate the identification of issues that will be flagged when the PR is submitted.
+
+If needed, you can manually run `pre-commit` against all files  with `pre-commit run --all-files`. See
+[the documentation for `pre-commit run`](https://pre-commit.com/#pre-commit-run) for more information.
 
 Note: 
 
