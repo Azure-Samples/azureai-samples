@@ -70,8 +70,8 @@ from openai import AzureOpenAI
 # Load the environment variables - These are secrets.
 load_dotenv()
 
-api_URI = os.getenv("OPENAI_URI")
-api_KEY = os.getenv("OPENAI_KEY")
+api_endpoint = os.getenv("OPENAI_URI")
+api_key = os.getenv("OPENAI_KEY")
 api_version = os.getenv("OPENAI_VERSION")
 deployment_name = os.getenv("OPENAI_DEPLOYMENT_NAME")
 
