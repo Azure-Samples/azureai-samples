@@ -11,7 +11,7 @@ To use function calling, you need a function defined that can be called by the A
 Run the code samples below and view the output. 
 
 >[!NOTE]
-> Be sure that you've [installed the SDK](../quickstart.md#install-the-sdk-package) for your language.
+> Be sure that you've [installed the SDK](../README.md#install-the-sdk-package) for your language.
 
 * [Python - function calling](./python-function-calling.py)
 * [Python - function calling with automatic tool calling](./python-function-calling-toolset.py)
