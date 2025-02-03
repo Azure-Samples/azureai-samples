@@ -1,0 +1,3 @@
+
+{"conversation" : {"messages": [{"content": "What is the meaning of life?", "role" :"user"}, {"content": "42.", "role" :"assistant"}]}}
+{"conversation" : {"messages": [{"content": "What atoms compose water?", "role" :"user"}, {"content": "Hydrogen and oxygen", "role" :"assistant"}, {"content": "What color is my shirt?", "role" :"user"}, {"content": "How would I know? I don't have eyes.", "role" :"assistant"}]}}
