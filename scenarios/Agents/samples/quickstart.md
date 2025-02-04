@@ -1,12 +1,4 @@
 # AI Agents Quick Start
----
-page_type: sample
-languages:
-  - python
-products:
-  - azure
-  - microsoft-365
----
 
 This QuickStart demonstrates how to quickly set up your first agent with Azure AI Agent Service.
 
@@ -16,9 +8,7 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 2. Make sure all developers have the role: **Azure AI Developer** assigned at the appropriate level. [Learn more](https://learn.microsoft.com/azure/ai-studio/concepts/rbac-ai-studio)
 
-
    If you're using a hub/project that already exists, check the [RBAC roles](./rbac.md).
-
 
 3. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
