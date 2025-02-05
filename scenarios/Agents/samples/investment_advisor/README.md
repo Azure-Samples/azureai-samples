@@ -1,6 +1,15 @@
 
 ## Personal Financial Assistant
+---
+page_type: sample
 
+languages: 
+  - Python
+
+products: 
+  - ai-services
+  - azure-openai
+---
 ### Overview
 
 Function Calling with Yfinance to get latest stock prices. Summarization of user provided article. Extract country info from article, extract country, capital and other aspects, and call an API to get more information about each country.
