@@ -1,13 +1,17 @@
 # Function Calling 
 ---
 page_type: sample
-languages:
-- Python
-products:
-- ai-services
-- azure-openai
+
+languages: 
+  - Python
+
+products: 
+  - ai-services
+  - azure-openai
+
 description: Azure AI Agents Service supports function calling, which allows you to describe the structure of functions to an Agent and then return the functions that need to be called along with their arguments.
 ---
+
 
 
 
