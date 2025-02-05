@@ -1,5 +1,16 @@
 # Code interpreter 
+---
+page_type: sample
 
+languages:
+- Python
+
+products:
+- ai-services
+- azure-openai
+
+description:
+---
 Code Interpreter allows the Agent to write and run Python code in a sandboxed execution environment. With Code Interpreter enabled, your Agent can run code iteratively to solve more challenging code, math, and data analysis problems.
 
 
