@@ -1,12 +1,4 @@
 # AI Agents Quick Start
----
-page_type: sample
-languages:
-  - python
-products:
-  - azure
-  - microsoft-365
----
 
 This QuickStart demonstrates how to quickly set up your first agent with Azure AI Agent Service.
 
