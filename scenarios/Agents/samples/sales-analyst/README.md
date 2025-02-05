@@ -1,6 +1,15 @@
 
 ## Sales Anaylst Agent
+---
+page_type: sample
 
+languages: 
+  - Python
+
+products: 
+  - ai-services
+  - azure-openai
+---
 ### Overview
 This scenario demonstrates the use of Azure OpenAI to analyze sales data for AdventureWorks. The AI agent performs key tasks, including retrieving files, conducting sales calculations, and generating actionable insights. By leveraging tools like File Search, this example highlights how businesses can streamline analytical workflows and improve decision-making using Azure OpenAI Agents.
 
