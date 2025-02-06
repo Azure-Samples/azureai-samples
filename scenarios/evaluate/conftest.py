@@ -3,7 +3,7 @@ from typing import Any, Dict
 import pytest
 
 
-@pytest.fixture()
+@pytest.fixture
 def papermill_parameters(
     azure_ai_project: Dict[str, str],
     azure_ai_project_connection_string: str,
