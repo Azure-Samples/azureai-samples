@@ -84,8 +84,8 @@ def get_diff_paths_function(config: pytest.Config) -> Callable[[], Iterable[Path
     """
     if config.getoption(opt_var(WORKING_TREE_CHANGES_OPTION)):
         return get_all_modified_paths
-    if config.getoption(opt_var(PR_CHANGES_OPTION)):
-        return get_branch_diff_paths
+    if ref := config.getoption(opt_var(PR_CHANGES_OPTION)):
+        return lambda: get_branch_diff_paths(ref)
 
     return lambda: ()
 
