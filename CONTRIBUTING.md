@@ -118,8 +118,6 @@ Note that samples are organized by scenario, find the one best-suited for your s
     git push -f
     ```
 
-That's it! Thank you for your contribution!
-
 > [!IMPORTANT]
 >
 > You should expect to budget time to engage with reviewers (responding to comments, fixing PR checks) before your PR is merged in. This is especially
