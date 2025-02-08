@@ -1,0 +1,87 @@
+name: Run Samples
+on:
+  # By design pull_request_target event run against the version of the workflow in the target branch.
+  # So you have to merge changes to this workflow to observe the effects.
+  pull_request_target:
+    branches:
+      - main
+    paths:
+      - scenarios/**
+      - .infra/deployments/**/*.bicep
+jobs:
+  check-if-external:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-environment.outputs.result }}
+    steps:
+      - uses: actions/github-script@v7
+        id: set-environment
+        with:
+          script: |
+            const actionInitiator = context.payload.sender.login;
+            const org = "Azure-Samples";
+            let isPublicMember = true;
+
+            // Check if initiator is a public member of the org
+            try {
+              await github.rest.orgs.checkPublicMembershipForUser({
+                org,
+                username: actionInitiator
+              });
+            } catch (error) {
+              if (error.status != 404) {
+                throw new Error("Unknown error", {cause: error});
+              }
+
+              console.debug([
+                `User is not a public member of the organization "${org}"`,
+                "",
+                `If you are a Microsoft employee, you can join the "${org}" org and set your org membership visibility to public: https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership#changing-the-visibility-of-your-organization-membership`
+              ].join("\n"));
+
+              isPublicMember = false;
+            }
+
+
+            const isPullRequestEvent = ["pull_request", "pull_request_target"].includes(context.eventName);
+
+            if (!(isPublicMember && isPullRequestEvent)) {
+              return "external-contribution";
+            }
+            return "";
+          result-encoding: string
+  run-samples:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    needs: check-if-external
+    runs-on: ubuntu-latest
+    # Require manual approval if initiator is not a public member of Azure-Samples
+    environment: ${{ needs.check-if-external.outputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+            python-version: "3.9"
+      - name: Install dev dependencies
+        run: |
+            pip install -r dev-requirements.txt
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy resources
+        run: |
+            principalId="$(az ad sp show --id ${{ secrets.AZURE_CLIENT_ID }} -o tsv --query id)"
+            az deployment sub create --location eastus \
+              --template-file .infra/deployment/main.bicep \
+              --parameters principalType=ServicePrincipal \
+              --parameters principalId="$principalId" \
+              -o json > deployment.json
+      - name: Run Changed Samples
+        run:
+            pytest --changed-samples-only-from ${{ github.event.pull_request.base.sha }}

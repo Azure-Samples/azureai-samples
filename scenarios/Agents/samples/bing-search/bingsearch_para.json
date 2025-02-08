@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": "BING_RESOURCE_NAME"},
+        "sku": {
+        "value": "G1"
+        },
+        "location": {
+            "value": "GLOBAL"
+        },
+        "resourceTags": {
+            "value": {
+                "Name1": "Value1",
+                "Name2": "Value2",
+                "Name3": "Value3"
+            }
+        }
+    }
+}

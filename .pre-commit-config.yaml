@@ -10,11 +10,12 @@ repos:
     - id: nb-clean
       name: nb-clean
       description: "Clean Jupyter notebooks of outputs, metadata, and empty cells, with Git integration"
-      entry: tox -qqq run -e nb-clean  -- clean
+      entry: python
       require_serial: true
-      language: python
+      language: system
       types_or: [jupyter]
       minimum_pre_commit_version: 2.9.2
+      args: ["-m", "tox", "-qqq", "run", "-e", "nb-clean", "--", "clean", "--preserve-cell-metadata", "tags", "--"]
     - id: ruff
       name: ruff
       description: "Run 'ruff' for extremely fast Python linting"
