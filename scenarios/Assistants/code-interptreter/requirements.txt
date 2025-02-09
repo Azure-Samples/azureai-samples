@@ -1,0 +1,6 @@
+openai
+python-dotenv
+streamlit
+azure-storage-blob
+pandas
+numpy
