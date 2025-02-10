@@ -126,6 +126,29 @@ Note that samples are organized by scenario, find the one best-suited for your s
 > Adhering to the guidance in this document (i.e [using pre-commit](#3-set-up-pre-commit), [using provided templates](#write-your-contribution)) ***will***
 > help expedite the review process.
 
+#### Resolve Failing Pull Request Checks
+
+##### pre-commit
+
+###### black
+
+[black](https://github.com/psf/black) is a code formatter for Python and Jupyter notebooks.
+
+**How to Fix**: If the `pre-commit` check is failing on your PR because of `black`, just run `pre-commit run black --all-files` and commit the changes.
+
+###### nb-clean
+
+[nb-clean](https://github.com/srstevenson/nb-clean) that removes metadata from Jupyter Notebooks to make them more ammenable to version control.
+
+**How to Fix**: If the `nb-clean` check is failing on your PR because of `nb-clean`, just run `pre-commit run nb-clean --all-files` and commit the changes.
+
+###### ruff
+
+[ruff](https://github.com/astral-sh/ruff) is a linter for Python and Jupyter Notebooks.
+
+**How to Fix**: If the `pre-commit` step is failing on your PR because of `ruff`:
+  * ruff makes an attempt to automatically fix issues it detects. You can run `pre-commit run ruff --all-files` and commit any changes.
+  * Issues that ruff can't fix should be manually updated and committed. See ruff's [rule list](https://docs.astral.sh/ruff/rules/) for more info on issues it reports.
 
 ### Discoverability
 
