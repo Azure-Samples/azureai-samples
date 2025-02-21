@@ -129,7 +129,7 @@ jobs:
             pwd
 
             # Get all modified Bicep files in the last 100 commits
-            BICEP_FILES=$(git log --pretty="" --name-only -n 100 origin/master... | fgrep -v ".github" | grep "\.bicep$")
+            BICEP_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github" | grep "\.bicep$")
 
             if [ -z "$BICEP_FILES" ]; then
             echo "No Bicep files found."
