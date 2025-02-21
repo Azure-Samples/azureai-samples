@@ -128,8 +128,8 @@ jobs:
             cd $GITHUB_WORKSPACE
             pwd
 
-            # Find all setup folders
-            SETUP_FOLDERS=$(find . -type d -name "setup")
+            # Find all setup folders under scenarios/Agents/
+            SETUP_FOLDERS=$(find ./scenarios/Agents/ -type d -name "setup")
 
             if [ -z "$SETUP_FOLDERS" ]; then
             echo "No setup folders found."
@@ -141,38 +141,30 @@ jobs:
             for SETUP_FOLDER in $SETUP_FOLDERS; do
             echo "Checking folder: $SETUP_FOLDER"
 
-            TESTFOLDER_PATH=$SETUP_FOLDER
-            FOUNDFOLDER_PATH=
+            # Find all .bicep files inside the setup folder
+            BICEP_FILES=$(find "$SETUP_FOLDER" -type f -name "*.bicep")
 
-            while [ "$TESTFOLDER_PATH" != "." ]; do
-                echo "Looking for main template in $TESTFOLDER_PATH"
-
-                MAINBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
-                AZDEPLOYJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
-
-                if [ -f "$MAINBICEP_PATH" ] || [ -f "$AZDEPLOYJSON_PATH" ]; then
-                FOUNDFOLDER_PATH=$TESTFOLDER_PATH
-                echo "Found main template in $FOUNDFOLDER_PATH"
-
-                echo "SAMPLEFOLDER_PATH=$FOUNDFOLDER_PATH" >> $GITHUB_ENV
-                echo "MAINBICEP_PATH=$MAINBICEP_PATH" >> $GITHUB_ENV
-                echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
-
-                break
-                fi
-
-                TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
-            done
-
-            if [ -z "$FOUNDFOLDER_PATH" ]; then
-                echo "Could not find main.bicep or azuredeploy.json in folder or parents of $SETUP_FOLDER" 1>&2
-                exit 1
+            if [ -z "$BICEP_FILES" ]; then
+                echo "No Bicep files found in $SETUP_FOLDER"
+                continue
             fi
+
+                for BICEP_FILE in $BICEP_FILES; do
+                    echo "Found Bicep file: $BICEP_FILE"
+
+                    BICEP_FILENAME=$(basename "$BICEP_FILE")
+                    BICEP_PATH=$(dirname "$BICEP_FILE")
+                    AZDEPLOYJSON_PATH="$BICEP_PATH/${BICEP_FILENAME%.bicep}.json"
+
+                    echo "Processing $BICEP_FILE -> $AZDEPLOYJSON_PATH"
+
+                    # Store paths for later steps
+                    echo "SAMPLEFOLDER_PATH=$BICEP_PATH" >> $GITHUB_ENV
+                    echo "MAINBICEP_PATH=$BICEP_FILE" >> $GITHUB_ENV
+                    echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
+                done
             done
 
-            echo "SAMPLEFOLDER_PATH=$FOUNDFOLDER_PATH" >> $GITHUB_ENV
-            echo "MAINBICEP_PATH=$MAINBICEP_PATH" >> $GITHUB_ENV
-            echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
 
       - name: Build main.bicep -> azuredeploy.json
         run: |
