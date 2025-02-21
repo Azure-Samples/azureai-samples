@@ -161,18 +161,18 @@ jobs:
                     echo "Looking in: $TESTFOLDER_PATH"
                     ls -l "$TESTFOLDER_PATH"
                     if [ -z "$FOUNDBICEP_PATH" ] && [ -f "$TESTFOLDER_PATH/main.bicep" ]; then
-                    FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
-                    echo "Found main.bicep: $FOUNDBICEP_PATH"
+                        FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
+                        echo "Found main.bicep: $FOUNDBICEP_PATH"
                     fi
 
                     if [ -z "$FOUNDJSON_PATH" ] && [ -f "$TESTFOLDER_PATH/azuredeploy.json" ]; then
-                    FOUNDJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
-                    echo "Found azuredeploy.json: $FOUNDJSON_PATH"
+                        FOUNDJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
+                        echo "Found azuredeploy.json: $FOUNDJSON_PATH"
                     fi
 
                     # If both files are found, stop searching
                     if [ -n "$FOUNDBICEP_PATH" ] && [ -n "$FOUNDJSON_PATH" ]; then
-                    break
+                        break
                     fi
 
                     TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
@@ -199,8 +199,8 @@ jobs:
 
             # Ensure the number of Bicep files and JSON paths match
             if [ ${#MAINBICEP_PATHS_ARRAY[@]} -ne ${#AZDEPLOYJSON_PATHS_ARRAY[@]} ]; then
-            echo "Error: Mismatch in number of Bicep files and output JSON paths."
-            exit 1
+                echo "Error: Mismatch in number of Bicep files and output JSON paths."
+                exit 1
             fi
             for i in "${!MAINBICEP_PATHS_ARRAY[@]}"; do
                 MAINBICEP_FILE="${MAINBICEP_PATHS_ARRAY[$i]}"
