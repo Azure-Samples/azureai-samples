@@ -184,9 +184,9 @@ jobs:
             fi
             done
 
-    # Store paths as space-separated strings in GitHub environment variables
-    echo "MAINBICEP_PATHS=${MAINBICEP_PATHS[*]}" >> $GITHUB_ENV
-    echo "AZDEPLOYJSON_PATHS=${AZDEPLOYJSON_PATHS[*]}" >> $GITHUB_ENV
+            # Store paths as space-separated strings in GitHub environment variables
+            echo "MAINBICEP_PATHS=${MAINBICEP_PATHS[*]}" >> $GITHUB_ENV
+            echo "AZDEPLOYJSON_PATHS=${AZDEPLOYJSON_PATHS[*]}" >> $GITHUB_ENV
 
       - name: Build Bicep files
         run: |
