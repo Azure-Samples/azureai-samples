@@ -217,7 +217,7 @@ jobs:
           git config --global user.email "azureai-samples@noreply.github.com"
           git config --global user.name "azureai-sample Automation"
 
-          git add $SAMPLEFOLDER_PATH
+          git add .
 
           if ! git diff-index --quiet HEAD --; then
             git commit -m "Automatic fixes"
