@@ -68,7 +68,8 @@ jobs:
       contents: write # for git push
     name: Run Setup
     runs-on: ubuntu-latest
-
+    needs: check-if-external
+    environment: ${{ needs.check-if-external.outputs.environment }}
     env:
       # don't print dotnet logo
       DOTNET_NOLOGO: true
@@ -149,41 +150,41 @@ jobs:
             AZDEPLOYJSON_PATHS=()
 
             for FILE in "${MODIFIED_FILES_ARRAY[@]}"; do
-            echo "Processing: $FILE"
+                echo "Processing: $FILE"
 
-            TESTFOLDER_PATH=$(dirname "$FILE")
-            FOUNDBICEP_PATH=""
-            FOUNDJSON_PATH=""
+                TESTFOLDER_PATH=$(dirname "$FILE")
+                FOUNDBICEP_PATH=""
+                FOUNDJSON_PATH=""
 
-            # Traverse up the directory structure to find main.bicep and azuredeploy.json
-            while [ "$TESTFOLDER_PATH" != "." ]; do
-                echo "Looking in: $TESTFOLDER_PATH"
+                # Traverse up the directory structure to find main.bicep and azuredeploy.json
+                while [ "$TESTFOLDER_PATH" != "." ]; do
+                    echo "Looking in: $TESTFOLDER_PATH"
 
-                if [ -z "$FOUNDBICEP_PATH" ] && [ -f "$TESTFOLDER_PATH/main.bicep" ]; then
-                FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
-                echo "Found main.bicep: $FOUNDBICEP_PATH"
+                    if [ -z "$FOUNDBICEP_PATH" ] && [ -f "$TESTFOLDER_PATH/main.bicep" ]; then
+                    FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
+                    echo "Found main.bicep: $FOUNDBICEP_PATH"
+                    fi
+
+                    if [ -z "$FOUNDJSON_PATH" ] && [ -f "$TESTFOLDER_PATH/azuredeploy.json" ]; then
+                    FOUNDJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
+                    echo "Found azuredeploy.json: $FOUNDJSON_PATH"
+                    fi
+
+                    # If both files are found, stop searching
+                    if [ -n "$FOUNDBICEP_PATH" ] && [ -n "$FOUNDJSON_PATH" ]; then
+                    break
+                    fi
+
+                    TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
+                done
+
+                if [ -n "$FOUNDBICEP_PATH" ]; then
+                    MAINBICEP_PATHS+=("$FOUNDBICEP_PATH")
                 fi
 
-                if [ -z "$FOUNDJSON_PATH" ] && [ -f "$TESTFOLDER_PATH/azuredeploy.json" ]; then
-                FOUNDJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
-                echo "Found azuredeploy.json: $FOUNDJSON_PATH"
+                if [ -n "$FOUNDJSON_PATH" ]; then
+                    AZDEPLOYJSON_PATHS+=("$FOUNDJSON_PATH")
                 fi
-
-                # If both files are found, stop searching
-                if [ -n "$FOUNDBICEP_PATH" ] && [ -n "$FOUNDJSON_PATH" ]; then
-                break
-                fi
-
-                TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
-            done
-
-            if [ -n "$FOUNDBICEP_PATH" ]; then
-                MAINBICEP_PATHS+=("$FOUNDBICEP_PATH")
-            fi
-
-            if [ -n "$FOUNDJSON_PATH" ]; then
-                AZDEPLOYJSON_PATHS+=("$FOUNDJSON_PATH")
-            fi
             done
 
             # Store paths as space-separated strings in GitHub environment variables
