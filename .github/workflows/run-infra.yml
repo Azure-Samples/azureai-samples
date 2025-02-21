@@ -1,4 +1,4 @@
-name: Auto Fix Sample
+name: Run Setup
 # This action can be run on-demand against a branch.
 # It attempts to auto-fix some errors in the most recently updated sample in the branch:
 #    Builds main.bicep -> azuredeploy.json
@@ -64,7 +64,7 @@ jobs:
   main:
     permissions:
       contents: write # for git push
-    name: Auto Fix Sample
+    name: Run Setup
     runs-on: ubuntu-latest
 
     env:
@@ -77,18 +77,6 @@ jobs:
     steps:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1.8.0
-
-      - name: Install TTK
-        run: |
-          TTK_FOLDER="$RUNNER_TEMP/arm-ttk"
-          TTK_URI="https://aka.ms/arm-ttk-latest"
-
-          curl -sLo arm-ttk.zip $TTK_URI
-          unzip -q arm-ttk.zip -d $TTK_FOLDER
-          rm arm-ttk.zip
-          ls -al $TTK_FOLDER
-
-          echo "TTK_FOLDER=$TTK_FOLDER" >> $GITHUB_ENV
 
       - name: Install Bicep
         run: |
@@ -133,44 +121,58 @@ jobs:
         with:
           fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
-      - name: Find sample folder
+      - name: Find setup folder
         run: |
-          git status
-          # Get path of last file checked in
-          pwd
-          cd $GITHUB_WORKSPACE
-          pwd
-          LAST_PATH=$( git log --pretty="" --name-only -n 100 origin/main... -- | fgrep -v ".github" | head -1 )
-          echo Last file modified: $LAST_PATH
+            git status
+            pwd
+            cd $GITHUB_WORKSPACE
+            pwd
 
-          # Look for the main template file in this file's path or parents
-          SAMPLEFOLDER_PATH=$( dirname "$LAST_PATH" )
-          echo Last folder modified: $SAMPLEFOLDER_PATH
+            # Find all setup folders
+            SETUP_FOLDERS=$(find . -type d -name "setup")
 
-          TESTFOLDER_PATH=$SAMPLEFOLDER_PATH
-          FOUNDFOLDER_PATH=
-          while [ "$TESTFOLDER_PATH" != "." ]
-          do
-            echo "Looking for main template in $TESTFOLDER_PATH"
-            MAINBICEP_PATH=$TESTFOLDER_PATH/main.bicep
-            AZDEPLOYJSON_PATH=$TESTFOLDER_PATH/azuredeploy.json
-            if [ -f "$MAINBICEP_PATH" ] || [ -f "$AZDEPLOYJSON_PATH" ]; then
-              FOUNDFOLDER_PATH=$TESTFOLDER_PATH
-              echo Found main template in $FOUNDFOLDER_PATH
-              break
+            if [ -z "$SETUP_FOLDERS" ]; then
+            echo "No setup folders found."
+            exit 1
             fi
 
-            TESTFOLDER_PATH=$( dirname "$TESTFOLDER_PATH" )
-          done
+            echo "Scanning setup folders for Bicep files..."
 
-          if [ ! $FOUNDFOLDER_PATH ]; then
-              echo "Could not find main.bicep or azdeploy.json in folder or parents of $SAMPLEFOLDER_PATH" 1>&2
-              exit 1
-          fi
+            for SETUP_FOLDER in $SETUP_FOLDERS; do
+            echo "Checking folder: $SETUP_FOLDER"
 
-          echo "SAMPLEFOLDER_PATH=$FOUNDFOLDER_PATH" >> $GITHUB_ENV
-          echo "MAINBICEP_PATH=$MAINBICEP_PATH" >> $GITHUB_ENV
-          echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
+            TESTFOLDER_PATH=$SETUP_FOLDER
+            FOUNDFOLDER_PATH=
+
+            while [ "$TESTFOLDER_PATH" != "." ]; do
+                echo "Looking for main template in $TESTFOLDER_PATH"
+
+                MAINBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
+                AZDEPLOYJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
+
+                if [ -f "$MAINBICEP_PATH" ] || [ -f "$AZDEPLOYJSON_PATH" ]; then
+                FOUNDFOLDER_PATH=$TESTFOLDER_PATH
+                echo "Found main template in $FOUNDFOLDER_PATH"
+
+                echo "SAMPLEFOLDER_PATH=$FOUNDFOLDER_PATH" >> $GITHUB_ENV
+                echo "MAINBICEP_PATH=$MAINBICEP_PATH" >> $GITHUB_ENV
+                echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
+
+                break
+                fi
+
+                TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
+            done
+
+            if [ -z "$FOUNDFOLDER_PATH" ]; then
+                echo "Could not find main.bicep or azuredeploy.json in folder or parents of $SETUP_FOLDER" 1>&2
+                exit 1
+            fi
+            done
+
+            echo "SAMPLEFOLDER_PATH=$FOUNDFOLDER_PATH" >> $GITHUB_ENV
+            echo "MAINBICEP_PATH=$MAINBICEP_PATH" >> $GITHUB_ENV
+            echo "AZDEPLOYJSON_PATH=$AZDEPLOYJSON_PATH" >> $GITHUB_ENV
 
       - name: Build main.bicep -> azuredeploy.json
         run: |
