@@ -8,11 +8,13 @@ name: Auto Fix Sample
 # Actions documentation: https://docs.github.com/en/actions/reference
 
 on:
-    # By design pull_request_target event run against the version of the workflow in the target branch.
-    # So you have to merge changes to this workflow to observe the effects.
-    pull_request_target:
+    push:
       branches:
         - main
+    pull_request:
+      branches:
+        - main
+    workflow_dispatch:
 
 permissions:
   contents: read
