@@ -132,7 +132,7 @@ jobs:
             pwd
 
             # Get all modified files in the last 100 commits, filtering out .github
-            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github")
+            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github") | egrep "(\.bicep|azuredeploy\.json)$")
 
             if [ -z "$MODIFIED_FILES" ]; then
             echo "No modified files found."
@@ -159,7 +159,7 @@ jobs:
                 # Traverse up the directory structure to find main.bicep and azuredeploy.json
                 while [ "$TESTFOLDER_PATH" != "." ]; do
                     echo "Looking in: $TESTFOLDER_PATH"
-
+                    ls -l "$TESTFOLDER_PATH"
                     if [ -z "$FOUNDBICEP_PATH" ] && [ -f "$TESTFOLDER_PATH/main.bicep" ]; then
                     FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
                     echo "Found main.bicep: $FOUNDBICEP_PATH"
