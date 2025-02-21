@@ -11,6 +11,8 @@ on:
     push:
       branches:
         - main
+      paths:
+      - scenarios/Agents/setup/**
     pull_request:
       branches:
         - main
@@ -135,6 +137,9 @@ jobs:
             echo "No modified files found."
             exit 1
             fi
+
+            echo "Modified files:"
+            echo "$MODIFIED_FILES"
 
             # Convert MODIFIED_FILES into an array
             IFS=$'\n' read -r -a MODIFIED_FILES_ARRAY <<< "$MODIFIED_FILES"
