@@ -69,7 +69,7 @@ jobs:
     name: Run Setup
     runs-on: ubuntu-latest
     needs: check-if-external
-    environment: ${{ needs.check-if-external.outputs.environment }}
+    # environment: ${{ needs.check-if-external.outputs.environment }}
     env:
       # don't print dotnet logo
       DOTNET_NOLOGO: true
