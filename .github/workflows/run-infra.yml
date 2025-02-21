@@ -129,7 +129,7 @@ jobs:
             pwd
 
             # Get all modified files in the last 100 commits, filtering out .github
-            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/master... | fgrep -v ".github")
+            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github")
 
             if [ -z "$MODIFIED_FILES" ]; then
             echo "No modified files found."
