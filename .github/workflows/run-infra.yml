@@ -136,11 +136,8 @@ jobs:
             exit 1
             fi
 
-            echo "Modified files:"
-            echo "$MODIFIED_FILES"
-
             # Convert MODIFIED_FILES into an array
-            IFS=$'\n' read -rd '' -a MODIFIED_FILES_ARRAY <<< "$MODIFIED_FILES"
+            IFS=$'\n' read -r -a MODIFIED_FILES_ARRAY <<< "$MODIFIED_FILES"
 
             # Initialize arrays for environment variables
             MAINBICEP_PATHS=()
