@@ -128,60 +128,65 @@ jobs:
             cd $GITHUB_WORKSPACE
             pwd
 
-            # Get all modified Bicep files in the last 100 commits
-            BICEP_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github" | grep "\.bicep$")
+            # Get all modified files in the last 100 commits, filtering out .github
+            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/master... | fgrep -v ".github")
 
-            if [ -z "$BICEP_FILES" ]; then
-            echo "No Bicep files found."
+            if [ -z "$MODIFIED_FILES" ]; then
+            echo "No modified files found."
             exit 1
             fi
 
-            echo "Modified Bicep files:"
-            echo "$BICEP_FILES"
+            echo "Modified files:"
+            echo "$MODIFIED_FILES"
 
-            # Convert BICEP_FILES into an array
-            IFS=$'\n' read -rd '' -a BICEP_FILES_ARRAY <<< "$BICEP_FILES"
+            # Convert MODIFIED_FILES into an array
+            IFS=$'\n' read -rd '' -a MODIFIED_FILES_ARRAY <<< "$MODIFIED_FILES"
 
             # Initialize arrays for environment variables
-            SAMPLEFOLDER_PATHS=()
             MAINBICEP_PATHS=()
             AZDEPLOYJSON_PATHS=()
 
-            for BICEP_FILE in "${BICEP_FILES_ARRAY[@]}"; do
-            echo "Processing: $BICEP_FILE"
+            for FILE in "${MODIFIED_FILES_ARRAY[@]}"; do
+            echo "Processing: $FILE"
 
-            TESTFOLDER_PATH=$(dirname "$BICEP_FILE")
-            FOUNDFOLDER_PATH=""
+            TESTFOLDER_PATH=$(dirname "$FILE")
+            FOUNDBICEP_PATH=""
+            FOUNDJSON_PATH=""
 
+            # Traverse up the directory structure to find main.bicep and azuredeploy.json
             while [ "$TESTFOLDER_PATH" != "." ]; do
-                echo "Looking for main template in $TESTFOLDER_PATH"
+                echo "Looking in: $TESTFOLDER_PATH"
 
-                MAINBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
-                AZDEPLOYJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
+                if [ -z "$FOUNDBICEP_PATH" ] && [ -f "$TESTFOLDER_PATH/main.bicep" ]; then
+                FOUNDBICEP_PATH="$TESTFOLDER_PATH/main.bicep"
+                echo "Found main.bicep: $FOUNDBICEP_PATH"
+                fi
 
-                if [ -f "$MAINBICEP_PATH" ] || [ -f "$AZDEPLOYJSON_PATH" ]; then
-                FOUNDFOLDER_PATH=$TESTFOLDER_PATH
-                echo "Found main template in $FOUNDFOLDER_PATH"
+                if [ -z "$FOUNDJSON_PATH" ] && [ -f "$TESTFOLDER_PATH/azuredeploy.json" ]; then
+                FOUNDJSON_PATH="$TESTFOLDER_PATH/azuredeploy.json"
+                echo "Found azuredeploy.json: $FOUNDJSON_PATH"
+                fi
+
+                # If both files are found, stop searching
+                if [ -n "$FOUNDBICEP_PATH" ] && [ -n "$FOUNDJSON_PATH" ]; then
                 break
                 fi
 
                 TESTFOLDER_PATH=$(dirname "$TESTFOLDER_PATH")
             done
 
-            if [ -z "$FOUNDFOLDER_PATH" ]; then
-                echo "Could not find main.bicep or azuredeploy.json for $BICEP_FILE" 1>&2
-                continue  # Don't exit the script, continue with other files
+            if [ -n "$FOUNDBICEP_PATH" ]; then
+                MAINBICEP_PATHS+=("$FOUNDBICEP_PATH")
             fi
 
-            SAMPLEFOLDER_PATHS+=("$FOUNDFOLDER_PATH")
-            MAINBICEP_PATHS+=("$BICEP_FILE")
-            AZDEPLOYJSON_PATHS+=("$AZDEPLOYJSON_PATH")
+            if [ -n "$FOUNDJSON_PATH" ]; then
+                AZDEPLOYJSON_PATHS+=("$FOUNDJSON_PATH")
+            fi
             done
 
-            # Store arrays as space-separated strings in GitHub environment variables
-            echo "SAMPLEFOLDER_PATHS=${SAMPLEFOLDER_PATHS[*]}" >> $GITHUB_ENV
-            echo "MAINBICEP_PATHS=${MAINBICEP_PATHS[*]}" >> $GITHUB_ENV
-            echo "AZDEPLOYJSON_PATHS=${AZDEPLOYJSON_PATHS[*]}" >> $GITHUB_ENV
+    # Store paths as space-separated strings in GitHub environment variables
+    echo "MAINBICEP_PATHS=${MAINBICEP_PATHS[*]}" >> $GITHUB_ENV
+    echo "AZDEPLOYJSON_PATHS=${AZDEPLOYJSON_PATHS[*]}" >> $GITHUB_ENV
 
       - name: Build Bicep files
         run: |
