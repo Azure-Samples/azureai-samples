@@ -28,6 +28,42 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
+      - uses: actions/github-script@v7
+        id: set-environment
+        with:
+          script: |
+            const actionInitiator = context.payload.sender.login;
+            const org = "Azure-Samples";
+            let isPublicMember = true;
+
+            // Check if initiator is a public member of the org
+            try {
+              await github.rest.orgs.checkPublicMembershipForUser({
+                org,
+                username: actionInitiator
+              });
+            } catch (error) {
+              if (error.status != 404) {
+                throw new Error("Unknown error", {cause: error});
+              }
+
+              console.debug([
+                `User is not a public member of the organization "${org}"`,
+                "",
+                `If you are a Microsoft employee, you can join the "${org}" org and set your org membership visibility to public: https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership#changing-the-visibility-of-your-organization-membership`
+              ].join("\n"));
+
+              isPublicMember = false;
+            }
+
+
+            const isPullRequestEvent = ["pull_request", "pull_request_target"].includes(context.eventName);
+
+            if (!(isPublicMember && isPullRequestEvent)) {
+              return "external-contribution";
+            }
+            return "";
+          result-encoding: string
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1.8.0
 
