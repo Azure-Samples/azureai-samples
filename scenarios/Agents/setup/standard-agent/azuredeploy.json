@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "4753499315527695937"
+      "templateHash": "8510969586963543320"
     }
   },
   "parameters": {
@@ -845,7 +845,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "13965518278680799303"
+              "templateHash": "12637307435110530690"
             }
           },
           "parameters": {
@@ -917,7 +917,7 @@
               "kind": "AzurePowerShell",
               "properties": {
                 "azPowerShellVersion": "10.0",
-                "scriptContent": "      Write-Output \"Starting wait script...\"\r\n      Start-Sleep -Seconds 120  # Wait for 2 minutes\r\n      Write-Output \"Wait completed. Proceeding with deployment...\"\r\n    ",
+                "scriptContent": "      Write-Output \"Starting wait script...\"\n      Start-Sleep -Seconds 120  # Wait for 2 minutes\n      Write-Output \"Wait completed. Proceeding with deployment...\"\n    ",
                 "retentionInterval": "PT1H",
                 "cleanupPreference": "OnSuccess"
               },

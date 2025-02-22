@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "7697352678671762039"
+      "templateHash": "9343374115382580767"
     }
   },
   "parameters": {
@@ -204,7 +204,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "5549017044427491952"
+              "templateHash": "13463183484961318850"
             }
           },
           "parameters": {
@@ -289,7 +289,7 @@
           },
           "variables": {
             "storageNameCleaned": "[replace(parameters('storageName'), '-', '')]",
-            "aiServiceExists": "[not(equals(parameters('aiServiceAccountResourceId'), ''))]",
+            "aiServiceExists": "[not(empty(parameters('aiServiceAccountResourceId')))]",
             "aiServiceParts": "[split(parameters('aiServiceAccountResourceId'), '/')]"
           },
           "resources": [

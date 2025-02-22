@@ -8,6 +8,8 @@ on:
     paths:
       - scenarios/**
       - .infra/deployments/**/*.bicep
+    paths-ignore:
+      - scenarios/Agents/setup/**
 jobs:
   check-if-external:
     runs-on: ubuntu-latest
