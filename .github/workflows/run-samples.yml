@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - scenarios/**
       - .infra/deployments/**/*.bicep
 jobs:
   check-if-external:
