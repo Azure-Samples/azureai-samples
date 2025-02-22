@@ -60,7 +60,7 @@ echo "✅ Bicep CLI is installed: $(which bicep)"
 
 # Find modified main.bicep files in the Agents/setup/ folder
 REPO_ROOT=$(git rev-parse --show-toplevel)  # Get the repo root directory
-MODIFIED_BICEP_FILES=$(find "$REPO_ROOT/scenarios/Agents/setup/" -type f -name "main.bicep")
+MODIFIED_BICEP_FILES=$(git diff --cached --name-only | find "$REPO_ROOT/scenarios/Agents/setup/" -type f -name "main.bicep")
 
 if [ -z "$MODIFIED_BICEP_FILES" ]; then
     echo "No modified Bicep files detected. Skipping build."
