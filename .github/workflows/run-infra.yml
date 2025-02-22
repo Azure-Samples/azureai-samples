@@ -125,6 +125,7 @@ jobs:
           fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
       - name: Find and scan Bicep files
+        working-directory: $GITHUB_WORKSPACE/scenarios/Agents/setup
         run: |
             git status
             pwd
@@ -132,7 +133,7 @@ jobs:
             pwd
 
             # Get all modified files in the last 100 commits, filtering out .github
-            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | fgrep -v ".github")
+            MODIFIED_FILES=$(git log --pretty="" --name-only -n 100 origin/main... | grep -E "Agents/setup/.*/(main\.bicep|azuredeploy\.json)$")
 
             if [ -z "$MODIFIED_FILES" ]; then
             echo "No modified files found."
