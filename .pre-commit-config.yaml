@@ -40,3 +40,11 @@ repos:
       entry: python .github/scripts/detect_azure_secrets.py
       language: python
       types: [file]
+    - id: bicep-build
+      name: Build Bicep files before commit
+      description: "Automatically build Bicep files into azuredeploy.json before commit"
+      entry: .github/scripts/build_bicep.sh
+      language: system
+      require_serial: true
+      pass_filenames: false
+      types: [file]
