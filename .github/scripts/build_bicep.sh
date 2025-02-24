@@ -84,8 +84,7 @@ for BICEP_FILE in $MODIFIED_BICEP_FILES; do
         cat /tmp/bicep_error.log
         EXIT_CODE=1
     else
-        # Stage the built JSON file for commit
-        git add "$JSON_FILE"
+        echo "✅ Successfully built $BICEP_FILE"
     fi
 done
 

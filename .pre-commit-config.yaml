@@ -43,8 +43,9 @@ repos:
     - id: bicep-build
       name: Build Bicep files before commit
       description: "Automatically build Bicep files into azuredeploy.json before commit"
-      entry: .github/scripts/build_bicep.sh
-      language: system
+      entry: python .github/scripts/build_agent_setup_bicep.py
+      types: [text]  
+      files: ^scenarios/Agents/setup/.*$
+      language: python
       require_serial: true
-      pass_filenames: false
-      types: [file]
+      pass_filenames: true
