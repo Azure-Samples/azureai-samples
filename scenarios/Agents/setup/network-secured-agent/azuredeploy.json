@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "2427172066705195099"
+      "templateHash": "6468218768722945213"
     }
   },
   "parameters": {
@@ -151,7 +151,7 @@
     },
     "aisKind": {
       "type": "string",
-      "defaultValue": "OpenAI",
+      "defaultValue": "AIServices",
       "metadata": {
         "description": "AI service kind, values can be \"OpenAI\" or \"AIService\""
       }

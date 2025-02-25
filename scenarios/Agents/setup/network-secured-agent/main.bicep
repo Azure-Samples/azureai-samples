@@ -95,7 +95,7 @@ param modelCapacity int = 50
 param modelLocation string = 'eastus'
 
 @description('AI service kind, values can be "OpenAI" or "AIService"')
-param aisKind string = 'OpenAI'
+param aisKind string = 'AIServices'
 
 /* ---------------------------------- Create User Assigned Identity ---------------------------------- */
 
