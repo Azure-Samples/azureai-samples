@@ -40,3 +40,12 @@ repos:
       entry: python .github/scripts/detect_azure_secrets.py
       language: python
       types: [file]
+    - id: bicep-build
+      name: Regenerate azuredeploy.json for Agent samples
+      description: "Automatically build Bicep files into azuredeploy.json before commit"
+      entry: realpath .venv/bin/python  python .github/scripts/build_agent_setup_bicep.py
+      types: [text]
+      files: ^scenarios/Agents/setup/.*$
+      language: python
+      require_serial: true
+      pass_filenames: true
