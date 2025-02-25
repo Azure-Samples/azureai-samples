@@ -100,18 +100,6 @@ resource aiProject 'Microsoft.MachineLearningServices/workspaces@2023-08-01-prev
     hubResourceId: aiHubId                          // Link to network-secured AI Hub
   }
   kind: 'project'
-
-  // Capability Host Configuration
-  // Documentation: https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces/capabilityhosts
-  resource capabilityHost 'capabilityHosts@2024-10-01-preview' = {
-    name: '${aiProjectName}-${capabilityHostName}'
-    properties: {
-      capabilityHostKind: 'Agents'                  // Enable Agents functionality
-      aiServicesConnections: aiServiceConnections   // AI model connections
-      vectorStoreConnections: aiSearchConnection    // Vector storage connections
-      storageConnections: storageConnections        // Blob storage connections
-    }
-  }
 }
 
 /* -------------------------------------------- Outputs -------------------------------------------- */

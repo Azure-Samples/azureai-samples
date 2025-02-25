@@ -155,6 +155,17 @@ module aiProject 'modules-standard/standard-ai-project.bicep' = {
   }
 }
 
+module waitScript 'modules-standard/wait-script.bicep' = {
+  name: 'wait-script-${uniqueSuffix}-deployment'
+  params: {
+    name: 'wait-script-${uniqueSuffix}'
+    location: location
+  }
+  dependsOn: [
+    aiProject
+  ]
+}
+
 module aiServiceRoleAssignments 'modules-standard/ai-service-role-assignments.bicep' = {
   name: 'ai-service-role-assignments-${projectName}-${uniqueSuffix}-deployment'
   scope: resourceGroup(aiServiceAccountSubscriptionId, aiServiceAccountResourceGroupName)

@@ -142,7 +142,7 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
      modelFormat: modelFormat
      modelVersion: modelVersion
      modelSkuName: modelSkuName
-     modelCapacity: modelCapacity  
+     modelCapacity: modelCapacity
      modelLocation: modelLocation
 
      userAssignedIdentityName: identity.outputs.uaiName
@@ -172,11 +172,11 @@ module aiHub 'modules-network-secured/network-secured-ai-hub.bicep' = {
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget
     aiServiceAccountResourceGroupName:aiDependencies.outputs.aiServiceAccountResourceGroupName
     aiServiceAccountSubscriptionId:aiDependencies.outputs.aiServiceAccountSubscriptionId
-    
+
     keyVaultId: aiDependencies.outputs.keyvaultId
     storageAccountId: aiDependencies.outputs.storageId
     subnetId: aiDependencies.outputs.agentSubnetId
-    
+
     uaiName: identity.outputs.uaiName
   }
 }
@@ -232,7 +232,7 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     aiProjectDescription: defaultAiProjectDescription
     location: location
     tags: tags
-    
+
     // dependent resources
     capabilityHostName: defaultCapabilityHostName
 
@@ -242,7 +242,16 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     uaiName: identity.outputs.uaiName
   }
 }
-
+module waitScript 'modules-network-secured/common/wait-script.bicep' = {
+  name: 'wait-script-${uniqueSuffix}-deployment'
+  params: {
+    name: 'wait-script-${uniqueSuffix}'
+    location: location
+  }
+  dependsOn: [
+    aiProject
+  ]
+}
 module aiServiceRoleAssignments 'modules-network-secured/ai-service-role-assignments.bicep' = {
   name: '${name}-${uniqueSuffix}--AiServices-RA'
   scope: resourceGroup()
@@ -261,6 +270,21 @@ module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignmen
     aiProjectPrincipalId: identity.outputs.uaiPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
+}
+
+module addCapabilityHost 'modules-network-secured/network-capability-host.bicep' = {
+  name: '${name}-${uniqueSuffix}--capability-host'
+  params: {
+    capabilityHostName: '${defaultAiHubName}-${uniqueSuffix}-${defaultCapabilityHostName}'
+    aiHubName: aiHub.outputs.aiHubName
+    aiProjectName: aiProject.outputs.aiProjectName
+    acsConnectionName: aiHub.outputs.acsConnectionName
+    aoaiConnectionName: aiHub.outputs.aoaiConnectionName
+    customerSubnetId: aiDependencies.outputs.agentSubnetId
+  }
+  dependsOn: [
+    aiSearchRoleAssignments, aiServiceRoleAssignments
+  ]
 }
 
 output PROJECT_CONNECTION_STRING string = aiProject.outputs.projectConnectionString

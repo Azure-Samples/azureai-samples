@@ -19,7 +19,7 @@ param aiProjectDescription string
 param aiHubId string
 
 /* @description('Name for capabilityHost.')
-param capabilityHostName string 
+param capabilityHostName string
 
 @description('Name for ACS connection.')
 param acsConnectionName string
@@ -55,40 +55,9 @@ resource aiProject 'Microsoft.MachineLearningServices/workspaces@2024-10-01-prev
 
     // dependent resources
     hubResourceId: aiHubId
-  
+
   }
   kind: 'project'
-
-  // Resource definition for the capability host
-  #disable-next-line BCP081
-/*   resource capabilityHost 'capabilityHosts@2024-10-01-preview' = {
-    name: '${aiProjectName}-${capabilityHostName}'
-    properties: {
-      capabilityHostKind: 'Agents'
-      aiServicesConnections: aiServiceConnections
-      vectorStoreConnections: aiSearchConnection
-      storageConnections: storageConnections
-    }
-  } */
-}
-
-resource waitScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
-  name: 'WaitForProjectDeployment'
-  location: location
-  kind: 'AzurePowerShell'
-  properties: {
-    azPowerShellVersion: '10.0'
-    scriptContent: '''
-      Write-Output "Starting wait script..."
-      Start-Sleep -Seconds 120  # Wait for 2 minutes
-      Write-Output "Wait completed. Proceeding with deployment..."
-    '''
-    retentionInterval: 'PT1H'
-    cleanupPreference: 'OnSuccess'
-  }
-  dependsOn: [
-    aiProject
-  ]
 }
 
 output aiProjectName string = aiProject.name

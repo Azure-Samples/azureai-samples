@@ -169,24 +169,11 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview'
       }
     }
   }
-
-  // Capability Host Configuration
-  // Documentation: https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces/capabilityhosts
-  resource capabilityHost 'capabilityHosts@2024-10-01-preview' = {
-    name: capabilityHostName
-    properties: {
-      customerSubnet: subnetId                    // Network isolation
-      capabilityHostKind: 'Agents'               // Enable Agents functionality
-    }
-  }
-  dependsOn: [
-    userAssignedIdentity
-    aiServices
-  ]
 }
 
 /* -------------------------------------------- Outputs -------------------------------------------- */
 
 output aiHubID string = aiHub.id
+output aiHubName string = aiHub.name
 output aoaiConnectionName string = aoaiConnection
 output acsConnectionName string = acsConnectionName
