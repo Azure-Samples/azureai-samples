@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "4851316107822758495"
+      "templateHash": "9454365093913068065"
     }
   },
   "parameters": {
@@ -144,9 +144,16 @@
     },
     "modelLocation": {
       "type": "string",
-      "defaultValue": "westus2",
+      "defaultValue": "eastus",
       "metadata": {
         "description": "Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created."
+      }
+    },
+    "aisKind": {
+      "type": "string",
+      "defaultValue": "OpenAI",
+      "metadata": {
+        "description": "AI service kind, values can be \"OpenAI\" or \"AIService\""
       }
     },
     "userAssignedIdentityDefaultName": {
@@ -198,19 +205,28 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "10922453600553674636"
+              "templateHash": "15872236774552793157"
             }
           },
           "parameters": {
             "location": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Azure region for resource deployment"
+              }
             },
             "userAssignedIdentityName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Name of the user-assigned managed identity"
+              }
             },
             "uaiExists": {
               "type": "bool",
-              "defaultValue": false
+              "defaultValue": false,
+              "metadata": {
+                "description": "Flag indicating if the identity already exists"
+              }
             }
           },
           "resources": [
@@ -273,6 +289,9 @@
           "location": {
             "value": "[parameters('location')]"
           },
+          "aisKind": {
+            "value": "[parameters('aisKind')]"
+          },
           "aiServicesExists": {
             "value": "[not(equals(variables('aiServicesOverride'), ''))]"
           },
@@ -308,7 +327,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "5611311991193801468"
+              "templateHash": "3058877073778301143"
             }
           },
           "parameters": {
@@ -345,7 +364,7 @@
             "suffix": {
               "type": "string",
               "metadata": {
-                "description": "Tags to add to the resources"
+                "description": "Unique suffix for resource names"
               }
             },
             "aiServicesName": {
@@ -408,6 +427,12 @@
                 "description": "Model/AI Resource deployment location"
               }
             },
+            "aisKind": {
+              "type": "string",
+              "metadata": {
+                "description": "The Kind of AI Service, can be \"OpenAI\" or \"AIService\""
+              }
+            },
             "vnetName": {
               "type": "string",
               "defaultValue": "[format('agents-vnet-{0}', parameters('suffix'))]",
@@ -419,14 +444,14 @@
               "type": "string",
               "defaultValue": "[format('agents-subnet-{0}', parameters('suffix'))]",
               "metadata": {
-                "description": "The name of Agents Subnet"
+                "description": "The name of Agents Subnet for container apps"
               }
             },
             "cxSubnetName": {
               "type": "string",
               "defaultValue": "[format('hub-subnet-{0}', parameters('suffix'))]",
               "metadata": {
-                "description": "The name of Customer Hub subnet"
+                "description": "The name of Customer Hub subnet for private endpoints"
               }
             },
             "userAssignedIdentityName": {
@@ -578,7 +603,7 @@
               "sku": {
                 "name": "S0"
               },
-              "kind": "AIServices",
+              "kind": "[parameters('aisKind')]",
               "identity": {
                 "type": "SystemAssigned"
               },
@@ -713,18 +738,28 @@
                     "_generator": {
                       "name": "bicep",
                       "version": "0.33.93.31351",
-                      "templateHash": "3754148282210081937"
+                      "templateHash": "1498445684207187922"
                     }
                   },
                   "parameters": {
                     "storageName": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the storage account"
+                      }
                     },
                     "UAIPrincipalId": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Principal ID of the managed identity"
+                      }
                     },
                     "suffix": {
-                      "type": "string"
+                      "type": "string",
+                      "defaultValue": "",
+                      "metadata": {
+                        "description": "Unique suffix for resource naming"
+                      }
                     }
                   },
                   "resources": [
@@ -732,7 +767,7 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.Storage/storageAccounts/{0}', parameters('storageName'))]",
-                      "name": "[guid(parameters('suffix'), resourceId('Microsoft.Authorization/roleDefinitions', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'), resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'), parameters('suffix'))]",
                       "properties": {
                         "principalId": "[parameters('UAIPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b')]",
@@ -743,7 +778,7 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.Storage/storageAccounts/{0}', parameters('storageName'))]",
-                      "name": "[guid(parameters('suffix'), resourceId('Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88'), resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88'), parameters('suffix'))]",
                       "properties": {
                         "principalId": "[parameters('UAIPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88')]",
@@ -786,18 +821,27 @@
                     "_generator": {
                       "name": "bicep",
                       "version": "0.33.93.31351",
-                      "templateHash": "2483729043537070589"
+                      "templateHash": "6274162434845500752"
                     }
                   },
                   "parameters": {
                     "keyvaultName": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the Key Vault"
+                      }
                     },
                     "UAIPrincipalId": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Principal ID of the managed identity"
+                      }
                     },
                     "suffix": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Unique suffix for role assignment naming"
+                      }
                     }
                   },
                   "resources": [
@@ -805,7 +849,7 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.KeyVault/vaults/{0}', parameters('keyvaultName'))]",
-                      "name": "[guid(parameters('suffix'), resourceId('Microsoft.Authorization/roleDefinitions', 'f25e0fa2-a7c8-4377-a976-54943a77a395'), resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'f25e0fa2-a7c8-4377-a976-54943a77a395'), parameters('suffix'))]",
                       "properties": {
                         "principalId": "[parameters('UAIPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', 'f25e0fa2-a7c8-4377-a976-54943a77a395')]",
@@ -816,14 +860,24 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.KeyVault/vaults/{0}', parameters('keyvaultName'))]",
-                      "name": "[guid(parameters('suffix'), extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'), resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'), parameters('suffix'))]",
                       "properties": {
                         "principalId": "[parameters('UAIPrincipalId')]",
                         "roleDefinitionId": "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
                         "principalType": "ServicePrincipal"
                       }
                     }
-                  ]
+                  ],
+                  "outputs": {
+                    "contributorRoleId": {
+                      "type": "string",
+                      "value": "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleAssignments', guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'f25e0fa2-a7c8-4377-a976-54943a77a395'), parameters('suffix')))]"
+                    },
+                    "secretsOfficerRoleId": {
+                      "type": "string",
+                      "value": "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleAssignments', guid(subscription().subscriptionId, resourceGroup().id, extensionResourceId(resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName')), 'Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'), parameters('suffix')))]"
+                    }
+                  }
                 }
               },
               "dependsOn": [
@@ -856,29 +910,41 @@
                     "_generator": {
                       "name": "bicep",
                       "version": "0.33.93.31351",
-                      "templateHash": "16111006260074305638"
+                      "templateHash": "199126274513046121"
                     }
                   },
                   "parameters": {
                     "UAIPrincipalId": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Principal ID of the managed identity"
+                      }
                     },
                     "suffix": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Unique suffix for role assignment naming"
+                      }
                     }
                   },
                   "resources": [
                     {
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
-                      "name": "[guid(parameters('suffix'), resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94'), resourceGroup().id)]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94'), parameters('suffix'))]",
                       "properties": {
                         "principalId": "[parameters('UAIPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94')]",
                         "principalType": "ServicePrincipal"
                       }
                     }
-                  ]
+                  ],
+                  "outputs": {
+                    "roleAssignmentId": {
+                      "type": "string",
+                      "value": "[resourceId('Microsoft.Authorization/roleAssignments', guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94'), parameters('suffix')))]"
+                    }
+                  }
                 }
               },
               "dependsOn": [
@@ -914,18 +980,27 @@
                     "_generator": {
                       "name": "bicep",
                       "version": "0.33.93.31351",
-                      "templateHash": "15024695008322661296"
+                      "templateHash": "16079856828729639404"
                     }
                   },
                   "parameters": {
                     "aiSearchName": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the AI Search service"
+                      }
                     },
                     "aiProjectPrincipalId": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Principal ID of the managed identity"
+                      }
                     },
                     "aiProjectId": {
-                      "type": "string"
+                      "type": "string",
+                      "metadata": {
+                        "description": "Unique suffix for resource naming"
+                      }
                     }
                   },
                   "resources": [
@@ -933,7 +1008,7 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-                      "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7'), resourceId('Microsoft.Search/searchServices', parameters('aiSearchName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7'), parameters('aiProjectId'))]",
                       "properties": {
                         "principalId": "[parameters('aiProjectPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7')]",
@@ -944,7 +1019,7 @@
                       "type": "Microsoft.Authorization/roleAssignments",
                       "apiVersion": "2022-04-01",
                       "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-                      "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0'), resourceId('Microsoft.Search/searchServices', parameters('aiSearchName')))]",
+                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0'), parameters('aiProjectId'))]",
                       "properties": {
                         "principalId": "[parameters('aiProjectPrincipalId')]",
                         "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0')]",
@@ -1123,7 +1198,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "432948922360248395"
+              "templateHash": "16379795795777169172"
             }
           },
           "parameters": {
@@ -1161,79 +1236,94 @@
             "keyVaultId": {
               "type": "string",
               "metadata": {
-                "description": "Resource ID of the key vault resource for storing connection strings"
+                "description": "Resource ID of the key vault for secure secret storage"
               }
             },
             "storageAccountId": {
               "type": "string",
               "metadata": {
-                "description": "Resource ID of the storage account resource for storing experimentation outputs"
+                "description": "Resource ID of the storage account for data persistence"
               }
             },
             "aiServicesId": {
               "type": "string",
               "metadata": {
-                "description": "Resource ID of the AI Services resource"
+                "description": "Resource ID of the AI Services"
               }
             },
             "aiServicesTarget": {
               "type": "string",
               "metadata": {
-                "description": "Resource ID of the AI Services endpoint"
+                "description": "Endpoint URL of the AI Services"
               }
             },
             "aiServicesName": {
               "type": "string",
               "metadata": {
-                "description": "Name AI Services resource"
+                "description": "Name of the AI Services resource"
               }
             },
             "aiServiceAccountResourceGroupName": {
               "type": "string",
               "metadata": {
-                "description": "Resource Group name of the AI Services resource"
+                "description": "Resource Group containing AI Services"
               }
             },
             "aiServiceAccountSubscriptionId": {
               "type": "string",
               "metadata": {
-                "description": "Subscription ID of the AI Services resource"
+                "description": "Subscription ID containing AI Services"
               }
             },
             "aiSearchName": {
               "type": "string",
               "metadata": {
-                "description": "Name AI Search resource"
+                "description": "Name of the AI Search service"
               }
             },
             "aiSearchId": {
               "type": "string",
               "metadata": {
-                "description": "Resource ID of the AI Search resource"
+                "description": "Resource ID of the AI Search service"
               }
             },
             "aiSearchServiceResourceGroupName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Resource Group containing AI Search"
+              }
             },
             "aiSearchServiceSubscriptionId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Subscription ID containing AI Search"
+              }
             },
             "capabilityHostName": {
               "type": "string",
               "defaultValue": "caphost1",
               "metadata": {
-                "description": "Name for capabilityHost."
+                "description": "Name for capability host that manages AI features"
               }
             },
             "uaiName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Name of the user-assigned managed identity"
+              }
             },
             "subnetId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Subnet ID for capability host network isolation"
+              }
             },
             "aiHubExists": {
               "type": "bool",
-              "defaultValue": false
+              "defaultValue": false,
+              "metadata": {
+                "description": "Flag indicating if the hub already exists"
+              }
             }
           },
           "variables": {
@@ -1644,7 +1734,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "3547663996235441552"
+              "templateHash": "6567612426482672028"
             }
           },
           "parameters": {
@@ -1689,23 +1779,26 @@
               "type": "string",
               "defaultValue": "caphost1",
               "metadata": {
-                "description": "Name for capabilityHost."
+                "description": "Name for capability host that manages AI features"
               }
             },
             "acsConnectionName": {
               "type": "string",
               "metadata": {
-                "description": "Name for ACS connection."
+                "description": "Name for Azure Cognitive Search connection"
               }
             },
             "aoaiConnectionName": {
               "type": "string",
               "metadata": {
-                "description": "Name for ACS connection."
+                "description": "Name for Azure OpenAI connection"
               }
             },
             "uaiName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Name of the user-assigned managed identity"
+              }
             }
           },
           "variables": {
@@ -1810,18 +1903,27 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "16462974087505781196"
+              "templateHash": "12976852655018469345"
             }
           },
           "parameters": {
             "aiServicesName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Name of the AI Services account"
+              }
             },
             "aiProjectPrincipalId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Principal ID of the managed identity"
+              }
             },
             "aiProjectId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Unique identifier for role assignments"
+              }
             }
           },
           "resources": [
@@ -1829,7 +1931,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.CognitiveServices/accounts/{0}', parameters('aiServicesName'))]",
-              "name": "[guid(resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName')), resourceId('Microsoft.Authorization/roleDefinitions', '25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68'), parameters('aiProjectId'))]",
+              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68'), parameters('aiProjectId'))]",
               "properties": {
                 "principalId": "[parameters('aiProjectPrincipalId')]",
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '25fbc0a9-bd7c-42a3-aa1a-3b75d497ee68')]",
@@ -1840,7 +1942,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.CognitiveServices/accounts/{0}', parameters('aiServicesName'))]",
-              "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'), resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName')))]",
+              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'), parameters('aiProjectId'))]",
               "properties": {
                 "principalId": "[parameters('aiProjectPrincipalId')]",
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd')]",
@@ -1851,7 +1953,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.CognitiveServices/accounts/{0}', parameters('aiServicesName'))]",
-              "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', 'a97b65f3-24c7-4388-baec-2e87135dc908'), resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName')))]",
+              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'a97b65f3-24c7-4388-baec-2e87135dc908'), parameters('aiProjectId'))]",
               "properties": {
                 "principalId": "[parameters('aiProjectPrincipalId')]",
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', 'a97b65f3-24c7-4388-baec-2e87135dc908')]",
@@ -1894,18 +1996,27 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "15024695008322661296"
+              "templateHash": "16079856828729639404"
             }
           },
           "parameters": {
             "aiSearchName": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Name of the AI Search service"
+              }
             },
             "aiProjectPrincipalId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Principal ID of the managed identity"
+              }
             },
             "aiProjectId": {
-              "type": "string"
+              "type": "string",
+              "metadata": {
+                "description": "Unique suffix for resource naming"
+              }
             }
           },
           "resources": [
@@ -1913,7 +2024,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-              "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7'), resourceId('Microsoft.Search/searchServices', parameters('aiSearchName')))]",
+              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7'), parameters('aiProjectId'))]",
               "properties": {
                 "principalId": "[parameters('aiProjectPrincipalId')]",
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7')]",
@@ -1924,7 +2035,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-              "name": "[guid(parameters('aiProjectId'), resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0'), resourceId('Microsoft.Search/searchServices', parameters('aiSearchName')))]",
+              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0'), parameters('aiProjectId'))]",
               "properties": {
                 "principalId": "[parameters('aiProjectPrincipalId')]",
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0')]",

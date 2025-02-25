@@ -1,4 +1,4 @@
-// Execute this main file to deploy Standard Agent setup resources
+// Execute this main file to deploy Enterprise Standard Agent setup resources
 
 // Parameters
 @minLength(2)
@@ -82,7 +82,7 @@ var aiServiceExists = aiServiceAccountResourceId != ''
 var acsExists = aiSearchServiceResourceId != ''
 
 var aiServiceParts = split(aiServiceAccountResourceId, '/')
-var aiServiceAccountSubscriptionId = aiServiceExists ? aiServiceParts[2] : subscription().subscriptionId 
+var aiServiceAccountSubscriptionId = aiServiceExists ? aiServiceParts[2] : subscription().subscriptionId
 var aiServiceAccountResourceGroupName = aiServiceExists ? aiServiceParts[4] : resourceGroup().name
 
 var acsParts = split(aiSearchServiceResourceId, '/')
@@ -105,7 +105,7 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
      modelFormat: modelFormat
      modelVersion: modelVersion
      modelSkuName: modelSkuName
-     modelCapacity: modelCapacity  
+     modelCapacity: modelCapacity
      modelLocation: modelLocation
 
      aiServiceAccountResourceId: aiServiceAccountResourceId
@@ -135,7 +135,7 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
     aiServicesTarget: aiDependencies.outputs.aiservicesTarget
     aiServiceAccountResourceGroupName:aiDependencies.outputs.aiServiceAccountResourceGroupName
     aiServiceAccountSubscriptionId:aiDependencies.outputs.aiServiceAccountSubscriptionId
-    
+
     keyVaultId: aiDependencies.outputs.keyvaultId
     storageAccountId: aiDependencies.outputs.storageId
   }
