@@ -252,6 +252,9 @@ module aiServiceRoleAssignments 'modules-network-secured/ai-service-role-assignm
     aiProjectPrincipalId: identity.outputs.uaiPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
+  dependsOn: [
+    waitScript
+  ]
 }
 
 module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignments.bicep' = {
@@ -262,6 +265,9 @@ module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignmen
     aiProjectPrincipalId: identity.outputs.uaiPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
+  dependsOn: [
+    waitScript
+  ]
 }
 
 module addCapabilityHost 'modules-network-secured/network-capability-host.bicep' = {

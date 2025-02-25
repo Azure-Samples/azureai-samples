@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "12350189612499300610"
+      "templateHash": "1349409650835059152"
     }
   },
   "parameters": {
@@ -962,7 +962,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "18398803422052267450"
+              "templateHash": "15002511661880391263"
             }
           },
           "parameters": {
@@ -988,7 +988,7 @@
                 "azPowerShellVersion": "10.0",
                 "scriptContent": "      Write-Output \"Starting wait script...\"\n      Start-Sleep -Seconds 120\n      Write-Output \"Wait completed. Proceeding with deployment...\"\n    ",
                 "retentionInterval": "[parameters('retentionTime')]",
-                "cleanupPreference": "OnSuccess"
+                "cleanupPreference": "Always"
               }
             }
           ],
@@ -1095,7 +1095,8 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('dependencies-{0}-{1}-deployment', variables('name'), variables('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Resources/deployments', format('wait-script-{0}-deployment', variables('uniqueSuffix')))]"
       ]
     },
     {
@@ -1178,7 +1179,8 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('dependencies-{0}-{1}-deployment', variables('name'), variables('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Resources/deployments', format('wait-script-{0}-deployment', variables('uniqueSuffix')))]"
       ]
     },
     {

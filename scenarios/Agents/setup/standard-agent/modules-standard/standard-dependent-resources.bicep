@@ -21,31 +21,31 @@ param storageName string
 var storageNameCleaned = replace(storageName, '-', '')
 
 @description('Model name for deployment')
-param modelName string 
+param modelName string
 
 @description('Model format for deployment')
-param modelFormat string 
+param modelFormat string
 
 @description('Model version for deployment')
-param modelVersion string 
+param modelVersion string
 
 @description('Model deployment SKU name')
-param modelSkuName string 
+param modelSkuName string
 
 @description('Model deployment capacity')
-param modelCapacity int 
+param modelCapacity int
 
 @description('Model/AI Resource deployment location')
-param modelLocation string 
+param modelLocation string
 
 @description('The AI Service Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
 param aiServiceAccountResourceId string
 
 @description('The AI Search Service full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param aiSearchServiceResourceId string 
+param aiSearchServiceResourceId string
 
 @description('The AI Storage Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param aiStorageAccountResourceId string 
+param aiStorageAccountResourceId string
 
 var aiServiceExists = aiServiceAccountResourceId != ''
 var acsExists = aiSearchServiceResourceId != ''
@@ -181,7 +181,7 @@ output aiServicesName string =  aiServiceExists ? existingAIServiceAccount.name 
 output aiservicesID string = aiServiceExists ? existingAIServiceAccount.id : aiServices.id
 output aiservicesTarget string = aiServiceExists ? existingAIServiceAccount.properties.endpoint : aiServices.properties.endpoint
 output aiServiceAccountResourceGroupName string = aiServiceExists ? aiServiceParts[4] : resourceGroup().name
-output aiServiceAccountSubscriptionId string = aiServiceExists ? aiServiceParts[2] : subscription().subscriptionId 
+output aiServiceAccountSubscriptionId string = aiServiceExists ? aiServiceParts[2] : subscription().subscriptionId
 
 output aiSearchName string = acsExists ? existingSearchService.name : aiSearch.name
 output aisearchID string = acsExists ? existingSearchService.id : aiSearch.id

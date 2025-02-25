@@ -174,6 +174,9 @@ module aiServiceRoleAssignments 'modules-standard/ai-service-role-assignments.bi
     aiProjectPrincipalId: aiProject.outputs.aiProjectPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
+  dependsOn: [
+    waitScript
+  ]
 }
 
 module aiSearchRoleAssignments 'modules-standard/ai-search-role-assignments.bicep' = {
@@ -184,6 +187,9 @@ module aiSearchRoleAssignments 'modules-standard/ai-search-role-assignments.bice
     aiProjectPrincipalId: aiProject.outputs.aiProjectPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
+  dependsOn: [
+    waitScript
+  ]
 }
 
 module addCapabilityHost 'modules-standard/add-capability-host.bicep' = {

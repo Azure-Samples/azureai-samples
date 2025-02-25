@@ -14,7 +14,7 @@ resource waitScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
       Write-Output "Wait completed. Proceeding with deployment..."
     '''
     retentionInterval: retentionTime
-    cleanupPreference: 'OnSuccess'
+    cleanupPreference: 'Always'
   }
 }
 
