@@ -233,6 +233,9 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     aiHubId: aiHub.outputs.aiHubID
     uaiName: identity.outputs.uaiName
   }
+  dependsOn: [
+    privateEndpointAndDNS
+  ]
 }
 module waitScript 'modules-network-secured/common/wait-script.bicep' = {
   name: 'wait-script-${uniqueSuffix}-deployment'

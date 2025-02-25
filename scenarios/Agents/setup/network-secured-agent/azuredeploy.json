@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "6468218768722945213"
+      "templateHash": "13610358180001906492"
     }
   },
   "parameters": {
@@ -327,7 +327,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "3058877073778301143"
+              "templateHash": "2515541218015614919"
             }
           },
           "parameters": {
@@ -882,155 +882,6 @@
               },
               "dependsOn": [
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('keyvaultName'))]",
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentityName'))]"
-              ]
-            },
-            {
-              "condition": "[not(parameters('aiServicesExists'))]",
-              "type": "Microsoft.Resources/deployments",
-              "apiVersion": "2022-09-01",
-              "name": "[format('dependencies-{0}-cogsvc-rbac', parameters('suffix'))]",
-              "properties": {
-                "expressionEvaluationOptions": {
-                  "scope": "inner"
-                },
-                "mode": "Incremental",
-                "parameters": {
-                  "suffix": {
-                    "value": "[parameters('suffix')]"
-                  },
-                  "UAIPrincipalId": {
-                    "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentityName')), '2023-07-31-preview').principalId]"
-                  }
-                },
-                "template": {
-                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                  "contentVersion": "1.0.0.0",
-                  "metadata": {
-                    "_generator": {
-                      "name": "bicep",
-                      "version": "0.33.93.31351",
-                      "templateHash": "199126274513046121"
-                    }
-                  },
-                  "parameters": {
-                    "UAIPrincipalId": {
-                      "type": "string",
-                      "metadata": {
-                        "description": "Principal ID of the managed identity"
-                      }
-                    },
-                    "suffix": {
-                      "type": "string",
-                      "metadata": {
-                        "description": "Unique suffix for role assignment naming"
-                      }
-                    }
-                  },
-                  "resources": [
-                    {
-                      "type": "Microsoft.Authorization/roleAssignments",
-                      "apiVersion": "2022-04-01",
-                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94'), parameters('suffix'))]",
-                      "properties": {
-                        "principalId": "[parameters('UAIPrincipalId')]",
-                        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94')]",
-                        "principalType": "ServicePrincipal"
-                      }
-                    }
-                  ],
-                  "outputs": {
-                    "roleAssignmentId": {
-                      "type": "string",
-                      "value": "[resourceId('Microsoft.Authorization/roleAssignments', guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', 'b78c5d69-af96-48a3-bf8d-a8b4d589de94'), parameters('suffix')))]"
-                    }
-                  }
-                }
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName'))]",
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentityName'))]"
-              ]
-            },
-            {
-              "condition": "[not(parameters('aiSearchExists'))]",
-              "type": "Microsoft.Resources/deployments",
-              "apiVersion": "2022-09-01",
-              "name": "[format('dependencies-{0}-aisearch-rbac', parameters('suffix'))]",
-              "properties": {
-                "expressionEvaluationOptions": {
-                  "scope": "inner"
-                },
-                "mode": "Incremental",
-                "parameters": {
-                  "aiProjectId": {
-                    "value": "[parameters('aiSearchName')]"
-                  },
-                  "aiProjectPrincipalId": {
-                    "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentityName')), '2023-07-31-preview').principalId]"
-                  },
-                  "aiSearchName": {
-                    "value": "[parameters('aiSearchName')]"
-                  }
-                },
-                "template": {
-                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                  "contentVersion": "1.0.0.0",
-                  "metadata": {
-                    "_generator": {
-                      "name": "bicep",
-                      "version": "0.33.93.31351",
-                      "templateHash": "16079856828729639404"
-                    }
-                  },
-                  "parameters": {
-                    "aiSearchName": {
-                      "type": "string",
-                      "metadata": {
-                        "description": "Name of the AI Search service"
-                      }
-                    },
-                    "aiProjectPrincipalId": {
-                      "type": "string",
-                      "metadata": {
-                        "description": "Principal ID of the managed identity"
-                      }
-                    },
-                    "aiProjectId": {
-                      "type": "string",
-                      "metadata": {
-                        "description": "Unique suffix for resource naming"
-                      }
-                    }
-                  },
-                  "resources": [
-                    {
-                      "type": "Microsoft.Authorization/roleAssignments",
-                      "apiVersion": "2022-04-01",
-                      "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7'), parameters('aiProjectId'))]",
-                      "properties": {
-                        "principalId": "[parameters('aiProjectPrincipalId')]",
-                        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7')]",
-                        "principalType": "ServicePrincipal"
-                      }
-                    },
-                    {
-                      "type": "Microsoft.Authorization/roleAssignments",
-                      "apiVersion": "2022-04-01",
-                      "scope": "[format('Microsoft.Search/searchServices/{0}', parameters('aiSearchName'))]",
-                      "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0'), parameters('aiProjectId'))]",
-                      "properties": {
-                        "principalId": "[parameters('aiProjectPrincipalId')]",
-                        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0')]",
-                        "principalType": "ServicePrincipal"
-                      }
-                    }
-                  ]
-                }
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.Search/searchServices', parameters('aiSearchName'))]",
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentityName'))]"
               ]
             }
@@ -1794,7 +1645,8 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--hub', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--private-endpoint', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {

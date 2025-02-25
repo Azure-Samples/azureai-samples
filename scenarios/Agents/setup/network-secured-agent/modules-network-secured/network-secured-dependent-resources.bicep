@@ -46,22 +46,22 @@ param aiSearchName string
 param storageName string
 
 @description('Model name for deployment')
-param modelName string 
+param modelName string
 
 @description('Model format for deployment')
-param modelFormat string 
+param modelFormat string
 
 @description('Model version for deployment')
-param modelVersion string 
+param modelVersion string
 
 @description('Model deployment SKU name')
-param modelSkuName string 
+param modelSkuName string
 
 @description('Model deployment capacity')
-param modelCapacity int 
+param modelCapacity int
 
 @description('Model/AI Resource deployment location')
-param modelLocation string 
+param modelLocation string
 
 @description('The Kind of AI Service, can be "OpenAI" or "AIService"')
 param aisKind string
@@ -337,25 +337,6 @@ module keyVaultAccessAssignment './keyvault-role-assignments.bicep' = if(!keyvau
   dependsOn: [ defaultKeyVault ]
 }
 
-module cognitiveServicesAccessAssignment './cognitive-services-role-assignments.bicep' = if(!aiServicesExists){
-  name: 'dependencies-${suffix}-cogsvc-rbac'
-  params: {
-    suffix: suffix
-    UAIPrincipalId: uai.properties.principalId
-    }
-  dependsOn: [ defaultAiServices ]
-}
-
-module aiSearchAccessAssignment 'ai-search-role-assignments.bicep' = if(!aiSearchExists){
-  name: 'dependencies-${suffix}-aisearch-rbac'
-  params: {
-    aiProjectId: aiSearchName
-    aiProjectPrincipalId: uai.properties.principalId
-    aiSearchName: aiSearchName
-    }
-  dependsOn: [ defaultAiSearch ]
-}
-
 /* -------------------------------------------- Output Variables -------------------------------------------- */
 
 var aiServiceParts = aiServicesExists ? split(existingAiServices.id, '/') : split(defaultAiServices.id, '/')
@@ -366,7 +347,7 @@ output aiServicesName string =  aiServicesExists ? existingAiServices.name : def
 output aiservicesID string = aiServicesExists ? existingAiServices.id : defaultAiServices.id
 output aiservicesTarget string = aiServicesExists ? existingAiServices.properties.endpoint : defaultAiServices.properties.endpoint
 output aiServiceAccountResourceGroupName string = aiServiceParts[4]
-output aiServiceAccountSubscriptionId string = aiServiceParts[2] 
+output aiServiceAccountSubscriptionId string = aiServiceParts[2]
 
 output aiSearchName string = aiSearchExists ? existingAiSearch.name : defaultAiSearch.name
 output aisearchID string = aiSearchExists ? existingAiSearch.id : defaultAiSearch.id
