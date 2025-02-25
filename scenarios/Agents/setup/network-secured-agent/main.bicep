@@ -160,7 +160,6 @@ module aiHub 'modules-network-secured/network-secured-ai-hub.bicep' = {
     aiHubDescription: defaultAiHubDescription
     location: location
     tags: tags
-    capabilityHostName: '${defaultAiHubName}-${uniqueSuffix}-${defaultCapabilityHostName}'
 
     aiSearchName: aiDependencies.outputs.aiSearchName
     aiSearchId: aiDependencies.outputs.aisearchID
@@ -175,7 +174,6 @@ module aiHub 'modules-network-secured/network-secured-ai-hub.bicep' = {
 
     keyVaultId: aiDependencies.outputs.keyvaultId
     storageAccountId: aiDependencies.outputs.storageId
-    subnetId: aiDependencies.outputs.agentSubnetId
 
     uaiName: identity.outputs.uaiName
   }
@@ -232,13 +230,7 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     aiProjectDescription: defaultAiProjectDescription
     location: location
     tags: tags
-
-    // dependent resources
-    capabilityHostName: defaultCapabilityHostName
-
     aiHubId: aiHub.outputs.aiHubID
-    acsConnectionName: aiHub.outputs.acsConnectionName
-    aoaiConnectionName: aiHub.outputs.aoaiConnectionName
     uaiName: identity.outputs.uaiName
   }
 }
@@ -275,7 +267,7 @@ module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignmen
 module addCapabilityHost 'modules-network-secured/network-capability-host.bicep' = {
   name: '${name}-${uniqueSuffix}--capability-host'
   params: {
-    capabilityHostName: '${defaultAiHubName}-${uniqueSuffix}-${defaultCapabilityHostName}'
+    capabilityHostName: '${uniqueSuffix}-${defaultCapabilityHostName}'
     aiHubName: aiHub.outputs.aiHubName
     aiProjectName: aiProject.outputs.aiProjectName
     acsConnectionName: aiHub.outputs.acsConnectionName

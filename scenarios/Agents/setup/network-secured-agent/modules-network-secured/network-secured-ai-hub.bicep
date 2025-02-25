@@ -78,14 +78,9 @@ param aiSearchServiceResourceGroupName string
 @description('Subscription ID containing AI Search')
 param aiSearchServiceSubscriptionId string
 
-@description('Name for capability host that manages AI features')
-param capabilityHostName string = 'caphost1'
-
 @description('Name of the user-assigned managed identity')
 param uaiName string
 
-@description('Subnet ID for capability host network isolation')
-param subnetId string
 
 @description('Flag indicating if the hub already exists')
 param aiHubExists bool = false

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "8510969586963543320"
+      "templateHash": "12350189612499300610"
     }
   },
   "parameters": {
@@ -845,7 +845,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "12637307435110530690"
+              "templateHash": "551669852029742156"
             }
           },
           "parameters": {
@@ -908,22 +908,6 @@
                 "hubResourceId": "[parameters('aiHubId')]"
               },
               "kind": "project"
-            },
-            {
-              "type": "Microsoft.Resources/deploymentScripts",
-              "apiVersion": "2023-08-01",
-              "name": "WaitForProjectDeployment",
-              "location": "[parameters('location')]",
-              "kind": "AzurePowerShell",
-              "properties": {
-                "azPowerShellVersion": "10.0",
-                "scriptContent": "      Write-Output \"Starting wait script...\"\n      Start-Sleep -Seconds 120  # Wait for 2 minutes\n      Write-Output \"Wait completed. Proceeding with deployment...\"\n    ",
-                "retentionInterval": "PT1H",
-                "cleanupPreference": "OnSuccess"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName'))]"
-              ]
             }
           ],
           "outputs": {
@@ -952,6 +936,72 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('name'), variables('uniqueSuffix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "[format('wait-script-{0}-deployment', variables('uniqueSuffix'))]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "name": {
+            "value": "[format('wait-script-{0}', variables('uniqueSuffix'))]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.33.93.31351",
+              "templateHash": "18398803422052267450"
+            }
+          },
+          "parameters": {
+            "name": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "retentionTime": {
+              "type": "string",
+              "defaultValue": "PT1H"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Resources/deploymentScripts",
+              "apiVersion": "2023-08-01",
+              "name": "[parameters('name')]",
+              "location": "[parameters('location')]",
+              "kind": "AzurePowerShell",
+              "properties": {
+                "azPowerShellVersion": "10.0",
+                "scriptContent": "      Write-Output \"Starting wait script...\"\n      Start-Sleep -Seconds 120\n      Write-Output \"Wait completed. Proceeding with deployment...\"\n    ",
+                "retentionInterval": "[parameters('retentionTime')]",
+                "cleanupPreference": "OnSuccess"
+              }
+            }
+          ],
+          "outputs": {
+            "scriptName": {
+              "type": "string",
+              "value": "[parameters('name')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]"
       ]
     },
     {

@@ -44,14 +44,6 @@ param aiProjectDescription string
 @description('Resource ID of the AI Hub resource')
 param aiHubId string
 
-@description('Name for capability host that manages AI features')
-param capabilityHostName string = 'caphost1'
-
-@description('Name for Azure Cognitive Search connection')
-param acsConnectionName string
-
-@description('Name for Azure OpenAI connection')
-param aoaiConnectionName string
 
 @description('Name of the user-assigned managed identity')
 param uaiName string
@@ -62,11 +54,6 @@ param uaiName string
 var subscriptionId = subscription().subscriptionId
 var resourceGroupName = resourceGroup().name
 var projectConnectionString = '${location}.api.azureml.ms;${subscriptionId};${resourceGroupName};${aiProjectName}'
-
-// Service connections
-var storageConnections = ['${aiProjectName}/workspaceblobstore']    // Blob storage for workspace data
-var aiSearchConnection = ['${acsConnectionName}']                    // Vector storage for embeddings
-var aiServiceConnections = ['${aoaiConnectionName}']                 // AI model inference
 
 /* -------------------------------------------- Resources -------------------------------------------- */
 
