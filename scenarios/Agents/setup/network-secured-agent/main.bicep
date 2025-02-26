@@ -244,16 +244,7 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     privateEndpointAndDNS
   ]
 }
-module waitScript 'modules-network-secured/common/wait-script.bicep' = {
-  name: 'wait-script-${uniqueSuffix}-deployment'
-  params: {
-    name: 'wait-script-${uniqueSuffix}'
-    location: location
-  }
-  dependsOn: [
-    aiProject
-  ]
-}
+
 module aiServiceRoleAssignments 'modules-network-secured/ai-service-role-assignments.bicep' = {
   name: '${name}-${uniqueSuffix}--AiServices-RA'
   scope: resourceGroup()
@@ -262,9 +253,6 @@ module aiServiceRoleAssignments 'modules-network-secured/ai-service-role-assignm
     aiProjectPrincipalId: identity.outputs.uaiPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
-  dependsOn: [
-    waitScript
-  ]
 }
 
 module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignments.bicep' = {
@@ -275,9 +263,6 @@ module aiSearchRoleAssignments 'modules-network-secured/ai-search-role-assignmen
     aiProjectPrincipalId: identity.outputs.uaiPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
-  dependsOn: [
-    waitScript
-  ]
 }
 
 module addCapabilityHost 'modules-network-secured/network-capability-host.bicep' = {
