@@ -21,10 +21,10 @@ This template deploys an AI agent infrastructure in a network-secured configurat
 */
 
 // Existing Resource Overrides - Used when connecting to pre-existing resources
-var storageOverride = ''        // Override for existing storage account
+// var storageOverride = ''        // Override for existing storage account
 var keyVaultOverride = ''       // Override for existing Key Vault
-var aiServicesOverride = ''     // Override for existing AI Services
-var aiSearchOverride = ''       // Override for existing AI Search
+// var aiServicesOverride = ''     // Override for existing AI Services
+// var aiSearchOverride = ''       // Override for existing AI Search
 var userAssignedIdentityOverride = '' // Override for existing managed identity
 
 /* ---------------------------------- Deployment Identifiers ---------------------------------- */
@@ -97,6 +97,15 @@ param modelLocation string = 'eastus'
 @description('AI service kind, values can be "OpenAI" or "AIService"')
 param aisKind string = 'AIServices'
 
+@description('The AI Service Account name. This is an optional field, and if not provided, the resource will be created. The resource should exist in same resource group')
+param aiServiceAccountName string = ''
+
+@description('The Ai Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
+param aiSearchServiceName string = ''
+
+// @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
+// param aiStorageAccountName string = ''
+
 /* ---------------------------------- Create User Assigned Identity ---------------------------------- */
 
 @description('The name of User Assigned Identity')
@@ -113,12 +122,13 @@ module identity 'modules-network-secured/network-secured-identity.bicep' = {
 }
 
 
+
 /* ---------------------------------- Create AI Assistant Dependent Resources ---------------------------------- */
 
-var storageName = empty(storageOverride) ? '${defaultStorageName}${uniqueSuffix}' : storageOverride
+// var storageName = empty(aiStorageAccountName) ? '${defaultStorageName}${uniqueSuffix}' : aiStorageAccountName
 var keyVaultName = empty(keyVaultOverride) ? 'kv-${defaultAiHubName}-${uniqueSuffix}' : keyVaultOverride
-var aiServiceName = empty(aiServicesOverride) ? '${defaultAiServicesName}${uniqueSuffix}' : aiServicesOverride
-var aiSearchName = empty(aiSearchOverride) ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchOverride
+var aiServiceName = empty(aiServiceAccountName) ? '${defaultAiServicesName}${uniqueSuffix}' : aiServiceAccountName
+var aiSearchName = empty(aiSearchServiceName) ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchServiceName
 
 var storageNameClean = '${defaultStorageName}${uniqueSuffix}'
 // Dependent resources for the Azure Machine Learning workspace
@@ -126,7 +136,7 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
   name: '${name}-${uniqueSuffix}--dependencies'
   params: {
     suffix: uniqueSuffix
-    storageName: storageName
+    storageName: storageNameClean
     keyvaultName: keyVaultName
     aiServicesName: aiServiceName
     aiSearchName: aiSearchName
@@ -134,8 +144,8 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
     location: location
     aisKind: aisKind
 
-    aiServicesExists: !empty(aiServicesOverride)
-    aiSearchExists: !empty(aiSearchOverride)
+    aiServicesExists: !empty(aiServiceAccountName)
+    aiSearchExists: !empty(aiSearchServiceName)
 
      // Model deployment parameters
      modelName: modelName

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "17707683891288145362"
+      "templateHash": "12922415320529793549"
     }
   },
   "parameters": {
@@ -156,6 +156,20 @@
         "description": "AI service kind, values can be \"OpenAI\" or \"AIService\""
       }
     },
+    "aiServiceAccountName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The AI Service Account name. This is an optional field, and if not provided, the resource will be created. The resource should exist in same resource group"
+      }
+    },
+    "aiSearchServiceName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The Ai Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group"
+      }
+    },
     "userAssignedIdentityDefaultName": {
       "type": "string",
       "defaultValue": "[format('secured-agents-identity-{0}', parameters('uniqueSuffix'))]",
@@ -165,16 +179,12 @@
     }
   },
   "variables": {
-    "storageOverride": "",
     "keyVaultOverride": "",
-    "aiServicesOverride": "",
-    "aiSearchOverride": "",
     "userAssignedIdentityOverride": "",
     "uaiName": "[if(equals(variables('userAssignedIdentityOverride'), ''), parameters('userAssignedIdentityDefaultName'), variables('userAssignedIdentityOverride'))]",
-    "storageName": "[if(empty(variables('storageOverride')), format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix')), variables('storageOverride'))]",
     "keyVaultName": "[if(empty(variables('keyVaultOverride')), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
-    "aiServiceName": "[if(empty(variables('aiServicesOverride')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), variables('aiServicesOverride'))]",
-    "aiSearchName": "[if(empty(variables('aiSearchOverride')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), variables('aiSearchOverride'))]",
+    "aiServiceName": "[if(empty(parameters('aiServiceAccountName')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), parameters('aiServiceAccountName'))]",
+    "aiSearchName": "[if(empty(parameters('aiSearchServiceName')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), parameters('aiSearchServiceName'))]",
     "storageNameClean": "[format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix'))]"
   },
   "resources": [
@@ -272,7 +282,7 @@
             "value": "[parameters('uniqueSuffix')]"
           },
           "storageName": {
-            "value": "[variables('storageName')]"
+            "value": "[variables('storageNameClean')]"
           },
           "keyvaultName": {
             "value": "[variables('keyVaultName')]"
@@ -293,10 +303,10 @@
             "value": "[parameters('aisKind')]"
           },
           "aiServicesExists": {
-            "value": "[not(empty(variables('aiServicesOverride')))]"
+            "value": "[not(empty(parameters('aiServiceAccountName')))]"
           },
           "aiSearchExists": {
-            "value": "[not(empty(variables('aiSearchOverride')))]"
+            "value": "[not(empty(parameters('aiSearchServiceName')))]"
           },
           "modelName": {
             "value": "[parameters('modelName')]"
