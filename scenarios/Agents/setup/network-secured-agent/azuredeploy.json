@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15513953893093752510"
+      "templateHash": "15839381951477066016"
     }
   },
   "parameters": {
@@ -1724,72 +1724,6 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('wait-script-{0}-deployment', parameters('uniqueSuffix'))]",
-      "properties": {
-        "expressionEvaluationOptions": {
-          "scope": "inner"
-        },
-        "mode": "Incremental",
-        "parameters": {
-          "name": {
-            "value": "[format('wait-script-{0}', parameters('uniqueSuffix'))]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          }
-        },
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "metadata": {
-            "_generator": {
-              "name": "bicep",
-              "version": "0.33.93.31351",
-              "templateHash": "15002511661880391263"
-            }
-          },
-          "parameters": {
-            "name": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string"
-            },
-            "retentionTime": {
-              "type": "string",
-              "defaultValue": "PT1H"
-            }
-          },
-          "resources": [
-            {
-              "type": "Microsoft.Resources/deploymentScripts",
-              "apiVersion": "2023-08-01",
-              "name": "[parameters('name')]",
-              "location": "[parameters('location')]",
-              "kind": "AzurePowerShell",
-              "properties": {
-                "azPowerShellVersion": "10.0",
-                "scriptContent": "      Write-Output \"Starting wait script...\"\n      Start-Sleep -Seconds 120\n      Write-Output \"Wait completed. Proceeding with deployment...\"\n    ",
-                "retentionInterval": "[parameters('retentionTime')]",
-                "cleanupPreference": "Always"
-              }
-            }
-          ],
-          "outputs": {
-            "scriptName": {
-              "type": "string",
-              "value": "[parameters('name')]"
-            }
-          }
-        }
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix')))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2022-09-01",
       "name": "[format('{0}-{1}--AiServices-RA', parameters('name'), parameters('uniqueSuffix'))]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -1877,8 +1811,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('wait-script-{0}-deployment', parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {
@@ -1960,8 +1893,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('wait-script-{0}-deployment', parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {
