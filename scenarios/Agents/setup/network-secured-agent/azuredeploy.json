@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "12922415320529793549"
+      "templateHash": "15513953893093752510"
     }
   },
   "parameters": {
@@ -167,7 +167,7 @@
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "The Ai Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group"
+        "description": "The AI Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group must be Public Network Disabled"
       }
     },
     "userAssignedIdentityDefaultName": {

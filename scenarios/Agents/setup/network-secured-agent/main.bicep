@@ -21,10 +21,7 @@ This template deploys an AI agent infrastructure in a network-secured configurat
 */
 
 // Existing Resource Overrides - Used when connecting to pre-existing resources
-// var storageOverride = ''        // Override for existing storage account
 var keyVaultOverride = ''       // Override for existing Key Vault
-// var aiServicesOverride = ''     // Override for existing AI Services
-// var aiSearchOverride = ''       // Override for existing AI Search
 var userAssignedIdentityOverride = '' // Override for existing managed identity
 
 /* ---------------------------------- Deployment Identifiers ---------------------------------- */
@@ -100,7 +97,7 @@ param aisKind string = 'AIServices'
 @description('The AI Service Account name. This is an optional field, and if not provided, the resource will be created. The resource should exist in same resource group')
 param aiServiceAccountName string = ''
 
-@description('The Ai Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
+@description('The AI Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group must be Public Network Disabled')
 param aiSearchServiceName string = ''
 
 // @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
