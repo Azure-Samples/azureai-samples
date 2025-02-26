@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "11320135796736030975"
+      "templateHash": "17707683891288145362"
     }
   },
   "parameters": {
@@ -171,10 +171,10 @@
     "aiSearchOverride": "",
     "userAssignedIdentityOverride": "",
     "uaiName": "[if(equals(variables('userAssignedIdentityOverride'), ''), parameters('userAssignedIdentityDefaultName'), variables('userAssignedIdentityOverride'))]",
-    "storageName": "[if(equals(variables('storageOverride'), ''), format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix')), variables('storageOverride'))]",
-    "keyVaultName": "[if(equals(variables('keyVaultOverride'), ''), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
-    "aiServiceName": "[if(equals(variables('aiServicesOverride'), ''), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), variables('aiServicesOverride'))]",
-    "aiSearchName": "[if(equals(variables('aiSearchOverride'), ''), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), variables('aiSearchOverride'))]",
+    "storageName": "[if(empty(variables('storageOverride')), format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix')), variables('storageOverride'))]",
+    "keyVaultName": "[if(empty(variables('keyVaultOverride')), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
+    "aiServiceName": "[if(empty(variables('aiServicesOverride')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), variables('aiServicesOverride'))]",
+    "aiSearchName": "[if(empty(variables('aiSearchOverride')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), variables('aiSearchOverride'))]",
     "storageNameClean": "[format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix'))]"
   },
   "resources": [
@@ -293,10 +293,10 @@
             "value": "[parameters('aisKind')]"
           },
           "aiServicesExists": {
-            "value": "[not(equals(variables('aiServicesOverride'), ''))]"
+            "value": "[not(empty(variables('aiServicesOverride')))]"
           },
           "aiSearchExists": {
-            "value": "[not(equals(variables('aiSearchOverride'), ''))]"
+            "value": "[not(empty(variables('aiSearchOverride')))]"
           },
           "modelName": {
             "value": "[parameters('modelName')]"

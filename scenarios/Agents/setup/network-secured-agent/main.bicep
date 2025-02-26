@@ -115,10 +115,10 @@ module identity 'modules-network-secured/network-secured-identity.bicep' = {
 
 /* ---------------------------------- Create AI Assistant Dependent Resources ---------------------------------- */
 
-var storageName = (storageOverride == '') ? '${defaultStorageName}${uniqueSuffix}' : storageOverride
-var keyVaultName = (keyVaultOverride == '') ? 'kv-${defaultAiHubName}-${uniqueSuffix}' : keyVaultOverride
-var aiServiceName = (aiServicesOverride == '') ? '${defaultAiServicesName}${uniqueSuffix}' : aiServicesOverride
-var aiSearchName = (aiSearchOverride == '') ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchOverride
+var storageName = empty(storageOverride) ? '${defaultStorageName}${uniqueSuffix}' : storageOverride
+var keyVaultName = empty(keyVaultOverride) ? 'kv-${defaultAiHubName}-${uniqueSuffix}' : keyVaultOverride
+var aiServiceName = empty(aiServicesOverride) ? '${defaultAiServicesName}${uniqueSuffix}' : aiServicesOverride
+var aiSearchName = empty(aiSearchOverride) ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchOverride
 
 var storageNameClean = '${defaultStorageName}${uniqueSuffix}'
 // Dependent resources for the Azure Machine Learning workspace
@@ -134,8 +134,8 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
     location: location
     aisKind: aisKind
 
-    aiServicesExists: aiServicesOverride != ''
-    aiSearchExists: aiSearchOverride != ''
+    aiServicesExists: !empty(aiServicesOverride)
+    aiSearchExists: !empty(aiSearchOverride)
 
      // Model deployment parameters
      modelName: modelName
