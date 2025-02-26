@@ -26,8 +26,8 @@ Security Benefits:
 */
 
 // Resource names and identifiers
-param aiServicesName string 
-param aiSearchName string 
+param aiServicesName string
+param aiSearchName string
 param storageName string
 param vnetName string
 param cxSubnetName string
@@ -71,6 +71,27 @@ resource aiServicesPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-0
     privateLinkServiceConnections: [
       {
         name: '${aiServicesName}-private-link-service-connection'
+        properties: {
+          privateLinkServiceId: aiServices.id
+          groupIds: [
+            'account'                     // Target AI Services account
+          ]
+        }
+      }
+    ]
+  }
+}
+
+resource aiServiceOpenAiPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' = {
+  name: '${aiServicesName}-openAi-private-endpoint'
+  location: resourceGroup().location
+  properties: {
+    subnet: {
+      id: cxSubnet.id                    // Deploy in customer hub subnet
+    }
+    privateLinkServiceConnections: [
+      {
+        name: '${aiServicesName}-openAi-private-link-service-connection'
         properties: {
           privateLinkServiceId: aiServices.id
           groupIds: [
@@ -143,11 +164,28 @@ resource aiServicesPrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01'
   location: 'global'
 }
 
+resource openAiPrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.openai.azure.com'
+  location: 'global'
+}
+
 // Link AI Services DNS Zone to VNet
 resource aiServicesLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
   parent: aiServicesPrivateDnsZone
   location: 'global'
   name: 'aiServices-${suffix}-link'
+  properties: {
+    virtualNetwork: {
+      id: vnet.id                        // Link to specified VNet
+    }
+    registrationEnabled: false           // Don't auto-register VNet resources
+  }
+}
+
+resource aiOpenAILink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
+  parent: openAiPrivateDnsZone
+  location: 'global'
+  name: 'aiServicesOpenAI-${suffix}-link'
   properties: {
     virtualNetwork: {
       id: vnet.id                        // Link to specified VNet
@@ -166,6 +204,22 @@ resource aiServicesDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGr
         name: '${aiServicesName}-dns-config'
         properties: {
           privateDnsZoneId: aiServicesPrivateDnsZone.id
+        }
+      }
+    ]
+  }
+}
+
+// DNS Zone Group for Azure OpenAI
+resource aiOpenAIDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
+  parent: aiServiceOpenAiPrivateEndpoint
+  name: '${aiServicesName}-openAi-dns-group'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: '${aiServicesName}-openAi-dns-config'
+        properties: {
+          privateDnsZoneId: openAiPrivateDnsZone.id
         }
       }
     ]
