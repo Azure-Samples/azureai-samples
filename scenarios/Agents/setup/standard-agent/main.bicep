@@ -155,17 +155,6 @@ module aiProject 'modules-standard/standard-ai-project.bicep' = {
   }
 }
 
-module waitScript 'modules-standard/wait-script.bicep' = {
-  name: 'wait-script-${uniqueSuffix}-deployment'
-  params: {
-    name: 'wait-script-${uniqueSuffix}'
-    location: location
-  }
-  dependsOn: [
-    aiProject
-  ]
-}
-
 module aiServiceRoleAssignments 'modules-standard/ai-service-role-assignments.bicep' = {
   name: 'ai-service-role-assignments-${projectName}-${uniqueSuffix}-deployment'
   scope: resourceGroup(aiServiceAccountSubscriptionId, aiServiceAccountResourceGroupName)
@@ -174,9 +163,6 @@ module aiServiceRoleAssignments 'modules-standard/ai-service-role-assignments.bi
     aiProjectPrincipalId: aiProject.outputs.aiProjectPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
-  dependsOn: [
-    waitScript
-  ]
 }
 
 module aiSearchRoleAssignments 'modules-standard/ai-search-role-assignments.bicep' = {
@@ -187,9 +173,6 @@ module aiSearchRoleAssignments 'modules-standard/ai-search-role-assignments.bice
     aiProjectPrincipalId: aiProject.outputs.aiProjectPrincipalId
     aiProjectId: aiProject.outputs.aiProjectResourceId
   }
-  dependsOn: [
-    waitScript
-  ]
 }
 
 module addCapabilityHost 'modules-standard/add-capability-host.bicep' = {
