@@ -55,8 +55,38 @@ param defaultAiProjectFriendlyName string = 'Agents Project resource'
 @description('Description of your Azure AI resource displayed in AI studio')
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
+@allowed([
+  'australiaeast'
+  'canadaeast'
+  'eastus'
+  'eastus2'
+  'francecentral'
+  'japaneast'
+  'southindia'
+  'swedencentral'
+  'uaenorth'
+  'uksouth'
+  'westus'
+])
 @description('Azure region used for the deployment of all resources.')
-param location string = resourceGroup().location
+param location string
+
+// Ensure the resource group location is within the allowed regions
+var allowedRegions = [
+  'australiaeast'
+  'canadaeast'
+  'eastus'
+  'eastus2'
+  'francecentral'
+  'japaneast'
+  'southindia'
+  'swedencentral'
+  'uaenorth'
+  'uksouth'
+  'westus'
+]
+
+var isResourceGroupLocationAllowed = contains(allowedRegions, resourceGroup().location)
 
 @description('Set of tags to apply to all resources.')
 param tags object = {}

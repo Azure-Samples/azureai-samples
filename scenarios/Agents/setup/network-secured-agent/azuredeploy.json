@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15839381951477066016"
+      "templateHash": "16126496123643773441"
     }
   },
   "parameters": {
@@ -67,7 +67,19 @@
     },
     "location": {
       "type": "string",
-      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "australiaeast",
+        "canadaeast",
+        "eastus",
+        "eastus2",
+        "francecentral",
+        "japaneast",
+        "southindia",
+        "swedencentral",
+        "uaenorth",
+        "uksouth",
+        "westus"
+      ],
       "metadata": {
         "description": "Azure region used for the deployment of all resources."
       }
@@ -181,6 +193,20 @@
   "variables": {
     "keyVaultOverride": "",
     "userAssignedIdentityOverride": "",
+    "allowedRegions": [
+      "australiaeast",
+      "canadaeast",
+      "eastus",
+      "eastus2",
+      "francecentral",
+      "japaneast",
+      "southindia",
+      "swedencentral",
+      "uaenorth",
+      "uksouth",
+      "westus"
+    ],
+    "isResourceGroupLocationAllowed": "[contains(variables('allowedRegions'), resourceGroup().location)]",
     "uaiName": "[if(equals(variables('userAssignedIdentityOverride'), ''), parameters('userAssignedIdentityDefaultName'), variables('userAssignedIdentityOverride'))]",
     "keyVaultName": "[if(empty(variables('keyVaultOverride')), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
     "aiServiceName": "[if(empty(parameters('aiServiceAccountName')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), parameters('aiServiceAccountName'))]",
