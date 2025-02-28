@@ -125,13 +125,13 @@ module allowedLocations 'modules-network-secured/common/allowed-regions.bicep' =
   name: '${name}-${uniqueSuffix}--allowed-locations'
   params: {
     locations: allowedRegions
+    allowedLocationsDefintion: '/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c'
     rgLocationsDefinition: '/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988'
     locationMatchDefinition: '/providers/Microsoft.Authorization/policyDefinitions/0a914e76-4921-4c19-b460-a2d36003525a'
   }
 }
 
-var location = allowedLocations.outputs.rgLocation
-
+var location = resourceGroup().location
 module identity 'modules-network-secured/network-secured-identity.bicep' = {
   name: '${name}-${uniqueSuffix}--identity'
   params: {

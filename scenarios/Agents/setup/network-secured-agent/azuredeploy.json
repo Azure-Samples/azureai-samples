@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "11912162788282680882"
+      "templateHash": "15240938642434660036"
     }
   },
   "parameters": {
@@ -188,6 +188,7 @@
       "westus"
     ],
     "uaiName": "[if(equals(variables('userAssignedIdentityOverride'), ''), parameters('userAssignedIdentityDefaultName'), variables('userAssignedIdentityOverride'))]",
+    "location": "[resourceGroup().location]",
     "keyVaultName": "[if(empty(variables('keyVaultOverride')), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
     "aiServiceName": "[if(empty(parameters('aiServiceAccountName')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), parameters('aiServiceAccountName'))]",
     "aiSearchName": "[if(empty(parameters('aiSearchServiceName')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), parameters('aiSearchServiceName'))]",
@@ -207,6 +208,9 @@
           "locations": {
             "value": "[variables('allowedRegions')]"
           },
+          "allowedLocationsDefintion": {
+            "value": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c"
+          },
           "rgLocationsDefinition": {
             "value": "/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988"
           },
@@ -221,12 +225,15 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "15468753992598446310"
+              "templateHash": "17972580799362542990"
             }
           },
           "parameters": {
             "locations": {
               "type": "array"
+            },
+            "allowedLocationsDefintion": {
+              "type": "string"
             },
             "rgLocationsDefinition": {
               "type": "string"
@@ -236,10 +243,25 @@
             }
           },
           "variables": {
+            "allowedLocations": "Allowed locations",
             "rgLocations": "Allowed locations for resource groups",
             "locationMatch": "Audit resource location matches resource group location"
           },
           "resources": [
+            {
+              "type": "Microsoft.Authorization/policyAssignments",
+              "apiVersion": "2022-06-01",
+              "name": "allowed-locations",
+              "properties": {
+                "displayName": "[variables('allowedLocations')]",
+                "policyDefinitionId": "[parameters('allowedLocationsDefintion')]",
+                "parameters": {
+                  "listOfAllowedLocations": {
+                    "value": "[parameters('locations')]"
+                  }
+                }
+              }
+            },
             {
               "type": "Microsoft.Authorization/policyAssignments",
               "apiVersion": "2022-06-01",
@@ -263,17 +285,7 @@
                 "policyDefinitionId": "[parameters('locationMatchDefinition')]"
               }
             }
-          ],
-          "outputs": {
-            "rgLocation": {
-              "type": "string",
-              "value": "rg-locations"
-            },
-            "locationMatch": {
-              "type": "string",
-              "value": "location-match"
-            }
-          }
+          ]
         }
       }
     },
@@ -288,7 +300,7 @@
         "mode": "Incremental",
         "parameters": {
           "location": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.rgLocation.value]"
+            "value": "[variables('location')]"
           },
           "userAssignedIdentityName": {
             "value": "[variables('uaiName')]"
@@ -355,10 +367,7 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix')))]"
-      ]
+      }
     },
     {
       "type": "Microsoft.Resources/deployments",
@@ -389,7 +398,7 @@
             "value": "[parameters('tags')]"
           },
           "location": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.rgLocation.value]"
+            "value": "[variables('location')]"
           },
           "aisKind": {
             "value": "[parameters('aisKind')]"
@@ -1073,7 +1082,6 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
@@ -1097,7 +1105,7 @@
             "value": "[parameters('defaultAiHubDescription')]"
           },
           "location": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.rgLocation.value]"
+            "value": "[variables('location')]"
           },
           "tags": {
             "value": "[parameters('tags')]"
@@ -1350,7 +1358,6 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
@@ -1695,7 +1702,7 @@
             "value": "[parameters('defaultAiProjectDescription')]"
           },
           "location": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.rgLocation.value]"
+            "value": "[variables('location')]"
           },
           "tags": {
             "value": "[parameters('tags')]"
@@ -1811,7 +1818,6 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--hub', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--private-endpoint', parameters('name'), parameters('uniqueSuffix')))]"
       ]
