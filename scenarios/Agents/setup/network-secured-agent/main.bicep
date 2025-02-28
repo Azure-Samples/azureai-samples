@@ -56,23 +56,24 @@ param defaultAiProjectFriendlyName string = 'Agents Project resource'
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
 @description('Resource group location')
-param allowedLocation string = resourceGroup().location
+param resourceGroupLocation string = resourceGroup().location
 
 @allowed([
   'australiaeast'
-  'canadaeast'
   'eastus'
   'eastus2'
   'francecentral'
   'japaneast'
+  'norwayeast'
   'southindia'
   'swedencentral'
   'uaenorth'
   'uksouth'
   'westus'
+  'westus3'
 ])
 @description('Location for all resources.')
-param location string = allowedLocation
+param location string = resourceGroupLocation
 
 @description('Set of tags to apply to all resources.')
 param tags object = {}
