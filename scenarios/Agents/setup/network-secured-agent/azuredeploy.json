@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15839381951477066016"
+      "templateHash": "2121999007807216050"
     }
   },
   "parameters": {
@@ -65,11 +65,32 @@
         "description": "Description of your Azure AI resource displayed in AI studio"
       }
     },
-    "location": {
+    "resourceGroupLocation": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
       "metadata": {
-        "description": "Azure region used for the deployment of all resources."
+        "description": "Resource group location"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[parameters('resourceGroupLocation')]",
+      "allowedValues": [
+        "australiaeast",
+        "eastus",
+        "eastus2",
+        "francecentral",
+        "japaneast",
+        "norwayeast",
+        "southindia",
+        "swedencentral",
+        "uaenorth",
+        "uksouth",
+        "westus",
+        "westus3"
+      ],
+      "metadata": {
+        "description": "Location for all resources."
       }
     },
     "tags": {

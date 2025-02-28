@@ -55,8 +55,25 @@ param defaultAiProjectFriendlyName string = 'Agents Project resource'
 @description('Description of your Azure AI resource displayed in AI studio')
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
-@description('Azure region used for the deployment of all resources.')
-param location string = resourceGroup().location
+@description('Resource group location')
+param resourceGroupLocation string = resourceGroup().location
+
+@allowed([
+  'australiaeast'
+  'eastus'
+  'eastus2'
+  'francecentral'
+  'japaneast'
+  'norwayeast'
+  'southindia'
+  'swedencentral'
+  'uaenorth'
+  'uksouth'
+  'westus'
+  'westus3'
+])
+@description('Location for all resources.')
+param location string = resourceGroupLocation
 
 @description('Set of tags to apply to all resources.')
 param tags object = {}
@@ -109,6 +126,8 @@ param aiSearchServiceName string = ''
 param userAssignedIdentityDefaultName string = 'secured-agents-identity-${uniqueSuffix}'
 var uaiName = (userAssignedIdentityOverride == '') ? userAssignedIdentityDefaultName : userAssignedIdentityOverride
 
+
+
 module identity 'modules-network-secured/network-secured-identity.bicep' = {
   name: '${name}-${uniqueSuffix}--identity'
   params: {
@@ -117,8 +136,6 @@ module identity 'modules-network-secured/network-secured-identity.bicep' = {
     uaiExists: userAssignedIdentityOverride != ''
   }
 }
-
-
 
 /* ---------------------------------- Create AI Assistant Dependent Resources ---------------------------------- */
 
