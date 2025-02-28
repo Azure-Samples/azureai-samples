@@ -131,7 +131,7 @@ var uaiName = (userAssignedIdentityOverride == '') ? userAssignedIdentityDefault
 module identity 'modules-network-secured/network-secured-identity.bicep' = {
   name: '${name}-${uniqueSuffix}--identity'
   params: {
-    location:location
+    location: location
     userAssignedIdentityName: uaiName
     uaiExists: userAssignedIdentityOverride != ''
   }
