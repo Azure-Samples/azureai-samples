@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15240938642434660036"
+      "templateHash": "7142489798368979427"
     }
   },
   "parameters": {
@@ -63,6 +63,33 @@
       "defaultValue": "This is an example AI Project resource for use in Azure AI Studio.",
       "metadata": {
         "description": "Description of your Azure AI resource displayed in AI studio"
+      }
+    },
+    "allowedLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Resource group location"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[parameters('allowedLocation')]",
+      "allowedValues": [
+        "australiaeast",
+        "canadaeast",
+        "eastus",
+        "eastus2",
+        "francecentral",
+        "japaneast",
+        "southindia",
+        "swedencentral",
+        "uaenorth",
+        "uksouth",
+        "westus"
+      ],
+      "metadata": {
+        "description": "Location for all resources."
       }
     },
     "tags": {
@@ -174,121 +201,13 @@
   "variables": {
     "keyVaultOverride": "",
     "userAssignedIdentityOverride": "",
-    "allowedRegions": [
-      "australiaeast",
-      "canadaeast",
-      "eastus",
-      "eastus2",
-      "francecentral",
-      "japaneast",
-      "southindia",
-      "swedencentral",
-      "uaenorth",
-      "uksouth",
-      "westus"
-    ],
     "uaiName": "[if(equals(variables('userAssignedIdentityOverride'), ''), parameters('userAssignedIdentityDefaultName'), variables('userAssignedIdentityOverride'))]",
-    "location": "[resourceGroup().location]",
     "keyVaultName": "[if(empty(variables('keyVaultOverride')), format('kv-{0}-{1}', parameters('defaultAiHubName'), parameters('uniqueSuffix')), variables('keyVaultOverride'))]",
     "aiServiceName": "[if(empty(parameters('aiServiceAccountName')), format('{0}{1}', parameters('defaultAiServicesName'), parameters('uniqueSuffix')), parameters('aiServiceAccountName'))]",
     "aiSearchName": "[if(empty(parameters('aiSearchServiceName')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), parameters('aiSearchServiceName'))]",
     "storageNameClean": "[format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix'))]"
   },
   "resources": [
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2022-09-01",
-      "name": "[format('{0}-{1}--allowed-locations', parameters('name'), parameters('uniqueSuffix'))]",
-      "properties": {
-        "expressionEvaluationOptions": {
-          "scope": "inner"
-        },
-        "mode": "Incremental",
-        "parameters": {
-          "locations": {
-            "value": "[variables('allowedRegions')]"
-          },
-          "allowedLocationsDefintion": {
-            "value": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c"
-          },
-          "rgLocationsDefinition": {
-            "value": "/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988"
-          },
-          "locationMatchDefinition": {
-            "value": "/providers/Microsoft.Authorization/policyDefinitions/0a914e76-4921-4c19-b460-a2d36003525a"
-          }
-        },
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "metadata": {
-            "_generator": {
-              "name": "bicep",
-              "version": "0.33.93.31351",
-              "templateHash": "17972580799362542990"
-            }
-          },
-          "parameters": {
-            "locations": {
-              "type": "array"
-            },
-            "allowedLocationsDefintion": {
-              "type": "string"
-            },
-            "rgLocationsDefinition": {
-              "type": "string"
-            },
-            "locationMatchDefinition": {
-              "type": "string"
-            }
-          },
-          "variables": {
-            "allowedLocations": "Allowed locations",
-            "rgLocations": "Allowed locations for resource groups",
-            "locationMatch": "Audit resource location matches resource group location"
-          },
-          "resources": [
-            {
-              "type": "Microsoft.Authorization/policyAssignments",
-              "apiVersion": "2022-06-01",
-              "name": "allowed-locations",
-              "properties": {
-                "displayName": "[variables('allowedLocations')]",
-                "policyDefinitionId": "[parameters('allowedLocationsDefintion')]",
-                "parameters": {
-                  "listOfAllowedLocations": {
-                    "value": "[parameters('locations')]"
-                  }
-                }
-              }
-            },
-            {
-              "type": "Microsoft.Authorization/policyAssignments",
-              "apiVersion": "2022-06-01",
-              "name": "rg-locations",
-              "properties": {
-                "displayName": "[variables('rgLocations')]",
-                "policyDefinitionId": "[parameters('rgLocationsDefinition')]",
-                "parameters": {
-                  "listOfAllowedLocations": {
-                    "value": "[parameters('locations')]"
-                  }
-                }
-              }
-            },
-            {
-              "type": "Microsoft.Authorization/policyAssignments",
-              "apiVersion": "2022-06-01",
-              "name": "location-match",
-              "properties": {
-                "displayName": "[variables('locationMatch')]",
-                "policyDefinitionId": "[parameters('locationMatchDefinition')]"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
@@ -300,7 +219,7 @@
         "mode": "Incremental",
         "parameters": {
           "location": {
-            "value": "[variables('location')]"
+            "value": "[parameters('location')]"
           },
           "userAssignedIdentityName": {
             "value": "[variables('uaiName')]"
@@ -398,7 +317,7 @@
             "value": "[parameters('tags')]"
           },
           "location": {
-            "value": "[variables('location')]"
+            "value": "[parameters('location')]"
           },
           "aisKind": {
             "value": "[parameters('aisKind')]"
@@ -1105,7 +1024,7 @@
             "value": "[parameters('defaultAiHubDescription')]"
           },
           "location": {
-            "value": "[variables('location')]"
+            "value": "[parameters('location')]"
           },
           "tags": {
             "value": "[parameters('tags')]"
@@ -1702,7 +1621,7 @@
             "value": "[parameters('defaultAiProjectDescription')]"
           },
           "location": {
-            "value": "[variables('location')]"
+            "value": "[parameters('location')]"
           },
           "tags": {
             "value": "[parameters('tags')]"
