@@ -55,22 +55,6 @@ param defaultAiProjectFriendlyName string = 'Agents Project resource'
 @description('Description of your Azure AI resource displayed in AI studio')
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
-@allowed([
-  'australiaeast'
-  'canadaeast'
-  'eastus'
-  'eastus2'
-  'francecentral'
-  'japaneast'
-  'southindia'
-  'swedencentral'
-  'uaenorth'
-  'uksouth'
-  'westus'
-])
-@description('Azure region used for the deployment of all resources.')
-param location string
-
 // Ensure the resource group location is within the allowed regions
 var allowedRegions = [
   'australiaeast'
@@ -85,8 +69,6 @@ var allowedRegions = [
   'uksouth'
   'westus'
 ]
-
-var isResourceGroupLocationAllowed = contains(allowedRegions, resourceGroup().location)
 
 @description('Set of tags to apply to all resources.')
 param tags object = {}
@@ -139,10 +121,21 @@ param aiSearchServiceName string = ''
 param userAssignedIdentityDefaultName string = 'secured-agents-identity-${uniqueSuffix}'
 var uaiName = (userAssignedIdentityOverride == '') ? userAssignedIdentityDefaultName : userAssignedIdentityOverride
 
+module allowedLocations 'modules-network-secured/common/allowed-regions.bicep' = {
+  name: '${name}-${uniqueSuffix}--allowed-locations'
+  params: {
+    locations: allowedRegions
+    rgLocationsDefinition: '/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988'
+    locationMatchDefinition: '/providers/Microsoft.Authorization/policyDefinitions/0a914e76-4921-4c19-b460-a2d36003525a'
+  }
+}
+
+var location = allowedLocations.outputs.rgLocation
+
 module identity 'modules-network-secured/network-secured-identity.bicep' = {
   name: '${name}-${uniqueSuffix}--identity'
   params: {
-    location: location
+    location:location
     userAssignedIdentityName: uaiName
     uaiExists: userAssignedIdentityOverride != ''
   }
