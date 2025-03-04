@@ -124,7 +124,7 @@ param aiSearchServiceName string = ''
 ])
 param hubPublicNetworkAccess string = 'Enabled'
 
-@description('Specifies the public network access for the Azure AI Project workspace.')
+@description('Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled.')
 @allowed([
   'Disabled'
   'Enabled'
@@ -333,4 +333,11 @@ module addCapabilityHost 'modules-network-secured/network-capability-host.bicep'
   ]
 }
 
-output PROJECT_CONNECTION_STRING string = aiProject.outputs.projectConnectionString
+var projectConnectionString =  aiProject.outputs.projectConnectionString
+var parts = split(projectConnectionString, ';')
+var projectHost = parts[0]
+var subscriptionId = parts[1]
+var resourceGroupName = parts[2]
+var projectName = parts[3]
+var privateProjectHost = '${aiProject.outputs.aiProjectWorkspaceId}.workspace.${projectHost}'
+output PROJECT_CONNECTION_STRING string =  hubPublicNetworkAccess == 'Enabled' ? aiProject.outputs.projectConnectionString : '${privateProjectHost};${subscriptionId};${resourceGroupName};${projectName}'

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "8952432483363261589"
+      "templateHash": "2971870935601910382"
     }
   },
   "parameters": {
@@ -210,7 +210,7 @@
         "Enabled"
       ],
       "metadata": {
-        "description": "Specifies the public network access for the Azure AI Project workspace."
+        "description": "Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled."
       }
     },
     "userAssignedIdentityDefaultName": {
@@ -2294,7 +2294,7 @@
   "outputs": {
     "PROJECT_CONNECTION_STRING": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value]"
+      "value": "[if(equals(parameters('hubPublicNetworkAccess'), 'Enabled'), reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value, format('{0};{1};{2};{3}', format('{0}.workspace.{1}', reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.aiProjectWorkspaceId.value, split(reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value, ';')[0]), split(reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value, ';')[1], split(reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value, ';')[2], split(reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.projectConnectionString.value, ';')[3]))]"
     }
   }
 }
