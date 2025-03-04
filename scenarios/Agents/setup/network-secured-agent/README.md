@@ -31,7 +31,7 @@ This infrastructure-as-code (IaC) solution deploys a network-secured Azure AI ag
 
 ## Note:
 Make sure you have an active Azure subscription that allows registering resource providers.
-Subnet delegation requires the Microsoft.App provider to be registered in your subscription.If it's not already registered, run the command below:
+Subnet delegation requires the Microsoft.App provider to be registered in your subscription. If it's not already registered, run the command below:
 
 ```
 Register-AzResourceProvider -ProviderNamespace Microsoft.App
