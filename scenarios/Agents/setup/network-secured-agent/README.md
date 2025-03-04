@@ -37,7 +37,7 @@ Subnet delegation requires the Microsoft.App provider to be registered in your s
 Register-AzResourceProvider -ProviderNamespace Microsoft.App
 ```
 
-In case Hub/Project workspace need Public Network Disabled select from dropdown
+In case Hub/Project workspace need Public Network Disabled select from dropdown or edit in bicep.
 
 ```
 hubPublicNetworkAccess = Disabled
