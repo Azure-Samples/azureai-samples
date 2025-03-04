@@ -37,11 +37,19 @@ Subnet delegation requires the Microsoft.App provider to be registered in your s
 Register-AzResourceProvider -ProviderNamespace Microsoft.App
 ```
 
+In case Hub/Project workspace need Public Network Disabled select from dropdown
+
+```
+hubPublicNetworkAccess = Disabled
+```
+
 When Hub and Project workspace Public Network Disabled, the project connection string output from the deployment will look like, this should be used data plane operations:
 
 ```
 PROJECT_CONNECTION_STRING='<project_workspace_id>.workspace.japaneast.api.azureml.ms;00000000-0000-0000-0000-000000000000;sample-resource-group;project-demo-t6vz'
 ```
+
+
 
 
 ## Architecture Overview
