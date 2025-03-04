@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "1983162983392052778"
+      "templateHash": "8952432483363261589"
     }
   },
   "parameters": {
@@ -1168,7 +1168,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "13923523063496606706"
+              "templateHash": "15229829833658622658"
             }
           },
           "parameters": {
@@ -1282,18 +1282,6 @@
                 "description": "Flag indicating if the hub already exists"
               }
             },
-            "isolationMode": {
-              "type": "string",
-              "defaultValue": "AllowInternetOutbound",
-              "allowedValues": [
-                "AllowInternetOutbound",
-                "AllowOnlyApprovedOutbound",
-                "Disabled"
-              ],
-              "metadata": {
-                "description": "Specifies the Isolation mode for the managed network of a machine learning workspace."
-              }
-            },
             "publicNetworkAccess": {
               "type": "string",
               "defaultValue": "Enabled",
@@ -1369,7 +1357,6 @@
                 "description": "[parameters('aiHubDescription')]",
                 "primaryUserAssignedIdentity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('uaiName'))]",
                 "publicNetworkAccess": "[parameters('publicNetworkAccess')]",
-                "managedNetwork": "[if(equals(parameters('publicNetworkAccess'), 'Disabled'), createObject('isolationMode', parameters('isolationMode')), null())]",
                 "keyVault": "[parameters('keyVaultId')]",
                 "storageAccount": "[parameters('storageAccountId')]"
               }
