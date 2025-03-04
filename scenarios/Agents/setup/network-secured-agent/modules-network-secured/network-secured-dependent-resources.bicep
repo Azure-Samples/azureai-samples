@@ -70,11 +70,6 @@ param aisKind string
 @description('The name of the virtual network')
 param vnetName string
 
-@description('The name of Agents Subnet for container apps')
-param agentSubnetRef string
-
-@description('The name of Customer Hub subnet for private endpoints')
-param cxSubnetRef string
 
 param userAssignedIdentityName string
 
@@ -90,8 +85,7 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-previe
 
 /* -------------------------------------------- Virtual Network Resources -------------------------------------------- */
 
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
-  location: location
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: vnetName
 }
 
@@ -251,7 +245,7 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
       defaultAction: 'Deny'                // Deny all other traffic
       virtualNetworkRules: [               // Allow access from customer hub subnet
         {
-          id: cxSubnetRef
+          id: virtualNetwork.properties.subnets[0].id
         }
       ]
     }

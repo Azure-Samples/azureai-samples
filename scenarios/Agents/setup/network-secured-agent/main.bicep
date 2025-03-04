@@ -200,10 +200,8 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
 
      userAssignedIdentityName: identity.outputs.uaiName
 
-    // VNet and Subnet
+    // VNet
     vnetName: vnet.outputs.virtualNetworkName
-    cxSubnetRef: vnet.outputs.hubSubnetId
-    agentSubnetRef: vnet.outputs.agentsSubnetId
     }
 }
 
