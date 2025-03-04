@@ -29,6 +29,34 @@ languages:
 
 This infrastructure-as-code (IaC) solution deploys a network-secured Azure AI agent environment with private networking, managed identities, and role-based access control (RBAC).
 
+## Note:
+Make sure you have an active Azure subscription that allows registering resource providers.
+Subnet delegation requires the Microsoft.App provider to be registered in your subscription. If it's not already registered, run the command below:
+
+```
+Register-AzResourceProvider -ProviderNamespace Microsoft.App
+```
+
+In case Hub/Project workspace need Public Network Disabled select from dropdown or edit in bicep.
+
+```
+hubPublicNetworkAccess = Disabled
+```
+
+When Hub and Project workspace Public Network Disabled, the project connection string output from the deployment will look like, this should be used data plane operations
+
+```
+PROJECT_CONNECTION_STRING='<project_workspace_id>.workspace.japaneast.api.azureml.ms;12345678-abcd-1234-9fc6-62780b3d3e05;my-resource-group;my-project-name'
+```
+
+It follows format
+```<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<ProjectName>```
+HostName can be found by navigating to your discovery_url and removing the leading "https://" and trailing "/discovery"
+To find your discovery_url, run the CLI command:
+```az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url```
+Customer needs to login to Azure subscription via Azure CLI and set the environment variables
+
+
 ## Architecture Overview
 
 ### Network Security Design

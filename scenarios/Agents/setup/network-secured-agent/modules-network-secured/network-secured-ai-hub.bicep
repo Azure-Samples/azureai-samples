@@ -85,6 +85,15 @@ param uaiName string
 @description('Flag indicating if the hub already exists')
 param aiHubExists bool = false
 
+
+@description('Specifies the public network access for the machine learning workspace.')
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+param publicNetworkAccess string = 'Enabled'
+
+
 /* -------------------------------------------- Variables -------------------------------------------- */
 
 // Connection names for service integration
@@ -127,6 +136,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview'
     description: aiHubDescription
     primaryUserAssignedIdentity: userAssignedIdentity.id
 
+    publicNetworkAccess: publicNetworkAccess
     // Core service connections
     keyVault: keyVaultId                           // For secret management
     storageAccount: storageAccountId               // For data persistence

@@ -48,6 +48,9 @@ param aiHubId string
 @description('Name of the user-assigned managed identity')
 param uaiName string
 
+@description('Specifies the public network access for the machine learning workspace.')
+param publicNetworkAccess string = 'Enabled'
+
 /* -------------------------------------------- Variables -------------------------------------------- */
 
 // Connection string components
@@ -85,6 +88,7 @@ resource aiProject 'Microsoft.MachineLearningServices/workspaces@2023-08-01-prev
 
     // Hub integration
     hubResourceId: aiHubId                          // Link to network-secured AI Hub
+    publicNetworkAccess: publicNetworkAccess      // Enable/disable public network access
   }
   kind: 'project'
 }

@@ -26,13 +26,27 @@ Security Benefits:
 */
 
 // Resource names and identifiers
+@description('Name of the AI Services account')
 param aiServicesName string
+@description('Name of the AI Search service')
 param aiSearchName string
+@description('Name of the storage account')
 param storageName string
+@description('Name of the Vnet')
 param vnetName string
+@description('Name of the Customer subnet')
 param cxSubnetName string
+@description('Suffix for unique resource names')
 param suffix string
+@description('Name of the AI Storage Account')
 param aiStorageId string
+
+@description('Specifies the resource id of the Azure Hub Workspace.')
+param hubWorkspaceId string
+
+@description('Name of the Customer Hub Workspace')
+@secure()
+param hubWorkspaceName string
 
 // Reference existing services that need private endpoints
 resource aiServices 'Microsoft.CognitiveServices/accounts@2023-05-01' existing = {
@@ -155,6 +169,28 @@ resource storagePrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' 
   }
 }
 
+/*----------------------------------------------Hub Workspace Kind---------------------------------------------*/
+resource hubWorkspacePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: '${hubWorkspaceName}-private-endpoint'
+  location: resourceGroup().location
+  properties: {
+    privateLinkServiceConnections: [
+      {
+        name: '${hubWorkspaceName}-private-link-service-connection'
+        properties: {
+          privateLinkServiceId: hubWorkspaceId
+          groupIds: [
+            'amlworkspace'
+          ]
+        }
+      }
+    ]
+    subnet: {
+      id: cxSubnet.id
+    }
+  }
+}
+
 /* -------------------------------------------- Private DNS Zones -------------------------------------------- */
 
 // Private DNS Zone for AI Services
@@ -208,6 +244,9 @@ resource aiServicesDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGr
       }
     ]
   }
+  dependsOn: [
+    aiServicesLink
+  ]
 }
 
 // DNS Zone Group for Azure OpenAI
@@ -224,6 +263,71 @@ resource aiOpenAIDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGrou
       }
     ]
   }
+  dependsOn: [
+    aiOpenAILink
+  ]
+}
+
+// Private DNS Zone for AI Hub
+// - Enables custom DNS resolution for AI Hub private endpoint
+resource mlApiPrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.api.azureml.ms'
+  location: 'global'
+}
+
+resource mlNotebooksPrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.notebooksazureml.net'
+  location: 'global'
+}
+
+// Link AI Hub DNS Zone to VNet
+resource mlApiPrivateDnsZoneVirtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: mlApiPrivateDnsZone
+  name: 'mlApi-${suffix}-link'
+  location: 'global'
+  properties: {
+    registrationEnabled: false
+    virtualNetwork: {
+      id: vnet.id
+    }
+  }
+}
+
+resource mlNotebooksPrivateDnsZoneVirtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: mlNotebooksPrivateDnsZone
+  name: 'mlNotebook-${suffix}-link'
+  location: 'global'
+  properties: {
+    registrationEnabled: false
+    virtualNetwork: {
+      id: vnet.id
+    }
+  }
+}
+
+resource hubWorkspacePrivateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-11-01' = {
+  parent: hubWorkspacePrivateEndpoint
+  name: '${hubWorkspaceName}-mlApiNotebook-dns-group'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: '${hubWorkspaceName}-mlApi-dns-config'
+        properties: {
+            privateDnsZoneId: mlApiPrivateDnsZone.id
+        }
+      }
+      {
+        name: '${hubWorkspaceName}-mlNotebook-dns-config'
+        properties: {
+            privateDnsZoneId: mlNotebooksPrivateDnsZone.id
+        }
+      }
+    ]
+  }
+  dependsOn: [
+    mlApiPrivateDnsZoneVirtualNetworkLink
+    mlNotebooksPrivateDnsZoneVirtualNetworkLink
+  ]
 }
 
 // Private DNS Zone for AI Search

@@ -117,6 +117,20 @@ param aiServiceAccountName string = ''
 @description('The AI Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group must be Public Network Disabled')
 param aiSearchServiceName string = ''
 
+@description('Specifies the public network access for the Azure AI Hub workspace.')
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+param hubPublicNetworkAccess string = 'Enabled'
+
+@description('Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled.')
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+param projectPublicNetworkAccess string = hubPublicNetworkAccess
+
 // @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
 // param aiStorageAccountName string = ''
 
@@ -145,6 +159,21 @@ var aiServiceName = empty(aiServiceAccountName) ? '${defaultAiServicesName}${uni
 var aiSearchName = empty(aiSearchServiceName) ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchServiceName
 
 var storageNameClean = '${defaultStorageName}${uniqueSuffix}'
+
+// Create Virtual Network and Subnets
+module vnet 'modules-network-secured/networking/vnet.bicep' = {
+  name: '${name}-${uniqueSuffix}--vnet'
+  params: {
+    location: location
+    tags: tags
+    suffix: uniqueSuffix
+    modelLocation: modelLocation
+  }
+  dependsOn: [
+    identity
+  ]
+}
+
 // Dependent resources for the Azure Machine Learning workspace
 module aiDependencies 'modules-network-secured/network-secured-dependent-resources.bicep' = {
   name: '${name}-${uniqueSuffix}--dependencies'
@@ -170,6 +199,9 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
      modelLocation: modelLocation
 
      userAssignedIdentityName: identity.outputs.uaiName
+
+    // VNet
+    vnetName: vnet.outputs.virtualNetworkName
     }
 }
 
@@ -200,6 +232,7 @@ module aiHub 'modules-network-secured/network-secured-ai-hub.bicep' = {
     storageAccountId: aiDependencies.outputs.storageId
 
     uaiName: identity.outputs.uaiName
+    publicNetworkAccess: hubPublicNetworkAccess // Public network access for the workspace
   }
 }
 
@@ -234,9 +267,11 @@ module privateEndpointAndDNS 'modules-network-secured/private-endpoint-and-dns.b
     aiSearchName: aiDependencies.outputs.aiSearchName        // AI Search to secure
     aiStorageId: aiDependencies.outputs.storageId           // Storage to secure
     storageName: storageNameClean                           // Clean storage name for DNS
-    vnetName: aiDependencies.outputs.virtualNetworkName     // VNet containing subnets
-    cxSubnetName: aiDependencies.outputs.cxSubnetName       // Subnet for private endpoints
+    vnetName: vnet.outputs.virtualNetworkName    // VNet containing subnets
+    cxSubnetName: vnet.outputs.hubSubnetName        // Subnet for private endpoints
     suffix: uniqueSuffix                                    // Unique identifier
+    hubWorkspaceId: aiHub.outputs.aiHubID                   // AI Hub workspace ID
+    hubWorkspaceName: aiHub.outputs.aiHubName               // AI Hub workspace name
   }
   dependsOn: [
     aiServices    // Ensure AI Services exist
@@ -256,6 +291,7 @@ module aiProject 'modules-network-secured/network-secured-ai-project.bicep' = {
     tags: tags
     aiHubId: aiHub.outputs.aiHubID
     uaiName: identity.outputs.uaiName
+    publicNetworkAccess: projectPublicNetworkAccess // Public network access for the workspace
   }
   dependsOn: [
     privateEndpointAndDNS
@@ -290,11 +326,18 @@ module addCapabilityHost 'modules-network-secured/network-capability-host.bicep'
     aiProjectName: aiProject.outputs.aiProjectName
     acsConnectionName: aiHub.outputs.acsConnectionName
     aoaiConnectionName: aiHub.outputs.aoaiConnectionName
-    customerSubnetId: aiDependencies.outputs.agentSubnetId
+    customerSubnetId: vnet.outputs.agentsSubnetId
   }
   dependsOn: [
     aiSearchRoleAssignments, aiServiceRoleAssignments
   ]
 }
 
-output PROJECT_CONNECTION_STRING string = aiProject.outputs.projectConnectionString
+var projectConnectionString =  aiProject.outputs.projectConnectionString
+var parts = split(projectConnectionString, ';')
+var projectHost = parts[0]
+var subscriptionId = parts[1]
+var resourceGroupName = parts[2]
+var projectName = parts[3]
+var privateProjectHost = '${aiProject.outputs.aiProjectWorkspaceId}.workspace.${projectHost}'
+output PROJECT_CONNECTION_STRING string =  hubPublicNetworkAccess == 'Enabled' ? aiProject.outputs.projectConnectionString : '${privateProjectHost};${subscriptionId};${resourceGroupName};${projectName}'

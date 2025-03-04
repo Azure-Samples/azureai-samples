@@ -68,19 +68,14 @@ param aisKind string
 
 // Network Resource Names
 @description('The name of the virtual network')
-param vnetName string = 'agents-vnet-${suffix}'
+param vnetName string
 
-@description('The name of Agents Subnet for container apps')
-param agentsSubnetName string = 'agents-subnet-${suffix}'
-
-@description('The name of Customer Hub subnet for private endpoints')
-param cxSubnetName string = 'hub-subnet-${suffix}'
 
 param userAssignedIdentityName string
 
 // Subnet reference variables for network rules
-var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
-var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
+// var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
+// var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
 
 // User-assigned managed identity for secure access
 resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
@@ -90,62 +85,8 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-previe
 
 /* -------------------------------------------- Virtual Network Resources -------------------------------------------- */
 
-// Virtual Network with segregated subnets and security controls
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: vnetName
-  location: location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '172.16.0.0/16'    // Main VNet CIDR
-      ]
-    }
-    subnets: [
-      {
-        name: cxSubnetName
-        properties: {
-          addressPrefix: '172.16.0.0/24'    // Customer Hub subnet CIDR
-          serviceEndpoints: [               // Secure service access
-            {
-              service: 'Microsoft.KeyVault'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.Storage'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.CognitiveServices'
-              locations: [
-                modelLocation
-              ]
-            }
-          ]
-        }
-      }
-      {
-        name: agentsSubnetName
-        properties: {
-          addressPrefix: '172.16.101.0/24'  // Agents subnet CIDR
-          delegations: [
-            {
-              name: 'Microsoft.app/environments'
-              properties: {
-                serviceName: 'Microsoft.app/environments'
-              }
-            }
-          ]
-        }
-      }
-    ]
-  }
-  dependsOn: [
-    uai
-  ]
 }
 
 /* -------------------------------------------- Existing Resource References -------------------------------------------- */
@@ -304,15 +245,12 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
       defaultAction: 'Deny'                // Deny all other traffic
       virtualNetworkRules: [               // Allow access from customer hub subnet
         {
-          id: cxSubnetRef
+          id: virtualNetwork.properties.subnets[0].id
         }
       ]
     }
     allowSharedKeyAccess: false           // Enforce Azure AD authentication
   }
-  dependsOn: [
-    virtualNetwork
-  ]
 }
 
 /* -------------------------------------------- Role Assignments -------------------------------------------- */
@@ -358,12 +296,5 @@ output storageAccountName string = storageExists ? existingStorage.name :  stora
 output storageId string =  storageExists ? existingStorage.id : defaultStorage.id
 output storageAccountResourceGroupName string = storageParts[4]
 output storageAccountSubscriptionId string = storageParts[2]
-
-output virtualNetworkName string = virtualNetwork.name
-output virtualNetworkId string = virtualNetwork.id
-output cxSubnetName string = cxSubnetName
-output agentSubnetName string = agentsSubnetName
-output cxSubnetId string = cxSubnetRef
-output agentSubnetId string = agentSubnetRef
 
 output keyvaultId string = keyvaultExists ? existingKeyVault.id : defaultKeyVault.id
