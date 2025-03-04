@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "6876181953242738261"
+      "templateHash": "9357303378436502898"
     }
   },
   "parameters": {
@@ -542,6 +542,15 @@
           },
           "userAssignedIdentityName": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.uaiName.value]"
+          },
+          "vnetName": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.virtualNetworkName.value]"
+          },
+          "cxSubnetRef": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.hubSubnetId.value]"
+          },
+          "agentSubnetRef": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.agentsSubnetId.value]"
           }
         },
         "template": {
@@ -551,7 +560,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "18329526589898709849"
+              "templateHash": "65654342796190829"
             }
           },
           "parameters": {
@@ -659,21 +668,18 @@
             },
             "vnetName": {
               "type": "string",
-              "defaultValue": "[format('agents-vnet-{0}', parameters('suffix'))]",
               "metadata": {
                 "description": "The name of the virtual network"
               }
             },
-            "agentsSubnetName": {
+            "agentSubnetRef": {
               "type": "string",
-              "defaultValue": "[format('agents-subnet-{0}', parameters('suffix'))]",
               "metadata": {
                 "description": "The name of Agents Subnet for container apps"
               }
             },
-            "cxSubnetName": {
+            "cxSubnetRef": {
               "type": "string",
-              "defaultValue": "[format('hub-subnet-{0}', parameters('suffix'))]",
               "metadata": {
                 "description": "The name of Customer Hub subnet for private endpoints"
               }
@@ -694,8 +700,6 @@
             }
           },
           "variables": {
-            "cxSubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('cxSubnetName'))]",
-            "agentSubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('agentsSubnetName'))]",
             "storageNameCleaned": "[if(parameters('storageExists'), parameters('storageName'), replace(parameters('storageName'), '-', ''))]",
             "aiServiceParts": "[if(parameters('aiServicesExists'), split(resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName')), '/'), split(resourceId('Microsoft.CognitiveServices/accounts', parameters('aiServicesName')), '/'))]",
             "acsParts": "[if(parameters('aiSearchExists'), split(resourceId('Microsoft.CognitiveServices/accounts', parameters('aiSearchName')), '/'), split(resourceId('Microsoft.Search/searchServices', parameters('aiSearchName')), '/'))]",
@@ -872,7 +876,7 @@
                   "defaultAction": "Deny",
                   "virtualNetworkRules": [
                     {
-                      "id": "[variables('cxSubnetRef')]"
+                      "id": "[parameters('cxSubnetRef')]"
                     }
                   ]
                 },
@@ -1107,30 +1111,6 @@
             "storageAccountSubscriptionId": {
               "type": "string",
               "value": "[variables('storageParts')[2]]"
-            },
-            "virtualNetworkName": {
-              "type": "string",
-              "value": "[parameters('vnetName')]"
-            },
-            "virtualNetworkId": {
-              "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
-            },
-            "cxSubnetName": {
-              "type": "string",
-              "value": "[parameters('cxSubnetName')]"
-            },
-            "agentSubnetName": {
-              "type": "string",
-              "value": "[parameters('agentsSubnetName')]"
-            },
-            "cxSubnetId": {
-              "type": "string",
-              "value": "[variables('cxSubnetRef')]"
-            },
-            "agentSubnetId": {
-              "type": "string",
-              "value": "[variables('agentSubnetRef')]"
             },
             "keyvaultId": {
               "type": "string",
@@ -1471,10 +1451,10 @@
             "value": "[variables('storageNameClean')]"
           },
           "vnetName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.virtualNetworkName.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.virtualNetworkName.value]"
           },
           "cxSubnetName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.cxSubnetName.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.hubSubnetName.value]"
           },
           "suffix": {
             "value": "[parameters('uniqueSuffix')]"
@@ -2256,7 +2236,7 @@
             "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--hub', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.aoaiConnectionName.value]"
           },
           "customerSubnetId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.agentSubnetId.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.agentsSubnetId.value]"
           }
         },
         "template": {
@@ -2344,11 +2324,11 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--hub', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--project', parameters('name'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--AiSearch-RA', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--AiServices-RA', parameters('name'), parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--AiServices-RA', parameters('name'), parameters('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     }
   ],

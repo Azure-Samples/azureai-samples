@@ -68,19 +68,19 @@ param aisKind string
 
 // Network Resource Names
 @description('The name of the virtual network')
-param vnetName string = 'agents-vnet-${suffix}'
+param vnetName string
 
 @description('The name of Agents Subnet for container apps')
-param agentsSubnetName string = 'agents-subnet-${suffix}'
+param agentSubnetRef string
 
 @description('The name of Customer Hub subnet for private endpoints')
-param cxSubnetName string = 'hub-subnet-${suffix}'
+param cxSubnetRef string
 
 param userAssignedIdentityName string
 
 // Subnet reference variables for network rules
-var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
-var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
+// var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
+// var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
 
 // User-assigned managed identity for secure access
 resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
@@ -302,12 +302,5 @@ output storageAccountName string = storageExists ? existingStorage.name :  stora
 output storageId string =  storageExists ? existingStorage.id : defaultStorage.id
 output storageAccountResourceGroupName string = storageParts[4]
 output storageAccountSubscriptionId string = storageParts[2]
-
-output virtualNetworkName string = virtualNetwork.name
-output virtualNetworkId string = virtualNetwork.id
-output cxSubnetName string = cxSubnetName
-output agentSubnetName string = agentsSubnetName
-output cxSubnetId string = cxSubnetRef
-output agentSubnetId string = agentSubnetRef
 
 output keyvaultId string = keyvaultExists ? existingKeyVault.id : defaultKeyVault.id

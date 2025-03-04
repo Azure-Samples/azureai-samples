@@ -199,10 +199,12 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
      modelLocation: modelLocation
 
      userAssignedIdentityName: identity.outputs.uaiName
+
+    // VNet and Subnet
+    vnetName: vnet.outputs.virtualNetworkName
+    cxSubnetRef: vnet.outputs.hubSubnetId
+    agentSubnetRef: vnet.outputs.agentsSubnetId
     }
-    dependsOn: [
-      vnet
-    ]
 }
 
 
@@ -267,8 +269,8 @@ module privateEndpointAndDNS 'modules-network-secured/private-endpoint-and-dns.b
     aiSearchName: aiDependencies.outputs.aiSearchName        // AI Search to secure
     aiStorageId: aiDependencies.outputs.storageId           // Storage to secure
     storageName: storageNameClean                           // Clean storage name for DNS
-    vnetName: aiDependencies.outputs.virtualNetworkName     // VNet containing subnets
-    cxSubnetName: aiDependencies.outputs.cxSubnetName       // Subnet for private endpoints
+    vnetName: vnet.outputs.virtualNetworkName    // VNet containing subnets
+    cxSubnetName: vnet.outputs.hubSubnetName        // Subnet for private endpoints
     suffix: uniqueSuffix                                    // Unique identifier
     hubWorkspaceId: aiHub.outputs.aiHubID                   // AI Hub workspace ID
     hubWorkspaceName: aiHub.outputs.aiHubName               // AI Hub workspace name
@@ -277,7 +279,6 @@ module privateEndpointAndDNS 'modules-network-secured/private-endpoint-and-dns.b
     aiServices    // Ensure AI Services exist
     aiSearch      // Ensure AI Search exists
     storage       // Ensure Storage exists
-    vnet         // Ensure VNet and subnets exist
   ]
 }
 
@@ -327,7 +328,7 @@ module addCapabilityHost 'modules-network-secured/network-capability-host.bicep'
     aiProjectName: aiProject.outputs.aiProjectName
     acsConnectionName: aiHub.outputs.acsConnectionName
     aoaiConnectionName: aiHub.outputs.aoaiConnectionName
-    customerSubnetId: aiDependencies.outputs.agentSubnetId
+    customerSubnetId: vnet.outputs.agentsSubnetId
   }
   dependsOn: [
     aiSearchRoleAssignments, aiServiceRoleAssignments
