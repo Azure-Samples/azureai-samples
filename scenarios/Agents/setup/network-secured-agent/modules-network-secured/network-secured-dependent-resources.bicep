@@ -90,62 +90,9 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-previe
 
 /* -------------------------------------------- Virtual Network Resources -------------------------------------------- */
 
-// Virtual Network with segregated subnets and security controls
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
-  name: vnetName
   location: location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '172.16.0.0/16'    // Main VNet CIDR
-      ]
-    }
-    subnets: [
-      {
-        name: cxSubnetName
-        properties: {
-          addressPrefix: '172.16.0.0/24'    // Customer Hub subnet CIDR
-          serviceEndpoints: [               // Secure service access
-            {
-              service: 'Microsoft.KeyVault'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.Storage'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.CognitiveServices'
-              locations: [
-                modelLocation
-              ]
-            }
-          ]
-        }
-      }
-      {
-        name: agentsSubnetName
-        properties: {
-          addressPrefix: '172.16.101.0/24'  // Agents subnet CIDR
-          delegations: [
-            {
-              name: 'Microsoft.app/environments'
-              properties: {
-                serviceName: 'Microsoft.app/environments'
-              }
-            }
-          ]
-        }
-      }
-    ]
-  }
-  dependsOn: [
-    uai
-  ]
+  name: vnetName
 }
 
 /* -------------------------------------------- Existing Resource References -------------------------------------------- */
@@ -310,9 +257,6 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
     }
     allowSharedKeyAccess: false           // Enforce Azure AD authentication
   }
-  dependsOn: [
-    virtualNetwork
-  ]
 }
 
 /* -------------------------------------------- Role Assignments -------------------------------------------- */
