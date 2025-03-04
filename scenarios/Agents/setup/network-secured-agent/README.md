@@ -43,13 +43,18 @@ In case Hub/Project workspace need Public Network Disabled select from dropdown 
 hubPublicNetworkAccess = Disabled
 ```
 
-When Hub and Project workspace Public Network Disabled, the project connection string output from the deployment will look like, this should be used data plane operations:
+When Hub and Project workspace Public Network Disabled, the project connection string output from the deployment will look like, this should be used data plane operations
 
 ```
-PROJECT_CONNECTION_STRING='<project_workspace_id>.workspace.japaneast.api.azureml.ms;00000000-0000-0000-0000-000000000000;sample-resource-group;project-demo-t6vz'
+PROJECT_CONNECTION_STRING='<project_workspace_id>.workspace.japaneast.api.azureml.ms;12345678-abcd-1234-9fc6-62780b3d3e05;my-resource-group;my-project-name'
 ```
 
-
+It follows format
+```<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<ProjectName>```
+HostName can be found by navigating to your discovery_url and removing the leading "https://" and trailing "/discovery"
+To find your discovery_url, run the CLI command:
+```az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url```
+Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 
 
 ## Architecture Overview
