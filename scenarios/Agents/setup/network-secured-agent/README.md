@@ -29,6 +29,7 @@ languages:
 
 This infrastructure-as-code (IaC) solution deploys a network-secured Azure AI agent environment with private networking, managed identities, and role-based access control (RBAC).
 
+
 ## Note:
 Make sure you have an active Azure subscription that allows registering resource providers.
 Subnet delegation requires the Microsoft.App provider to be registered in your subscription. If it's not already registered, run the command below:
@@ -224,6 +225,12 @@ Storage: privatelink.blob.core.windows.net
    - Diagnostic settings enabled
    - Activity logging
    - Network monitoring
+
+## Limitations
+- Model and Workspace should be in the same region
+- Capability Host resources should be manually deleted prior to workspace deletion
+    - [Run delete script](../utils/deleteCaphost.sh)
+
 
 ## Maintenance
 
