@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     # run evaluation with a dataset and target function, log to the project
     result = evaluate(
-        data=Path(ASSET_PATH) / "chat_eval_data.jsonl",
+        data=str(Path(ASSET_PATH) / "chat_eval_data.jsonl"),
         target=evaluate_chat_with_products,
         evaluation_name="evaluate_chat_with_products",
         evaluators={
