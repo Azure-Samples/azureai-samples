@@ -280,7 +280,7 @@ with project_client:
     print(f"Created message, message ID: {message.id}")
 
     # Run the agent
-    run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
+    run = project_client.agents.create_and_process_run(thread_id=thread.id, agent_id=agent.id)
     print(f"Run finished with status: {run.status}")
 
     if run.status == "failed":
