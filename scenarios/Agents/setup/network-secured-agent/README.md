@@ -29,6 +29,7 @@ languages:
 
 This infrastructure-as-code (IaC) solution deploys a network-secured Azure AI agent environment with private networking, managed identities, and role-based access control (RBAC).
 
+
 ## Note:
 Make sure you have an active Azure subscription that allows registering resource providers.
 Subnet delegation requires the Microsoft.App provider to be registered in your subscription. If it's not already registered, run the command below:
@@ -224,6 +225,12 @@ Storage: privatelink.blob.core.windows.net
    - Diagnostic settings enabled
    - Activity logging
    - Network monitoring
+
+## Limitations
+- AI Services/Azure OpenAI resource must be in the same region as Hub and Project workspace. This restriction would be removed in next revision (coming soon).
+- The capability host sub-resources of Hub/Project must be deleted before deleting the Hub/Project resource itself. You can use the script as sample to delete it or can be done in alternate ways via ARM. This restriction would be removed in next revision (coming soon).
+    - [Run delete script](../utils/deleteCaphost.sh)
+
 
 ## Maintenance
 
