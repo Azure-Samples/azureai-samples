@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "2971870935601910382"
+      "templateHash": "127170888874315892"
     }
   },
   "parameters": {
@@ -165,7 +165,7 @@
     },
     "modelLocation": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "[parameters('resourceGroupLocation')]",
       "metadata": {
         "description": "Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created."
       }
