@@ -227,8 +227,8 @@ Storage: privatelink.blob.core.windows.net
    - Network monitoring
 
 ## Limitations
-- Model and Workspace should be in the same region
-- Capability Host resources should be manually deleted prior to workspace deletion
+- AI Services/Azure OpenAI resource must be in the same region as Hub and Project workspace. This restriction would be removed in next revision (coming soon).
+- The capability host sub-resources of Hub/Project must be deleted before deleting the Hub/Project resource itself. You can use the script as sample to delete it or can be done in alternate ways via ARM. This restriction would be removed in next revision (coming soon).
     - [Run delete script](../utils/deleteCaphost.sh)
 
 
