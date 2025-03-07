@@ -137,11 +137,6 @@ resource defaultKeyVault 'Microsoft.KeyVault/vaults@2022-07-01' = if(!keyvaultEx
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules:[                // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     sku: {
       family: 'A'
@@ -171,11 +166,6 @@ resource defaultAiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-prev
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules:[                // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     publicNetworkAccess: 'Disabled'        // Block public access
   }
@@ -243,11 +233,6 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules: [               // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     allowSharedKeyAccess: false           // Enforce Azure AD authentication
   }
