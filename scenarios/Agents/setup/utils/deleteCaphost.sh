@@ -56,28 +56,35 @@ echo -e "\nCapability host deletion request initiated."
 echo "Monitoring operation: ${operation_url}"
 
 # Poll the operation URL until the operation completes
-status="InProgress"
-while [ "${status}" = "InProgress" ]; do
+status="Creating"
+while [ "${status}" = "Creating" ]; do
     echo "Checking operation status..."
-    
+    access_token=$(az account get-access-token --query accessToken -o tsv)
     # Get the operation status
     operation_response=$(curl -s \
         -H "Authorization: Bearer ${access_token}" \
         -H "Content-Type: application/json" \
         "${operation_url}")
-    
-    # Extract the status from the response
-    status=$(echo "${operation_response}" | grep -o '"status":"[^"]*"' | cut -d'"' -f4)
-    
+
+    # Check for transient errors
+    error_code=$(echo "${operation_response}" | jq -r '.error.code // empty')
+    if [ "${error_code}" = "TransientError" ]; then
+        echo "Transient error encountered. Continuing to poll..."
+        sleep 10
+        continue
+    fi
+    # Extract the status from the response using jq
+    status=$(echo "${operation_response}" | jq -r '.status')
+
     if [ -z "${status}" ]; then
         echo "Error: Could not determine operation status."
         echo "Response: ${operation_response}"
         exit 1
     fi
-    
+
     echo "Current status: ${status}"
-    
-    if [ "${status}" = "InProgress" ]; then
+
+    if [ "${status}" = "Creating" ]; then
         echo "Operation still in progress. Waiting 10 seconds before checking again..."
         sleep 10
     fi

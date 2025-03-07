@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "127170888874315892"
+      "templateHash": "14632217224620265892"
     }
   },
   "parameters": {
@@ -341,7 +341,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "9007602006679851007"
+              "templateHash": "11931798975158233939"
             }
           },
           "parameters": {
@@ -409,27 +409,7 @@
                   {
                     "name": "[parameters('hubSubnetName')]",
                     "properties": {
-                      "addressPrefix": "172.16.0.0/24",
-                      "serviceEndpoints": [
-                        {
-                          "service": "Microsoft.KeyVault",
-                          "locations": [
-                            "[parameters('location')]"
-                          ]
-                        },
-                        {
-                          "service": "Microsoft.Storage",
-                          "locations": [
-                            "[parameters('location')]"
-                          ]
-                        },
-                        {
-                          "service": "Microsoft.CognitiveServices",
-                          "locations": [
-                            "[parameters('modelLocation')]"
-                          ]
-                        }
-                      ]
+                      "addressPrefix": "172.16.0.0/24"
                     }
                   },
                   {
@@ -440,7 +420,7 @@
                         {
                           "name": "Microsoft.app/environments",
                           "properties": {
-                            "serviceName": "Microsoft.app/environments"
+                            "serviceName": "Microsoft.App/environments"
                           }
                         }
                       ]
@@ -542,9 +522,6 @@
           },
           "userAssignedIdentityName": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.uaiName.value]"
-          },
-          "vnetName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.virtualNetworkName.value]"
           }
         },
         "template": {
@@ -554,7 +531,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "93381250633572287"
+              "templateHash": "12473094046332996300"
             }
           },
           "parameters": {
@@ -660,14 +637,11 @@
                 "description": "The Kind of AI Service, can be \"OpenAI\" or \"AIService\""
               }
             },
-            "vnetName": {
+            "userAssignedIdentityName": {
               "type": "string",
               "metadata": {
-                "description": "The name of the virtual network"
+                "description": "User-assigned managed identity name"
               }
-            },
-            "userAssignedIdentityName": {
-              "type": "string"
             },
             "noZRSRegions": {
               "type": "array",
@@ -727,12 +701,7 @@
                 ],
                 "networkAcls": {
                   "bypass": "AzureServices",
-                  "defaultAction": "Deny",
-                  "virtualNetworkRules": [
-                    {
-                      "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '2024-05-01').subnets[0].id]"
-                    }
-                  ]
+                  "defaultAction": "Deny"
                 },
                 "sku": {
                   "family": "A",
@@ -765,12 +734,7 @@
                 },
                 "networkAcls": {
                   "bypass": "AzureServices",
-                  "defaultAction": "Deny",
-                  "virtualNetworkRules": [
-                    {
-                      "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '2024-05-01').subnets[0].id]"
-                    }
-                  ]
+                  "defaultAction": "Deny"
                 },
                 "publicNetworkAccess": "Disabled"
               }
@@ -820,9 +784,13 @@
                 },
                 "hostingMode": "default",
                 "partitionCount": 1,
-                "publicNetworkAccess": "Disabled",
+                "publicNetworkAccess": "disabled",
                 "replicaCount": 1,
-                "semanticSearch": "disabled"
+                "semanticSearch": "disabled",
+                "networkRuleSet": {
+                  "bypass": "None",
+                  "ipRules": []
+                }
               },
               "sku": {
                 "name": "standard"
@@ -845,12 +813,7 @@
                 "publicNetworkAccess": "Disabled",
                 "networkAcls": {
                   "bypass": "AzureServices",
-                  "defaultAction": "Deny",
-                  "virtualNetworkRules": [
-                    {
-                      "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '2024-05-01').subnets[0].id]"
-                    }
-                  ]
+                  "defaultAction": "Deny"
                 },
                 "allowSharedKeyAccess": false
               }
@@ -1092,8 +1055,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {

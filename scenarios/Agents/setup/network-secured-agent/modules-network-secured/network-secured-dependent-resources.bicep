@@ -66,11 +66,7 @@ param modelLocation string
 @description('The Kind of AI Service, can be "OpenAI" or "AIService"')
 param aisKind string
 
-// Network Resource Names
-@description('The name of the virtual network')
-param vnetName string
-
-
+@description('User-assigned managed identity name')
 param userAssignedIdentityName string
 
 // Subnet reference variables for network rules
@@ -81,12 +77,6 @@ param userAssignedIdentityName string
 resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
   location: location
   name: userAssignedIdentityName
-}
-
-/* -------------------------------------------- Virtual Network Resources -------------------------------------------- */
-
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
-  name: vnetName
 }
 
 /* -------------------------------------------- Existing Resource References -------------------------------------------- */
@@ -137,11 +127,6 @@ resource defaultKeyVault 'Microsoft.KeyVault/vaults@2022-07-01' = if(!keyvaultEx
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules:[                // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     sku: {
       family: 'A'
@@ -171,11 +156,6 @@ resource defaultAiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-prev
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules:[                // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     publicNetworkAccess: 'Disabled'        // Block public access
   }
@@ -217,9 +197,13 @@ resource defaultAiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = 
     }
     hostingMode: 'default'
     partitionCount: 1
-    publicNetworkAccess: 'Disabled'        // Block public access
+    publicNetworkAccess: 'disabled'        // Block public access, use lowercase
     replicaCount: 1
-    semanticSearch: 'disabled'
+    semanticSearch: 'disabled' // use lowercase
+    networkRuleSet: {
+      bypass: 'None'
+      ipRules: []
+      }
   }
   sku: {
     name: 'standard'
@@ -243,11 +227,6 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
-      virtualNetworkRules: [               // Allow access from customer hub subnet
-        {
-          id: virtualNetwork.properties.subnets[0].id
-        }
-      ]
     }
     allowSharedKeyAccess: false           // Enforce Azure AD authentication
   }
