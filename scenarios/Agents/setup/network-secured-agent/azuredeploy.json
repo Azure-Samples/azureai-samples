@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "11190569082138644137"
+      "templateHash": "14632217224620265892"
     }
   },
   "parameters": {
@@ -531,7 +531,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "15295759400925296515"
+              "templateHash": "12473094046332996300"
             }
           },
           "parameters": {
@@ -784,9 +784,13 @@
                 },
                 "hostingMode": "default",
                 "partitionCount": 1,
-                "publicNetworkAccess": "Disabled",
+                "publicNetworkAccess": "disabled",
                 "replicaCount": 1,
-                "semanticSearch": "disabled"
+                "semanticSearch": "disabled",
+                "networkRuleSet": {
+                  "bypass": "None",
+                  "ipRules": []
+                }
               },
               "sku": {
                 "name": "standard"

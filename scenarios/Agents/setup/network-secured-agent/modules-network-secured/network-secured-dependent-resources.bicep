@@ -197,9 +197,13 @@ resource defaultAiSearch 'Microsoft.Search/searchServices@2024-06-01-preview' = 
     }
     hostingMode: 'default'
     partitionCount: 1
-    publicNetworkAccess: 'Disabled'        // Block public access
+    publicNetworkAccess: 'disabled'        // Block public access, use lowercase
     replicaCount: 1
-    semanticSearch: 'disabled'
+    semanticSearch: 'disabled' // use lowercase
+    networkRuleSet: {
+      bypass: 'None'
+      ipRules: []
+      }
   }
   sku: {
     name: 'standard'
