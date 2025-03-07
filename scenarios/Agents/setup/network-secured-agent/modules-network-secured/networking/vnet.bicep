@@ -51,26 +51,6 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
         name: hubSubnetName
         properties: {
           addressPrefix: '172.16.0.0/24'
-          serviceEndpoints: [
-            {
-              service: 'Microsoft.KeyVault'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.Storage'
-              locations: [
-                location
-              ]
-            }
-            {
-              service: 'Microsoft.CognitiveServices'
-              locations: [
-                modelLocation
-              ]
-            }
-          ]
         }
       }
       {

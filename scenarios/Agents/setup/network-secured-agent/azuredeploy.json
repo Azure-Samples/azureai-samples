@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "127170888874315892"
+      "templateHash": "17199285256653752873"
     }
   },
   "parameters": {
@@ -341,7 +341,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "9007602006679851007"
+              "templateHash": "11931798975158233939"
             }
           },
           "parameters": {
@@ -409,27 +409,7 @@
                   {
                     "name": "[parameters('hubSubnetName')]",
                     "properties": {
-                      "addressPrefix": "172.16.0.0/24",
-                      "serviceEndpoints": [
-                        {
-                          "service": "Microsoft.KeyVault",
-                          "locations": [
-                            "[parameters('location')]"
-                          ]
-                        },
-                        {
-                          "service": "Microsoft.Storage",
-                          "locations": [
-                            "[parameters('location')]"
-                          ]
-                        },
-                        {
-                          "service": "Microsoft.CognitiveServices",
-                          "locations": [
-                            "[parameters('modelLocation')]"
-                          ]
-                        }
-                      ]
+                      "addressPrefix": "172.16.0.0/24"
                     }
                   },
                   {
