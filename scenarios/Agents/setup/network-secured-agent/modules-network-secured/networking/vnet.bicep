@@ -61,7 +61,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
             {
               name: 'Microsoft.app/environments'
               properties: {
-                serviceName: 'Microsoft.app/environments'
+                serviceName: 'Microsoft.App/environments'
               }
             }
           ]
