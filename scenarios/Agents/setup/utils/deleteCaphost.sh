@@ -66,6 +66,13 @@ while [ "${status}" = "Creating" ]; do
         -H "Content-Type: application/json" \
         "${operation_url}")
 
+    # Check for transient errors
+    error_code=$(echo "${operation_response}" | jq -r '.error.code // empty')
+    if [ "${error_code}" = "TransientError" ]; then
+        echo "Transient error encountered. Continuing to poll..."
+        sleep 10
+        continue
+    fi
     # Extract the status from the response using jq
     status=$(echo "${operation_response}" | jq -r '.status')
 
