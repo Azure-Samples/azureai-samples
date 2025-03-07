@@ -197,11 +197,8 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
      modelSkuName: modelSkuName
      modelCapacity: modelCapacity
      modelLocation: modelLocation
-
+     // User-assigned managed identity
      userAssignedIdentityName: identity.outputs.uaiName
-
-    // VNet
-    vnetName: vnet.outputs.virtualNetworkName
     }
 }
 

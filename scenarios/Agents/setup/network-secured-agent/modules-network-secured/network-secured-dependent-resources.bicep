@@ -66,11 +66,7 @@ param modelLocation string
 @description('The Kind of AI Service, can be "OpenAI" or "AIService"')
 param aisKind string
 
-// Network Resource Names
-@description('The name of the virtual network')
-param vnetName string
-
-
+@description('User-assigned managed identity name')
 param userAssignedIdentityName string
 
 // Subnet reference variables for network rules
@@ -81,12 +77,6 @@ param userAssignedIdentityName string
 resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
   location: location
   name: userAssignedIdentityName
-}
-
-/* -------------------------------------------- Virtual Network Resources -------------------------------------------- */
-
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
-  name: vnetName
 }
 
 /* -------------------------------------------- Existing Resource References -------------------------------------------- */

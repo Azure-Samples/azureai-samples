@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "5644091836838577009"
+      "templateHash": "11190569082138644137"
     }
   },
   "parameters": {
@@ -522,9 +522,6 @@
           },
           "userAssignedIdentityName": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.uaiName.value]"
-          },
-          "vnetName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.virtualNetworkName.value]"
           }
         },
         "template": {
@@ -534,7 +531,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "15511336590636808489"
+              "templateHash": "15295759400925296515"
             }
           },
           "parameters": {
@@ -640,14 +637,11 @@
                 "description": "The Kind of AI Service, can be \"OpenAI\" or \"AIService\""
               }
             },
-            "vnetName": {
+            "userAssignedIdentityName": {
               "type": "string",
               "metadata": {
-                "description": "The name of the virtual network"
+                "description": "User-assigned managed identity name"
               }
-            },
-            "userAssignedIdentityName": {
-              "type": "string"
             },
             "noZRSRegions": {
               "type": "array",
@@ -1057,8 +1051,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {
