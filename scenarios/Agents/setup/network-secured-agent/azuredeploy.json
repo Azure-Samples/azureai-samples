@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "14632217224620265892"
+      "templateHash": "14383664163093616815"
     }
   },
   "parameters": {
@@ -56,6 +56,28 @@
       "defaultValue": "Agents Project resource",
       "metadata": {
         "description": "Friendly name for your Azure AI resource"
+      }
+    },
+    "hubPublicNetworkAccess": {
+      "type": "string",
+      "defaultValue": "Disabled",
+      "allowedValues": [
+        "Disabled",
+        "Enabled"
+      ],
+      "metadata": {
+        "description": "Specifies the public network access for the Azure AI Hub workspace."
+      }
+    },
+    "projectPublicNetworkAccess": {
+      "type": "string",
+      "defaultValue": "[parameters('hubPublicNetworkAccess')]",
+      "allowedValues": [
+        "Disabled",
+        "Enabled"
+      ],
+      "metadata": {
+        "description": "Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled."
       }
     },
     "defaultAiProjectDescription": {
@@ -189,28 +211,6 @@
       "defaultValue": "",
       "metadata": {
         "description": "The AI Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group must be Public Network Disabled"
-      }
-    },
-    "hubPublicNetworkAccess": {
-      "type": "string",
-      "defaultValue": "Enabled",
-      "allowedValues": [
-        "Disabled",
-        "Enabled"
-      ],
-      "metadata": {
-        "description": "Specifies the public network access for the Azure AI Hub workspace."
-      }
-    },
-    "projectPublicNetworkAccess": {
-      "type": "string",
-      "defaultValue": "[parameters('hubPublicNetworkAccess')]",
-      "allowedValues": [
-        "Disabled",
-        "Enabled"
-      ],
-      "metadata": {
-        "description": "Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled."
       }
     },
     "userAssignedIdentityDefaultName": {
@@ -1847,7 +1847,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "17511981858365479894"
+              "templateHash": "10773126362060108423"
             }
           },
           "parameters": {
@@ -1896,7 +1896,7 @@
             },
             "publicNetworkAccess": {
               "type": "string",
-              "defaultValue": "Enabled",
+              "defaultValue": "Disabled",
               "metadata": {
                 "description": "Specifies the public network access for the machine learning workspace."
               }
