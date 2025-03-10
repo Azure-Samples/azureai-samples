@@ -66,6 +66,7 @@ param hubPublicNetworkAccess string = 'Disabled'
 ])
 param projectPublicNetworkAccess string = hubPublicNetworkAccess
 
+
 @description('Description of your Azure AI resource displayed in AI studio')
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
