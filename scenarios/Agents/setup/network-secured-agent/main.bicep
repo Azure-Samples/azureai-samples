@@ -52,6 +52,21 @@ param defaultAiProjectName string = 'project-demo'
 @description('Friendly name for your Azure AI resource')
 param defaultAiProjectFriendlyName string = 'Agents Project resource'
 
+@description('Specifies the public network access for the Azure AI Hub workspace.')
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+param hubPublicNetworkAccess string = 'Disabled'
+
+@description('Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled.')
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+param projectPublicNetworkAccess string = hubPublicNetworkAccess
+
+
 @description('Description of your Azure AI resource displayed in AI studio')
 param defaultAiProjectDescription string = 'This is an example AI Project resource for use in Azure AI Studio.'
 
@@ -117,19 +132,7 @@ param aiServiceAccountName string = ''
 @description('The AI Search Service name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group must be Public Network Disabled')
 param aiSearchServiceName string = ''
 
-@description('Specifies the public network access for the Azure AI Hub workspace.')
-@allowed([
-  'Disabled'
-  'Enabled'
-])
-param hubPublicNetworkAccess string = 'Enabled'
 
-@description('Specifies the public network access for the Azure AI Project workspace.Note: Please ensure that if you are setting this to Enabled, the AI Hub workspace is also set to Enabled.')
-@allowed([
-  'Disabled'
-  'Enabled'
-])
-param projectPublicNetworkAccess string = hubPublicNetworkAccess
 
 // @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
 // param aiStorageAccountName string = ''

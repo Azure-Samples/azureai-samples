@@ -49,7 +49,7 @@ param aiHubId string
 param uaiName string
 
 @description('Specifies the public network access for the machine learning workspace.')
-param publicNetworkAccess string = 'Enabled'
+param publicNetworkAccess string = 'Disabled'
 
 /* -------------------------------------------- Variables -------------------------------------------- */
 
