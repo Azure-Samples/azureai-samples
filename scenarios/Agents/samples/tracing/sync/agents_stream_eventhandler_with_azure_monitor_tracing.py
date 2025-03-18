@@ -36,9 +36,10 @@ from azure.ai.projects.models import (
     ThreadRun,
     RunStep,
 )
-from typing import Any
+from typing import Union
 from opentelemetry import trace
 from azure.monitor.opentelemetry import configure_azure_monitor
+from pathlib import Path
 
 # Create an Azure AI Project Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
@@ -78,7 +79,7 @@ class MyEventHandler(AgentEventHandler):
     def on_done(self) -> None:
         print("Stream completed.")
 
-    def on_unhandled_event(self, event_type: str, event_data: Any) -> None:
+    def on_unhandled_event(self, event_type: str, event_data: Union[str, dict]) -> None:
         print(f"Unhandled Event Type: {event_type}, Data: {event_data}")
 
 
@@ -90,32 +91,31 @@ if not application_insights_connection_string:
     exit()
 configure_azure_monitor(connection_string=application_insights_connection_string)
 
-scenario = os.path.basename(__file__)
+
+scenario = Path(__file__).name
+
 tracer = trace.get_tracer(__name__)
 
-with tracer.start_as_current_span(scenario):
-    with project_client:
-        # Create an agent and run stream with event handler
-        agent = project_client.agents.create_agent(
-            model="gpt-4o", name="my-assistant", instructions="You are a helpful assistant"
-        )
-        print(f"Created agent, agent ID {agent.id}")
+with tracer.start_as_current_span(scenario), project_client:
+    # Create an agent and run stream with event handler
+    agent = project_client.agents.create_agent(
+        model="gpt-4o", name="my-assistant", instructions="You are a helpful assistant"
+    )
+    print(f"Created agent, agent ID {agent.id}")
 
-        thread = project_client.agents.create_thread()
-        print(f"Created thread, thread ID {thread.id}")
+    thread = project_client.agents.create_thread()
+    print(f"Created thread, thread ID {thread.id}")
 
-        message = project_client.agents.create_message(
-            thread_id=thread.id, role="user", content="Hello, tell me a joke"
-        )
-        print(f"Created message, message ID {message.id}")
+    message = project_client.agents.create_message(thread_id=thread.id, role="user", content="Hello, tell me a joke")
+    print(f"Created message, message ID {message.id}")
 
-        with project_client.agents.create_stream(
-            thread_id=thread.id, assistant_id=agent.id, event_handler=MyEventHandler()
-        ) as stream:
-            stream.until_done()
+    with project_client.agents.create_stream(
+        thread_id=thread.id, assistant_id=agent.id, event_handler=MyEventHandler()
+    ) as stream:
+        stream.until_done()
 
-        project_client.agents.delete_agent(agent.id)
-        print("Deleted agent")
+    project_client.agents.delete_agent(agent.id)
+    print("Deleted agent")
 
-        messages = project_client.agents.list_messages(thread_id=thread.id)
-        print(f"Messages: {messages}")
+    messages = project_client.agents.list_messages(thread_id=thread.id)
+    print(f"Messages: {messages}")
