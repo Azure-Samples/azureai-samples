@@ -41,7 +41,7 @@ from azure.ai.projects.models import (
     ThreadRun,
     RunStep,
 )
-from typing import Any
+from typing import Union
 from opentelemetry import trace
 from pathlib import Path
 
@@ -83,7 +83,7 @@ class MyEventHandler(AgentEventHandler):
     def on_done(self) -> None:
         print("Stream completed.")
 
-    def on_unhandled_event(self, event_type: str, event_data: Any) -> None:
+    def on_unhandled_event(self, event_type: str, event_data: Union[str, dict]) -> None:
         print(f"Unhandled Event Type: {event_type}, Data: {event_data}")
 
 

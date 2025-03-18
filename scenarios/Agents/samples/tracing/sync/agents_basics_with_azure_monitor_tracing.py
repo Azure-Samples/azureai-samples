@@ -31,6 +31,7 @@ from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 from opentelemetry import trace
 from azure.monitor.opentelemetry import configure_azure_monitor
+from pathlib import Path
 
 # Create an AI Project Client from a connection string, copied from your AI Studio project.
 # At the moment, it should be in the format "<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<HubName>"
@@ -54,7 +55,8 @@ if not application_insights_connection_string:
     exit()
 configure_azure_monitor(connection_string=application_insights_connection_string)
 
-scenario = os.path.basename(__file__)
+
+scenario = Path(__file__).name
 tracer = trace.get_tracer(__name__)
 
 with tracer.start_as_current_span(scenario), project_client:
