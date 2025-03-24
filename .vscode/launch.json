@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: python-file-search",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scenarios/Agents/samples/file-search/python-file-search.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python Debugger: python-file-search23",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scenarios/Agents/samples/file-search/python-file-search.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
