@@ -1,5 +1,3 @@
-
-
 # ------------------------------------
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
@@ -31,15 +29,17 @@ from azure.ai.projects.models import (
 )
 from azure.identity import DefaultAzureCredential
 
+
 project_client = AIProjectClient.from_connection_string(
-    credential=DefaultAzureCredential(), conn_str="eastus2.api.azureml.ms;921496dc-987f-410f-bd57-426eb2611356;agents-v-rg;Agents-v-project"
+    credential=DefaultAzureCredential(), conn_str=os.environ["PROJECT_CONNECTION_STRING"]
 )
 
 with project_client:
-
     # Upload file and create vector store
     # [START upload_file_create_vector_store_and_agent_with_file_search_tool]
-    file = project_client.agents.upload_file_and_poll(file_path="C:\\Users\\v-kvasanthi\\azureai-samples\\data\\product_info_1.md", purpose="assistants")
+    file = project_client.agents.upload_file_and_poll(
+        file_path="product_info_1.md", purpose="assistants"
+    )
     print(f"Uploaded file, file ID: {file.id}")
 
     vector_store = project_client.agents.create_vector_store_and_poll(file_ids=[file.id], name="my_vectorstore")
