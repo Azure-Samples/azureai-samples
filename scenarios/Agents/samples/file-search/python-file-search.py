@@ -37,9 +37,7 @@ project_client = AIProjectClient.from_connection_string(
 with project_client:
     # Upload file and create vector store
     # [START upload_file_create_vector_store_and_agent_with_file_search_tool]
-    file = project_client.agents.upload_file_and_poll(
-        file_path="product_info_1.md", purpose="assistants"
-    )
+    file = project_client.agents.upload_file_and_poll(file_path="product_info_1.md", purpose="assistants")
     print(f"Uploaded file, file ID: {file.id}")
 
     vector_store = project_client.agents.create_vector_store_and_poll(file_ids=[file.id], name="my_vectorstore")
