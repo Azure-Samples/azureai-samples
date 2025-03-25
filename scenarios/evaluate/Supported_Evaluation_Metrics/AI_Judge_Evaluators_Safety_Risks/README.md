@@ -18,7 +18,16 @@ These notebooks walks through how to evaluate text, image generation/understandi
 
 The main objective of this tutorial is to help users understand how to use the azure-ai-evaluation SDK to evaluate variety of datasets on various safety metrics. By the end of this tutorial, you should be able to:
 
-- Evaluate text conversation dataset for Protected Material and Indirect Attack Jailbreak vulnerability
+- Evaluate text conversations for
+  - Content safety (Hateful and unfair, Violent, Sexual and Self-harm-related content)
+  - Protected material
+  - Direct Attack Jailbreak vulnerability
+  - Indirect Attack Jailbreak vulnerability
+  - Code vulnerability
+  - Ungrounded attributes
+- Evaluate image and multi-modal image/text datasets for Content safety
+- Evaluate image and multi-modal image/text datasets for Protected materials
+- Evaluate audio conversation datasets for Content safety
 - Evaluate images datasets for harmful content.
 - Evaluate audio conversation datasets for harmful content.
 - Evaluate Ungrounded inference of human attributes.
