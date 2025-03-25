@@ -8,7 +8,7 @@ products:
 - azure-openai
 description: Evaluate Risk and Safety of Text/Image/Audio.
 ---
-# Evaluate Risk and Safety of Text, Image and Audio.
+# Evaluate Risk and Safety of GenAI models and applications: Text, Image and Audio.
 
 ## Overview
 
