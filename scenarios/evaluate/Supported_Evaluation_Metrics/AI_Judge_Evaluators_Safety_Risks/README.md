@@ -16,7 +16,7 @@ These notebooks walks through how to evaluate text, image generation/understandi
 
 ## Objective
 
-The main objective of this tutorial is to help users understand how to use the azure-ai-evaluation SDK to evaluate variety of dataset on various safety metrics. By the end of this tutorial, you should be able to:
+The main objective of this tutorial is to help users understand how to use the azure-ai-evaluation SDK to evaluate variety of datasets on various safety metrics. By the end of this tutorial, you should be able to:
 
 - Evaluate text conversation dataset for Protected Material and Indirect Attack Jailbreak vulnerability
 - Evaluate images datasets for harmful content.
