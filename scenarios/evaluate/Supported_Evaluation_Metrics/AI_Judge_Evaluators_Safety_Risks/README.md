@@ -6,22 +6,32 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Evaluate Risk and Safety of Text - Protected Material and Indirect Attack Jailbreak
+description: Evaluate Risk and Safety of Text/Image/Audio.
 ---
-# Evaluate Risk and Safety of Text - Protected Material and Indirect Attack Jailbreak
+# Evaluate Risk and Safety of GenAI models and applications: Text, Image and Audio.
 
 ## Overview
 
-This notebook walks through how to generate a simulated text conversation targeting a deployed AzureOpenAI model and then evaluate that text conversation dataset for Protected Material and Indirect Attack Jailbreak vulnerability. It also references the prompt filtering capabilities of Azure AI Content Safety Service to help identify and mitigate these vulnerabilities in your AI system.
-
-For a walk through of how to generate a simulated audio conversation targeting a deployed AzureOpenAI audio model and evaluate that conversation for safety risks, see [Azure AI Safety Evaluations of Audio Models](./AI_Judge_Evaluators_Safety_Risks_Audio/AI_Judge_Evaluators_Safety_Risks_Audio.ipynb)
+These notebooks walks through how to evaluate text, image generation/understanding or audio conversation datasets for safety risks evaluations. 
 
 ## Objective
 
-The main objective of this tutorial is to help users understand how to use the azure-ai-evaluation SDK to simulate a conversation with an AI system and then evaluate that dataset on various safety metrics. By the end of this tutorial, you should be able to:
+The main objective of this tutorial is to help users understand how to use the azure-ai-evaluation SDK to evaluate variety of datasets on various safety metrics. By the end of this tutorial, you should be able to:
 
-- Use azure-ai-evaluation SDK to generate a simulated conversation dataset
-- Evaluate the generated dataset for Protected Material and Indirect Attack Jailbreak vulnerability
+- Evaluate text conversations for
+  - Content safety (Hateful and unfair, Violent, Sexual and Self-harm-related content)
+  - Protected material
+  - Direct Attack Jailbreak vulnerability
+  - Indirect Attack Jailbreak vulnerability
+  - Code vulnerability
+  - Ungrounded attributes
+- Evaluate image and multi-modal image/text datasets for Content safety
+- Evaluate image and multi-modal image/text datasets for Protected materials
+- Evaluate audio conversation datasets for Content safety
+- Evaluate images datasets for harmful content.
+- Evaluate audio conversation datasets for harmful content.
+- Evaluate Ungrounded inference of human attributes.
+- Evaluate code vulnerabilities.
 - Use Azure AI Content Safety filter prompts to mitigate found vulnerabilities
 
 ## Basic requirements
@@ -44,7 +54,6 @@ For built-in quality and performance metrics, connect your own deployment of LLM
 
 | Region | Adversarial simulation |
 | - | - |
-|UK South | yes|
 |East US 2 | yes|
 |Sweden Central | yes|
 |US North Central | yes|
