@@ -8,7 +8,7 @@ import pytest
 REPO_ROOT = Path(__file__).parent.resolve()
 
 
-@pytest.fixture()
+@pytest.fixture
 def notebook_path(
     # Create and activate a new venv for each test that requests `notebook_path`
     venv: types.SimpleNamespace,  # noqa: ARG001
@@ -18,7 +18,7 @@ def notebook_path(
     return notebook_path
 
 
-@pytest.fixture()
+@pytest.fixture
 def deployment_outputs() -> Dict[str, str]:
     """The outputs of the deployment used to setup resources for testing samples.
 
@@ -43,7 +43,7 @@ def deployment_outputs() -> Dict[str, str]:
     return {output_name: output["value"] for output_name, output in outputs.items()}
 
 
-@pytest.fixture()
+@pytest.fixture
 def azure_ai_project(deployment_outputs: Dict[str, str]) -> Dict[str, str]:
     """Azure ai project dictionary."""
     return {
@@ -53,7 +53,7 @@ def azure_ai_project(deployment_outputs: Dict[str, str]) -> Dict[str, str]:
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def azure_ai_project_connection_string(deployment_outputs: Dict[str, str]) -> str:
     """The connection string for the azure ai project"""
     return ";".join(
@@ -66,19 +66,19 @@ def azure_ai_project_connection_string(deployment_outputs: Dict[str, str]) -> st
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def azure_openai_endpoint(deployment_outputs: Dict[str, str]) -> str:
     """The azure openai endpoint for the azure ai project."""
     return deployment_outputs["azure_openai_endpoint"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def azure_openai_gpt4_deployment(deployment_outputs: Dict[str, str]) -> str:
     """The deployment name of the gpt-4 deployment."""
     return deployment_outputs["azure_openai_gpt4_deployment_name"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def azure_openai_gpt4_api_version(deployment_outputs: Dict[str, str]) -> str:
     """The api version of the gpt-4 deployment."""
     return deployment_outputs["azure_openai_gpt4_api_version"]
