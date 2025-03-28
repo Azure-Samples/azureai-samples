@@ -43,11 +43,10 @@ repos:
     - id: bicep-build
       name: Regenerate azuredeploy.json for Agent samples
       description: "Automatically build Bicep files into azuredeploy.json before commit"
-      entry: python .github/scripts/build_agent_setup_bicep.py
       types: [text]
       files: ^scenarios/Agents/setup/.*\.bicep$
-      language: python
       require_serial: true
       pass_filenames: true
-      additional_dependencies:
-      - azure-cli
+      entry: python
+      language: system
+      args: ["-m", "tox", "-qqq", "run", "-e", "build-agent-bicep", "--"]
