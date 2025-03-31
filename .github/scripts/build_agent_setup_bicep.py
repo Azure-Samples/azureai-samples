@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from azure.cli.core import get_default_cli
@@ -26,6 +27,10 @@ def build_bicep_file(bicep_file: Path) -> None:
     output_file = bicep_file.with_name("azuredeploy.json")
 
     print(f"🔹 Building Bicep: {bicep_file} -> {output_file}")
+    os.environ.update({"AZURE_BICEP_USE_BINARY_FROM_PATH": "false", "AZURE_BICEP_CHECK_VERSION": "false"})
+
+    # Pin the bicep CLI to minimize pre-commit failures due to modified metadata in files.
+    run_az_command("bicep", "install", "--version", "v0.33.93")
 
     # Run az bicep build using Azure CLI SDK
     run_az_command("bicep", "build", "--file", str(bicep_file), "--outfile", str(output_file))
