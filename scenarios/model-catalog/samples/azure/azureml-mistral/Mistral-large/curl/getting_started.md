@@ -2,15 +2,18 @@
 
 # Getting Started
 
-- [Set environment variables](#set-environment-variables)
-- [Run a basic code sample](#run-a-basic-code-sample)
-- [Explore more code snippets](#explore-more-samples)
+- [Getting Started](#getting-started)
+  - [1. Set environment variables](#1-set-environment-variables)
+  - [2. Call basic code sample](#2-call-basic-code-sample)
+  - [3. Explore more samples](#3-explore-more-samples)
+    - [Run a multi-turn conversation](#run-a-multi-turn-conversation)
+    - [Stream the output](#stream-the-output)
 
 ## 1. Set environment variables
 Get the model endpoint url and use it in the code below by exporting it as an environment variable
 
 ```bash
-export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
+export MODEL_ENDPOINT=""
 ```
 
 Set model name in an env variable:
