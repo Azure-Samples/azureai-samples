@@ -1,10 +1,10 @@
-# Red Teaming for AI Systems
+# AI Red Teaming Agent for Generative AI Applications
 
-This sample demonstrates how to use Azure AI Evaluation's RedTeam functionality to assess the safety and resilience of AI systems against adversarial prompt attacks.
+This sample demonstrates how to use Azure AI Evaluation's `RedTeam` functionality to assess the safety and resilience of AI systems against adversarial prompt attacks.
 
 ## Objective
 
-Red teaming helps identify potential vulnerabilities in AI systems across different risk categories (violence, hate/unfairness, sexual content, self-harm) and attack strategies of varying complexity levels. This process is essential for building safer, more robust AI applications.
+AI Red Teaming Agent leverages [Risk and Safety Evaluations](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/evaluation-metrics-built-in?tabs=warning#risk-and-safety-evaluators) to help identify potential safety issues across different risk categories (violence, hate/unfairness, sexual content, self-harm) combined with attack strategies of varying complexity levels from [PyRIT](https://github.com/Azure/PyRIT), Microsoft AI Red Teaming team's open framework for automated AI red teaming.
 
 ## Time
 
@@ -43,14 +43,14 @@ You should expect to spend about 30-45 minutes running the notebook. Execution t
 
 ## Key Concepts
 
-The Red Team evaluation assesses AI systems across multiple dimensions:
+The AI Red Teaming Agent assesses AI systems across multiple dimensions:
 
 ### Risk Categories
 
 - **Violence**: Content that describes or promotes violence
-- **HateUnfairness**: Content containing hate speech or unfair bias
+- **Hate and Unfairness**: Content containing hate speech or unfair bias
 - **Sexual**: Inappropriate sexual content
-- **SelfHarm**: Content related to self-harm behaviors
+- **Self-Harm**: Content related to self-harm behaviors
 
 ### Attack Strategies
 
@@ -61,7 +61,7 @@ The Red Team evaluation assesses AI systems across multiple dimensions:
 
 ### Complexity Levels
 
-- **Baseline**: Standard functionality tests
+- **Baseline**: Standard naive attacks without any attack strategy
 - **Easy**: Simple attack patterns
 - **Moderate**: More sophisticated attacks
 - **Difficult**: Complex, layered attack strategies
@@ -71,7 +71,8 @@ The Red Team evaluation assesses AI systems across multiple dimensions:
 The notebook provides two main examples:
 
 1. **Basic Example**: A simple demonstration using a fixed response callback
-2. **Advanced Example**: Using an actual Azure OpenAI model to evaluate against multiple attack strategies
+2. **Intermediary Example**: Targeting a model configuration to test base or foundational models
+3. **Advanced Example**: Using an actual Azure OpenAI model to evaluate against multiple attack strategies
 
 ### Analysis Features
 
@@ -82,15 +83,15 @@ The notebook provides two main examples:
 
 ## Next Steps
 
-After running the evaluation:
+After running the AI red teaming scan:
 
-1. **Mitigation**: Strengthen your model's guardrails against identified attack vectors
-2. **Continuous Testing**: Implement regular red team evaluations as part of your development lifecycle
+1. **Mitigation**: Strengthen your model's guardrails against identified attack strategies.
+2. **Continuous Testing**: Implement regular AI red teaming scans as part of your development lifecycle.
 3. **Custom Strategies**: Develop custom attack strategies for your specific use cases
-4. **Safety Layers**: Consider adding additional safety layers like Azure AI Content Safety
+4. **Safety Layers**: Consider adding additional safety layers like [Azure AI Content Safety filters](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview) or safety system messages using our [templates](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/safety-system-message-templates).
 
 ## Additional Resources
 
-- [Azure AI Evaluation Documentation](https://learn.microsoft.com/azure/ai-studio/concepts/evaluation-approach)
-- [AI RedTeam How-To](https://aka.ms/airedteamingagent-howtodoc)
-- [AI RedTeam Concepts](https://aka.ms/airedteamingagent-conceptdoc)
+- Learn more about [Azure AI Foundry Evaluations.](https://learn.microsoft.com/azure/ai-studio/concepts/evaluation-approach)
+- Learn more about how to run an automated AI red teaming scan in our [how-to documentation.](https://aka.ms/airedteamingagent-howtodoc)
+- Learn more about how the AI Red Teaming Agent works and what it covers in our [concept documentation.](https://aka.ms/airedteamingagent-conceptdoc)
