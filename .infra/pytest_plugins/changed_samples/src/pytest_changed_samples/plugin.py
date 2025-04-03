@@ -47,6 +47,7 @@ def pytest_configure(config: pytest.Config) -> None:
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_collection(session: pytest.Session) -> None:
+    """Set up path filtering based on git diff."""
     config = session.config
     diff_path_trie = Trie()
 
@@ -68,8 +69,9 @@ def pytest_collection(session: pytest.Session) -> None:
 
 
 def pytest_ignore_collect(collection_path: Path, config: pytest.Config) -> Optional[bool]:
+    """Ignore paths that were not touched by the current git diff."""
     if DIFF_PATH_TRIE_KEY not in config.stash:
-        # Occures when calling `pytest --fixtures`
+        # Occurs when calling `pytest --fixtures`
         return None
 
     diff_path_trie = config.stash[DIFF_PATH_TRIE_KEY]
