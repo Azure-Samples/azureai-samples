@@ -22,13 +22,9 @@ def fetch_current_datetime(format: Optional[str] = None) -> str:
     current_time = datetime.datetime.now()
 
     # Use the provided format if available, else use a default format
-    if format:
-        time_format = format
-    else:
-        time_format = "%Y-%m-%d %H:%M:%S"
+    time_format = format if format else "%Y-%m-%d %H:%M:%S"
 
-    time_json = json.dumps({"current_time": current_time.strftime(time_format)})
-    return time_json
+    return json.dumps({"current_time": current_time.strftime(time_format)})
 
 
 def fetch_weather(location: str) -> str:
@@ -48,8 +44,7 @@ def fetch_weather(location: str) -> str:
         "Seattle": "Rainy, 14°C",
     }
     weather = mock_weather_data.get(location, "Weather data not available for this location.")
-    weather_json = json.dumps({"weather": weather})
-    return weather_json
+    return json.dumps({"weather": weather})
 
 
 def opening_hours(tourist_destination: str) -> str:
@@ -69,8 +64,7 @@ def opening_hours(tourist_destination: str) -> str:
         "Seattle Aquarium": "9:30 AM - 6 PM",
     }
     opening_hours = mock_opening_hours_data.get(tourist_destination, "Opening hours not available for this location.")
-    opening_hours_json = json.dumps({"opening_hours": opening_hours})
-    return opening_hours_json
+    return json.dumps({"opening_hours": opening_hours})
 
 
 def send_email(recipient: str, subject: str, body: str) -> str:
@@ -89,8 +83,7 @@ def send_email(recipient: str, subject: str, body: str) -> str:
     print(f"Subject: {subject}")
     print(f"Body:\n{body}")
 
-    message_json = json.dumps({"message": f"Email successfully sent to {recipient}."})
-    return message_json
+    return json.dumps({"message": f"Email successfully sent to {recipient}."})
 
 
 def send_email_using_recipient_name(recipient: str, subject: str, body: str) -> str:
@@ -109,8 +102,7 @@ def send_email_using_recipient_name(recipient: str, subject: str, body: str) -> 
     print(f"Subject: {subject}")
     print(f"Body:\n{body}")
 
-    message_json = json.dumps({"message": f"Email successfully sent to {recipient}."})
-    return message_json
+    return json.dumps({"message": f"Email successfully sent to {recipient}."})
 
 
 def calculate_sum(a: int, b: int) -> str:
