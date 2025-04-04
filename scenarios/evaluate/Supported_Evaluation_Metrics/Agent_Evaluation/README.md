@@ -5,7 +5,7 @@ languages:
 products:
 - ai-services
 - azure-openai
-description: Evaluate agents with Azure AI Evaluation SDK
+description: Evaluate AI agents with Azure AI Evaluation SDK
 ---
 
 
