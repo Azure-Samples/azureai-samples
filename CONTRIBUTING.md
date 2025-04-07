@@ -136,13 +136,13 @@ Note that samples are organized by scenario, find the one best-suited for your s
 >
 > All of the PR checks can also be run from developers machine, which should prevent the approval
 > processes from unnecessarily lengthening the feedback cycle.
+
+> [!NOTE]
+> If you are a Microsoft employee, skip the approval process to run PR checks by:
 >
-> > [!NOTE]
-> > If you are a Microsoft employee, skip the approval process to run PR checks by:
-> >
-> >   * Joining the "[Azure-Samples](https://github.com/Azure-Samples)" organization
-> >   * [Setting your org membership visibility to public](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership#changing-the-visibility-of-your-organization-membership)
-> >
+>   * Joining the "[Azure-Samples](https://github.com/Azure-Samples)" organization
+>   * [Setting your org membership visibility to public](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership#changing-the-visibility-of-your-organization-membership)
+>
 
 ##### pre-commit
 
