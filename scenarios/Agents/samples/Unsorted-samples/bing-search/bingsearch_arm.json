@@ -1,0 +1,24 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": { "type": "String" },
+    "location": {
+      "type": "String",
+      "defaultValue": "global"
+    },
+    "sku": { "type": "String" },
+    "resourceTags": { "type": "object" }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Bing/accounts",
+      "apiVersion": "2020-06-10",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('resourceTags')]",
+      "sku": { "name": "G1" },
+      "kind": "Bing.Grounding"
+    }
+  ]
+}
