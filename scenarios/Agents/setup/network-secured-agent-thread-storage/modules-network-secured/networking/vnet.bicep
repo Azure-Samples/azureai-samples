@@ -51,11 +51,6 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
         name: hubSubnetName
         properties: {
           addressPrefix: '172.16.0.0/24'
-          serviceEndpoints: [
-            {
-              service: 'Microsoft.AzureCosmosDB'
-            }
-          ]
         }
       }
       {

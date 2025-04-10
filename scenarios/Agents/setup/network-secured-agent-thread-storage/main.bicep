@@ -212,8 +212,6 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
      modelLocation: modelLocation
      // User-assigned managed identity
      userAssignedIdentityName: identity.outputs.uaiName
-     // Hub Subnet
-     hubSubnetId: vnet.outputs.hubSubnetId
     }
 }
 

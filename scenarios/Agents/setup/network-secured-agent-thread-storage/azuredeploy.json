@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "5218201805693079108"
+      "templateHash": "1004752971909070685"
     }
   },
   "parameters": {
@@ -357,7 +357,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "8394171302556990973"
+              "templateHash": "11931798975158233939"
             }
           },
           "parameters": {
@@ -425,12 +425,7 @@
                   {
                     "name": "[parameters('hubSubnetName')]",
                     "properties": {
-                      "addressPrefix": "172.16.0.0/24",
-                      "serviceEndpoints": [
-                        {
-                          "service": "Microsoft.AzureCosmosDB"
-                        }
-                      ]
+                      "addressPrefix": "172.16.0.0/24"
                     }
                   },
                   {
@@ -555,9 +550,6 @@
           },
           "userAssignedIdentityName": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.uaiName.value]"
-          },
-          "hubSubnetId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.hubSubnetId.value]"
           }
         },
         "template": {
@@ -567,7 +559,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "2523552007247683784"
+              "templateHash": "4707352455961068074"
             }
           },
           "parameters": {
@@ -701,12 +693,6 @@
                 "description": "Cosmos DB Resource Group"
               }
             },
-            "hubSubnetId": {
-              "type": "string",
-              "metadata": {
-                "description": "Hub subnet id"
-              }
-            },
             "noZRSRegions": {
               "type": "array",
               "defaultValue": [
@@ -745,13 +731,6 @@
                   "defaultConsistencyLevel": "Session"
                 },
                 "publicNetworkAccess": "Disabled",
-                "virtualNetworkRules": [
-                  {
-                    "id": "[parameters('hubSubnetId')]",
-                    "ignoreMissingVNetServiceEndpoint": false
-                  }
-                ],
-                "isVirtualNetworkFilterEnabled": true,
                 "disableLocalAuth": true,
                 "enableAutomaticFailover": false,
                 "enableMultipleWriteLocations": false,
@@ -1165,8 +1144,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]",
-        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--vnet', parameters('name'), parameters('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}--identity', parameters('name'), parameters('uniqueSuffix')))]"
       ]
     },
     {

@@ -79,8 +79,6 @@ param cosmosDBSubscription string
 @description('Cosmos DB Resource Group')
 param cosmosDBResourceGroup string
 
-@description('Hub subnet id')
-param hubSubnetId string
 // Subnet reference variables for network rules
 // var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
 // var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
@@ -132,15 +130,8 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = if(!cosmo
   properties: {
     consistencyPolicy: {
       defaultConsistencyLevel: 'Session'
-    } 
+    }
     publicNetworkAccess: 'Disabled'        // Block public access
-    virtualNetworkRules: [
-      {
-        id: hubSubnetId
-        ignoreMissingVNetServiceEndpoint: false
-      }
-    ]
-    isVirtualNetworkFilterEnabled: true
     disableLocalAuth: true
     enableAutomaticFailover: false
     enableMultipleWriteLocations: false
