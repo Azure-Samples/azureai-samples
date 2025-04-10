@@ -12,6 +12,7 @@ This module configures private network access for Azure services using:
    - privatelink.azureml.ms for AI Services
    - privatelink.search.windows.net for AI Search
    - privatelink.blob.core.windows.net for Storage
+   - privatelink.documents.azure.com
    - Enables custom DNS resolution for private endpoints
 
 3. DNS Zone Links:
@@ -41,9 +42,6 @@ param cosmosDBSubscription string
 
 @description('Name of the Customer Cosmos DB Resource Group')
 param cosmosDBResourceGroup string
-
-@description('Cosmos DB Sub Resource Type')
-param cosmosDBSubResourceType string
 
 param vnetName string
 @description('Name of the Customer subnet')
@@ -201,7 +199,7 @@ resource cosmosDBPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01'
         properties: {
           privateLinkServiceId: cosmosDB.id
           groupIds: [
-            cosmosDBSubResourceType
+            'Sql'
           ]
         }
       }

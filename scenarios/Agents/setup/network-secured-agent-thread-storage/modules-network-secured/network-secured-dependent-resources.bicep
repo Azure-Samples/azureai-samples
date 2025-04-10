@@ -325,4 +325,3 @@ output keyvaultId string = keyvaultExists ? existingKeyVault.id : defaultKeyVaul
 
 output cosmosDBName string = cosmosDBExists ? existingCosmosDB.name : cosmosDB.name
 output cosmosDBId string = cosmosDBExists ? existingCosmosDB.id : cosmosDB.id
-output cosmosDBSubResourceType string = cosmosDBExists ? existingCosmosDB.type : cosmosDB.type

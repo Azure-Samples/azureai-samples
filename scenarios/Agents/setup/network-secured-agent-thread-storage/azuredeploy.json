@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "1004752971909070685"
+      "templateHash": "3532648912721963831"
     }
   },
   "parameters": {
@@ -559,7 +559,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "4707352455961068074"
+              "templateHash": "3874987377711379431"
             }
           },
           "parameters": {
@@ -1135,10 +1135,6 @@
             "cosmosDBId": {
               "type": "string",
               "value": "[if(parameters('cosmosDBExists'), extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', parameters('cosmosDBSubscription'), parameters('cosmosDBResourceGroup')), 'Microsoft.DocumentDB/databaseAccounts', parameters('cosmosDBName')), resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosDBName')))]"
-            },
-            "cosmosDBSubResourceType": {
-              "type": "string",
-              "value": "[if(parameters('cosmosDBExists'), 'Microsoft.DocumentDB/databaseAccounts', 'Microsoft.DocumentDB/databaseAccounts')]"
             }
           }
         }
@@ -1483,9 +1479,6 @@
           },
           "cosmosDBResourceGroup": {
             "value": "[variables('cosmosDBResourceGroupName')]"
-          },
-          "cosmosDBSubResourceType": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('{0}-{1}--dependencies', parameters('name'), parameters('uniqueSuffix'))), '2022-09-01').outputs.cosmosDBSubResourceType.value]"
           }
         },
         "template": {
@@ -1495,7 +1488,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "12748862863909942563"
+              "templateHash": "2815470915491127245"
             }
           },
           "parameters": {
@@ -1533,12 +1526,6 @@
               "type": "string",
               "metadata": {
                 "description": "Name of the Customer Cosmos DB Resource Group"
-              }
-            },
-            "cosmosDBSubResourceType": {
-              "type": "string",
-              "metadata": {
-                "description": "Cosmos DB Sub Resource Type"
               }
             },
             "vnetName": {
@@ -1679,7 +1666,7 @@
                     "properties": {
                       "privateLinkServiceId": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', parameters('cosmosDBSubscription'), parameters('cosmosDBResourceGroup')), 'Microsoft.DocumentDB/databaseAccounts', parameters('cosmosDBName'))]",
                       "groupIds": [
-                        "[parameters('cosmosDBSubResourceType')]"
+                        "Sql"
                       ]
                     }
                   }

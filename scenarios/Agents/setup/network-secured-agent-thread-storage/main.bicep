@@ -291,7 +291,6 @@ module privateEndpointAndDNS 'modules-network-secured/private-endpoint-and-dns.b
     cosmosDBName: aiDependencies.outputs.cosmosDBName       // Cosmos DB name
     cosmosDBSubscription: cosmosDBSubscriptionId // Cosmos DB subscription ID
     cosmosDBResourceGroup: cosmosDBResourceGroupName // Cosmos DB resource group name
-    cosmosDBSubResourceType: aiDependencies.outputs.cosmosDBSubResourceType // Cosmos DB sub-resource type
   }
   dependsOn: [
     aiServices    // Ensure AI Services exist
