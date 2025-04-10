@@ -26,16 +26,21 @@ languages:
 
 [![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fstandard-agent%2Fazuredeploy.json)
 
-Resources for the hub, project, storage account, key vault, AI Services, Azure AI Search, and Cosmos DB Account will be created for you. The AI Services, AI Search, Cosmos DB Account, and Azure Storage Account will be connected to your project/hub using managed identity for authentication and a gpt-4o model will be deployed in the eastus region.
+## Overview 
 
-Optional use an existing AI Services/AOAI, AI Search, Cosmos DB Account, and/or Azure Blob Storage resource by providing the full arm resource id in the parameters file:
+This template demonstrates how to configure Standard Agent Setup with support for the **new feature BYO thread storage with Azure Cosmos DB.**
 
-- aiServiceAccountResourceId
-- aiSearchServiceResourceId
-- aiStorageAccountResourceId
-- cosmosDBResourceId
+Resources for the hub, project, storage account, key vault, AI Services, Azure AI Search, and Cosmos DB Account will be automatically created for you. The AI Services, AI Search, Cosmos DB Account, and Azure Storage Account will be connected to your project/hub using managed identity for authentication and a gpt-4o model will be deployed in the eastus region.
 
-If you want to use an existing Azure OpenAI resource, you will need to update the `aiServiceAccountResourceId` and the `aiServiceKind` parameter in the parameters file. The `aiServiceKind` parameter should be set to `AzureOpenAI`.
+## Customization
+You can optionally use existing resources for AI Services, AI Search, Cosmos DB, and Azure Blob Storage. Update the following parameters in the parameters file to provide the full ARM resource ID of the existing resources:
+
+- `aiServiceAccountResourceId`
+- `aiSearchServiceResourceId`
+- `aiStorageAccountResourceId`
+- `cosmosDBResourceId`
+
+If you want to use an **existing Azure OpenAI resource**, you will need to update the `aiServiceAccountResourceId` and the `aiServiceKind` parameter in the parameters file. Set the `aiServiceKind` parameter to `AzureOpenAI`.
 
 ## Resources
 
@@ -47,7 +52,6 @@ If you want to use an existing Azure OpenAI resource, you will need to update th
 | `Microsoft.MachineLearningServices/workspaces` | An Azure AI hub (Azure Machine Learning RP workspace of kind 'hub') |
 | `Microsoft.MachineLearningServices/workspaces` | An Azure AI project (Azure Machine Learning RP workspace of kind 'project') |
 | `Microsoft.CognitiveServices/accounts` | An Azure AI Services as the model-as-a-service endpoint provider (allowed kinds: 'AIServices' and 'OpenAI') |
-| `Microsoft.CognitiveServices/accounts/deployments` | A gpt-4o-mini model is deployed |
+| `Microsoft.CognitiveServices/accounts/deployments` | A gpt-4o model is deployed |
 | `Microsoft.Search/searchServices` | An Azure AI Search account  |
 | `Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview` | An Azure Cosmos DB Account |
-`Tags: `
