@@ -1,7 +1,7 @@
 // Creates an Azure AI resource with proxied endpoints for the Azure AI services provider
 
 // @description('Azure region of the deployment')
-// param location string = 'eastus2euap'
+param location string 
 
 @description('Tags to add to the resources')
 param tags object
@@ -71,7 +71,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' exis
 
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
   name: aiHubName
-  location: 'eastus2euap'
+  location: location
   tags: tags
   identity: {
     type: 'SystemAssigned'

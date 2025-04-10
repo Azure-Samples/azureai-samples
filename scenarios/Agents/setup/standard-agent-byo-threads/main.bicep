@@ -155,8 +155,9 @@ module aiHub 'modules-standard/standard-ai-hub.bicep' = {
     aiHubName: '${name}-${uniqueSuffix}'
     aiHubFriendlyName: aiHubFriendlyName
     aiHubDescription: aiHubDescription
-    // location: location
+    location: location
     tags: tags
+
 
     aiSearchName: aiDependencies.outputs.aiSearchName
     aiSearchId: aiDependencies.outputs.aisearchID

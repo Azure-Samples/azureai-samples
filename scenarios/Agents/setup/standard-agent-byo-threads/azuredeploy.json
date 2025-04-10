@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "5504145785046894733"
+      "templateHash": "1659490427565419157"
     }
   },
   "parameters": {
@@ -799,6 +799,9 @@
           "aiHubDescription": {
             "value": "[parameters('aiHubDescription')]"
           },
+          "location": {
+            "value": "[parameters('location')]"
+          },
           "tags": {
             "value": "[parameters('tags')]"
           },
@@ -846,10 +849,13 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "7141161988389447779"
+              "templateHash": "10108960257155829972"
             }
           },
           "parameters": {
+            "location": {
+              "type": "string"
+            },
             "tags": {
               "type": "object",
               "metadata": {
@@ -997,7 +1003,7 @@
               "type": "Microsoft.MachineLearningServices/workspaces",
               "apiVersion": "2024-10-01-preview",
               "name": "[parameters('aiHubName')]",
-              "location": "eastus2euap",
+              "location": "[parameters('location')]",
               "tags": "[parameters('tags')]",
               "identity": {
                 "type": "SystemAssigned"
@@ -1081,7 +1087,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "8224646159595333026"
+              "templateHash": "2930065960155969856"
             }
           },
           "parameters": {
@@ -1152,7 +1158,7 @@
               "type": "Microsoft.MachineLearningServices/workspaces",
               "apiVersion": "2024-10-01-preview",
               "name": "[parameters('aiProjectName')]",
-              "location": "eastus2euap",
+              "location": "[parameters('location')]",
               "tags": "[union(parameters('tags'), createObject('ProjectConnectionString', variables('projectConnectionString')))]",
               "identity": {
                 "type": "SystemAssigned"
