@@ -52,7 +52,9 @@
       },
       "modelLocation": {
         "value": "westus2"
+      },
+      "cosmosDBResourceId":{
+        "value": ""
       }
     }
   }
-  
