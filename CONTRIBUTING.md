@@ -64,14 +64,17 @@ python -m pip install -r dev-requirements.txt
 [pre-commit](https://pre-commit.com/) is a tool that enables us to run code when committing to a local repository. We
 use this to automate running code formatters, linters, etc...
 
-To install pre-commit in the repository, run the following from the root of the repository:
+To enable `pre-commit`, run the following from the root of the repository:
 
 ```shell
 pre-commit install
 ```
 
-`pre-commit` will run automatically when you commit changes, but you can also manually run it using 
-`pre-commit run --all-files`.
+`pre-commit` will now automatically run a series of code quality checks when you commit changes, which
+will accelerate the identification of issues that will be flagged when the PR is submitted.
+
+If needed, you can manually run `pre-commit` against all files  with `pre-commit run --all-files`. See
+[the documentation for `pre-commit run`](https://pre-commit.com/#pre-commit-run) for more information.
 
 Note: 
 
@@ -115,8 +118,6 @@ Note that samples are organized by scenario, find the one best-suited for your s
     git push -f
     ```
 
-That's it! Thank you for your contribution!
-
 > [!IMPORTANT]
 >
 > You should expect to budget time to engage with reviewers (responding to comments, fixing PR checks) before your PR is merged in. This is especially
@@ -125,6 +126,45 @@ That's it! Thank you for your contribution!
 > Adhering to the guidance in this document (i.e [using pre-commit](#3-set-up-pre-commit), [using provided templates](#write-your-contribution)) ***will***
 > help expedite the review process.
 
+#### Resolve Failing Pull Request Checks
+
+
+> [!IMPORTANT]
+>
+> This repository requires approval from someone with write access for pull request checks
+> to run against a PR, to avoid abuse of live resources.
+>
+> All of the PR checks can also be run from developers machine, which should prevent the approval
+> processes from unnecessarily lengthening the feedback cycle.
+
+> [!NOTE]
+> If you are a Microsoft employee, you can skip the approval process for PR checks by:
+>
+>   * Joining the "[Azure-Samples](https://github.com/Azure-Samples)" organization
+>   * [Setting your org membership visibility to public](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership#changing-the-visibility-of-your-organization-membership)
+>
+
+##### pre-commit
+
+###### black
+
+[black](https://github.com/psf/black) is a code formatter for Python and Jupyter notebooks.
+
+**How to Fix**: If the `pre-commit` check is failing on your PR because of `black`, just run `pre-commit run black --all-files` and commit the changes.
+
+###### nb-clean
+
+[nb-clean](https://github.com/srstevenson/nb-clean) that removes metadata from Jupyter Notebooks to make them more ammenable to version control.
+
+**How to Fix**: If the `nb-clean` check is failing on your PR because of `nb-clean`, just run `pre-commit run nb-clean --all-files` and commit the changes.
+
+###### ruff
+
+[ruff](https://github.com/astral-sh/ruff) is a linter for Python and Jupyter Notebooks.
+
+**How to Fix**: If the `pre-commit` step is failing on your PR because of `ruff`:
+  * ruff makes an attempt to automatically fix issues it detects. You can run `pre-commit run ruff --all-files` and commit any changes.
+  * Issues that ruff can't fix should be manually updated and committed. See ruff's [rule list](https://docs.astral.sh/ruff/rules/) for more info on issues it reports.
 
 ### Discoverability
 
