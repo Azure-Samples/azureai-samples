@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "9304382993757440867"
+      "templateHash": "5218201805693079108"
     }
   },
   "parameters": {
@@ -357,7 +357,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "11931798975158233939"
+              "templateHash": "8394171302556990973"
             }
           },
           "parameters": {
@@ -425,7 +425,12 @@
                   {
                     "name": "[parameters('hubSubnetName')]",
                     "properties": {
-                      "addressPrefix": "172.16.0.0/24"
+                      "addressPrefix": "172.16.0.0/24",
+                      "serviceEndpoints": [
+                        {
+                          "service": "Microsoft.AzureCosmosDB"
+                        }
+                      ]
                     }
                   },
                   {
