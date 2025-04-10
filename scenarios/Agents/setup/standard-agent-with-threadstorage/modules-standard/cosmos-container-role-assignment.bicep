@@ -15,27 +15,23 @@ var userThreadName = '${projectWorkspaceId}-thread-message-store'
 var systemThreadName = '${projectWorkspaceId}-system-thread-message-store'
 
 
-#disable-next-line BCP081
-resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2025-01-01-preview' existing = {
+resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview' existing = {
   name: cosmosAccountName
   scope: resourceGroup()
 }
 
 // Reference existing database
-#disable-next-line BCP081
-resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2025-01-01-preview' existing = {
+resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-12-01-preview' existing = {
   parent: cosmosAccount
   name: 'enterprise_memory'
 }
 
-#disable-next-line BCP081
-resource containerUserMessageStore  'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2025-01-01-preview' existing = {
+resource containerUserMessageStore  'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2024-12-01-preview' existing = {
   parent: database
   name: userThreadName
 }
 
-#disable-next-line BCP081
-resource containerSystemMessageStore 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2025-01-01-preview' existing = {
+resource containerSystemMessageStore 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2024-12-01-preview' existing = {
   parent: database
   name: systemThreadName
 }

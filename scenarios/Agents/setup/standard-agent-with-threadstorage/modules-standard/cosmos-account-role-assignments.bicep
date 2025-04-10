@@ -8,8 +8,7 @@ param aiProjectPrincipalId string
 
 param projectWorkspaceId string
 
-#disable-next-line BCP081
-resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2025-01-01-preview' existing = {
+resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview' existing = {
   name: cosmosDBName
   scope: resourceGroup()
 }

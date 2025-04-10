@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15767918293435821237"
+      "templateHash": "8527508992869683277"
     }
   },
   "parameters": {
@@ -414,7 +414,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "9791285310104519931"
+              "templateHash": "9356889094364269195"
             }
           },
           "parameters": {
@@ -559,7 +559,7 @@
             {
               "condition": "[not(parameters('cosmosDBExists'))]",
               "type": "Microsoft.DocumentDB/databaseAccounts",
-              "apiVersion": "2024-11-15",
+              "apiVersion": "2024-12-01-preview",
               "name": "[parameters('cosmosDBName')]",
               "location": "[variables('cosmosDbRegion')]",
               "tags": "[parameters('tags')]",

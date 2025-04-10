@@ -1,5 +1,5 @@
 ---
-description: This set of templates demonstrates how to set up Azure AI Agent Service with the standard setup, meaning with managed identity authentication for project/hub connections and public internet access enabled. Agents use customer-owned, single-tenant search and storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
+description: This set of templates demonstrates how to set up Azure AI Agent Service with the standard setup, meaning with managed identity authentication for project/hub connections and public internet access enabled. Agents use customer-owned, single-tenant search, file storage, and thread storage resources. With this setup, you have full control and visibility over these resources, but you will incur costs based on your usage.
 page_type: sample
 products:
 - azure
@@ -26,13 +26,14 @@ languages:
 
 [![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fstandard-agent%2Fazuredeploy.json)
 
-Resources for the hub, project, storage account, key vault, AI Services, and Azure AI Search will be created for you. The AI Services, AI Search, and Azure Blob Storage account will be connected to your project/hub using managed identity for authentication and a gpt-4o-mini model will be deployed in the eastus region.
+Resources for the hub, project, storage account, key vault, AI Services, Azure AI Search, and Cosmos DB Account will be created for you. The AI Services, AI Search, Cosmos DB Account, and Azure Storage Account will be connected to your project/hub using managed identity for authentication and a gpt-4o model will be deployed in the eastus region.
 
-Optional use an existing AI Services/AOAI, AI Search, and/or Azure Blob Storage resource by providing the full arm resource id in the parameters file:
+Optional use an existing AI Services/AOAI, AI Search, Cosmos DB Account, and/or Azure Blob Storage resource by providing the full arm resource id in the parameters file:
 
 - aiServiceAccountResourceId
 - aiSearchServiceResourceId
 - aiStorageAccountResourceId
+- cosmosDBResourceId
 
 If you want to use an existing Azure OpenAI resource, you will need to update the `aiServiceAccountResourceId` and the `aiServiceKind` parameter in the parameters file. The `aiServiceKind` parameter should be set to `AzureOpenAI`.
 
@@ -48,4 +49,5 @@ If you want to use an existing Azure OpenAI resource, you will need to update th
 | `Microsoft.CognitiveServices/accounts` | An Azure AI Services as the model-as-a-service endpoint provider (allowed kinds: 'AIServices' and 'OpenAI') |
 | `Microsoft.CognitiveServices/accounts/deployments` | A gpt-4o-mini model is deployed |
 | `Microsoft.Search/searchServices` | An Azure AI Search account  |
+| `Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview` | An Azure Cosmos DB Account |
 `Tags: `
