@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "1659490427565419157"
+      "templateHash": "15767918293435821237"
     }
   },
   "parameters": {
@@ -146,14 +146,14 @@
     },
     "aiServiceAccountResourceId": {
       "type": "string",
-      "defaultValue": "/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-test-standard-setup/providers/Microsoft.CognitiveServices/accounts/agent-ai-servicesu2nn",
+      "defaultValue": "",
       "metadata": {
         "description": "The AI Service Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created."
       }
     },
     "aiSearchServiceResourceId": {
       "type": "string",
-      "defaultValue": "/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-test-standard-setup/providers/Microsoft.Search/searchServices/agent-ai-search-nhaq",
+      "defaultValue": "",
       "metadata": {
         "description": "The Ai Search Service full ARM Resource ID. This is an optional field, and if not provided, the resource will be created."
       }

@@ -61,10 +61,10 @@ param modelLocation string = 'westus'
 param aiServiceKind string = 'AIServices'
 
 @description('The AI Service Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param aiServiceAccountResourceId string = '/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-test-standard-setup/providers/Microsoft.CognitiveServices/accounts/agent-ai-servicesu2nn'
+param aiServiceAccountResourceId string = ''
 
 @description('The Ai Search Service full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param aiSearchServiceResourceId string = '/subscriptions/47f1c914-e299-4953-a99d-3e34644cfe1c/resourceGroups/rg-test-standard-setup/providers/Microsoft.Search/searchServices/agent-ai-search-nhaq'
+param aiSearchServiceResourceId string = ''
 
 @description('The Ai Storage Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
 param aiStorageAccountResourceId string = ''
