@@ -37,6 +37,9 @@ The setup can be customized by modifying the following parameters in the script 
 - `VM_NAME`: Name of the virtual machine (default: ai-agent-vm)
 - `RESOURCE_GROUP`: Resource group name (default: ai-agent-resources)
 
+### Deploy
+
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdharakumarmsft%2Fazureai-samples%2Fthread-storage%2Fscenarios%2FAgents%2Fsetup%2Fvirtual-machine%2Fazuredeploy.json)
 ## Features
 
 - Automated VM provisioning with optimal settings for AI workloads
@@ -63,5 +66,3 @@ Please see the [CONTRIBUTING.md](../../../../CONTRIBUTING.md) file for guideline
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](../../../../LICENSE) file for details.
-
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdharakumarmsft%2Fazureai-samples%2Fthread-storage%2Fscenarios%2FAgents%2Fsetup%2Fvirtual-machine%2Fazuredeploy.json)

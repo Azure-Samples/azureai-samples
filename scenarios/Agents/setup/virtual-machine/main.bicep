@@ -35,7 +35,7 @@ resource cxSubnet 'Microsoft.Network/virtualNetworks/subnets@2024-05-01' existin
   name: subnetName
 }
 
-resource umiExisting 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-05-01' existing = {
+resource umiExisting 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' existing = {
   name: userAssignedIdentity
   scope: resourceGroup()
 }

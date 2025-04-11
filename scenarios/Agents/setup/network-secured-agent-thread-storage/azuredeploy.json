@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "3532648912721963831"
+      "templateHash": "10523364086017165947"
     }
   },
   "parameters": {
@@ -2028,7 +2028,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "12061596129902026397"
+              "templateHash": "10639340475928662664"
             }
           },
           "parameters": {
@@ -2135,7 +2135,7 @@
               "name": "[format('{0}/{1}', parameters('aiProjectName'), variables('cosmosConnectionName'))]",
               "properties": {
                 "category": "CosmosDB",
-                "target": "[format('https://{0}documents.azure.com:443/', parameters('cosmosDBName'))]",
+                "target": "[format('https://{0}.documents.azure.com:443/', parameters('cosmosDBName'))]",
                 "authType": "AAD",
                 "metadata": {
                   "ApiType": "Azure",
