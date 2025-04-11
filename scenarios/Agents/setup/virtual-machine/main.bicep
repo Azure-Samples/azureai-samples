@@ -10,6 +10,7 @@ param virtualMachineName string
 param location string = resourceGroup().location
 @description('The name of the existing virtual network to use.')
 param adminUsername string
+
 @description('The username for the VM administrator account.')
 @secure()
 param adminPublicKey string
@@ -153,6 +154,7 @@ resource vmPublicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
       domainNameLabel: toLower('${virtualMachineName}-${uniqueString(resourceGroup().id)}')
     }
   }
+  zones: ['1', '2', '3'] // Zone redundant for high availability
   tags: {
     vm: virtualMachineName
   }
