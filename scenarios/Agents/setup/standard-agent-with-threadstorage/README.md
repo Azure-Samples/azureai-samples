@@ -9,7 +9,10 @@ languages:
 - bicep
 - json
 ---
-# Standard Agent Setup
+# Standard Agent Setup with thread storage 
+
+> [!IMPORTANT]
+> This is the complete Standard Agent Setup. All customer data stored by Agent Service will remain in your own resource, ensuring you have full control.
 
 ![Azure Public Test Date](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/standard-agent/PublicLastTestDate.svg)
 ![Azure Public Test Result](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/standard-agent/PublicDeployment.svg)
