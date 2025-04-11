@@ -37,7 +37,7 @@ The setup can be customized by modifying the following parameters in the script 
 - `VM_NAME`: Name of the virtual machine (default: ai-agent-vm)
 - `RESOURCE_GROUP`: Resource group name (default: ai-agent-resources)
 
-### Deploy
+## Deploy
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdharakumarmsft%2Fazureai-samples%2Fthread-storage%2Fscenarios%2FAgents%2Fsetup%2Fvirtual-machine%2Fazuredeploy.json)
 ## Features
@@ -46,6 +46,42 @@ The setup can be customized by modifying the following parameters in the script 
 - Pre-installed AI development tools and dependencies
 - Network security configuration for agent communication
 - Integration with Azure AI services
+
+## Step to connect to VS Code
+
+You can connect to your Azure VM directly from Visual Studio Code using the Remote SSH extension. Here's how to set it up on Windows and Linux:
+
+Windows
+Install Required Extensions
+
+Open VS Code and install the "Remote - SSH" extension
+Install "Azure Account" and "Azure Resources" extensions
+Configure SSH
+
+Open File Explorer and navigate to C:\Users\YourUsername\.ssh
+Place your existing private key in this folder (the one that pairs with the public key deployed to the VM)
+Create or edit the file config in this folder with:
+Connect through Azure Portal
+
+Example SSH Config
+```
+Host ubuntu24-vm
+  User azureuser
+  HostName <YOUR_VM_IP_OR_DNS_NAME>
+  IdentityFile /C:/Users/<username>/.ssh/project-vm.pem
+```
+
+Open VS Code command palette (Ctrl+Shift+P)
+Type "Azure: Sign In" and complete the authentication
+Select the Azure icon in the Activity Bar
+Expand your subscription and locate your VM
+Right-click and choose "Connect to Host in Current Window"
+Connect Directly via Remote SSH
+
+Click the green >< icon in the bottom-left corner of VS Code
+Select "Connect to Host..."
+Choose your VM from the list
+VS Code will open a new window connected to your VM
 
 ## Troubleshooting
 
