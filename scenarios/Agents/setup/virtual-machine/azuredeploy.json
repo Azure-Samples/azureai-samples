@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "6009036985717106508"
+      "templateHash": "3019949892868283501"
     }
   },
   "parameters": {
@@ -53,6 +53,16 @@
     "bastionName": {
       "type": "string",
       "defaultValue": "[format('{0}-bastion', parameters('virtualNetworkName'))]"
+    },
+    "userAssignedIdentity": {
+      "type": "string",
+      "metadata": {
+        "description": "User assigned identity for the VM."
+      }
+    },
+    "uniqueSuffix": {
+      "type": "string",
+      "defaultValue": "[substring(uniqueString(resourceGroup().id), 0, 4)]"
     }
   },
   "resources": [
@@ -69,7 +79,7 @@
     {
       "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2023-05-01",
-      "name": "[format('{0}-pip', parameters('bastionName'))]",
+      "name": "[format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix'))]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "Standard",
@@ -92,7 +102,7 @@
     {
       "type": "Microsoft.Network/bastionHosts",
       "apiVersion": "2023-05-01",
-      "name": "[parameters('bastionName')]",
+      "name": "[format('{0}-{1}', parameters('bastionName'), parameters('uniqueSuffix'))]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "Standard"
@@ -107,7 +117,7 @@
             "name": "IpConf",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionName')))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]"
               },
               "subnet": {
                 "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'AzureBastionSubnet')]"
@@ -117,14 +127,14 @@
         ]
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionName')))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]",
         "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'AzureBastionSubnet')]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
       "apiVersion": "2023-05-01",
-      "name": "[format('{0}-nsg', parameters('virtualMachineName'))]",
+      "name": "[format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
       "location": "[parameters('location')]",
       "properties": {
         "securityRules": [
@@ -165,7 +175,7 @@
     {
       "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2023-05-01",
-      "name": "[format('{0}-pip', parameters('virtualMachineName'))]",
+      "name": "[format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "Standard",
@@ -185,7 +195,7 @@
     {
       "type": "Microsoft.Network/networkInterfaces",
       "apiVersion": "2023-05-01",
-      "name": "[format('{0}-nic', parameters('virtualMachineName'))]",
+      "name": "[format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
       "location": "[parameters('location')]",
       "properties": {
         "ipConfigurations": [
@@ -197,13 +207,13 @@
               },
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('virtualMachineName')))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
               }
             }
           }
         ],
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg', parameters('virtualMachineName')))]"
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
         },
         "enableAcceleratedNetworking": true
       },
@@ -211,14 +221,20 @@
         "vm": "[parameters('virtualMachineName')]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg', parameters('virtualMachineName')))]",
-        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('virtualMachineName')))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2023-09-01",
-      "name": "[parameters('virtualMachineName')]",
+      "name": "[format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentity')))]": {}
+        }
+      },
       "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
@@ -244,7 +260,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('virtualMachineName')))]",
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]",
               "properties": {
                 "deleteOption": "Delete"
               }
@@ -265,7 +281,7 @@
               ]
             },
             "patchSettings": {
-              "patchMode": "AutomaticByPlatform",
+              "patchMode": "ImageDefault",
               "assessmentMode": "ImageDefault"
             }
           }
@@ -281,13 +297,13 @@
         "environment": "development"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('virtualMachineName')))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2023-09-01",
-      "name": "[format('{0}/{1}', parameters('virtualMachineName'), 'AzureMonitorLinuxAgent')]",
+      "name": "[format('{0}/{1}', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')), 'AzureMonitorLinuxAgent')]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.Azure.Monitor",
@@ -297,30 +313,30 @@
         "enableAutomaticUpgrade": true
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
       ]
     }
   ],
   "outputs": {
     "vmId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]"
+      "value": "[resourceId('Microsoft.Compute/virtualMachines', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
     },
     "vmName": {
       "type": "string",
-      "value": "[parameters('virtualMachineName')]"
+      "value": "[format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]"
     },
     "vmFqdn": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('virtualMachineName'))), '2023-05-01').dnsSettings.fqdn]"
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))), '2023-05-01').dnsSettings.fqdn]"
     },
     "bastionId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/bastionHosts', parameters('bastionName'))]"
+      "value": "[resourceId('Microsoft.Network/bastionHosts', format('{0}-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]"
     },
     "bastionFqdn": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionName'))), '2023-05-01').dnsSettings.fqdn]"
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix'))), '2023-05-01').dnsSettings.fqdn]"
     }
   }
 }

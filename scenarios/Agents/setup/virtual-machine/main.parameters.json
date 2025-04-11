@@ -11,9 +11,6 @@
       "virtualMachineName": {
         "value": "ubuntu24-vm"
       },
-      "location": {
-        "value": "uksouth"
-      },
       "adminUsername": {
         "value": "azureuser"
       },

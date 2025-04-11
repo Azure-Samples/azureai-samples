@@ -17,6 +17,11 @@ param adminPublicKey string
 param vmSize string = 'Standard_D2s_v3'
 param bastionName string = '${virtualNetworkName}-bastion'
 
+@description('User assigned identity for the VM.')
+param userAssignedIdentity string
+
+// Create a short, unique suffix, that will be unique to each resource group
+param uniqueSuffix string = substring(uniqueString(resourceGroup().id), 0, 4)
 
 resource existingVirtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: virtualNetworkName
@@ -27,6 +32,11 @@ resource existingVirtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' e
 resource cxSubnet 'Microsoft.Network/virtualNetworks/subnets@2024-05-01' existing = {
   parent: existingVirtualNetwork
   name: subnetName
+}
+
+resource umiExisting 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-05-01' existing = {
+  name: userAssignedIdentity
+  scope: resourceGroup()
 }
 
 // Create AzureBastionSubnet in the existing virtual network
@@ -42,7 +52,7 @@ resource bastionSubnet 'Microsoft.Network/virtualNetworks/subnets@2023-05-01' = 
 
 // Create new public IP for Bastion following Azure best practices
 resource bastionPublicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
-  name: '${bastionName}-pip'
+  name: '${bastionName}-pip-${uniqueSuffix}'
   location: location
   sku: {
     name: 'Standard' // Required for Azure Bastion
@@ -61,7 +71,7 @@ resource bastionPublicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
 
 // Create Azure Bastion with Standard SKU for enhanced features
 resource bastion 'Microsoft.Network/bastionHosts@2023-05-01' = {
-  name: bastionName
+  name: '${bastionName}-${uniqueSuffix}'
   location: location
   sku: {
     name: 'Standard' // Standard SKU supports file copy, native client, and tunneling
@@ -89,7 +99,7 @@ resource bastion 'Microsoft.Network/bastionHosts@2023-05-01' = {
 
 // Create VM NSG with Azure best practice security rules
 resource vmNsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
-  name: '${virtualMachineName}-nsg'
+  name: '${virtualMachineName}-nsg-${uniqueSuffix}'
   location: location
   properties: {
     securityRules: [
@@ -130,7 +140,7 @@ resource vmNsg 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {
 
 // Create public IP for VM with Standard SKU
 resource vmPublicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
-  name: '${virtualMachineName}-pip'
+  name: '${virtualMachineName}-pip-${uniqueSuffix}'
   location: location
   sku: {
     name: 'Standard'
@@ -150,7 +160,7 @@ resource vmPublicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
 
 // Create network interface for VM with NSG
 resource vmNic 'Microsoft.Network/networkInterfaces@2023-05-01' = {
-  name: '${virtualMachineName}-nic'
+  name: '${virtualMachineName}-nic-${uniqueSuffix}'
   location: location
   properties: {
     ipConfigurations: [
@@ -179,7 +189,13 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2023-05-01' = {
 
 // Create Ubuntu 24.04 virtual machine with secure configurations
 resource virtualMachine 'Microsoft.Compute/virtualMachines@2023-09-01' = {
-  name: virtualMachineName
+  name: '${virtualMachineName}-${uniqueSuffix}'
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${umiExisting.id}': {}
+    }
+  }
   location: location
   properties: {
     hardwareProfile: {
@@ -226,7 +242,7 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2023-09-01' = {
           ]
         }
         patchSettings: {
-          patchMode: 'AutomaticByPlatform' // Enable automatic OS updates
+          patchMode: 'ImageDefault' // Enable automatic OS updates
           assessmentMode: 'ImageDefault'
         }
       }
