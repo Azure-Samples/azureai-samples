@@ -1,11 +1,19 @@
+@description('The public SSH key for the VM administrator account.')
 param subnetName string
+@description('The name of the existing subnet in the virtual network.')
 param virtualNetworkName string
+@description('The name of the existing virtual network to use.')
 param virtualMachineName string
 
 // New parameters
+@description('The name of the existing virtual network to use.')
 param location string = resourceGroup().location
+@description('The name of the existing virtual network to use.')
 param adminUsername string
+@description('The username for the VM administrator account.')
+@secure()
 param adminPublicKey string
+
 param vmSize string = 'Standard_D2s_v3'
 param bastionName string = '${virtualNetworkName}-bastion'
 
