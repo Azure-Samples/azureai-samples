@@ -12,7 +12,7 @@ languages:
 # Standard Agent Setup with thread storage 
 
 > [!IMPORTANT]
-> This is the complete Standard Agent Setup with bring your own thread storage. With this setup, all customer data stored by Agent Service will remain in your own resource, ensuring you have full control.
+> This is the complete Standard Agent Setup with Bring Your Own (BYO) Thread Storage. With this setup, all customer data stored by Agent Service will remain in your own resources, ensuring you have full control over your data.
 
 ![Azure Public Test Date](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/standard-agent/PublicLastTestDate.svg)
 ![Azure Public Test Result](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/standard-agent/PublicDeployment.svg)
