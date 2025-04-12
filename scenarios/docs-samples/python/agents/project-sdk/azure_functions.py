@@ -42,7 +42,7 @@ project_client = AIProjectClient.from_connection_string(
 # </client_initialization>
 
 with project_client:
-    storage_service_endpoint = os.environ["STORAGE_SERVICE_ENDPONT"]
+    storage_service_endpoint = os.environ["STORAGE_SERVICE_ENDPOINT"]
 
     # [START create_agent_with_azure_function_tool]
     # <azure_function_tool_setup>
