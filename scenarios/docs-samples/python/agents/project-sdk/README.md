@@ -15,7 +15,7 @@ Before running the samples, ensure the following environment variables are set:
 
 ### Code Interpreter
 
-*Sample:* [`code-interpreter.py`](./code-interpreter.py)
+*Sample:* [`code_interpreter.py`](./code_interpreter.py)
 
 The Code Interpreter tool allows the agent to write and execute Python code in a sandboxed environment. It enables the agent to:
 
@@ -54,28 +54,66 @@ agent = project_client.agents.create_agent(
 
 ### File Search
 
-*Sample:* [`file-search.py`](./file-search.py)
+*Sample:* [`file_search.py`](./file_search.py)
 
 File Search augments the agent with knowledge from external documents, such as proprietary product information or user-provided files.
 
-#### Workflow:
+To access your files, the file search tool uses the vector store object. Upload your files and create a vector store to contain them. Once the vector store is created, you should poll its status until all files are out of the in_progress state to ensure that all content has finished processing. The SDK provides helpers for uploading and polling.
 
-1. **Upload Files**: Upload files to the Azure AI project.
-2. **Create a Vector Store**: Index the uploaded files into a vector store for semantic search.
-3. **Query the Agent**: Use the agent to perform searches across the indexed files.
+#### File Sources
+- Uploading local files
+- Use project data assets (i.e., existing files in the Azure Storage Account connected to the project)
 
-**Note:** Vector stores are temporary and have a default expiration policy of seven days.
+#### Basic Agent Setup <br> 
+The File Search tool has the same functionality as AOAI Assistants. Microsoft managed search and storage resources are used. 
+- Uploaded files get stored in Microsoft managed storage
+- A vector store is created using a Microsoft managed search resource
 
-**Note:** Ensure all files are fully indexed before querying (status != `in_progress`).
+#### Standard Agent Setup 
+The File Search tool uses the Azure AI Search and Azure Blob Storage resources you connected during agent setup.  
+- Uploaded files get stored in your connected Azure Blob Storage account
+- Vector stores get created using your connected Azure AI Seach resource
+
+For both Agent setups, OpenAI handles the entire ingestion process, including automatically parsing and chunking documents, generating and storing embeddings, and utilizing both vector and keyword searches to retrieve relevant content for user queries.
+
+There is no difference in the code between the two setups; the only variation is in where your files and created vector stores are stored.
+
+---
+
+### Azure AI Search
+*Sample:* [`azure_ai_search_tool.py`](./azure_ai_search_tool.py)
+This tool allows you to use an existing Azure AI Search index with your Agent. 
+
+Azure AI Search indexes must meet the following requirements
+- The index must contain at least one searchable & retrievable text field (type Edm.String)
+- The index must contain at least one searchable vector field (type Collection(Edm.Single))
+- The index is assumed to be configured properly
+
+Required parameters:
+- index_connection_id
+- index_name
+  
+Additional optional parameters:
+- query_type: The search type for your index
+- top_k: How many documents to retrieve from search and present to the model
+- filter: OData filter string configured by the client. [Learn more about text query filters](https://learn.microsoft.com/en-us/azure/search/search-filters)
+
+Search Types
+You can specify the search type for your index by choosing one of the following
+- Simple
+- Semantic
+- Vector
+- Hybrid (Vector + Keyword)
+- Hybrid (Vector + Keyword + Semantic)
 
 ---
 
 ### Function Calling
 
 *Samples:*  
-- [`python-function-calling.py`](./python-function-calling.py)  
-- [`python-function-calling-toolset.py`](./python-function-calling-toolset.py)  
-- [`python-function-calling-streaming.py`](./python-function-calling-streaming.py)
+- [`python_function_calling.py`](./python_function_calling.py)  
+- [`python_function_calling-toolset.py`](./python_function-calling_toolset.py)  
+- [`python_function_calling-streaming.py`](./python_function_calling_streaming.py)
 
 This tool allows agents to call your custom Python functions dynamically.
 
@@ -84,52 +122,13 @@ This tool allows agents to call your custom Python functions dynamically.
 - `fetch_weather()`  
 - `send_email(recipient, subject, body)`
 
-#### Execution Pattern:
-```python
-functions = FunctionTool(functions=user_functions)
-agent = project_client.agents.create_agent(
-    tools=functions.definitions,
-    ...
-)
-
-run = project_client.agents.create_run(thread_id=thread.id, agent_id=agent.id)
-# Monitor and execute required function calls
-```
-
 ---
 
-### Logic App Integration
+### Logic Apps Integration
 
 *Sample:* [`sample_agents_logic_apps.py`](./sample_agents_logic_apps.py)
 
 Use Logic Apps to extend your agent with enterprise-grade workflows. This is ideal for automating tasks such as notifications, scheduling, CRM updates, and more.
-
-#### Setup Code:
-
-**Initialize Tool:**
-```python
-logic_app_tool = AzureLogicAppTool(subscription_id, resource_group)
-logic_app_tool.register_logic_app(logic_app_name, trigger_name)
-```
-
-**Wrap Logic App Trigger as a Function:**
-```python
-send_email_func = create_send_email_function(logic_app_tool, logic_app_name)
-```
-
-**Tool Binding:**
-```python
-functions = FunctionTool(functions={fetch_current_datetime, send_email_func})
-toolset = ToolSet()
-toolset.add(functions)
-
-agent = project_client.agents.create_agent(
-    model=os.environ["MODEL_DEPLOYMENT_NAME"],
-    name="SendEmailAgent",
-    instructions="You are a specialized agent for sending emails.",
-    toolset=toolset,
-)
-```
 
 ---
 
@@ -146,31 +145,15 @@ This tool connects agents to 3rd-party REST APIs using OpenAPI schemas. Great fo
 
 ---
 
-### Bing Integration
+### Grounding with Bing Search
 
-*Sample:* [`bing-integration.py`](./bing-integration.py)
+*Sample:* [`bing_grounding.py`](./bing_grounding.py)
 
-Integrate Bing Search to enable agents to fetch real-time web search results. This is useful for retrieving the latest news, web content, or answering general knowledge queries.
+Grounding with Bing Search allows your Azure AI Agents to incorporate real-time public web data when generating responses. To start with, you need to create a Grounding with Bing Search resource, then connect this resource to your Azure AI Agents. When a user sends a query, Azure AI Agents will decide if Grounding with Bing Search should be leveraged or not. If so, it will leverage Bing to search over public web data and return relevant chunks. Lastly, Azure AI Agents will use returned chunks to generate a response.
 
-#### Setup Code:
+Citations show links to websites used to generate response, but don’t show links to the bing query used for the search. Developers and end users don’t have access to raw content returned from Grounding with Bing Search.
 
-**Initialize Bing Tool:**
-```python
-bing_tool = BingSearchTool(api_key=os.environ["BING_API_KEY"])
-```
-
-**Agent Setup:**
-```python
-agent = project_client.agents.create_agent(
-    model=os.environ["MODEL_DEPLOYMENT_NAME"],
-    name="BingSearchAgent",
-    instructions="You are an agent that fetches real-time web search results.",
-    tools=bing_tool.definitions,
-)
-```
-
-**Example Query:**
-> "Find the latest news about AI advancements."
+You can ask questions such as "what is the weather in Seattle?" "what is the recent update in ratail industry in the US?" that require real-time public data.
 
 ---
 
@@ -180,42 +163,6 @@ agent = project_client.agents.create_agent(
 
 Azure Functions allow agents to interact with serverless functions triggered by Azure Storage Queues. This is ideal for scenarios requiring asynchronous processing or integration with other Azure services.
 
-#### Setup Code:
-
-**Initialize Azure Function Tool:**
-```python
-azure_function_tool = AzureFunctionTool(
-    name="foo",
-    description="Get answers from the foo bot.",
-    parameters={
-        "type": "object",
-        "properties": {
-            "query": {"type": "string", "description": "The question to ask."},
-            "outputqueueuri": {"type": "string", "description": "The full output queue uri."},
-        },
-    },
-    input_queue=AzureFunctionStorageQueue(
-        queue_name="azure-function-foo-input",
-        storage_service_endpoint=os.environ["STORAGE_SERVICE_ENDPONT"],
-    ),
-    output_queue=AzureFunctionStorageQueue(
-        queue_name="azure-function-tool-output",
-        storage_service_endpoint=os.environ["STORAGE_SERVICE_ENDPONT"],
-    ),
-)
 ```
-
-**Agent Setup:**
-```python
-agent = project_client.agents.create_agent(
-    model=os.environ["MODEL_DEPLOYMENT_NAME"],
-    name="azure-function-agent-foo",
-    instructions="You are a helpful support agent. Use the provided function any time the prompt contains the string 'What would foo say?'.",
-    tools=azure_function_tool.definitions,
-)
-```
-
-**Example Query:**
-> "What is the most prevalent element in the universe? What would foo say?"
 
 ---
