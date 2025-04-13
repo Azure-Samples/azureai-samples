@@ -163,6 +163,4 @@ You can ask questions such as "what is the weather in Seattle?" "what is the rec
 
 Azure Functions allow agents to interact with serverless functions triggered by Azure Storage Queues. This is ideal for scenarios requiring asynchronous processing or integration with other Azure services.
 
-```
-
 ---
