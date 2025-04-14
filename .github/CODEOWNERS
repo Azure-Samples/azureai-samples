@@ -5,7 +5,7 @@
 # Default owner for everything, unless overridden by a more specific rule.
 * @Azure-Samples/azure-ai-samples-maintainers
 
-scenarios/docs @Azure-Samples/azure-ai-samples-maintainers @Azure-Samples/AI-Platform-Docs
+scenarios/docs-samples @Azure-Samples/azure-ai-samples-maintainers @Azure-Samples/AI-Platform-Docs
 
 # currently in use in docs: 
 /scenarios/projects/basic/chat-simple.py @Azure-Samples/AI-Platform-Docs
