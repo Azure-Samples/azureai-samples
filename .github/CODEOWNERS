@@ -6,3 +6,17 @@
 * @Azure-Samples/azure-ai-samples-maintainers
 
 scenarios/docs @Azure-Samples/azure-ai-samples-maintainers @Azure-Samples/AI-Platform-Docs
+
+# currently in use in docs: 
+/scenarios/projects/basic/chat-simple.py @Azure-Samples/AI-Platform-Docs
+/scenarios/projects/basic/chat-template.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/assets/chat_eval_data.jsonl @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/assets/grounded_chat.prompty @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/assets/intent_mapping.prompty @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/assets/products.csv @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/chat_with_products.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/config.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/create_search_index.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/evaluate.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/get_product_documents.py @Azure-Samples/AI-Platform-Docs
+/scenarios/rag/custom-rag-app/requirements.txt @Azure-Samples/AI-Platform-Docs
