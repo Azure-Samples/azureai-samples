@@ -54,6 +54,7 @@ param aiServiceKind string
 @description('Connection name of the AI Search resource')
 var acsConnectionName = '${aiHubName}-connection-AISearch'
 
+@description('Name of aoai connection')
 var aoaiConnection  = '${aiHubName}-connection-AIServices_aoai'
 
 var kindAIServicesExists = aiServiceKind == 'AIServices'
