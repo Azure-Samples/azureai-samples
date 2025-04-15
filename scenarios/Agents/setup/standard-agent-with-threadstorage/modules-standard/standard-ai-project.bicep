@@ -40,8 +40,7 @@ resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-previ
   scope: resourceGroup(cosmosDBSubscriptionId,cosmosDBResourceGroupName)
 }
 
-#disable-next-line BCP081
-resource aiProject 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
+resource aiProject 'Microsoft.MachineLearningServices/workspaces@2025-01-01-preview' = {
   name: aiProjectName
   location: location
   tags: union(tags, {
@@ -62,7 +61,6 @@ resource aiProject 'Microsoft.MachineLearningServices/workspaces@2024-10-01-prev
   kind: 'project'
 }
 
-#disable-next-line BCP081
 resource project_connection_cosmosdb 'Microsoft.MachineLearningServices/workspaces/connections@2025-01-01-preview' = {
   name: cosmosConnectionName
   parent: aiProject
