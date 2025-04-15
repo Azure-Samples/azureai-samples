@@ -51,8 +51,10 @@ param aiSearchServiceSubscriptionId string
 @description('AI Service Account kind: either OpenAI or AIServices')
 param aiServiceKind string 
 
+@description('Connection name of the AI Search resource')
 var acsConnectionName = '${aiHubName}-connection-AISearch'
 
+@description('Name of aoai connection')
 var aoaiConnection  = '${aiHubName}-connection-AIServices_aoai'
 
 var kindAIServicesExists = aiServiceKind == 'AIServices'
@@ -69,6 +71,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' exis
   scope: resourceGroup(aiSearchServiceSubscriptionId, aiSearchServiceResourceGroupName)
 }
 
+#disable-next-line BCP081
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
   name: aiHubName
   location: location

@@ -32,7 +32,7 @@ var storageParts = split(aiStorageAccountResourceId, '/')
 var azureStorageSubscriptionId = storagePassedIn ? storageParts[2] : subscription().subscriptionId
 var azureStorageResourceGroupName = storagePassedIn ? storageParts[4] : resourceGroup().name
 
-resource aiServiceAccount 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' existing = if (aiServicesPassedIn) {
+resource aiServiceAccount 'Microsoft.CognitiveServices/accounts@2024-10-01' existing = if (aiServicesPassedIn) {
   name: last(split(aiServiceAccountResourceId, '/'))
   scope: resourceGroup(aiServiceAccountSubscriptionId, aiServiceAccountResourceGroupName)
 }
