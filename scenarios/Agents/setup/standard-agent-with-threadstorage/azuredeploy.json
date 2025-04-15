@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "8527508992869683277"
+      "templateHash": "637602810862498010"
     }
   },
   "parameters": {
@@ -849,7 +849,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "10108960257155829972"
+              "templateHash": "7642176966055642334"
             }
           },
           "parameters": {
@@ -1001,7 +1001,7 @@
             },
             {
               "type": "Microsoft.MachineLearningServices/workspaces",
-              "apiVersion": "2024-10-01-preview",
+              "apiVersion": "2025-01-01-preview",
               "name": "[parameters('aiHubName')]",
               "location": "[parameters('location')]",
               "tags": "[parameters('tags')]",
@@ -1087,7 +1087,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "2930065960155969856"
+              "templateHash": "18311793081093335135"
             }
           },
           "parameters": {
@@ -1156,7 +1156,7 @@
           "resources": [
             {
               "type": "Microsoft.MachineLearningServices/workspaces",
-              "apiVersion": "2024-10-01-preview",
+              "apiVersion": "2025-01-01-preview",
               "name": "[parameters('aiProjectName')]",
               "location": "[parameters('location')]",
               "tags": "[union(parameters('tags'), createObject('ProjectConnectionString', variables('projectConnectionString')))]",
@@ -1176,7 +1176,7 @@
               "name": "[format('{0}/{1}', parameters('aiProjectName'), variables('cosmosConnectionName'))]",
               "properties": {
                 "category": "CosmosDB",
-                "target": "[format('https://{0}documents.azure.com:443/', parameters('cosmosDBName'))]",
+                "target": "[format('https://{0}.documents.azure.com:443/', parameters('cosmosDBName'))]",
                 "authType": "AAD",
                 "metadata": {
                   "ApiType": "Azure",
@@ -1204,15 +1204,15 @@
             },
             "aiProjectPrincipalId": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2024-10-01-preview', 'full').identity.principalId]"
+              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2025-01-01-preview', 'full').identity.principalId]"
             },
             "aiProjectWorkspaceId": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2024-10-01-preview').workspaceId]"
+              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2025-01-01-preview').workspaceId]"
             },
             "projectConnectionString": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2024-10-01-preview', 'full').tags.ProjectConnectionString]"
+              "value": "[reference(resourceId('Microsoft.MachineLearningServices/workspaces', parameters('aiProjectName')), '2025-01-01-preview', 'full').tags.ProjectConnectionString]"
             }
           }
         }

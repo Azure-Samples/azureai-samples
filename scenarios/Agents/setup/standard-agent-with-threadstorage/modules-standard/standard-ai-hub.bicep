@@ -69,6 +69,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' exis
   scope: resourceGroup(aiSearchServiceSubscriptionId, aiSearchServiceResourceGroupName)
 }
 
+#disable-next-line BCP081
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2025-01-01-preview' = {
   name: aiHubName
   location: location
