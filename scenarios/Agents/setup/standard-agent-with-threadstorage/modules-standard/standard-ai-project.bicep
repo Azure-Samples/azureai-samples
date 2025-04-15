@@ -41,7 +41,7 @@ resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-previ
 }
 
 #disable-next-line BCP081
-resource aiProject 'Microsoft.MachineLearningServices/workspaces@2025-01-01-preview' = {
+resource aiProject 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
   name: aiProjectName
   location: location
   tags: union(tags, {

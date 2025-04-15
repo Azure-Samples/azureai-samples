@@ -70,7 +70,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' exis
 }
 
 #disable-next-line BCP081
-resource aiHub 'Microsoft.MachineLearningServices/workspaces@2025-01-01-preview' = {
+resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
   name: aiHubName
   location: location
   tags: tags
