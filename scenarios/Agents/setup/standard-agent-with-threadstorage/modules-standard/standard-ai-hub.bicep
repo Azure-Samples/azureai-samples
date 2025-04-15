@@ -51,6 +51,7 @@ param aiSearchServiceSubscriptionId string
 @description('AI Service Account kind: either OpenAI or AIServices')
 param aiServiceKind string 
 
+@description('Connection name of the AI Search resource')
 var acsConnectionName = '${aiHubName}-connection-AISearch'
 
 var aoaiConnection  = '${aiHubName}-connection-AIServices_aoai'

@@ -33,6 +33,7 @@ var resourceGroupName = resourceGroup().name
 
 var projectConnectionString = '${location}.api.azureml.ms;${subscriptionId};${resourceGroupName};${aiProjectName}'
 
+@description('Connection name for the CosmosDB resource')
 var cosmosConnectionName = '${aiProjectName}-connection-CosmosDBAccount'
 
 resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview' existing = {
