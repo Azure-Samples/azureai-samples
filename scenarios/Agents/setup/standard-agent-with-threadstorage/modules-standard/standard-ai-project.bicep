@@ -68,7 +68,7 @@ resource project_connection_cosmosdb 'Microsoft.MachineLearningServices/workspac
   parent: aiProject
   properties: {
     category: 'CosmosDB'
-    target: 'https://${cosmosDBName}documents.azure.com:443/'
+    target: 'https://${cosmosDBName}.documents.azure.com:443/'
     authType: 'AAD'
     metadata: {
       ApiType: 'Azure'
