@@ -4,7 +4,7 @@
 # ------------------------------------
 
 """
-FILE: sample_agents_openapi.py
+FILE: openapi_tripadvisor.py
 DESCRIPTION:
     This sample demonstrates how to use agent operations to retrieve licensed data from Tripadvisor. To learn more about the set up, please visit: https://learn.microsoft.com/en-us/azure/ai-services/agents/how-to/tools/licensed-data
 USAGE:
