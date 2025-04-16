@@ -43,6 +43,8 @@ if run.status == "failed":
 
 # get messages from the thread and print the response (last message)
 messages = project.agents.list_messages(thread_id=thread.id)
-print(f"Response: {messages[-1]}")
+for text_message in messages.text_messages:
+    print(text_message.as_dict())
+
 
 # </run_agent>
