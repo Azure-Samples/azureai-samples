@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15951707972022123305"
+      "templateHash": "3032722584774553190"
     }
   },
   "parameters": {
@@ -185,7 +185,7 @@
     "name": "[toLower(format('{0}', parameters('aiHubName')))]",
     "projectName": "[toLower(format('{0}', parameters('aiProjectName')))]",
     "uniqueSuffix": "[substring(uniqueString(format('{0}-{1}', resourceGroup().id, parameters('deploymentTimestamp'))), 0, 4)]",
-    "aiServiceExists": "[not(equals(parameters('aiStorageAccountResourceId'), ''))]",
+    "aiServiceExists": "[not(equals(parameters('aiServiceAccountResourceId'), ''))]",
     "acsExists": "[not(equals(parameters('aiSearchServiceResourceId'), ''))]",
     "cosmosExists": "[not(equals(parameters('cosmosDBResourceId'), ''))]",
     "aiServiceParts": "[split(parameters('aiServiceAccountResourceId'), '/')]",

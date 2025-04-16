@@ -94,7 +94,7 @@ module validateExistingResources 'modules-standard/validate-existing-resources.b
 }
 
 // Already validated existing resources. Either create new resources or use existing ones because the resource IDs have been validated
-var aiServiceExists = aiStorageAccountResourceId != ''
+var aiServiceExists = aiServiceAccountResourceId != ''
 var acsExists = aiSearchServiceResourceId != ''
 var cosmosExists = cosmosDBResourceId != ''
 
@@ -133,7 +133,7 @@ module aiDependencies 'modules-standard/standard-dependent-resources.bicep' = {
      // AI Services account parameters
      aiServiceAccountResourceId: aiServiceAccountResourceId
      aiServiceExists: validateExistingResources.outputs.aiServiceExists
-    
+
      // AI Search Service parameters
      aiSearchServiceResourceId: aiSearchServiceResourceId
      aiSearchExists: validateExistingResources.outputs.aiSearchExists
