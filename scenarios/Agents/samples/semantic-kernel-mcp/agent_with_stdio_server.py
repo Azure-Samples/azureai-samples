@@ -21,7 +21,9 @@ set the required environment variables for the Azure AI Foundry service:
 
 load_dotenv()
 
-async def main():
+
+async def main() -> None:
+    """Main function that creates the plugin, the agent and starts the conversation loop."""
     async with (
         # 1. Login to Azure and create a Azure AI Project Client
         DefaultAzureCredential() as creds,
