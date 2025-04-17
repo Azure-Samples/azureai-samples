@@ -5,13 +5,13 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "15660679320375363034"
+      "templateHash": "6932181266079718163"
     }
   },
   "parameters": {
-    "account_name": {
+    "ai_services": {
       "type": "string",
-      "defaultValue": "[format('aiServices{0}', substring(uniqueString(utcNow()), 0, 4))]"
+      "defaultValue": "aiServices"
     },
     "project_name": {
       "type": "string",
@@ -55,13 +55,14 @@
     }
   },
   "variables": {
-    "uniqueSuffix": "[substring(uniqueString(format('{0}-{1}', resourceGroup().id, parameters('deploymentTimestamp'))), 0, 4)]"
+    "uniqueSuffix": "[substring(uniqueString(format('{0}-{1}', resourceGroup().id, parameters('deploymentTimestamp'))), 0, 4)]",
+    "account_name": "[toLower(format('{0}{1}', parameters('ai_services'), variables('uniqueSuffix')))]"
   },
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('ai-{0}-{1}-deployment', parameters('account_name'), variables('uniqueSuffix'))]",
+      "name": "[format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix'))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -69,7 +70,7 @@
         "mode": "Incremental",
         "parameters": {
           "account_name": {
-            "value": "[parameters('account_name')]"
+            "value": "[variables('account_name')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -208,7 +209,7 @@
             "value": "[parameters('location')]"
           },
           "account_name": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', parameters('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.account_name.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.account_name.value]"
           }
         },
         "template": {
@@ -218,7 +219,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "12614140096213220148"
+              "templateHash": "12797193027643278148"
             }
           },
           "parameters": {
@@ -255,7 +256,8 @@
             {
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
-              "name": "[guid(subscription().subscriptionId, resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('project_name'))]",
+              "scope": "[format('Microsoft.CognitiveServices/accounts/{0}/projects/{1}', parameters('account_name'), parameters('project_name'))]",
+              "name": "[guid(resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('project_name'), parameters('project_name'))]",
               "properties": {
                 "principalId": "[reference(resourceId('Microsoft.CognitiveServices/accounts/projects', parameters('account_name'), parameters('project_name')), '2025-04-01-preview', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal",
@@ -283,14 +285,14 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', parameters('account_name'), variables('uniqueSuffix')))]"
+        "[resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix')))]"
       ]
     }
   ],
   "outputs": {
     "ENDPOINT": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', parameters('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.aiServicesTarget.value]"
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.aiServicesTarget.value]"
     }
   }
 }
