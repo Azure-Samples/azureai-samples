@@ -1,0 +1,12 @@
+[project]
+name = "semantic-kernel-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "semantic-kernel[azure,mcp]>=1.28.0",
+]
+
+[tool.uv]
+prerelease = "allow"
