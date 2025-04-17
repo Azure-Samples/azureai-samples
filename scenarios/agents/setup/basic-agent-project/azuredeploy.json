@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "6932181266079718163"
+      "templateHash": "7019565628375963891"
     }
   },
   "parameters": {
@@ -219,7 +219,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "12797193027643278148"
+              "templateHash": "2952693676187936078"
             }
           },
           "parameters": {
@@ -256,7 +256,6 @@
             {
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
-              "scope": "[format('Microsoft.CognitiveServices/accounts/{0}/projects/{1}', parameters('account_name'), parameters('project_name'))]",
               "name": "[guid(resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('project_name'), parameters('project_name'))]",
               "properties": {
                 "principalId": "[reference(resourceId('Microsoft.CognitiveServices/accounts/projects', parameters('account_name'), parameters('project_name')), '2025-04-01-preview', 'full').identity.principalId]",
