@@ -105,6 +105,9 @@ param defaultStorageName string = 'agentstorage'
 @description('Name of the Azure AI Services account')
 param defaultAiServicesName string = 'agent-ai-service'
 
+@description('Name of the Azure Cosmos DB account')
+param defaultCosmosDBName string = 'agent-thread-storage'
+
 @description('Model name for deployment')
 param modelName string = 'gpt-4o-mini'
 
@@ -135,7 +138,6 @@ param aiSearchServiceName string = ''
 @description('The Cosmos DB Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
 param cosmosDBResourceId string = ''
 
-param cosmosDBName string = 'agent-thread-storage'
 
 // @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
 // param aiStorageAccountName string = ''
@@ -163,9 +165,10 @@ module identity 'modules-network-secured/network-secured-identity.bicep' = {
 var keyVaultName = empty(keyVaultOverride) ? 'kv-${defaultAiHubName}-${uniqueSuffix}' : keyVaultOverride
 var aiServiceName = empty(aiServiceAccountName) ? '${defaultAiServicesName}${uniqueSuffix}' : aiServiceAccountName
 var aiSearchName = empty(aiSearchServiceName) ? '${defaultAiSearchName}${uniqueSuffix}' : aiSearchServiceName
+
 var cosmosExists = !empty(cosmosDBResourceId)
 var storageNameClean = '${defaultStorageName}${uniqueSuffix}'
-
+var cosmosDBName =  '${defaultCosmosDBName}${uniqueSuffix}'
 var cosmosParts = split(cosmosDBResourceId, '/')
 var cosmosDBSubscriptionId = cosmosExists ? cosmosParts[2] : subscription().subscriptionId
 var cosmosDBResourceGroupName = cosmosExists ? cosmosParts[4] : resourceGroup().name

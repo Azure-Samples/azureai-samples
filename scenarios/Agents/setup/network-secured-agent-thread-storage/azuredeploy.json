@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "10523364086017165947"
+      "templateHash": "9574911875945990418"
     }
   },
   "parameters": {
@@ -150,6 +150,13 @@
         "description": "Name of the Azure AI Services account"
       }
     },
+    "defaultCosmosDBName": {
+      "type": "string",
+      "defaultValue": "agent-thread-storage",
+      "metadata": {
+        "description": "Name of the Azure Cosmos DB account"
+      }
+    },
     "modelName": {
       "type": "string",
       "defaultValue": "gpt-4o-mini",
@@ -220,10 +227,6 @@
         "description": "The Cosmos DB Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created."
       }
     },
-    "cosmosDBName": {
-      "type": "string",
-      "defaultValue": "agent-thread-storage"
-    },
     "userAssignedIdentityDefaultName": {
       "type": "string",
       "defaultValue": "[format('secured-agents-identity-{0}', parameters('uniqueSuffix'))]",
@@ -241,10 +244,11 @@
     "aiSearchName": "[if(empty(parameters('aiSearchServiceName')), format('{0}{1}', parameters('defaultAiSearchName'), parameters('uniqueSuffix')), parameters('aiSearchServiceName'))]",
     "cosmosExists": "[not(empty(parameters('cosmosDBResourceId')))]",
     "storageNameClean": "[format('{0}{1}', parameters('defaultStorageName'), parameters('uniqueSuffix'))]",
+    "cosmosDBName": "[format('{0}{1}', parameters('defaultCosmosDBName'), parameters('uniqueSuffix'))]",
     "cosmosParts": "[split(parameters('cosmosDBResourceId'), '/')]",
     "cosmosDBSubscriptionId": "[if(variables('cosmosExists'), variables('cosmosParts')[2], subscription().subscriptionId)]",
     "cosmosDBResourceGroupName": "[if(variables('cosmosExists'), variables('cosmosParts')[4], resourceGroup().name)]",
-    "cosmosDBAccountName": "[if(variables('cosmosExists'), variables('cosmosParts')[8], parameters('cosmosDBName'))]"
+    "cosmosDBAccountName": "[if(variables('cosmosExists'), variables('cosmosParts')[8], variables('cosmosDBName'))]"
   },
   "resources": [
     {
