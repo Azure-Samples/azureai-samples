@@ -1,18 +1,19 @@
 param cosmosDBConnection string 
 param azureStorageConnection string 
 param aiSearchConnection string
-param project_name string
-param account_name string
-param projectCapHost string
-param accountCapHost string
+param projectName string
+param accountName string
 
 var threadConnections = ['${cosmosDBConnection}']
 var storageConnections = ['${azureStorageConnection}']
 var vectorStoreConnections = ['${aiSearchConnection}']
 
+var projectCapHost = '${accountName}-${projectName}-capabilityHost'
+var accountCapHost = '${accountName}-capabilityHost'
+
 #disable-next-line BCP081
 resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
-  name: account_name
+  name: accountName
   scope: resourceGroup()
 }
 
@@ -27,7 +28,7 @@ resource account_name_capHost_resource 'Microsoft.CognitiveServices/accounts/cap
 }
 
 resource account_name_project_name 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' existing = {
-  name: project_name
+  name: projectName
   scope: resourceGroup()
 }
 

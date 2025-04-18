@@ -118,7 +118,7 @@ resource account_name_project_name 'Microsoft.CognitiveServices/accounts/project
   }
 }
 
-output project_name string = account_name_project_name.name
+output projectName string = account_name_project_name.name
 output projectId string = account_name_project_name.id
 output projectPrincipalId string = account_name_project_name.identity.principalId
 
