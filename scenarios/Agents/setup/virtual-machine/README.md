@@ -39,7 +39,8 @@ The setup can be customized by modifying the following parameters in the script 
 
 ## Deploy
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdharakumarmsft%2Fazureai-samples%2Fthread-storage%2Fscenarios%2FAgents%2Fsetup%2Fvirtual-machine%2Fazuredeploy.json)
+## Deploy
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fvirtual-machine%2Fazuredeploy.json)
 ## Features
 
 - Automated VM provisioning with optimal settings for AI workloads
