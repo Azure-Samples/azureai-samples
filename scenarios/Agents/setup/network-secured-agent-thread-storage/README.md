@@ -21,11 +21,11 @@ languages:
 ![Best Practice Check](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent/BestPracticeResult.svg)
 ![Cred Scan Check](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent/CredScanResult.svg)
 
-![Bicep Version](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent/BicepVersion.svg)
+![Bicep Version](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent-thread/BicepVersion.svg)
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdharakumarmsft%2Fazureai-samples%2Fthread-storage%2Fscenarios%2FAgents%2Fsetup%2Fnetwork-secured-agent-thread-storage%2Fazuredeploy.json)
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fnetwork-secured-agent-thread-storage%2Fazuredeploy.json)
 
-[![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fnetwork-secured-agent%2Fazuredeploy.json)
+[![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fnetwork-secured-agent-thread-storage%2Fazuredeploy.json)
 
 This infrastructure-as-code (IaC) solution deploys a network-secured Azure AI agent environment with private networking, managed identities, and role-based access control (RBAC).
 
@@ -79,6 +79,7 @@ The deployment creates an isolated network environment:
   - privatelink.azureml.ms
   - privatelink.search.windows.net
   - privatelink.blob.core.windows.net
+  - privatelink.documents.azure.com
 
 ### Core Components
 
@@ -97,6 +98,7 @@ The deployment creates an isolated network environment:
    - Azure AI Search
    - Key Vault
    - Storage Account
+   - Cosmos DB Account
 
 ## Security Features
 
@@ -112,6 +114,7 @@ The deployment creates an isolated network environment:
   - AI Search: Index Data Contributor, Service Contributor
   - Key Vault: Contributor, Secrets Officer
   - Storage: Blob Data Owner, Queue Data Contributor
+  - Cosmos DB: DocumentDB Account Operator Role, Cosmos DB Built-In Data Contributor
 
 ### Network Security
 
@@ -148,7 +151,10 @@ modules-network-secured/
 ├── network-secured-dependent-resources.bicep # Core infrastructure
 ├── network-secured-identity.bicep      # Managed identity
 ├── private-endpoint-and-dns.bicep      # Network security
+├── cosmos-account-role-assignments.bicep # Cosmos Account RBAC
+├── cosmos-container-role-assignments.bice # Cosmos Container RBAC
 └── storage-role-assignments.bicep      # Storage RBAC configuration
+
 ```
 
 ## Role Assignments
@@ -185,6 +191,10 @@ The deployment configures the following RBAC permissions:
   * Queue operations
   * Message management
 
+### Cosmos DB Account
+- DocumentDB Account Operator Role(230815da-be43-4aae-9cb4-875f7bd000aa)
+- Cosmos DB Built-In Data Contributor Role (00000000-0000-0000-0000-000000000002)
+
 ## Networking Details
 
 ### Private Endpoints
@@ -194,6 +204,7 @@ Each service is deployed with a private endpoint in the Customer Hub subnet:
 AI Services: account
 AI Search: searchService
 Storage: blob
+Cosmos DB: sql
 ```
 
 ### DNS Configuration
@@ -203,6 +214,7 @@ Private DNS zones are created and linked to the VNet:
 AI Services: privatelink.azureml.ms
 AI Search: privatelink.search.windows.net
 Storage: privatelink.blob.core.windows.net
+Cosmos DB: privatelink.documents.azure.com
 ```
 
 ## Security Considerations
