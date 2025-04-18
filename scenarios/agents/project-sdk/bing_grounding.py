@@ -35,11 +35,11 @@ from azure.ai.assistants.models import BingGroundingTool
 # Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 # connection string should be copied from the project in AI Studio
 
-project_endpoint = os.environ["PROJECT_ENDPOINT"]
+project_endpoint = os.getenv("PROJECT_ENDPOINT")
 
 # Takes an endpoint and a credential to create a project client
 project_client = AIProjectClient(
-    endpoint = project_endpoint,
+    endpoint=project_endpoint,
     credential=DefaultAzureCredential(),
 )
 # </create a project client>
@@ -48,8 +48,8 @@ project_client = AIProjectClient(
 # Decision 2: Is there an easier way to get the connection name using the default connections
 
 # <create agent>
-bing_connection = project_client.connections.get(connection_name=os.environ["CONNECTION_NAME"])
-conn_id = bing_connection.id
+connection_name = os.getenv("BING_CONNECTION_NAME")
+conn_id = connection_name.id
 
 print(conn_id)
 
@@ -60,7 +60,7 @@ bing = BingGroundingTool(connection_id=conn_id)
 with project_client:
     agents_client = project_client.assistants.get_client()
 
-    agent = agents_client.agents.create_agent(
+    agent = agents_client.create_assistant(
         model="gpt-4o",
         name="my-assistant",
         instructions="You are a helpful assistant",
@@ -71,11 +71,11 @@ with project_client:
 
     # <create thread>
     # Create thread for communication
-    thread = agents_client.agents.create_thread()
+    thread = agents_client.create_thread()
     print(f"Created thread, ID: {thread.id}")
 
     # Create message to thread
-    message = agents_client.agents.create_message(
+    message = agents_client.create_message(
         thread_id=thread.id,
         role="user",
         content="How is the weather in Seattle today?",
@@ -85,17 +85,17 @@ with project_client:
 
     # <create run>
     # Create and process agent run in thread with tools
-    run = agents_client.agents.create_and_process_run(thread_id=thread.id, agent_id=agent.id)
+    run = agents_client.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
     print(f"Run finished with status: {run.status}")
 
     if run.status == "failed":
         print(f"Run failed: {run.last_error}")
 
     # Delete the assistant when done
-    agents_client.agents.delete_agent(agent.id)
+    agents_client.delete_assistant(agent.id)
     print("Deleted agent")
 
     # Fetch and log all messages
-    messages = agents_client.agents.list_messages(thread_id=thread.id)
+    messages = agents_client.list_messages(thread_id=thread.id)
     print(f"Messages: {messages}")
 # </create run>
