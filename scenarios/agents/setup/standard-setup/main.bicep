@@ -34,10 +34,10 @@ param aiSearchResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2
 param azureStorageAccountResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.Storage/storageAccounts/aiservicesatgzstorage'
 
 @description('The Cosmos DB Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param azureCosmosDBAccountResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.DocumentDB/databaseAccounts/aiservicesil75cosmosdb'
+param azureCosmosDBAccountResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.DocumentDB/databaseAccounts/aiservicesatgzcosmosdb'
 
-param projectCapHost string = 'capHost'
-param accountCapHost string = 'capHost'
+param projectCapHost string = 'caphostproj'
+param accountCapHost string = 'caphostacc'
 // Create a short, unique suffix, that will be unique to each resource group
 param deploymentTimestamp string = utcNow('yyyyMMddHHmmss')
 var uniqueSuffix = substring(uniqueString('${resourceGroup().id}-${deploymentTimestamp}'), 0, 4)
@@ -149,6 +149,7 @@ module aiProject 'modules-standard/ai-project-identity.bicep' = {
   }
 }
 
+var projectFullName = '${aiAccount.outputs.account_name}/${aiProject.outputs.projectName}'
 // The Storage Blob Data Contributor role must be assigned before the caphost is created
 module storageAccountRoleAssignment 'modules-standard/azure-storage-account-role-assignment.bicep' = {
   name: 'storage-${azureStorageName}-${uniqueSuffix}-deployment'
@@ -183,13 +184,16 @@ module aiSearchRoleAssignments 'modules-standard/ai-search-role-assignments.bice
 }
 
 module addProjectCapabilityHost 'modules-standard/add-project-capability-host.bicep' = {
-  name: 'capabilityHost-configuration--${uniqueSuffix}-deployment'
+  name: 'capabilityHost-configuration-${projectName}-${uniqueSuffix}-deployment'
   params: {
     accountName: aiAccount.outputs.account_name
-    projectName: aiProject.outputs.projectName
+    projectFullName: projectFullName
     cosmosDBConnection: aiProject.outputs.cosmosDBConnection 
     azureStorageConnection: aiProject.outputs.azureStorageConnection
     aiSearchConnection: aiProject.outputs.aiSearchConnection
+
+    projectCapHost: projectCapHost
+    accountCapHost: accountCapHost
   }
   dependsOn: [
     aiSearchRoleAssignments, cosmosAccountRoleAssignments

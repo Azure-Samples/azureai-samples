@@ -1,34 +1,35 @@
 param cosmosDBConnection string 
 param azureStorageConnection string 
 param aiSearchConnection string
-param projectName string
+param projectFullName string
 param accountName string
+param projectCapHost string
+param accountCapHost string
 
 var threadConnections = ['${cosmosDBConnection}']
 var storageConnections = ['${azureStorageConnection}']
 var vectorStoreConnections = ['${aiSearchConnection}']
 
-var projectCapHost = '${accountName}-${projectName}-capabilityHost'
-var accountCapHost = '${accountName}-capabilityHost'
 
-#disable-next-line BCP081
-resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
-  name: accountName
-  scope: resourceGroup()
-}
+// #disable-next-line BCP081
+// resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
+//   name: accountName
+//   scope: resourceGroup()
+// }
 
-#disable-next-line BCP081
-resource account_name_capHost_resource 'Microsoft.CognitiveServices/accounts/capabilityHosts@2025-04-01-preview' = {
-  name: accountCapHost
-  parent: account_name_resource
-  properties: {
-    capabilityHostKind: 'Agents'
+// #disable-next-line BCP081
+// resource account_name_capHost_resource 'Microsoft.CognitiveServices/accounts/capabilityHosts@2025-04-01-preview' = {
+//   name: accountCapHost
+//   parent: account_name_resource
+//   properties: {
+//     capabilityHostKind: 'Agents'
    
-  }
-}
+//   }
+// }
 
+#disable-next-line BCP081
 resource account_name_project_name 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' existing = {
-  name: projectName
+  name: projectFullName
   scope: resourceGroup()
 }
 

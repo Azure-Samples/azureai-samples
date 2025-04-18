@@ -29,9 +29,9 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing 
   scope: resourceGroup(azureStorageSubscriptionId, azureStorageResourceGroupName)
 }
 
-var cosmosDBConnection = '${project_name}-cosmosdbconnection'
-var azureStorageConnection = '${project_name}-azurestorageconnection'
-var aiSearchConnection = '${project_name}-aisearchconnection'
+var cosmosDBConnection = '${project_name}-cosmosconnection'
+var azureStorageConnection = '${project_name}-storageconnection'
+var aiSearchConnection = '${project_name}-searchconnection'
 
 #disable-next-line BCP081
 resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {

@@ -7,6 +7,8 @@ param modelVersion string
 param modelSkuName string 
 param modelCapacity int 
 
+
+
 #disable-next-line BCP081
 resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   name: account_name
