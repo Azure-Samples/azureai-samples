@@ -5,10 +5,14 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "2167955497707359987"
+      "templateHash": "11330871222155948077"
     }
   },
   "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
     "ai_services": {
       "type": "string",
       "defaultValue": "aiServices"
@@ -17,17 +21,13 @@
       "type": "string",
       "defaultValue": "project"
     },
-    "description": {
+    "projectDescription": {
       "type": "string",
       "defaultValue": "some description"
     },
     "display_name": {
       "type": "string",
       "defaultValue": "project_display_name"
-    },
-    "location": {
-      "type": "string",
-      "defaultValue": "westus2"
     },
     "modelName": {
       "type": "string",
@@ -199,8 +199,8 @@
           "project_name": {
             "value": "[parameters('project_name')]"
           },
-          "description": {
-            "value": "[parameters('description')]"
+          "projectDescription": {
+            "value": "[parameters('projectDescription')]"
           },
           "display_name": {
             "value": "[parameters('display_name')]"
@@ -219,7 +219,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "7196347570375344868"
+              "templateHash": "15443601113500940705"
             }
           },
           "parameters": {
@@ -232,7 +232,7 @@
             "project_name": {
               "type": "string"
             },
-            "description": {
+            "projectDescription": {
               "type": "string"
             },
             "display_name": {
@@ -271,7 +271,7 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "description": "[parameters('description')]",
+                "description": "[parameters('projectDescription')]",
                 "displayName": "[parameters('display_name')]"
               }
             },
