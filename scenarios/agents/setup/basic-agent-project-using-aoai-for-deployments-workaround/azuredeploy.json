@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "231744087600303031"
+      "templateHash": "2167955497707359987"
     }
   },
   "parameters": {
@@ -219,7 +219,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "17518333503701663764"
+              "templateHash": "7196347570375344868"
             }
           },
           "parameters": {
@@ -279,7 +279,7 @@
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
               "scope": "[format('Microsoft.CognitiveServices/accounts/{0}/projects/{1}', parameters('account_name'), parameters('project_name'))]",
-              "name": "[guid(resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('project_name'), parameters('project_name'))]",
+              "name": "[guid(resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('account_name'), resourceId('Microsoft.CognitiveServices/accounts', parameters('account_name')), parameters('project_name'))]",
               "properties": {
                 "principalId": "[reference(resourceId('Microsoft.CognitiveServices/accounts/projects', parameters('account_name'), parameters('project_name')), '2025-04-01-preview', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal",
@@ -315,6 +315,14 @@
     "ENDPOINT": {
       "type": "string",
       "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.aiServicesTarget.value]"
+    },
+    "project_name": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', parameters('project_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.project_name.value]"
+    },
+    "account_name": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('ai-{0}-{1}-deployment', variables('account_name'), variables('uniqueSuffix'))), '2022-09-01').outputs.account_name.value]"
     }
   }
 }

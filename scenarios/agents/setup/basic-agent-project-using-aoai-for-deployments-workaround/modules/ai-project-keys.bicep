@@ -53,7 +53,7 @@ resource azureAIDeveloperRoleId 'Microsoft.Authorization/roleDefinitions@2022-04
 
 
 resource projectSMIRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(azureAIDeveloperRoleId.id, project_name, account_name_project_name.name)
+  name: guid(azureAIDeveloperRoleId.id, account_name, account_name_resource.id, project_name)
   scope: account_name_project_name
   properties: {
     principalId: account_name_project_name.identity.principalId

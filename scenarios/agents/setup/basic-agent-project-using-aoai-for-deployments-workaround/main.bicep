@@ -57,3 +57,5 @@ module aiProject 'modules/ai-project-keys.bicep' = {
 }
 
 output ENDPOINT string = aiAccount.outputs.aiServicesTarget
+output project_name string = aiProject.outputs.project_name
+output account_name string = aiAccount.outputs.account_name
