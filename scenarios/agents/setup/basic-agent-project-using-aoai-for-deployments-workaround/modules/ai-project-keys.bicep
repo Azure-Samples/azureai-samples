@@ -2,7 +2,7 @@
 param account_name string
 param location string
 param project_name string
-param description string  
+param projectDescription string  
 param display_name string
 
 #disable-next-line BCP081
@@ -20,7 +20,7 @@ resource account_name_project_name 'Microsoft.CognitiveServices/accounts/project
     type: 'SystemAssigned'
   }
   properties: {
-    description: description
+    description: projectDescription
     displayName: display_name
   }
 

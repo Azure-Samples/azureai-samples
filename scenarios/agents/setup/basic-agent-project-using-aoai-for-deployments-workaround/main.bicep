@@ -1,8 +1,8 @@
+param location string = resourceGroup().location
 param ai_services string = 'aiServices'
 param project_name string = 'project'
 param description string = 'some description'
 param display_name string = 'project_display_name'
-param location string = 'westus2'
 
 param modelName string = 'gpt-4o'
 param modelFormat string = 'OpenAI'

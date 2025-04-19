@@ -1,39 +1,30 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "ai_services": {
-            "value": "aiServices"
-        },
-        "project_name": {
-            "value": "project"
-        },
-        "description": {
-            "value": "some description"
-        },
-        "display_name": {
-            "value": "project_display_name"
-        },
-        "location": {
-            "value": "westus2"
-        },
-        "modelName": {
-            "value": "gpt-4o"
-        },
-        "modelFormat": {
-            "value": "OpenAI"
-        },
-        "modelVersion": {
-            "value": "2024-05-13"
-        },
-        "modelSkuName": {
-            "value": "GlobalStandard"
-        },
-        "modelCapacity": {
-            "value": 1
-        },
-        "deploymentTimestamp": {
-            "value": "" // TODO: Fill in parameter value
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "westus2"
+    },
+    "ai_services": {
+      "value": "aiServices"
+    },
+    "project_name": {
+      "value": "project"
+    },
+    "modelName": {
+      "value": "gpt-4o"
+    },
+    "modelFormat": {
+      "value": "OpenAI"
+    },
+    "modelVersion": {
+      "value": "2024-05-13"
+    },
+    "modelSkuName": {
+      "value": "GlobalStandard"
+    },
+    "modelCapacity": {
+      "value": 50
     }
+  }
 }
