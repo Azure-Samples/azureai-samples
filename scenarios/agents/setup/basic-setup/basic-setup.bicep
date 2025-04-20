@@ -30,7 +30,7 @@ resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-
       ipRules: []
     }
     publicNetworkAccess: 'Enabled'
-    disableLocalAuth: true
+    disableLocalAuth: false
   }
 }
 
