@@ -6,7 +6,7 @@ param location string = 'westus2'
 
 param modelName string = 'gpt-4o'
 param modelFormat string = 'OpenAI'
-param modelVersion string = '2024-05-13'
+param modelVersion string = '2024-11-20'
 param modelSkuName string = 'GlobalStandard'
 param modelCapacity int = 50
 

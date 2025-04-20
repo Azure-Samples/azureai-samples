@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "8681607248355361510"
+      "templateHash": "18347938521105523507"
     }
   },
   "parameters": {
@@ -39,7 +39,7 @@
     },
     "modelVersion": {
       "type": "string",
-      "defaultValue": "2024-05-13"
+      "defaultValue": "2024-11-20"
     },
     "modelSkuName": {
       "type": "string",
