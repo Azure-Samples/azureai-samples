@@ -2,7 +2,7 @@
 param account_name string
 param location string
 param project_name string
-param description string  
+param projectDescription string  
 param display_name string
 
 #disable-next-line BCP081
@@ -20,10 +20,11 @@ resource account_name_project_name 'Microsoft.CognitiveServices/accounts/project
     type: 'SystemAssigned'
   }
   properties: {
-    description: description
+    description: projectDescription
     displayName: display_name
   }
 }
+
 // Azure AI Administrator Role -  Provides full access to manage AI resources and their settings
 // Assign Project SMI - Azure AI Developer Role
 // Most likely not permanent, but for now, this is the only way to assign the role to the project SMI

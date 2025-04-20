@@ -1,8 +1,8 @@
 param ai_services string = 'aiServices'
-param project_name string = 'project'
-param description string = 'some description'
+param project string = 'project'
+param projectDescription string = 'some description'
 param display_name string = 'project_display_name'
-param location string = 'eastus'
+param location string = 'westus2'
 
 param modelName string = 'gpt-4o'
 param modelFormat string = 'OpenAI'
@@ -15,6 +15,7 @@ param modelCapacity int = 1
 param deploymentTimestamp string = utcNow('yyyyMMddHHmmss')
 var uniqueSuffix = substring(uniqueString('${resourceGroup().id}-${deploymentTimestamp}'), 0, 4)
 var account_name = toLower('${ai_services}${uniqueSuffix}')
+var project_name = toLower('${project}${uniqueSuffix}')
 /*
   Step 1: Create a Cognitive Services Account and deployment an agent compatible model
   
@@ -47,7 +48,7 @@ module aiProject 'modules/ai-project-keys.bicep' = {
   params: {
     // workspace organization
     project_name: project_name
-    description: description
+    projectDescription: projectDescription
     display_name: display_name
     location: location
 

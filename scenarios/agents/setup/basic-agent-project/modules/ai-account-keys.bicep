@@ -1,4 +1,3 @@
-
 param account_name string
 param location string
 param modelName string 
@@ -6,7 +5,6 @@ param modelFormat string
 param modelVersion string 
 param modelSkuName string 
 param modelCapacity int 
-
 
 
 #disable-next-line BCP081
@@ -33,8 +31,8 @@ resource account_name_resource 'Microsoft.CognitiveServices/accounts@2025-04-01-
   }
 }
 
- 
-resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01'=  {
+#disable-next-line BCP081
+resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2025-04-01-preview'=  {
   parent: account_name_resource
   name: modelName
   sku : {
