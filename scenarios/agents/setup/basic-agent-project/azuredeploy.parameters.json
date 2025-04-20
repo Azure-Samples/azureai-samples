@@ -2,14 +2,14 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "location": {
-      "value": "eastus"
-    },
-    "account_name": {
+    "ai_services": {
       "value": "aiServices"
     },
-    "project_name": {
+    "project": {
       "value": "project"
+    },
+    "location": {
+      "value": "westus2"
     },
     "modelName": {
       "value": "gpt-4o"
@@ -18,13 +18,13 @@
       "value": "OpenAI"
     },
     "modelVersion": {
-      "value": "2024-05-13"
+      "value": "2024-08-06"
     },
     "modelSkuName": {
       "value": "GlobalStandard"
     },
     "modelCapacity": {
-      "value": 1
+      "value": 50
     }
   }
 }

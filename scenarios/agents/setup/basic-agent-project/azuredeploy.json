@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "7019565628375963891"
+      "templateHash": "8681607248355361510"
     }
   },
   "parameters": {
@@ -13,21 +13,21 @@
       "type": "string",
       "defaultValue": "aiServices"
     },
-    "project_name": {
+    "project": {
       "type": "string",
       "defaultValue": "project"
     },
-    "description": {
+    "projectDescription": {
       "type": "string",
       "defaultValue": "some description"
     },
-    "display_name": {
+    "displayName": {
       "type": "string",
       "defaultValue": "project_display_name"
     },
     "location": {
       "type": "string",
-      "defaultValue": "eastus"
+      "defaultValue": "westus2"
     },
     "modelName": {
       "type": "string",
@@ -47,7 +47,7 @@
     },
     "modelCapacity": {
       "type": "int",
-      "defaultValue": 1
+      "defaultValue": 50
     },
     "deploymentTimestamp": {
       "type": "string",
@@ -56,7 +56,8 @@
   },
   "variables": {
     "uniqueSuffix": "[substring(uniqueString(format('{0}-{1}', resourceGroup().id, parameters('deploymentTimestamp'))), 0, 4)]",
-    "account_name": "[toLower(format('{0}{1}', parameters('ai_services'), variables('uniqueSuffix')))]"
+    "account_name": "[toLower(format('{0}{1}', parameters('ai_services'), variables('uniqueSuffix')))]",
+    "project_name": "[toLower(format('{0}{1}', parameters('project'), variables('uniqueSuffix')))]"
   },
   "resources": [
     {
@@ -98,7 +99,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "4718187627953885328"
+              "templateHash": "3838115388906878198"
             }
           },
           "parameters": {
@@ -151,7 +152,7 @@
             },
             {
               "type": "Microsoft.CognitiveServices/accounts/deployments",
-              "apiVersion": "2024-10-01",
+              "apiVersion": "2025-04-01-preview",
               "name": "[format('{0}/{1}', parameters('account_name'), parameters('modelName'))]",
               "sku": {
                 "capacity": "[parameters('modelCapacity')]",
@@ -189,7 +190,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('ai-{0}-{1}-deployment', parameters('project_name'), variables('uniqueSuffix'))]",
+      "name": "[format('ai-{0}-{1}-deployment', variables('project_name'), variables('uniqueSuffix'))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -197,13 +198,13 @@
         "mode": "Incremental",
         "parameters": {
           "project_name": {
-            "value": "[parameters('project_name')]"
+            "value": "[variables('project_name')]"
           },
-          "description": {
-            "value": "[parameters('description')]"
+          "projectDescription": {
+            "value": "[parameters('projectDescription')]"
           },
-          "display_name": {
-            "value": "[parameters('display_name')]"
+          "displayName": {
+            "value": "[parameters('displayName')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -219,7 +220,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "2952693676187936078"
+              "templateHash": "6334522666293369676"
             }
           },
           "parameters": {
@@ -232,10 +233,10 @@
             "project_name": {
               "type": "string"
             },
-            "description": {
+            "projectDescription": {
               "type": "string"
             },
-            "display_name": {
+            "displayName": {
               "type": "string"
             }
           },
@@ -249,22 +250,9 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "description": "[parameters('description')]",
-                "displayName": "[parameters('display_name')]"
+                "description": "[parameters('projectDescription')]",
+                "displayName": "[parameters('displayName')]"
               }
-            },
-            {
-              "type": "Microsoft.Authorization/roleAssignments",
-              "apiVersion": "2022-04-01",
-              "name": "[guid(resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee'), parameters('project_name'), parameters('project_name'))]",
-              "properties": {
-                "principalId": "[reference(resourceId('Microsoft.CognitiveServices/accounts/projects', parameters('account_name'), parameters('project_name')), '2025-04-01-preview', 'full').identity.principalId]",
-                "principalType": "ServicePrincipal",
-                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', '64702f94-c441-49e6-a78b-ef80e0188fee')]"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.CognitiveServices/accounts/projects', parameters('account_name'), parameters('project_name'))]"
-              ]
             }
           ],
           "outputs": {
