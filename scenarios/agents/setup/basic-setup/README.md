@@ -6,7 +6,7 @@ This bicep template provisions required resources for a basic project setup. A n
 
 All agents created in this project will automatically use Microsoft managed, multitenant search and storage resources.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Frefs%2Fheads%2Fmay-2025%2Fscenarios%2Fagents%2Fsetup%2Fbasic-agent-project%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Frefs%2Fheads%2Fmay-2025%2Fscenarios%2Fagents%2Fsetup%2Fbasic-setup%2Fbasic-setup.json)
 
 To deploy this template, click the "Deploy to Azure" button or you can run one of the following commands
 

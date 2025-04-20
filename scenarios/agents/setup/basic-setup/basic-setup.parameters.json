@@ -2,14 +2,14 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "ai_services": {
-      "value": "aiServices"
-    },
-    "project": {
-      "value": "project"
-    },
     "location": {
       "value": "westus2"
+    },
+    "account_name": {
+      "value": ""
+    },
+    "project_name": {
+      "value": ""
     },
     "modelName": {
       "value": "gpt-4o"
@@ -24,7 +24,7 @@
       "value": "GlobalStandard"
     },
     "modelCapacity": {
-      "value": 50
+      "value": 30
     }
   }
 }
