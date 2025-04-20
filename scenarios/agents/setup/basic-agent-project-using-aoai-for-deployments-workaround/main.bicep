@@ -1,14 +1,14 @@
 param location string = resourceGroup().location
 param ai_services string = 'aiServices'
 param project_name string = 'project'
-param description string = 'some description'
+param projectDescription string = 'some description'
 param display_name string = 'project_display_name'
 
 param modelName string = 'gpt-4o'
 param modelFormat string = 'OpenAI'
-param modelVersion string = '2024-05-13'
+param modelVersion string = '2024-11-20'
 param modelSkuName string = 'GlobalStandard'
-param modelCapacity int = 1
+param modelCapacity int = 50
 
 // Create a short, unique suffix, that will be unique to each resource group
 // var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
@@ -47,7 +47,7 @@ module aiProject 'modules/ai-project-keys.bicep' = {
   params: {
     // workspace organization
     project_name: project_name
-    description: description
+    projectDescription: projectDescription
     display_name: display_name
     location: location
 
