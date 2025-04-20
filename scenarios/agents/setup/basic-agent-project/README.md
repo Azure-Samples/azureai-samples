@@ -13,7 +13,7 @@ To deploy this template, click the "Deploy to Azure" button or you can run one o
 * Create new (or use existing) resource group:
 
 ```bash
-    az group create --name <new-rg-name> --location eastus2euap
+    az group create --name <new-rg-name> --location westus2
 ```
 
 * Deploy the template
