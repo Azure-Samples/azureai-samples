@@ -28,7 +28,7 @@ This table tracks the current status of code samples for each supported tool in 
 ## ✅ Status Legend
 
 - ❌ **Doesn't exist** – No sample created yet  
-- ⚠️ **Exists, but doesn't work** – Sample exists but needs fixes  
+- ⚠️ **Exists, but doesn't work** – Sample exists but isn't functional
 - ✅ **Exists and works** – Fully functional and validated
 
 ---
@@ -38,8 +38,9 @@ This table tracks the current status of code samples for each supported tool in 
 - **In-progress samples** go to:  
   `scenarios/agents/azure-ai-assistants-sdk/`
 
-- **Finalized samples** go to:  
-  `docs-samples/`
+
+- **Finalized samples:** once a sample is working, create a cleaned up copy and place it here: 
+  `docs-samples/python/azure-ai-assistants-sdk`
 
 ---
 
