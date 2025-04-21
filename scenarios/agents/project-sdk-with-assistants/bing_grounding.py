@@ -48,8 +48,7 @@ project_client = AIProjectClient(
 # Decision 2: Is there an easier way to get the connection name using the default connections
 
 # <create agent>
-connection_name = os.getenv("BING_CONNECTION_NAME")
-conn_id = connection_name.id
+conn_id = os.getenv("BING_CONNECTION_ID")
 
 print(conn_id)
 
