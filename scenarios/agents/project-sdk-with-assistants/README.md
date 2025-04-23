@@ -6,9 +6,10 @@ This table tracks the current status of code samples for each supported tool in 
 
 ## Code Sample Status
 
-| Tool               | Sample Description                               | Status                  | Notes / Known Issues                       |
+| Sample               | Sample Description                               | Status                  | Notes / Known Issues                       |
 |--------------------|--------------------------------------------------|--------------------------|--------------------------------------------|
-| **Bing**           | Using Bing in an agent                           | ❌ Doesn't exist          |                                            |
+| **Basic assistant**  (no tools)                | Description of the new tool                      | ❌ Doesn't exist          | Any notes or known issues                  |
+| **Bing**           | Using Bing in an agent                           | ⚠️ Doesn't exist          |                                            |
 | **File Search**    | Uploading files                                  | ❌ Doesn't exist          |                                            |
 |                    | Using blob storage (project data assets)         | ❌ Doesn't exist          |                                            |
 |                    | Managing files                                   | ❌ Doesn't exist          |                                            |
