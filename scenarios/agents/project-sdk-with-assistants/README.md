@@ -8,7 +8,7 @@ This table tracks the current status of code samples for each supported tool in 
 
 | Sample               | Sample Description                               | Status                  | Notes / Known Issues                       |
 |--------------------|--------------------------------------------------|--------------------------|--------------------------------------------|
-| **Basic assistant**  (no tools)                | Description of the new tool                      | ❌ Doesn't exist          | Any notes or known issues                  |
+| **Basic assistant**  (no tools)                | Description of the new tool                      | ❌ Doesn't exist          |                  |
 | **Bing**           | Using Bing in an agent                           | ⚠️ Doesn't exist          |                                            |
 | **File Search**    | Uploading files                                  | ❌ Doesn't exist          |                                            |
 |                    | Using blob storage (project data assets)         | ❌ Doesn't exist          |                                            |
