@@ -28,13 +28,13 @@ param modelSkuName string = 'GlobalStandard'
 param modelCapacity int = 1
 
 @description('The AI Search Service full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param aiSearchResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.Search/searchServices/aiservicesatgzsearch'
+param aiSearchResourceId string = ''
 
 @description('The AI Storage Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param azureStorageAccountResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.Storage/storageAccounts/aiservicesatgzstorage'
+param azureStorageAccountResourceId string = ''
 
 @description('The Cosmos DB Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
-param azureCosmosDBAccountResourceId string = '/subscriptions/921496dc-987f-410f-bd57-426eb2611356/resourceGroups/rg-amanda1rp-westus2/providers/Microsoft.DocumentDB/databaseAccounts/aiservicesatgzcosmosdb'
+param azureCosmosDBAccountResourceId string = ''
 
 param projectCapHost string = 'caphostproj'
 param accountCapHost string = 'caphostacc'
