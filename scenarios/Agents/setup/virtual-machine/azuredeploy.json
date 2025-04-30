@@ -1,0 +1,347 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.33.93.31351",
+      "templateHash": "7735979115864224877"
+    }
+  },
+  "parameters": {
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The public SSH key for the VM administrator account."
+      }
+    },
+    "virtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing subnet in the virtual network."
+      }
+    },
+    "virtualMachineName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing virtual network to use."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "The name of the existing virtual network to use."
+      }
+    },
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing virtual network to use."
+      }
+    },
+    "adminPublicKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The username for the VM administrator account."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2s_v3"
+    },
+    "bastionName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-bastion', parameters('virtualNetworkName'))]"
+    },
+    "userAssignedIdentity": {
+      "type": "string",
+      "metadata": {
+        "description": "User assigned identity for the VM."
+      }
+    },
+    "uniqueSuffix": {
+      "type": "string",
+      "defaultValue": "[substring(uniqueString(resourceGroup().id), 0, 4)]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}/{1}', parameters('virtualNetworkName'), 'AzureBastionSubnet')]",
+      "properties": {
+        "addressPrefix": "172.16.1.0/26",
+        "privateEndpointNetworkPolicies": "Disabled",
+        "privateLinkServiceNetworkPolicies": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard",
+        "tier": "Regional"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "publicIPAddressVersion": "IPv4",
+        "idleTimeoutInMinutes": 4,
+        "dnsSettings": {
+          "domainNameLabel": "[toLower(format('{0}-{1}', parameters('bastionName'), uniqueString(resourceGroup().id)))]"
+        }
+      },
+      "zones": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/bastionHosts",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}-{1}', parameters('bastionName'), parameters('uniqueSuffix'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "enableFileCopy": true,
+        "enableTunneling": true,
+        "enableIpConnect": true,
+        "scaleUnits": 2,
+        "ipConfigurations": [
+          {
+            "name": "IpConf",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]"
+              },
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'AzureBastionSubnet')]"
+              }
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'AzureBastionSubnet')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "AllowSSHFromBastion",
+            "properties": {
+              "priority": 100,
+              "protocol": "Tcp",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourceAddressPrefix": "VirtualNetwork",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*",
+              "destinationPortRange": "22",
+              "description": "Allow SSH access from Bastion only"
+            }
+          },
+          {
+            "name": "DenyAllInbound",
+            "properties": {
+              "priority": 4096,
+              "protocol": "*",
+              "access": "Deny",
+              "direction": "Inbound",
+              "sourceAddressPrefix": "*",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*",
+              "destinationPortRange": "*",
+              "description": "Deny all other inbound traffic"
+            }
+          }
+        ]
+      },
+      "tags": {
+        "vm": "[parameters('virtualMachineName')]"
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard",
+        "tier": "Regional"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "publicIPAddressVersion": "IPv4",
+        "dnsSettings": {
+          "domainNameLabel": "[toLower(format('{0}-{1}', parameters('virtualMachineName'), uniqueString(resourceGroup().id)))]"
+        }
+      },
+      "zones": [
+        "1",
+        "2",
+        "3"
+      ],
+      "tags": {
+        "vm": "[parameters('virtualMachineName')]"
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2023-05-01",
+      "name": "[format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+              },
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+              }
+            }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+        },
+        "enableAcceleratedNetworking": true
+      },
+      "tags": {
+        "vm": "[parameters('virtualMachineName')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}-nsg-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2023-09-01",
+      "name": "[format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('userAssignedIdentity')))]": {}
+        }
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "canonical",
+            "offer": "ubuntu-24_04-lts",
+            "sku": "server",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[format('{0}-osdisk', parameters('virtualMachineName'))]",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "Premium_LRS"
+            },
+            "caching": "ReadWrite",
+            "deleteOption": "Delete"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]",
+              "properties": {
+                "deleteOption": "Delete"
+              }
+            }
+          ]
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachineName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[format('/home/{0}/.ssh/authorized_keys', parameters('adminUsername'))]",
+                  "keyData": "[parameters('adminPublicKey')]"
+                }
+              ]
+            },
+            "patchSettings": {
+              "patchMode": "ImageDefault",
+              "assessmentMode": "ImageDefault"
+            }
+          }
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true
+          }
+        }
+      },
+      "tags": {
+        "application": "agents",
+        "environment": "development"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2023-09-01",
+      "name": "[format('{0}/{1}', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')), 'AzureMonitorLinuxAgent')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Azure.Monitor",
+        "type": "AzureMonitorLinuxAgent",
+        "typeHandlerVersion": "1.0",
+        "autoUpgradeMinorVersion": true,
+        "enableAutomaticUpgrade": true
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "vmId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Compute/virtualMachines', format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix')))]"
+    },
+    "vmName": {
+      "type": "string",
+      "value": "[format('{0}-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))]"
+    },
+    "vmFqdn": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('virtualMachineName'), parameters('uniqueSuffix'))), '2023-05-01').dnsSettings.fqdn]"
+    },
+    "bastionId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Network/bastionHosts', format('{0}-{1}', parameters('bastionName'), parameters('uniqueSuffix')))]"
+    },
+    "bastionFqdn": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip-{1}', parameters('bastionName'), parameters('uniqueSuffix'))), '2023-05-01').dnsSettings.fqdn]"
+    }
+  }
+}

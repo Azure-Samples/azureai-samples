@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "subnetName": {
+        "value": "hub-subnet-vfmk"
+      },
+      "virtualNetworkName": {
+        "value": "agents-vnet-vfmk"
+      },
+      "virtualMachineName": {
+        "value": "ubuntu24-vm"
+      },
+      "adminUsername": {
+        "value": "azureuser"
+      },
+      "adminPublicKey": {
+        "value": "ssh-rsa"
+      },
+      "vmSize": {
+        "value": "Standard_D2s_v3"
+      },
+      "bastionName": {
+        "value": "agents-vnet-vfmk-bastion"
+      },
+      "userAssignedIdentity":{
+        "value": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/agents-vnet-vfmk/providers/Microsoft.ManagedIdentity/userAssignedIdentities/agents-vm-identity"
+      }
+    }
+  }
