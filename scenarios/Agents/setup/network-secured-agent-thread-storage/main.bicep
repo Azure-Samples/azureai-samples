@@ -375,7 +375,7 @@ module addCapabilityHost 'modules-network-secured/network-capability-host.bicep'
 }
 
 module cosmosContainerRoleAssignments 'modules-network-secured/database/cosmos-container-role-assignment.bicep' = {
-  name: 'cosmos-container-role-assignments-${toLower('${defaultAiProjectName}')}-${uniqueSuffix}-deployment'
+  name: '${toLower('${defaultAiProjectName}')}-${uniqueSuffix}-deployment'
   scope: resourceGroup(cosmosDBSubscriptionId, cosmosDBResourceGroupName)
   params: {
     cosmosAccountName: aiDependencies.outputs.cosmosDBName
