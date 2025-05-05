@@ -14,6 +14,7 @@ param projectWorkspaceId string
 
 var userThreadName = '${projectWorkspaceId}-thread-message-store'
 var systemThreadName = '${projectWorkspaceId}-system-thread-message-store'
+var agentEntityStoreName = '${projectWorkspaceId}-agent-entity-store'
 
 
 #disable-next-line BCP081
@@ -41,6 +42,11 @@ resource containerSystemMessageStore 'Microsoft.DocumentDB/databaseAccounts/sqlD
   name: systemThreadName
 }
 
+#disable-next-line BCP081
+resource containerAgentEntityStore 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2024-12-01-preview' existing = {
+  parent: database
+  name: agentEntityStoreName
+}
 
 var roleDefinitionId = resourceId(
   'Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions',
@@ -50,6 +56,7 @@ var roleDefinitionId = resourceId(
 
 var scopeSystemContainer = '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.DocumentDB/databaseAccounts/${cosmosAccountName}/dbs/enterprise_memory/colls/${systemThreadName}'
 var scopeUserContainer = '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.DocumentDB/databaseAccounts/${cosmosAccountName}/dbs/enterprise_memory/colls/${userThreadName}'
+var scopeAgentEntityContainer = '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.DocumentDB/databaseAccounts/${cosmosAccountName}/dbs/enterprise_memory/colls/${agentEntityStoreName}'
 
 resource containerRoleAssignmentUserContainer 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-05-15' = {
   parent: cosmosAccount
@@ -68,5 +75,15 @@ resource containerRoleAssignmentSystemContainer 'Microsoft.DocumentDB/databaseAc
     principalId: aiProjectPrincipalId
     roleDefinitionId: roleDefinitionId
     scope: scopeSystemContainer
+  }
+}
+
+resource containerRoleAssignmentAgentEntityContainer 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-05-15' = {
+  parent: cosmosAccount
+  name: guid(aiProjectId, containerAgentEntityStore.id, roleDefinitionId)
+  properties: {
+    principalId: aiProjectPrincipalId
+    roleDefinitionId: roleDefinitionId
+    scope: scopeAgentEntityContainer
   }
 }
