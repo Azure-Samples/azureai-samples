@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "3586167999213672571"
+      "templateHash": "11260517981500011816"
     }
   },
   "parameters": {
@@ -1594,7 +1594,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('{0}-{1}-deployment', toLower(format('{0}', variables('projectName'))), variables('uniqueSuffix'))]",
+      "name": "[format('cosmos-ra-{0}-{1}-deployment', toLower(format('{0}', variables('projectName'))), variables('uniqueSuffix'))]",
       "subscriptionId": "[variables('cosmosDBSubscriptionId')]",
       "resourceGroup": "[variables('cosmosDBResourceGroupName')]",
       "properties": {

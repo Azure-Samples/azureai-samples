@@ -242,7 +242,7 @@ module addCapabilityHost 'modules-standard/add-capability-host.bicep' = {
 
 
 module cosmosContainerRoleAssignments 'modules-standard/cosmos-container-role-assignment.bicep' = {
-  name: '${toLower('${projectName}')}-${uniqueSuffix}-deployment'
+  name: 'cosmos-ra-${toLower('${projectName}')}-${uniqueSuffix}-deployment'
   scope: resourceGroup(cosmosDBSubscriptionId, cosmosDBResourceGroupName)
   params: {
     cosmosAccountName: aiDependencies.outputs.cosmosDBName
