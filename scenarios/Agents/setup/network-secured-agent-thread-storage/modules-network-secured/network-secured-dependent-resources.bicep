@@ -23,6 +23,7 @@ param storageExists bool = false
 param keyvaultExists bool = false
 param aiServicesExists bool = false
 param aiSearchExists bool = false
+param cosmosDBExists bool = false
 
 @description('Azure region of the deployment')
 param location string = resourceGroup().location
@@ -69,6 +70,15 @@ param aisKind string
 @description('User-assigned managed identity name')
 param userAssignedIdentityName string
 
+@description('Name of Cosmos DB account')
+param cosmosDBName string
+
+@description('Cosmos DB Subscription')
+param cosmosDBSubscription string
+
+@description('Cosmos DB Resource Group')
+param cosmosDBResourceGroup string
+
 // Subnet reference variables for network rules
 // var cxSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, cxSubnetName)
 // var agentSubnetRef = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, agentsSubnetName)
@@ -101,7 +111,42 @@ resource existingAiSearch 'Microsoft.CognitiveServices/accounts@2024-06-01-previ
   scope: resourceGroup()
 }
 
+// Check if Cosmos DB exists
+resource existingCosmosDB 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' existing = if (cosmosDBExists) {
+  name: cosmosDBName
+  scope: resourceGroup(cosmosDBSubscription, cosmosDBResourceGroup)
+}
+
 /* -------------------------------------------- Network-Secured Resources -------------------------------------------- */
+
+// Cosmos DB with network security controls
+
+
+resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = if(!cosmosDBExists) {
+  name: cosmosDBName
+  location: location
+  tags: tags
+  kind: 'GlobalDocumentDB'
+  properties: {
+    consistencyPolicy: {
+      defaultConsistencyLevel: 'Session'
+    }
+    publicNetworkAccess: 'Disabled'        // Block public access
+    disableLocalAuth: true
+    enableAutomaticFailover: false
+    enableMultipleWriteLocations: false
+    enableFreeTier: false
+    locations: [
+      {
+        locationName: location
+        failoverPriority: 0
+        isZoneRedundant: false
+      }
+    ]
+    databaseAccountOfferType: 'Standard'
+  }
+}
+
 
 // Key Vault with network security controls
 resource defaultKeyVault 'Microsoft.KeyVault/vaults@2022-07-01' = if(!keyvaultExists) {
@@ -274,3 +319,6 @@ output storageAccountResourceGroupName string = storageParts[4]
 output storageAccountSubscriptionId string = storageParts[2]
 
 output keyvaultId string = keyvaultExists ? existingKeyVault.id : defaultKeyVault.id
+
+output cosmosDBName string = cosmosDBExists ? existingCosmosDB.name : cosmosDB.name
+output cosmosDBId string = cosmosDBExists ? existingCosmosDB.id : cosmosDB.id

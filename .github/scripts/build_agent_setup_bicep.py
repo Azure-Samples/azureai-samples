@@ -16,7 +16,7 @@ def run_az_command(*args: Union[str, Path]) -> None:
         sys.exit(exit_code)
 
 
-def get_main_bicep_files(modified_files: List[str]) -> List[Path]:
+def get_main_bicep_files(modified_files: List[Path]) -> List[Path]:
     """Finds unique folders with modified files and ensures 'main.bicep' exists in each."""
     modified_folders = {Path(f).parent for f in modified_files}
     return [folder / "main.bicep" for folder in modified_folders if (folder / "main.bicep").exists()]
