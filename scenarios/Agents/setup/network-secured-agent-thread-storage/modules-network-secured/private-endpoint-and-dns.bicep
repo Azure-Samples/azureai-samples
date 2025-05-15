@@ -58,6 +58,9 @@ param hubWorkspaceId string
 @secure()
 param hubWorkspaceName string
 
+@description('Flag indicating whether azure function tools are supported and backing resources need to be created.')
+param azureFunctionToolSupported bool = false
+
 // Reference existing services that need private endpoints
 resource aiServices 'Microsoft.CognitiveServices/accounts@2023-05-01' existing = {
   name: aiServicesName
@@ -159,13 +162,13 @@ resource aiSearchPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01'
   }
 }
 
-/* -------------------------------------------- Storage Private Endpoint -------------------------------------------- */
+/* -------------------------------------------- Storage Blob Private Endpoint -------------------------------------------- */
 
 // Private endpoint for Storage Account
 // - Creates network interface in customer hub subnet
 // - Establishes private connection to blob storage
-resource storagePrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' = {
-  name: '${storageName}-private-endpoint'
+resource storageBlobPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' = {
+  name: '${storageName}-blob-private-endpoint'
   location: resourceGroup().location
   properties: {
     subnet: {
@@ -173,11 +176,37 @@ resource storagePrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' 
     }
     privateLinkServiceConnections: [
       {
-        name: '${storageName}-private-link-service-connection'
+        name: '${storageName}-blob-private-link-service-connection'
         properties: {
           privateLinkServiceId: aiStorageId
           groupIds: [
             'blob'                        // Target blob storage
+          ]
+        }
+      }
+    ]
+  }
+}
+
+/* -------------------------------------------- Storage Queue Private Endpoint -------------------------------------------- */
+
+// Private endpoint for Storage Account
+// - Creates network interface in customer hub subnet
+// - Establishes private connection to blob storage
+resource storageQueuePrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-05-01' = if (azureFunctionToolSupported) {
+  name: '${storageName}-queue-private-endpoint'
+  location: resourceGroup().location
+  properties: {
+    subnet: {
+      id: cxSubnet.id                    // Deploy in customer hub subnet
+    }
+    privateLinkServiceConnections: [
+      {
+        name: '${storageName}-queue-private-link-service-connection'
+        properties: {
+          privateLinkServiceId: aiStorageId
+          groupIds: [
+            'queue'                        // Target storage queues
           ]
         }
       }
@@ -406,16 +435,22 @@ resource aiSearchDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGrou
 
 // Private DNS Zone for Storage
 // - Enables custom DNS resolution for blob storage private endpoint
-resource storagePrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+resource storageBlobPrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: 'privatelink.blob.${environment().suffixes.storage}'  // Dynamic DNS zone for storage
   location: 'global'
 }
 
-// Link Storage DNS Zone to VNet
-resource storageLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
-  parent: storagePrivateDnsZone
+// - Enables custom DNS resolution for queue storage private endpoint
+resource storageQueuePrivateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = if (azureFunctionToolSupported) {
+  name: 'privatelink.queue.${environment().suffixes.storage}'  // Dynamic DNS zone for storage
   location: 'global'
-  name: 'storage-${suffix}-link'
+}
+
+// Link Storage Blob DNS Zone to VNet
+resource storageBlobLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
+  parent: storageBlobPrivateDnsZone
+  location: 'global'
+  name: 'storage-blob-${suffix}-link'
   properties: {
     virtualNetwork: {
       id: vnet.id                        // Link to specified VNet
@@ -424,16 +459,45 @@ resource storageLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024
   }
 }
 
-// DNS Zone Group for Storage
-resource storageDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
-  parent: storagePrivateEndpoint
-  name: '${storageName}-dns-group'
+// Link Storage Queue DNS Zone to VNet
+resource storageQueueLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = if (azureFunctionToolSupported) {
+  parent: storageQueuePrivateDnsZone
+  location: 'global'
+  name: 'storage-queue-${suffix}-link'
+  properties: {
+    virtualNetwork: {
+      id: vnet.id                        // Link to specified VNet
+    }
+    registrationEnabled: false           // Don't auto-register VNet resources
+  }
+}
+
+// DNS Zone Group for Storage Blob
+resource storageBlobDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = {
+  parent: storageBlobPrivateEndpoint
+  name: '${storageName}-blob-dns-group'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: '${storageName}-dns-config'
+        name: '${storageName}-blob-dns-config'
         properties: {
-          privateDnsZoneId: storagePrivateDnsZone.id
+          privateDnsZoneId: storageBlobPrivateDnsZone.id
+        }
+      }
+    ]
+  }
+}
+
+// DNS Zone Group for Storage Queue
+resource storageQueueDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = if (azureFunctionToolSupported) {
+  parent: storageQueuePrivateEndpoint
+  name: '${storageName}-queue-dns-group'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: '${storageName}-queue-dns-config'
+        properties: {
+          privateDnsZoneId: storageQueuePrivateDnsZone.id
         }
       }
     ]

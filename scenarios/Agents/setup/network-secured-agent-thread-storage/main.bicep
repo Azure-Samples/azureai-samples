@@ -138,6 +138,12 @@ param aiSearchServiceName string = ''
 @description('The Cosmos DB Account full ARM Resource ID. This is an optional field, and if not provided, the resource will be created.')
 param cosmosDBResourceId string = ''
 
+@description('Specifies if supporting resources for the Azure Function Tools should be created. This is only required if you are using the Azure Function Tools.')
+@allowed([
+  'Enabled'
+  'Disabled'
+])
+param azureFunctionToolSupport string = 'Disabled'
 
 // @description('The Ai Storage Account name. This is an optional field, and if not provided, the resource will be created.The resource should exist in same resource group')
 // param aiStorageAccountName string = ''
@@ -173,6 +179,8 @@ var cosmosParts = split(cosmosDBResourceId, '/')
 var cosmosDBSubscriptionId = cosmosExists ? cosmosParts[2] : subscription().subscriptionId
 var cosmosDBResourceGroupName = cosmosExists ? cosmosParts[4] : resourceGroup().name
 var cosmosDBAccountName = cosmosExists ? cosmosParts[8] : cosmosDBName
+var azureFunctionToolSupported = (azureFunctionToolSupport == 'Enabled')
+
 // Create Virtual Network and Subnets
 module vnet 'modules-network-secured/networking/vnet.bicep' = {
   name: '${name}-${uniqueSuffix}--vnet'
@@ -203,6 +211,7 @@ module aiDependencies 'modules-network-secured/network-secured-dependent-resourc
     aiServicesExists: !empty(aiServiceAccountName)
     aiSearchExists: !empty(aiSearchServiceName)
     cosmosDBExists: !empty(cosmosDBResourceId)
+    azureFunctionToolSupported: azureFunctionToolSupported
     cosmosDBName: cosmosDBAccountName
     cosmosDBSubscription: cosmosDBSubscriptionId
     cosmosDBResourceGroup: cosmosDBResourceGroupName
@@ -294,6 +303,7 @@ module privateEndpointAndDNS 'modules-network-secured/private-endpoint-and-dns.b
     cosmosDBName: aiDependencies.outputs.cosmosDBName       // Cosmos DB name
     cosmosDBSubscription: cosmosDBSubscriptionId // Cosmos DB subscription ID
     cosmosDBResourceGroup: cosmosDBResourceGroupName // Cosmos DB resource group name
+    azureFunctionToolSupported: azureFunctionToolSupported // Flag for Azure Function Tools support
   }
   dependsOn: [
     aiServices    // Ensure AI Services exist
