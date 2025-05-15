@@ -24,6 +24,7 @@ param keyvaultExists bool = false
 param aiServicesExists bool = false
 param aiSearchExists bool = false
 param cosmosDBExists bool = false
+param azureFunctionToolSupported bool = false
 
 @description('Azure region of the deployment')
 param location string = resourceGroup().location
@@ -271,6 +272,18 @@ resource defaultStorage 'Microsoft.Storage/storageAccounts@2022-05-01' = if(!sto
       defaultAction: 'Deny'                // Deny all other traffic
     }
     allowSharedKeyAccess: false           // Enforce Azure AD authentication
+  }
+
+  resource queueServices 'queueServices' = if (azureFunctionToolSupported) {
+    name: 'default'
+
+    resource azureFunctionInputQueue 'queues' = {
+      name: 'input-queue'
+    }
+
+    resource azureFunctionOutputQueue 'queues' = {
+      name: 'output-queue'
+    }
   }
 }
 
