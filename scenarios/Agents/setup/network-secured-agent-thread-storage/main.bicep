@@ -336,7 +336,7 @@ module aiServiceRoleAssignments 'modules-network-secured/ai-service-role-assignm
 }
 
 module cosmosAccountRoleAssignments 'modules-network-secured/database/cosmos-account-role-assignments.bicep' = {
-  name: 'cosmos-account-role-assignments-${toLower('${defaultAiProjectName}')}-${uniqueSuffix}-deployment'
+  name: 'cosmos-ac-ra-${toLower('${defaultAiProjectName}')}-${uniqueSuffix}-deployment'
   scope: resourceGroup(cosmosDBSubscriptionId, cosmosDBResourceGroupName)
   params: {
     cosmosDBName: aiDependencies.outputs.cosmosDBName
