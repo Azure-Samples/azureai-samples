@@ -55,6 +55,7 @@ The main objective of this tutorial is to help users understand the process of e
 | [NLP_Evaluators.ipynb](Supported_Evaluation_Metrics/NLP_Evaluators/NLP_Evaluators.ipynb)            |             |           |                     |       |         | X                      |             |                     |               | X                     |
 | [AI_Judge_Evaluators_Safety_Risks.ipynb](Supported_Evaluation_Metrics/AI_Judge_Evaluators_Safety_Risks/AI_Judge_Evaluators_Safety_Risks_Text.ipynb)            | X           |           |                     |       |          | X                     |             |                     |                |                      |
 | [Simulate_Evaluate_Groundedness.py](Simulators/Simulate_Evaluate_Groundedness/Simulate_Evaluate_Groundedness.ipynb)      |             | X         |                     |      | X        | X                     |             | X                    |                |                    |
+| [Azure_OpenAI_Graders.ipynb](Azure_OpenAI_Graders/Azure_OpenAI_Graders.ipynb)      |             |           |                     |      | X        | X                     |             | X                    |                |                    |
 
 
 
