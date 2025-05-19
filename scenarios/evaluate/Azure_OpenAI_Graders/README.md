@@ -13,7 +13,7 @@ description: Evaluate using Azure OpenAI Graders with Azure AI Foundry SDK
 
 ## Overview
 
-This tutorial offers a step-by-step guide for evaluating large language models using Azure OpenAI Graders and their model outputs.
+This tutorial offers a step-by-step guide for evaluating large language models using Azure OpenAI Graders and their model outputs with Azure AI Foundry SDK.
 
 ## Objective
 
