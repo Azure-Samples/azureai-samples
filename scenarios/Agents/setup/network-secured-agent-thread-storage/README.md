@@ -21,7 +21,7 @@ languages:
 ![Best Practice Check](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent/BestPracticeResult.svg)
 ![Cred Scan Check](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent/CredScanResult.svg)
 
-![Bicep Version](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/network-secured-agent-thread/BicepVersion.svg)
+![Bicep Version](https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.azure-ai-agent-service/basic-agent-keys/BicepVersion.svg)
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazureai-samples%2Fmain%2Fscenarios%2FAgents%2Fsetup%2Fnetwork-secured-agent-thread-storage%2Fazuredeploy.json)
 
@@ -57,7 +57,10 @@ To find your discovery_url, run the CLI command:
 ```az ml workspace show -n {project_name} --resource-group {resource_group_name} --query discovery_url```
 Customer needs to login to Azure subscription via Azure CLI and set the environment variables
 
-
+In case Azure Funtion Tool required, select from dropdown or edit in bicep
+```
+azureFunctionToolSupport=Enabled
+```
 ## Architecture Overview
 
 ### Network Security Design
@@ -72,12 +75,14 @@ The deployment creates an isolated network environment:
   - AI Services
   - AI Search
   - Key Vault
-  - Storage Account
+  - Storage Account Blob
+  - Storage Account Queue(Only created for Azure Function tool)
   - Cosmos DB
 
 - **Private DNS Zones**
   - privatelink.azureml.ms
   - privatelink.search.windows.net
+  - privatelonk.queue.core.windows.net
   - privatelink.blob.core.windows.net
   - privatelink.documents.azure.com
 
@@ -97,7 +102,8 @@ The deployment creates an isolated network environment:
    - Azure AI Services
    - Azure AI Search
    - Key Vault
-   - Storage Account
+   - Storage Account Blob
+   - Storage Account Queue(Only created for Azure Function tool)
    - Cosmos DB Account
 
 ## Security Features
