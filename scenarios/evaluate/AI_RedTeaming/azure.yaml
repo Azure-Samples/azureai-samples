@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: ai-red-teaming
+metadata:
+  template: ai-red-teaming@0.0.1-beta
+summary: Azure AI Red Teaming Infrastructure
+description: |
+  Deploy the required Azure infrastructure for AI Red Teaming scenarios including Azure AI Foundry, 
+  OpenAI services, storage, and proper RBAC configuration for authentication.
+author: Azure AI Evaluation Team
+repositoryPath: .
+
+workflows:
+  up:
+    steps:
+      - azd: provision
+      - azd: deploy
+
+infra:
+  provider: bicep
+  path: infra
+
+pipeline:
+  provider: azdo
+  path: .azdo
+
+services: {}
+
+hooks:
+  postprovision:
+    shell: pwsh
+    run: |
+      # Output the environment variables for easy copy-paste
+      Write-Host "=== Azure AI Red Teaming Environment Variables ===" -ForegroundColor Green
+      Write-Host "Copy these environment variables to your .env file or notebook:" -ForegroundColor Yellow
+      Write-Host ""
+      Write-Host "AZURE_SUBSCRIPTION_ID=$env:AZURE_SUBSCRIPTION_ID" -ForegroundColor Cyan
+      Write-Host "AZURE_RESOURCE_GROUP=$env:AZURE_RESOURCE_GROUP" -ForegroundColor Cyan
+      Write-Host "AZURE_AI_PROJECT_NAME=$env:AZURE_AI_PROJECT_NAME" -ForegroundColor Cyan
+      Write-Host "AZURE_AI_PROJECT_CONNECTION_STRING=$env:AZURE_AI_PROJECT_CONNECTION_STRING" -ForegroundColor Cyan
+      Write-Host "AZURE_OPENAI_ENDPOINT=$env:AZURE_OPENAI_ENDPOINT" -ForegroundColor Cyan
+      Write-Host "AZURE_STORAGE_ACCOUNT_NAME=$env:AZURE_STORAGE_ACCOUNT_NAME" -ForegroundColor Cyan
+      Write-Host ""
+      Write-Host "Authentication is configured to use DefaultAzureCredential." -ForegroundColor Green
+      Write-Host "Make sure you're logged in with 'az login' or 'azd auth login'." -ForegroundColor Yellow
