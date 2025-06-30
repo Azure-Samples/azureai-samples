@@ -150,9 +150,6 @@ resource defaultAiServices 'Microsoft.CognitiveServices/accounts@2024-06-01-prev
   }
   properties: {
     customSubDomainName: toLower('${(aiServicesName)}')
-    apiProperties: {
-      statisticsEnabled: false
-    }
     networkAcls: {
       bypass: 'AzureServices'              // Allow trusted Azure services
       defaultAction: 'Deny'                // Deny all other traffic
