@@ -71,7 +71,7 @@ py -3 -m venv .venv
 On Linux:
 ```
 python3 -m venv .venv
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 Install the core dependencies to run the sample:

@@ -15,7 +15,7 @@ repos:
       language: system
       types_or: [jupyter]
       minimum_pre_commit_version: 2.9.2
-      args: ["-m", "tox", "-qqq", "run", "-e", "nb-clean", "--", "clean", "--preserve-cell-metadata", "tags", "--"]
+      args: ["-m", "tox", "-qqq", "run", "-e", "nb-clean", "--", "clean", "--preserve-cell-metadata", "tags", "name", "--"]
     - id: ruff
       name: ruff
       description: "Run 'ruff' for extremely fast Python linting"
@@ -40,3 +40,13 @@ repos:
       entry: python .github/scripts/detect_azure_secrets.py
       language: python
       types: [file]
+    - id: bicep-build
+      name: Regenerate azuredeploy.json for Agent samples
+      description: "Automatically build Bicep files into azuredeploy.json before commit"
+      types: [text]
+      files: ^scenarios/Agents/setup/.*\.bicep$
+      require_serial: true
+      pass_filenames: true
+      entry: python
+      language: system
+      args: ["-m", "tox", "-qqq", "run", "-e", "build-agent-bicep", "--"]

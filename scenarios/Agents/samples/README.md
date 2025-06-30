@@ -16,7 +16,9 @@ This QuickStart demonstrates how to quickly set up your first agent with Azure A
 
 2. Make sure all developers have the role: **Azure AI Developer** assigned at the appropriate level. [Learn more](https://learn.microsoft.com/azure/ai-studio/concepts/rbac-ai-studio)
 
+
    If you're using a hub/project that already exists, check the [RBAC roles](./rbac.md).
+
 
 3. Install [the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli). If you have the CLI already installed, make sure it's updated to the latest version.
 
@@ -278,7 +280,7 @@ with project_client:
     print(f"Created message, message ID: {message.id}")
 
     # Run the agent
-    run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
+    run = project_client.agents.create_and_process_run(thread_id=thread.id, agent_id=agent.id)
     print(f"Run finished with status: {run.status}")
 
     if run.status == "failed":
