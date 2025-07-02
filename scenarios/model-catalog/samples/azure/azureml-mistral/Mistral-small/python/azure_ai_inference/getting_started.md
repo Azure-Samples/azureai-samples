@@ -2,11 +2,13 @@
 
 # Getting Started
 
-- [Install dependencies](#install-depedencies)
-- [Set environment variables](#set-environment-variables)
-- [Authenticate against azure](#authenticate-against-azure)
-- [Run a basic code sample](#run-a-basic-code-sample)
-- [Explore more code snippets](#explore-more-samples)
+- [Getting Started](#getting-started)
+  - [1. Install dependencies](#1-install-dependencies)
+  - [2. Set environment variables](#2-set-environment-variables)
+  - [3. Run a basic code sample](#3-run-a-basic-code-sample)
+  - [4. Explore more samples](#4-explore-more-samples)
+    - [Run a multi-turn conversation](#run-a-multi-turn-conversation)
+    - [Stream the output](#stream-the-output)
 
 ## 1. Install dependencies
 
@@ -20,7 +22,7 @@ pip install azure-ai-inference
 Get the model endpoint url and use it in the code below by exporting it as an environment variable
 
 ```bash
-export MODEL_ENDPOINT="<your-model-endpoint-goes-here>"
+export MODEL_ENDPOINT=""
 ```
 
 Set model name in an env variable:

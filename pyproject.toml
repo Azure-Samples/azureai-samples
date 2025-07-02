@@ -19,10 +19,14 @@ extend-select = [
   "RUF",
 ]
 
-
 [tool.ruff.lint.extend-per-file-ignores]
 "*.ipynb" = [
   "PLE1142", # await-outside-async: Jupyter Notebooks support top level await
   "E402", # module-import-not-at-top-of-file: It's relatively common to have to import "just in time"
   "E501", # line-too-long: Let black handle this
 ]
+
+[tool.pytest.ini_options]
+console_output_style = "count"
+addopts = "--strict-markers"
+testpaths = ["scenarios"]

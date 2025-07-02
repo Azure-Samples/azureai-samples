@@ -1,2 +1,8 @@
 tox ~= 4.0
-pre-commit
+pre-commit ~= 3.0
+python-dotenv ~= 1.0
+pytest ~= 8.0
+pytest-iovis[papermill] == 0.1.0
+ipykernel ~= 6.0
+azure-cli ~= 2.69
+.infra/pytest_plugins/changed_samples

@@ -15,12 +15,18 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 
 ### Other Sample Repositories
 
-#### Azure AI Studio
+#### Azure AI Agent Service
+
+* **[Azure/azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/samples/agents)** - Repo containing Python SDK samples for the Azure AI Agent Service.
+* **[Azure/azure-sdk-for-net](https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/Azure.AI.Projects/tests/Samples/Agent)** - Repo containing .NET SDK samples for the Azure AI Agent Service.
+* **[Azure-Samples/azureai-travel-agent-python](https://github.com/Azure-Samples/azureai-travel-agent-python/tree/main)** - Sample showing how to build a travel agent using the Azure AI Agent Service in Python.
+* **[Azure-Samples/azure-ai-projects-file-search](https://github.com/Azure-Samples/azure-ai-projects-file-search)** - A simple Python Quart app that streams responses from Azure AI Agents to an HTML/JS frontend using Server-Sent Events (SSEs).
+
+#### Azure AI Foundry
 
 * **[Azure/aistudio-copilot-sample]** - Quickstart repo for building an enterprise chat copilot in Azure AI Studio.
-* **[Azure-Samples/aistudio-python-quickstart-sample](https://github.com/Azure-Samples/aistudio-python-quickstart-sample)** - Quickstart Python sample for getting started with SDK or CLI.
-* **[Azure-Samples/aistudio-python-langchain-sample](https://github.com/Azure-Samples/aistudio-python-langchain-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the LangChain framework.
-* **[Azure-Samples/aistudio-python-promptflow-sample](https://github.com/Azure-Samples/aistudio-python-promptflow-sample)** - Quickstart Python sample for getting started with SDK or CLI, along with the PromptFlow framework.
+* **[Azure-Samples/contoso-chat](https://github.com/Azure-Samples/contoso-chat)** - End-to-end solution sample for a custom RAG-based retail copilot built code-first with Prompty & Azure AI Studio.
+* **[Azure-Samples/contoso-creative-writer](https://github.com/Azure-Samples/contoso-creative-writer)** - End-to-end solution sample for a custom multi-agent creative writer solution built code-first with Prompty & Azure AI Studio.
 
 #### Azure AI Search
 
@@ -48,6 +54,9 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 * **[openai/openai-cookbook]** - Example code for common tasks within OpenAI.
 * **[Azure-Samples/serverless-chat-langchainjs](https://github.com/Azure-Samples/serverless-chat-langchainjs)** - Sample implementing a serverless ChatGPT with Retrieval-Augmented-Generation using LangChain.js, that can run locally with Ollama and Mistral 7B.
 
+#### Phi 
+* **[https://aka.ms/phi-3cookbook]** - Examples and code for common tasks using the Phi Family of Small Language Models.
+  
 ## Contributing
 
 We welcome contributions and suggestions! Please see the [contributing guidelines] for details.

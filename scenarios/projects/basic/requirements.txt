@@ -1,0 +1,11 @@
+# inferencing
+azure-ai-projects
+azure-ai-inference[prompts]
+azure-identity
+openai
+python-dotenv
+# rag packages
+azure-search-documents
+# tracing and evaluation
+azure-monitor-opentelemetry
+azure-ai-evaluation

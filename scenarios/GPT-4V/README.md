@@ -50,16 +50,16 @@ One can get the OPENAI_API_KEY, VISION_API_KEY, AZURE_SEARCH_QUERY_KEY, and FACE
  <br>
       
       WINDOWS Users: 
-         setx OPENAI_API_KEY "REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         setx VISION_API_KEY "REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         setx AZURE_SEARCH_QUERY_KEY "REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         setx FACE_API_KEY "REPLACE_WITH_YOUR_KEY_VALUE_HERE"
+         setx OPENAI_API_KEY ""
+         setx VISION_API_KEY ""
+         setx AZURE_SEARCH_QUERY_KEY ""
+         setx FACE_API_KEY ""
 
       MACOS/LINUX Users: 
-         export OPENAI_API_KEY="REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         export VISION_API_KEY="REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         export AZURE_SEARCH_QUERY_KEY="REPLACE_WITH_YOUR_KEY_VALUE_HERE"
-         export FACE_API_KEY="REPLACE_WITH_YOUR_KEY_VALUE_HERE"
+         export OPENAI_API_KEY=""
+         export VISION_API_KEY=""
+         export AZURE_SEARCH_QUERY_KEY=""
+         export FACE_API_KEY=""
 
 - To find your "OPENAI_API_BASE", "VISION_API_ENDPOINT", "AZURE_SEARCH_SERVICE_ENDPOINT", and "FACE_API_ENDPOINT",  go to https://portal.azure.com, find your resource and then under "Resource Management" -> "Keys and Endpoints" look for the "Endpoint" value.
 
