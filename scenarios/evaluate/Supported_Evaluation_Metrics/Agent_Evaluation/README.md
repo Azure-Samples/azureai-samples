@@ -19,7 +19,7 @@ A general AI agent workflow typically contains a linear workflow of intent resol
 - [Task adherence](https://aka.ms/taskadherence-sample): measures the extent of which an agent’s final response adheres to the task based on its system message and a user query.
 - [Response Completeness](https://aka.ms/rescompleteness-sample): measures the extent of which an agent or RAG response is complete (does not miss critical information) compared to the ground truth.
 - [End-to-end Azure AI agent evaluation](https://aka.ms/e2e-agent-eval-sample): create an agent using Azure AI Agent Service and seamlessly evaluate its thread and run data, via converter support.
-
+- [End-to-end SK Chat Completion Agent evaluation](Evaluate_SK_Chat_Completion_Agent.ipynb): create an SK Chat Completion Agent and evaluate its thread and run data, via converter support.
 ### Objective
 
 This tutorial provides a step-by-step guide on how to evaluate AI agents using quality evaluators. By the end of this tutorial, you should be able to:
