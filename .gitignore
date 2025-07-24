@@ -183,3 +183,5 @@ cython_debug/
 
 # macOS Finder
 .DS_Store
+
+token_cache.bin
