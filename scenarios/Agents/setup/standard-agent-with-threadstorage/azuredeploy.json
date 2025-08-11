@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "11260517981500011816"
+      "templateHash": "13967412167285246353"
     }
   },
   "parameters": {
@@ -1222,7 +1222,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('ai-service-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
+      "name": "[format('ai-service-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
       "subscriptionId": "[variables('aiServiceAccountSubscriptionId')]",
       "resourceGroup": "[variables('aiServiceAccountResourceGroupName')]",
       "properties": {
@@ -1316,7 +1316,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('ai-search-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
+      "name": "[format('ai-search-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
       "subscriptionId": "[variables('aiSearchServiceSubscriptionId')]",
       "resourceGroup": "[variables('aiSearchServiceResourceGroupName')]",
       "properties": {
@@ -1399,7 +1399,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "[format('cosmos-account-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
+      "name": "[format('cosmos-ac-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix'))]",
       "subscriptionId": "[variables('cosmosDBSubscriptionId')]",
       "resourceGroup": "[variables('cosmosDBResourceGroupName')]",
       "properties": {
@@ -1586,9 +1586,9 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('name'), variables('uniqueSuffix')))]",
         "[resourceId('Microsoft.Resources/deployments', format('{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('aiSearchServiceSubscriptionId'), variables('aiSearchServiceResourceGroupName')), 'Microsoft.Resources/deployments', format('ai-search-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('aiServiceAccountSubscriptionId'), variables('aiServiceAccountResourceGroupName')), 'Microsoft.Resources/deployments', format('ai-service-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('cosmosDBSubscriptionId'), variables('cosmosDBResourceGroupName')), 'Microsoft.Resources/deployments', format('cosmos-account-role-assignments-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('aiSearchServiceSubscriptionId'), variables('aiSearchServiceResourceGroupName')), 'Microsoft.Resources/deployments', format('ai-search-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('aiServiceAccountSubscriptionId'), variables('aiServiceAccountResourceGroupName')), 'Microsoft.Resources/deployments', format('ai-service-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('cosmosDBSubscriptionId'), variables('cosmosDBResourceGroupName')), 'Microsoft.Resources/deployments', format('cosmos-ac-ra-{0}-{1}-deployment', variables('projectName'), variables('uniqueSuffix')))]"
       ]
     },
     {
