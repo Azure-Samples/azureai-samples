@@ -27,3 +27,25 @@ Currently, Azure AI Evaluation SDK supports three types of evaluators:
 
 
 You can run evaluators locally or [remotely](../Supported_Evaluation_Targets/Evaluate_On_Cloud/Evaluate_On_Cloud.ipynb), log results in the cloud using the evaluation SDK, or integrate them into automated evaluations within the Azure AI Studio UI. 
+
+## Environment Variables
+The following environment variables should be set in a `.env` file at the root of the project:
+
+### To run the evaluations:
+- `AZURE_OPENAI_ENDPOINT`: The endpoint URL for Azure OpenAI.
+- `AZURE_OPENAI_DEPLOYMENT`: The deployment name for the Azure OpenAI model (e.g., `gpt-4o`).
+- `MODEL_DEPLOYMENT_NAME`: The deployment name for the model used in evaluations (e.g., `gpt-4o`).
+- `AGENT_MODEL_DEPLOYMENT_NAME`: The deployment name for the agent model (e.g., `gpt-4o`).
+- `AZURE_OPENAI_API_VERSION`: The API version for Azure OpenAI.
+- `AZURE_SUBSCRIPTION_ID`: The Azure subscription ID.
+- `PROJECT_NAME`: The name of the Azure project.
+- `RESOURCE_GROUP_NAME`: The name of the Azure resource group.
+- `AZURE_AI_PROJECT`: The Azure AI project identifier.
+- `AZURE_OPENAI_API_KEY`: The API key for Azure OpenAI.
+
+### To upload reports to Azure AI Foundry:
+- `REPORT_AZURE_SUBSCRIPTION_ID`: The Azure subscription ID for report uploads.
+- `REPORT_PROJECT_NAME`: The project name for report uploads.
+- `REPORT_RESOURCE_GROUP_NAME`: The resource group name for report uploads.
+
+Ensure all these variables are properly configured in your `.env` file before running the application.
