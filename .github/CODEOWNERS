@@ -9,8 +9,6 @@
 #### files referenced in docs (DO NOT EDIT, except for Docs team!!!) ###################
 /scenarios/langchain/getting-started-with-langchain-chat-models.ipynb @azure-samples/AI-Platform-Docs
 /scenarios/langchain/getting-started-with-langchain-embeddings.ipynb @azure-samples/AI-Platform-Docs
-/scenarios/projects/basic/chat-simple.py @azure-samples/AI-Platform-Docs
-/scenarios/projects/basic/chat-template.py @azure-samples/AI-Platform-Docs
 /scenarios/rag/custom-rag-app/assets/chat_eval_data.jsonl @azure-samples/AI-Platform-Docs
 /scenarios/rag/custom-rag-app/assets/grounded_chat.prompty @azure-samples/AI-Platform-Docs
 /scenarios/rag/custom-rag-app/assets/intent_mapping.prompty @azure-samples/AI-Platform-Docs
