@@ -61,8 +61,6 @@ def setup_tracing() -> list[Any]:
                     enable_content_recording=True,
                     name="langgraph_weather",
                     id="weather_graph_agent",
-                    endpoint="weather_graph",
-                    scope="LangGraph Weather Flow",
                 )
             )
             log.info("Azure tracing enabled.")

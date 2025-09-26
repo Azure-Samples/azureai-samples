@@ -58,8 +58,6 @@ def setup_tracing() -> List[Any]:
                 enable_content_recording=True,
                 name="langchain_weather",
                 id="weather_agent",
-                endpoint="weather_single",
-                scope="Pure LangChain Weather",
             )
             tracers.append(tracer)
             logger.info("Azure tracing enabled.")
