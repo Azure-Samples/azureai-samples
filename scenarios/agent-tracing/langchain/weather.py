@@ -31,9 +31,9 @@ from langchain_core.messages import (
 from langchain_openai import AzureChatOpenAI
 
 try:
-    from langchain_azure_ai.callbacks.tracers import AzureAIInferenceTracer
+    from langchain_azure_ai.callbacks.tracers import AzureAIOpenTelemetryTracer
 except ImportError:
-    AzureAIInferenceTracer = None
+    AzureAIOpenTelemetryTracer = None
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("langchain_weather")
@@ -51,9 +51,9 @@ def setup_tracing() -> List[Any]:
         return _TRACERS
     tracers: List[Any] = []
     conn = os.getenv("APPLICATION_INSIGHTS_CONNECTION_STRING")
-    if conn and AzureAIInferenceTracer:
+    if conn and AzureAIOpenTelemetryTracer:
         try:
-            tracer = AzureAIInferenceTracer(
+            tracer = AzureAIOpenTelemetryTracer(
                 connection_string=conn,
                 enable_content_recording=True,
                 name="langchain_weather",

@@ -33,9 +33,9 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_openai import AzureChatOpenAI
 
 try:
-    from langchain_azure_ai.callbacks.tracers import AzureAIInferenceTracer
+    from langchain_azure_ai.callbacks.tracers import AzureAIOpenTelemetryTracer
 except ImportError:
-    AzureAIInferenceTracer = None
+    AzureAIOpenTelemetryTracer = None
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("langgraph_weather")
@@ -53,10 +53,10 @@ def setup_tracing() -> list[Any]:
         return _TRACERS
     tracers: list[Any] = []
     conn = os.getenv("APPLICATION_INSIGHTS_CONNECTION_STRING")
-    if conn and AzureAIInferenceTracer:
+    if conn and AzureAIOpenTelemetryTracer:
         try:
             tracers.append(
-                AzureAIInferenceTracer(
+                AzureAIOpenTelemetryTracer(
                     connection_string=conn,
                     enable_content_recording=True,
                     name="langgraph_weather",
