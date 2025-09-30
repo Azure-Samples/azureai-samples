@@ -1,0 +1,9 @@
+# Full dev setup (optional)
+langchain
+langchain-openai
+langchain-azure-ai
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+python-dotenv
+azure-monitor-opentelemetry
