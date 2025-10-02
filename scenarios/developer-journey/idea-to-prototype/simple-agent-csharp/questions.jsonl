@@ -1,0 +1,8 @@
+{"question": "What is our remote work policy regarding security requirements?", "expected_keywords": ["remote", "work", "security", "VPN", "authentication"]}
+{"question": "How do I set up Azure Active Directory conditional access?", "expected_keywords": ["Azure", "Active Directory", "conditional access", "configure"]}
+{"question": "What collaboration tools are approved for internal use?", "expected_keywords": ["Teams", "SharePoint", "collaboration", "approved"]}
+{"question": "How do I implement multi-factor authentication in Azure AD?", "expected_keywords": ["multi-factor", "authentication", "Azure", "MFA", "implement"]}
+{"question": "Get current weather data", "expected": "weather"}
+{"question": "Summarize Q3 performance", "expected": "performance"}
+{"question": "Research market trends", "expected": "research"}
+{"question": "Research market trends", "expected": "research"}

@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scenarios", "scenarios", "{3AD4E1A9-FDA2-34BD-403E-3093DEEBD16E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assistants", "Assistants", "{03294C8C-FF50-7B1B-9A10-8949564B038E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bot-in-a-box", "bot-in-a-box", "{2B4FB357-AD87-B398-5599-BBAE81002E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistantBot", "scenarios\Assistants\bot-in-a-box\src\AssistantBot.csproj", "{82B6E0FD-1973-3FEB-8FB2-0267014819AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82B6E0FD-1973-3FEB-8FB2-0267014819AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B6E0FD-1973-3FEB-8FB2-0267014819AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B6E0FD-1973-3FEB-8FB2-0267014819AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B6E0FD-1973-3FEB-8FB2-0267014819AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{03294C8C-FF50-7B1B-9A10-8949564B038E} = {3AD4E1A9-FDA2-34BD-403E-3093DEEBD16E}
+		{2B4FB357-AD87-B398-5599-BBAE81002E85} = {03294C8C-FF50-7B1B-9A10-8949564B038E}
+		{82B6E0FD-1973-3FEB-8FB2-0267014819AD} = {2B4FB357-AD87-B398-5599-BBAE81002E85}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84D6FBE7-AC95-475A-9896-FEF421AF08FF}
+	EndGlobalSection
+EndGlobal
