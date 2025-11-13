@@ -23,7 +23,7 @@ def run_evaluator(
     data_source_config: dict,
     initialization_parameters: dict[str, str],
     data_mapping: dict[str, str],
-) -> list:
+) -> list:#list of type
     """
     Run an evaluator on the provided evaluation contents.
     
@@ -41,7 +41,6 @@ def run_evaluator(
     
     with DefaultAzureCredential() as credential:
         with AIProjectClient(endpoint=endpoint, credential=credential) as project_client:
-            print("Creating an OpenAI client from the AI Project client")
             client = project_client.get_openai_client()
 
             testing_criteria = [
@@ -54,15 +53,12 @@ def run_evaluator(
                 }
             ]
 
-            print("Creating Eval Group")
             eval_object = client.evals.create(
                 name=f"Test {evaluator_name} Evaluator with inline data",
                 data_source_config=data_source_config,
                 testing_criteria=testing_criteria,
             )
-            print(f"Eval Group created with ID: {eval_object.id}")
 
-            print("Creating Eval Run with Inline Data")
             eval_run_object = client.evals.runs.create(
                 eval_id=eval_object.id,
                 name="inline_data_run",
@@ -76,7 +72,6 @@ def run_evaluator(
             print(f"Eval Run created with ID: {eval_run_object.id}")
             print("Waiting for eval run to complete...")
 
-            # Poll for completion
             while True:
                 run = client.evals.runs.retrieve(run_id=eval_run_object.id, eval_id=eval_object.id)
                 if run.status == "completed" or run.status == "failed":
@@ -84,9 +79,6 @@ def run_evaluator(
                     print(f"✓ Eval Run Status: {run.status}")
                     print(f"📊 Eval Run Report URL: {run.report_url}")
                     
-                    # Extract just the output from each item
-                    results = [item.output for item in output_items]
-                    return results
+                    return output_items
                     
                 time.sleep(5)
-                print(f"  Status: {run.status}...")
