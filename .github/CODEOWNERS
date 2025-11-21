@@ -19,3 +19,4 @@
 /scenarios/rag/custom-rag-app/evaluate.py @azure-samples/AI-Platform-Docs
 /scenarios/rag/custom-rag-app/get_product_documents.py @azure-samples/AI-Platform-Docs
 /scenarios/rag/custom-rag-app/requirements.txt @azure-samples/AI-Platform-Docs
+
