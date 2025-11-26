@@ -1,0 +1,13 @@
+[project]
+name = "code-interpreter-custom"
+version = "0.1.0"
+description = "Basic example for using custom code interpreter session pools."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.13.2",
+    "azure-ai-projects==2.0.0b2",
+    "azure-identity>=1.25.1",
+    "dotenv>=0.9.9",
+    "openai>=2.8.1",
+]
