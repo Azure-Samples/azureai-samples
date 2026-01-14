@@ -1,0 +1,12 @@
+azure-ai-ml
+azure-ai-projects
+azure-core
+azure-identity
+azure-search-documents==11.6.0b10
+azure-ai-evaluation
+beir
+dotenv
+jupyter
+pandas
+openai
+tiktoken
