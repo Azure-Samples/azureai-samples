@@ -340,6 +340,7 @@
               "sku": "[parameters('sku')]",
               "properties": {
                 "minimumTlsVersion": "TLS1_2",
+                "supportsHttpsTrafficOnly": true,
                 "allowBlobPublicAccess": false,
                 "publicNetworkAccess": "Enabled",
                 "networkAcls": {
