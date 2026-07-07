@@ -4,7 +4,7 @@ description: A prompty that extract users query intent based on the current_quer
 model:
     api: chat
     configuration:
-        azure_deployment: gpt-4o
+        azure_deployment: gpt-4o-mini
 inputs:
     conversation:
         type: array
