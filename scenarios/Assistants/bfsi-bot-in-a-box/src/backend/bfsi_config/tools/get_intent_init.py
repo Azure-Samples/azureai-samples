@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
@@ -19,6 +20,8 @@ from azure.search.documents.indexes.models import (
     SemanticField,
 )
 import json
+cwd = os.path.dirname(__file__)
+sys.path.append(os.path.abspath(os.path.join(cwd, '..', '..')))
 from bfsi_config.tools.open_ai_response import get_embeddings
 
 # Use this when running the code in the same directory as open_ai_response.py
@@ -87,7 +90,8 @@ def get_index(name: str) -> SearchIndex:
 
 
 def get_intent_documents() -> list:
-    file_path = "get_intent_data.json"
+    
+    file_path = os.path.join(cwd, "get_intent_data.json")
     with Path(file_path).open("r") as file:
         intent_data = json.load(file)
     docs = []

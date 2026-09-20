@@ -10,12 +10,12 @@ func_list = {
 
 tools_list = [
     {"type": "code_interpreter"},
+
     # {"type": "retrieval"},
     {
         "type": "function",
         "function": {
             "name": "search_web_with_freshness_filter",
-            "module": "functions.user_functions",
             "description": """Generates response to the query using knowledgebase 
             it retrives by searching the web for information related to the input 
             query and filters results by freshness if specified.""",
@@ -34,18 +34,13 @@ tools_list = [
                     },
                 },
                 "required": ["query"],
-            },
-            "returns": {
-                "type": "string",
-                "description": "Response to the query on the basis of web search.",
-            },
+            }
         },
     },
     {
         "type": "function",
         "function": {
             "name": "categorize_user_query",
-            "module": "functions.user_functions",
             "description": "Determines and returns the Category & Subcategory for the input user query.",
             "parameters": {
                 "type": "object",
@@ -56,11 +51,7 @@ tools_list = [
                     }
                 },
                 "required": ["user_query"],
-            },
-            "returns": {
-                "type": "string",
-                "description": "String containing Category & Subcategory for the input query",
-            },
+            }
         },
     },
 ]
