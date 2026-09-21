@@ -23,7 +23,7 @@ USAGE:
     BING_CONNECTION_NAME - the name of the connection of Grounding with Bing Search
     
 """
-
+# <create a project client>
 import os
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
@@ -38,7 +38,9 @@ project_client = AIProjectClient.from_connection_string(
     credential=DefaultAzureCredential(),
     conn_str=os.environ["PROJECT_CONNECTION_STRING"],
 )
+# </create a project client>
 
+# <create agent>
 bing_connection = project_client.connections.get(connection_name=os.environ["CONNECTION_NAME"])
 conn_id = bing_connection.id
 
@@ -57,7 +59,9 @@ with project_client:
         headers={"x-ms-enable-preview": "true"},
     )
     print(f"Created agent, ID: {agent.id}")
+# </create agent>
 
+# <create thread>
     # Create thread for communication
     thread = project_client.agents.create_thread()
     print(f"Created thread, ID: {thread.id}")
@@ -69,7 +73,9 @@ with project_client:
         content="How is the weather in Seattle today?",
     )
     print(f"Created message, ID: {message.id}")
+# </create thread>
 
+# <create run>
     # Create and process agent run in thread with tools
     run = project_client.agents.create_and_process_run(thread_id=thread.id, agent_id=agent.id)
     print(f"Run finished with status: {run.status}")
@@ -84,3 +90,4 @@ with project_client:
     # Fetch and log all messages
     messages = project_client.agents.list_messages(thread_id=thread.id)
     print(f"Messages: {messages}")
+# </create run>
