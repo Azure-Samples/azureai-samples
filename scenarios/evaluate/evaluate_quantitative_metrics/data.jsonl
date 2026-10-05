@@ -1,0 +1,3 @@
+{"response": "The cat sits on the mat.", "ground_truth": "A cat is sitting on the mat."}
+{"response": "She enjoys reading books.", "ground_truth": "She loves to read books."}
+{"response": "He quickly ran to the store.", "ground_truth": "He ran to the store in a hurry."}
