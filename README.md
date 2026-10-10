@@ -11,6 +11,25 @@ This repository is entirely open source, guidance on how to contribute and links
 
 Use the samples in this repository to try out Azure AI scenarios on your local machine!
 
+## Samples in this Repository
+
+All samples are organized under the [`scenarios/`](./scenarios) directory. Each scenario folder contains its own README, notebooks, and supporting files.
+
+| Scenario | Description |
+|---|---|
+| [Agents](./scenarios/Agents/samples) | Quickstart and tool-specific samples for the **Azure AI Agent Service** — covers Bing Search grounding, Code Interpreter, File Search, Function Calling, investment-advisor and sales-analyst end-to-end notebooks, Semantic Kernel + MCP integration, and agent tracing. |
+| [Assistants](./scenarios/Assistants) | **Azure OpenAI Assistants API** samples including bot-in-a-box templates, BFSI bot, function calling with Bing Search, and a multi-agent pattern. |
+| [GPT-4V](./scenarios/GPT-4V) | **GPT-4 Vision** samples covering basic inference, OCR, grounding, face detection, multi-image, RAG with images, and video analysis. |
+| [agent-tracing](./scenarios/agent-tracing) | **OpenTelemetry-based tracing** for agents built with LangChain, LangGraph, and the OpenAI Agents SDK, with support for local OTLP backends and Azure Monitor. |
+| [evaluate](./scenarios/evaluate) | **AI evaluation** samples using the `azure-ai-evaluation` SDK — simulators, safety/quality evaluators, custom evaluators, NLP metrics, and Azure OpenAI graders. |
+| [fine-tuning](./scenarios/fine-tuning) | **Fine-tuning** samples for Azure OpenAI models, including function-calling fine-tunes. |
+| [langchain](./scenarios/langchain) | **LangChain** integration with Azure AI Foundry — chat models, embeddings, and tracing. |
+| [llama-index](./scenarios/llama-index) | **LlamaIndex** integration with Azure AI Foundry — RAG query routing and tracing. |
+| [model-catalog](./scenarios/model-catalog) | Getting-started samples for models in the **Azure AI model catalog**. |
+| [projects](./scenarios/projects) | **Azure AI Projects SDK** basics — inference, chat, evaluation, search, tracing, and Prompty usage. |
+| [rag](./scenarios/rag) | **Custom RAG application** built code-first with Azure AI Search and Azure AI Foundry, including evaluation and simulation. |
+| [resource-creation](./scenarios/resource-creation) | Notebooks for programmatically creating **Azure AI hubs, projects, and connections**. |
+
 ## Supplementary Documentation
 
 ### Other Sample Repositories
@@ -54,16 +73,16 @@ Use the samples in this repository to try out Azure AI scenarios on your local m
 * **[openai/openai-cookbook]** - Example code for common tasks within OpenAI.
 * **[Azure-Samples/serverless-chat-langchainjs](https://github.com/Azure-Samples/serverless-chat-langchainjs)** - Sample implementing a serverless ChatGPT with Retrieval-Augmented-Generation using LangChain.js, that can run locally with Ollama and Mistral 7B.
 
-#### Phi 
-* **[https://aka.ms/phi-3cookbook]** - Examples and code for common tasks using the Phi Family of Small Language Models.
-  
+#### Phi
+* **[Phi-3 Cookbook](https://aka.ms/phi-3cookbook)** - Examples and code for common tasks using the Phi Family of Small Language Models.
+
 ## Contributing
 
 We welcome contributions and suggestions! Please see the [contributing guidelines] for details.
 
 ## Code of Conduct
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). Please see the [code of conduct](CODE_OF_CONDUCT.md) for details.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). Please see the [code of conduct](.github/CODE_OF_CONDUCT.md) for details.
 
 ## Getting Help
 
